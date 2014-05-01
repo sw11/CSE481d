@@ -12,11 +12,12 @@
     <movie minorVersion="1" />
     <movie platform="Flash Player" />
     <movie background="#FFFFFF" />
-    <movie preferredSDK="C:\Users\AD\Desktop\TrashIt\CSE481d\flex_sdk_4.6" />
+    <movie preferredSDK="C:\Users\Adrian\Documents\FlexSDK" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
+    <class path="lib\flixel" />
   </classpaths>
   <!-- Build options -->
   <build>
