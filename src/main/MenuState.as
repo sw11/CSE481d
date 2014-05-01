@@ -1,39 +1,40 @@
 package main 
 {
 	import org.flixel.*;
+	import utility.StaticVars;
 	/**
 	 * ...
 	 * @author Adrian
 	 */
 	public class MenuState extends FlxState
 	{
+		[Embed(source = '../../img/play_button.png')] private var playButton:Class;
+		[Embed(source = '../../img/setting_button.png')] private var settingButton:Class;
+		
+		private var play:Menu;
+		private var setting:Menu;
 		
 		override public function create():void {
-			var title:FlxText;
-			title = new FlxText(0, 16, FlxG.width, "Welcome to PONG");
-			title.setFormat(null, 16, 0xFFFFFFFF, "center");
-			add(title);
+			FlxG.bgColor = StaticVars.WHITE;
 			
-			var instructions:FlxText;
-			instructions = new FlxText(0, FlxG.height - 32, FlxG.width, "Press ENTER to Play");
-			instructions.setFormat (null, 8, 0xFFFFFFFF, "center");
-			add(instructions);
+			// play button
+			play = new Menu(StaticVars.PLAY_BTN_X, StaticVars.PLAY_BTN_y, StaticVars.PLAY_W, StaticVars.PLAY_H, playButton);
+			add(play);
 			
-			var controls:FlxText;
-			controls = new FlxText(0, FlxG.height - 90, FlxG.width, "Player 1 controls: W, S");
-			controls.setFormat( null, 8, 0xFFFFFFFF, "center");
-			add(controls);
-			
-			var controls2:FlxText;
-			controls2 = new FlxText(0, FlxG.height - 70, FlxG.width, "Player 2 controls: UP, DOWN");
-			controls2.setFormat( null, 8, 0xFFFFFFFF, "center");
-			add(controls2);
+			// setting button
+			setting = new Menu(StaticVars.SETTING_BTN_X, StaticVars.SETTING_BTN_y, StaticVars.SETTING_W, StaticVars.SETTING_H, settingButton);
+			add(setting);
 		}
 		
 		override public function update():void {
 			super.update();
-			if (FlxG.keys.justPressed("ENTER")) {
-				//FlxG.switchState(new PlayState());
+			//if (FlxG.keys.justPressed("ENTER")) {
+			//	FlxG.switchState(new PlayState());
+			//}
+			if (FlxG.keys.P) {
+				FlxG.switchState(new PlayState());
+			} else if (FlxG.keys.S) {
+				FlxG.switchState(new SettingState());
 			}
 		}
 		
