@@ -1,17 +1,17 @@
 package main
 {
-	import mx.core.FlexSprite;
 	import org.flixel.*;
-	
+	import utility.StaticVars
+	[SWF(width="640", height="640", backgroundColor="#ffffff")] 
 	/**
 	 * ...
 	 * @author Sam Wilson
 	 */
 	public class Main extends FlxGame 
 	{
-		public function Main():void 
+		public function Main() 
 		{
-			super(640,640,MenuState,1);
+			super(StaticVars.WIDTH, StaticVars.HEIGHT, MenuState,1);
 		}		
 	}
 }
