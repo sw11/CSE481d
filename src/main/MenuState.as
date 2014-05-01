@@ -1,6 +1,7 @@
 package main 
 {
 	import org.flixel.*;
+	import easy_theme.Level1;
 	import utility.StaticVars;
 	/**
 	 * ...
@@ -32,7 +33,7 @@ package main
 			//	FlxG.switchState(new PlayState());
 			//}
 			if (FlxG.keys.P) {
-				FlxG.switchState(new PlayState());
+				FlxG.switchState(new Level1());
 			} else if (FlxG.keys.S) {
 				FlxG.switchState(new SettingState());
 			}
