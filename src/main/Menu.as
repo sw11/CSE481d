@@ -13,7 +13,7 @@ package main
 		public function Menu(x:int, y:int, w:int, h:int, graphic:Class) 
 		{
 			super(x, y);
-			loadGraphic(graphic, false, false, w, h);
+			loadGraphic(graphic, true, true, w, h);
 		}
 		
 		/*override public function update():void {

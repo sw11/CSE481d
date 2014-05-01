@@ -36,6 +36,8 @@ package main
 				FlxG.switchState(new Level1());
 			} else if (FlxG.keys.S) {
 				FlxG.switchState(new SettingState());
+			} else {
+				return;
 			}
 		}
 		
