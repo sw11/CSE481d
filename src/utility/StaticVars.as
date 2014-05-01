@@ -24,6 +24,11 @@ package utility
 		public static const WHITE:int = 0xffffff;
 		public static const BLACK:int = 0x000000;
 		
+		public static const SETTING_BUTTON_X:int = 15;
+		public static const SETTING_BUTTON_Y:int = 15;
+		public static const SETTING_SIZE_X:int = 100;
+		public static const SETTING_SIZE_Y:int = 100;
+		
 	}
 
 }
