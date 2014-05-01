@@ -33,7 +33,7 @@ package main
 		override public function update():void {
 			super.update();
 			if (FlxG.keys.justPressed("ENTER")) {
-				FlxG.switchState(new PlayState());
+				//FlxG.switchState(new PlayState());
 			}
 		}
 		
