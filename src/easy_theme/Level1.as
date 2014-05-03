@@ -1,7 +1,10 @@
 package easy_theme 
 {
+	import org.flixel.*;
+	
 	import main.PlayState;
 	import main.Bucket;
+	
 	/**
 	 * ...
 	 * @author Sam Wilson
@@ -18,7 +21,19 @@ package easy_theme
 			bucket = new Bucket(bucketImg, 130, 525);
 			add(bucket);
 		}
-		
+	
+		/*override public function update():void 
+		{
+			 super.update();
+			 if (FlxG.keys.RIGHT && !depressed) {
+				bucket.moveRight(); 
+				
+			} else if (FlxG.keys.LEFT && ! depressed) {
+				bucket.moveLeft();
+			} else if (!FlxG.keys.LEFT && !FlxG.keys.RIGHT) {
+				depressed = false;
+			}
+		}*/
 	}
 
 }
