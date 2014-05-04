@@ -14,8 +14,6 @@ package easy_theme
 			makeGraphic(50, 50, 0xFF597137); // size and color of the object
 			velocity.y = 200; // move down velocity
 		}
-		
-		
 	}
 
 }

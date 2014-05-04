@@ -1,7 +1,7 @@
 package easy_theme 
 {
 	import org.flixel.*;
-	
+	import utility.StaticVars;
 	import main.PlayState;
 	import main.Bucket;
 	
@@ -13,13 +13,13 @@ package easy_theme
 		
 		private var bucket: Bucket;
 		[Embed(source = '../../img/wooden_bucket.png')] private var bucketImg:Class;
-		
 		private var _fallObj: FlxGroup;
-		
+	
 		public function Level1():void {
 			super();	
 			_fallObj = new FlxGroup();
 			add(_fallObj);
+			
 		}
 	
 		override public function create(): void {
@@ -30,7 +30,9 @@ package easy_theme
 		
 		override public function update():void 
 		{
-			if(FlxG.keys.justPressed("SPACE"))
+			
+			//trace();
+			if (Math.round(Math.random()*100) == 3) 
 			{
 				// need to be auto
 				failObject();					
@@ -41,7 +43,7 @@ package easy_theme
 		
 		private function failObject():void {
 			// x should be random
-			var obj:FallingObj = new FallingObj(500, 0);
+			var obj:FallingObj = new FallingObj(FlxU.getRandom(StaticVars.lanes, 0, StaticVars.lanes.length) as int, 0);
 			_fallObj.add(obj);
 		}
 	}
