@@ -14,26 +14,36 @@ package easy_theme
 		private var bucket: Bucket;
 		[Embed(source = '../../img/wooden_bucket.png')] private var bucketImg:Class;
 		
-		
+		private var _fallObj: FlxGroup;
 		
 		public function Level1():void {
-			super();
+			super();	
+			_fallObj = new FlxGroup();
+			add(_fallObj);
+		}
+	
+		override public function create(): void {
+			super.create();
 			bucket = new Bucket(bucketImg, 130, 525);
 			add(bucket);
 		}
-	
-		/*override public function update():void 
+		
+		override public function update():void 
 		{
-			 super.update();
-			 if (FlxG.keys.RIGHT && !depressed) {
-				bucket.moveRight(); 
-				
-			} else if (FlxG.keys.LEFT && ! depressed) {
-				bucket.moveLeft();
-			} else if (!FlxG.keys.LEFT && !FlxG.keys.RIGHT) {
-				depressed = false;
+			if(FlxG.keys.justPressed("SPACE"))
+			{
+				// need to be auto
+				failObject();					
 			}
-		}*/
+			 super.update();
+			
+		}
+		
+		private function failObject():void {
+			// x should be random
+			var obj:FallingObj = new FallingObj(500, 0);
+			_fallObj.add(obj);
+		}
 	}
 
 }
