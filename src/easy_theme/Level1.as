@@ -4,6 +4,7 @@ package easy_theme
 	import utility.StaticVars;
 	import main.PlayState;
 	import main.Bucket;
+	import main.WinState;
 	
 	/**
 	 * ...
@@ -40,6 +41,10 @@ package easy_theme
 			}
 			 super.update();
 			
+			if (score == 5) {
+				var state:WinState = new WinState(1);
+				FlxG.switchState(state);
+			}
 		}
 		
 		private function failObject():void {
