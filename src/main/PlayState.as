@@ -13,8 +13,8 @@ package main
 		[Embed(source = '../../img/settings.png')] private var setting:Class;
 		
 		 
-		private var bar: ScoreBar;
-		private var settingButton: SettingButton;
+		protected var bar: ScoreBar;
+		protected var settingButton: SettingButton;
 				
 		override public function create():void {
 			//set backgroud color
@@ -30,6 +30,7 @@ package main
 		override public function update():void {
 
 			super.update();
+			
 		}
 
 	}

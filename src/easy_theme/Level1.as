@@ -52,8 +52,9 @@ package easy_theme
 		{
 				
 			obj.kill();
-			//FlxG.score += 1;
-								
+			FlxG.score += 1;
+			//trace(FlxG.score);
+			bar.setScore(FlxG.score);
 		}
 	}
 
