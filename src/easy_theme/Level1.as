@@ -48,13 +48,9 @@ package easy_theme
 			_fallObj.add(obj);
 		}
 		
-		private function overlapObjBucket(but:Bucket, obj:FallingObj):void
-		{
-				
+		private function overlapObjBucket(but:Bucket, obj:FallingObj):void {
 			obj.kill();
-			FlxG.score += 1;
-			//trace(FlxG.score);
-			bar.setScore(FlxG.score);
+			this.score += 1;	
 		}
 	}
 

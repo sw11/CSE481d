@@ -17,6 +17,7 @@
   <classpaths>
     <class path="src" />
     <class path="lib\flixel" />
+    <class path="lib\Flixel-Power-Tools-master\src" />
   </classpaths>
   <!-- Build options -->
   <build>
