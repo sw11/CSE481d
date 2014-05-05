@@ -31,6 +31,7 @@ package easy_theme
 		override public function update():void 
 		{
 			
+			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
 			//trace();
 			if (Math.round(Math.random()*100) == 3) 
 			{
@@ -45,6 +46,14 @@ package easy_theme
 			// x should be random
 			var obj:FallingObj = new FallingObj(FlxU.getRandom(StaticVars.lanes, 0, StaticVars.lanes.length) as int, 0);
 			_fallObj.add(obj);
+		}
+		
+		private function overlapObjBucket(but:Bucket, obj:FallingObj):void
+		{
+				
+			obj.kill();
+			//FlxG.score += 1;
+								
 		}
 	}
 

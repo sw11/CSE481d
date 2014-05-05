@@ -12,17 +12,13 @@ package main
 	public class PlayState extends FlxState {
 		[Embed(source = '../../img/settings.png')] private var setting:Class;
 		
-		
+		 
 		private var bar: ScoreBar;
 		private var settingButton: SettingButton;
-		//private var _fallObj: FlxGroup;
 				
 		override public function create():void {
 			//set backgroud color
 			FlxG.bgColor = 0xeeeeeeee;
-			
-			//_fallObj = new FlxGroup();
-			//add(_fallObj);
 			
 			bar = new ScoreBar();
 			add(bar);
