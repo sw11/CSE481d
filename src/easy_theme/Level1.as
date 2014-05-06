@@ -16,11 +16,11 @@ package easy_theme
 		private var bucket: Bucket;
 		[Embed(source = '../../img/wooden_bucket.png')] private var bucketImg:Class;
 		private var _fallObj: FlxGroup;
+		private var remainingTimeDisplay:FlxText;
 		
-		private var timer: FlxDelay;
 	
 		public function Level1():void {
-			super(10);	
+			super(10, 30000);	
 			_fallObj = new FlxGroup();
 			add(_fallObj);
 			timer = new FlxDelay(10000);
@@ -31,6 +31,11 @@ package easy_theme
 			super.create();
 			bucket = new Bucket(bucketImg, 130, 525);
 			add(bucket);
+			
+			
+			remainingTimeDisplay = new FlxText(0, 16, FlxG.width, ""+timer.secondsRemaining);
+			remainingTimeDisplay.setFormat(null, 16, 0x11111111, "center");
+			add(remainingTimeDisplay);
 		}
 		
 		override public function update():void 
@@ -44,13 +49,17 @@ package easy_theme
 				failObject();					
 			}
 			 super.update();
-			//if (timer.hasExpired) {
-			//	trace("Out of time");
-			if (score == max_score) {
-				var state:WinState = new WinState(1);
-				FlxG.switchState(state);
+			
+			if (timer.hasExpired) {
+				// time has run out, check if user has won	
+				if (score == max_score) {
+					var state:WinState = new WinState(1);
+					FlxG.switchState(state);
+				} else {
+					
+				}
 			}
-			//}
+			remainingTimeDisplay.text = "" + timer.secondsRemaining;
 		}
 		
 		private function failObject():void {

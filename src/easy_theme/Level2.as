@@ -18,7 +18,7 @@ package easy_theme
 		
 		public function Level2() :void
 		{
-			super(20);
+			super(20, 20000);
 			var winnerText:FlxText;
 			winnerText = new FlxText(0, 16, FlxG.width, "Level 2");
 			winnerText.setFormat(null, 16, 0x11111111, "center");
