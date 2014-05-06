@@ -23,8 +23,7 @@ package easy_theme
 			super(10, 30000);	
 			_fallObj = new FlxGroup();
 			add(_fallObj);
-			timer = new FlxDelay(10000);
-			timer.start();
+			
 		}
 	
 		override public function create(): void {
@@ -52,7 +51,7 @@ package easy_theme
 			
 			if (timer.hasExpired) {
 				// time has run out, check if user has won	
-				if (score == max_score) {
+				if (score >= max_score) {
 					var state:WinState = new WinState(1);
 					FlxG.switchState(state);
 				} else {
