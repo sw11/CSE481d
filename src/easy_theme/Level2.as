@@ -46,7 +46,7 @@ package easy_theme
 			 super.update();
 			
 			if (score == max_score) {
-				var state:WinState = new WinState(1);
+				var state:WinState = new WinState(2);
 				FlxG.switchState(state);
 			}
 		}
