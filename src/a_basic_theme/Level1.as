@@ -1,4 +1,4 @@
-package easy_theme 
+package a_basic_theme 
 {
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.FlxDelay;
@@ -26,11 +26,11 @@ package easy_theme
 		private var fallObjSoFar:int;
 	
 		public function Level1():void {
-			maxScore = StaticVars.level1MaxScore;
+			maxScore = StaticVars.a1MaxScore;
 			super(maxScore, 30000);	
 			
-			passScore = maxScore * StaticVars.level1Pass;
-			maxObj = maxScore * StaticVars.level1MaxObj;
+			passScore = maxScore * StaticVars.a1Pass;
+			maxObj = maxScore * StaticVars.a1MaxObj;
 			fallObjSoFar = 0;
 			
 			_fallObj = new FlxGroup();

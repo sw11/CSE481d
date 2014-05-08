@@ -1,4 +1,4 @@
-package easy_theme 
+package a_basic_theme 
 {
 	import org.flixel.*;
 	/**
