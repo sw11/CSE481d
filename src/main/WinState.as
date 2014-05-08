@@ -4,6 +4,7 @@ package main
 	import easy_theme.Level2;
 	import org.flixel.FlxState;
 	import org.flixel.FlxText;
+	import recycle_theme.Recycle1;
 	/**
 	 * ...
 	 * @author Adrian
@@ -38,6 +39,9 @@ package main
 				switch (nextStage) {
 					case 2:
 						FlxG.switchState(new Level2());
+						break;
+					case 3:
+						FlxG.switchState(new Recycle1());
 						break;
 				}
 			}
