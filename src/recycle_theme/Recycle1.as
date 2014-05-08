@@ -83,7 +83,7 @@ package recycle_theme
 			if (timer.hasExpired) {
 				// time has run out, check if user has won	
 				
-				if (score >= max_score*StaticVars.pass) {
+				if (score >= max_score*StaticVars.level1Pass) {
 					var state:WinState = new WinState(2);
 					FlxG.switchState(state);
 				} else {

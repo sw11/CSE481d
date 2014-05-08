@@ -19,9 +19,19 @@ package easy_theme
 		private var _bombs: FlxGroup;
 		private var remainingTimeDisplay:FlxText;
 		private var preLane:int;
+		
+		private var maxScore:int;
+		private var passScore:Number;
+		private var maxObj:Number;
+		private var fallObjSoFar:int;
 	
 		public function Level1():void {
-			super(50, 30000);	
+			maxScore = StaticVars.level1MaxScore;
+			super(maxScore, 30000);	
+			
+			passScore = maxScore * StaticVars.level1Pass;
+			maxObj = maxScore * StaticVars.level1MaxObj;
+			fallObjSoFar = 0;
 			
 			_fallObj = new FlxGroup();
 			add(_fallObj);
@@ -65,19 +75,21 @@ package easy_theme
 					// need to be auto
 					failObject(preLane);
 					//trace("add falling");
+					fallObjSoFar ++;
 				}
 									
 			}
-			 super.update();
+			trace(maxObj + " " + fallObjSoFar);
+			super.update();
 			//trace(timer.secondsElapsed);
-			if (timer.hasExpired) {
+			if (timer.hasExpired || fallObjSoFar >= maxObj) {
 				// time has run out, check if user has won	
 				
-				if (score >= max_score*StaticVars.pass) {
+				if (score >= passScore) {
 					var state:WinState = new WinState(1);
 					FlxG.switchState(state);
 				} else {
-					var lostState:WinState = new WinState(0);
+					var lostState:PlayState = new Level1();
 					FlxG.switchState(lostState);
 				}
 			}

@@ -11,7 +11,7 @@ package easy_theme
 		public function Bomb(x:Number, y:Number) 
 		{
 			super(x, y);
-			makeGraphic(50, 50, 0x12597137); // size and color of the object
+			makeGraphic(50, 50, 0x10597137); // size and color of the object
 			velocity.y = 250; // move down velocity
 		}
 		

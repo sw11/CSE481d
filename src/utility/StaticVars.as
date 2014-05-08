@@ -37,8 +37,10 @@ package utility
 		public static const lane5:int = 530;
 		public static const lanes:Array = new Array(lane1, lane2, lane3, lane4, lane5);
 		
-		//
-		public static const pass:Number = 0.6;
+		// level 1
+		public static const level1MaxScore:int = 50;
+		public static const level1Pass:Number = 0.6;
+		public static const level1MaxObj:Number = 3;
 		
 	}
 
