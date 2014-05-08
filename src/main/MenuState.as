@@ -1,7 +1,7 @@
 package main 
 {
 	import org.flixel.*;
-	import easy_theme.Level1;
+	import a_basic_theme.Level1;
 	import utility.StaticVars;
 	/**
 	 * ...

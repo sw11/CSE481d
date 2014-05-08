@@ -1,11 +1,11 @@
-package recycle_theme 
+package b_recycle_theme 
 {
-	import recycle_theme.MultiBucket;
+	import b_recycle_theme.MultiBucket;
 	import main.PlayState;
 	import org.flixel.*;
 	import utility.StaticVars;
-	import easy_theme.FallingObj;
-	import easy_theme.Bomb;
+	import a_basic_theme.*;
+	
 	
 	import main.WinState;
 	/**

@@ -1,10 +1,10 @@
 package main 
 {
 	import org.flixel.*;
-	import easy_theme.Level2;
+	import a_basic_theme.*;
 	import org.flixel.FlxState;
 	import org.flixel.FlxText;
-	import recycle_theme.Recycle1;
+	import b_recycle_theme.Recycle1;
 	/**
 	 * ...
 	 * @author Adrian

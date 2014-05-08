@@ -1,4 +1,4 @@
-package recycle_theme 
+package b_recycle_theme
 {
 	import org.flixel.*;
 	

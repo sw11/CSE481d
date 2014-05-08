@@ -5,7 +5,7 @@ package main
 	import org.flixel.plugin.photonstorm.FlxBar;
 	import org.flixel.plugin.photonstorm.FlxDelay;
 	import utility.StaticVars;
-	import easy_theme.*;
+	import a_basic_theme.*;
 	
 	/**
 	 * Default class for each level, holding common aspects such as timer and score
