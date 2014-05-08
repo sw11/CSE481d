@@ -59,5 +59,9 @@ package main
 		public function end_level() :void {
 			
 		}
+		
+		public function checkScore():void {
+			score = Math.max(0, Math.min(score, this.max_score));
+		}
 	}
 }

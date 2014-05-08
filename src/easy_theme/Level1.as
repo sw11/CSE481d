@@ -16,14 +16,19 @@ package easy_theme
 		private var bucket: Bucket;
 		[Embed(source = '../../img/wooden_bucket.png')] private var bucketImg:Class;
 		private var _fallObj: FlxGroup;
+		private var _bombs: FlxGroup;
 		private var remainingTimeDisplay:FlxText;
-		
+		private var preLane:int;
 	
 		public function Level1():void {
-			super(10, 30000);	
+			super(50, 30000);	
+			
 			_fallObj = new FlxGroup();
 			add(_fallObj);
+			_bombs = new FlxGroup();
+			add(_bombs);
 			
+
 		}
 	
 		override public function create(): void {
@@ -41,35 +46,59 @@ package easy_theme
 		{
 			
 			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
+			FlxG.overlap(bucket, _bombs, overlapBombBucket);
 			//trace();
-			if (Math.round(Math.random()*100) == 3) 
+			if (Math.round(Math.random()*10) == 3) 
 			{
-				// need to be auto
-				failObject();					
+				var lane:int =  FlxU.getRandom(StaticVars.lanes, 0, StaticVars.lanes.length) as int;
+				while (lane == preLane) {
+					lane =  FlxU.getRandom(StaticVars.lanes, 0, StaticVars.lanes.length) as int;
+				}
+				preLane = lane;
+				if (Math.round(Math.random() * 3) == 2) 
+				{
+					var obj:Bomb = new Bomb(preLane, 0);
+					_bombs.add(obj);
+					//trace("add bomb");
+				}
+				else {
+					// need to be auto
+					failObject(preLane);
+					//trace("add falling");
+				}
+									
 			}
 			 super.update();
-			
+			//trace(timer.secondsElapsed);
 			if (timer.hasExpired) {
 				// time has run out, check if user has won	
-				if (score >= max_score) {
+				
+				if (score >= max_score*StaticVars.pass) {
 					var state:WinState = new WinState(1);
 					FlxG.switchState(state);
 				} else {
-					
+					var lostState:WinState = new WinState(0);
+					FlxG.switchState(lostState);
 				}
 			}
 			remainingTimeDisplay.text = "" + timer.secondsRemaining;
+			checkScore();
 		}
 		
-		private function failObject():void {
+		private function failObject(prevLane:int):void {
 			// x should be random
-			var obj:FallingObj = new FallingObj(FlxU.getRandom(StaticVars.lanes, 0, StaticVars.lanes.length) as int, 0);
+			var obj:FallingObj = new FallingObj(preLane, 0);
 			_fallObj.add(obj);
 		}
 		
 		private function overlapObjBucket(but:Bucket, obj:FallingObj):void {
 			obj.kill();
 			this.score += 1;	
+		}
+		
+		private function overlapBombBucket(but:Bucket, b:Bomb):void {
+			b.kill();
+			this.score -= 1;	
 		}
 	}
 
