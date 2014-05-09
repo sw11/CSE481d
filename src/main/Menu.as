@@ -14,6 +14,8 @@ package main
 		{
 			super(x, y);
 			loadGraphic(graphic, true, true, w, h);
+			
+
 		}
 		
 		/*override public function update():void {

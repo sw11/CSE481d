@@ -25,6 +25,11 @@ package main
 			// setting button
 			setting = new Menu(StaticVars.SETTING_BTN_X, StaticVars.SETTING_BTN_y, StaticVars.SETTING_W, StaticVars.SETTING_H, settingButton);
 			add(setting);
+			
+			var winnerText:FlxText;
+			winnerText = new FlxText(0, 16, FlxG.width, "Press enter to start");
+			winnerText.setFormat(null, 16, 0x11111111, "center");
+			add(winnerText);
 		}
 		
 		override public function update():void {
@@ -32,7 +37,7 @@ package main
 			//if (FlxG.keys.justPressed("ENTER")) {
 			//	FlxG.switchState(new PlayState());
 			//}
-			if (FlxG.keys.P) {
+			if (FlxG.keys.P || FlxG.keys.justPressed("ENTER")) {
 				FlxG.switchState(new Level1());
 			} else if (FlxG.keys.S) {
 				FlxG.switchState(new SettingState());

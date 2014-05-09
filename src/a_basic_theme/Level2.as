@@ -38,7 +38,7 @@ package a_basic_theme
 			
 			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
 			//trace();
-			if (Math.round(Math.random()*100) == 3) 
+			if (Math.round(Math.random()*20) == 3) 
 			{
 				// need to be auto
 				failObject();					
@@ -54,6 +54,7 @@ package a_basic_theme
 		private function failObject():void {
 			// x should be random
 			var obj:FallingObj = new FallingObj(FlxU.getRandom(StaticVars.lanes, 0, StaticVars.lanes.length) as int, 0);
+			obj.velocity.y = Math.random() < 0.5 ? 300: 200;
 			_fallObj.add(obj);
 		}
 		

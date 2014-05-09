@@ -57,6 +57,8 @@ package a_basic_theme
 			
 			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
 			FlxG.overlap(bucket, _bombs, overlapBombBucket);
+			
+			
 			//trace();
 			if (Math.round(Math.random()*10) == 3) 
 			{
