@@ -24,6 +24,7 @@ package d_bomb_theme
 			
 			passScore = maxScore * StaticVars.dPass;
 			currectTheme = "BOMB";
+			level = 1;
 			_bombs = new FlxGroup();
 			add(_bombs);
 		}

@@ -23,6 +23,7 @@ package a_basic_theme
 			
 			passScore = maxScore * StaticVars.aPass;
 			currectTheme = "BASIC";
+			level = 3;
 			_fallObj = new FlxGroup();
 			add(_fallObj);
 			_bombs = new FlxGroup();

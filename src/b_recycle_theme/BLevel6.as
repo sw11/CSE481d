@@ -22,6 +22,7 @@ package b_recycle_theme
 			
 			passScore = maxScore * StaticVars.bPass;
 			currectTheme = "RECYCLE";
+			level = 3;
 			_recycables = new FlxGroup();
 			add(_recycables);
 			

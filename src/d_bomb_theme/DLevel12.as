@@ -22,6 +22,7 @@ package d_bomb_theme
 			
 			passScore = maxScore * StaticVars.dPass;
 			currectTheme = "BOMB";
+			level = 3;
 			_bombs = new FlxGroup();
 			add(_bombs);
 		}
@@ -31,11 +32,7 @@ package d_bomb_theme
 			bucket = new Bucket(bucketImg, 130, 525);
 			add(bucket);
 			
-			remainingTimeDisplay = new FlxText(0, 16, FlxG.width, ""+timer.secondsRemaining);
-			remainingTimeDisplay.setFormat(null, 16, StaticVars.BLACK, "center");
-			add(remainingTimeDisplay);
 			score = maxScore;
-			
 		}
 		
 		override public function update():void 
