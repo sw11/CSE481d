@@ -20,13 +20,18 @@ package main
 		/** Displays the score, keeps tract of "score"*/
 		public var scoreBar: FlxBar;
 		/** Max score of a level, used for defining score bar*/
-		public var max_score: Number;
+		protected var maxScore:int;
+		protected var passScore:int;
 		
 		private var max_time: Number;
-		
 		public var timer : FlxDelay;
 		
 		private var settingButton: SettingButton;
+		
+		private var counter:int;
+		private var maxCount:int;
+		
+		protected var lane:int;
 		
 		/**
 		 * contructor of PlayState
@@ -34,9 +39,9 @@ package main
 		 * @param	max_score define the max score for the score bar
 		 * @param max_time define the max time of a level in ms
 		 */
-		public function PlayState(max_score:Number, max_time:Number): void {
+		public function PlayState(max_time:Number): void {
 			super();
-			this.max_score = max_score;
+			resetCount(StaticVars.a1Interval);
 			this.max_time = max_time;
 			timer = new FlxDelay(max_time);
 			timer.start();
@@ -47,7 +52,7 @@ package main
 			//set backgroud color
 			FlxG.bgColor = 0xeeeeeeee;
 			
-			scoreBar = new FlxBar(15, 130, FlxBar.FILL_BOTTOM_TO_TOP, 100, 495, this, "score", 0, max_score, true);
+			scoreBar = new FlxBar(15, 130, FlxBar.FILL_BOTTOM_TO_TOP, 100, 495, this, "score", 0, maxScore, true);
 			
 			scoreBar.color = 0x999999;
 			scoreBar.killOnEmpty = false;
@@ -60,8 +65,41 @@ package main
 			
 		}
 		
-		public function checkScore():void {
-			score = Math.max(0, Math.min(score, this.max_score));
+		protected function checkScore():void {
+			score = Math.max(0, Math.min(score, maxScore));
+		}
+		
+		protected function genRandom(interval:int):Boolean {
+			if (counter++ > maxCount) {
+				resetCount(interval);
+				return true;
+			} 
+			return false;
+		}
+		
+		protected function resetCount(interval:int):void {
+			counter = 0;
+			maxCount = Math.random() * 20 + interval;
+		}
+		
+		protected function genLane(preLane:int):int {
+			var lane:int;
+			while ((lane = FlxU.getRandom(StaticVars.lanes, 0, StaticVars.lanes.length) as int) == preLane){}
+			return lane;
+		}
+		
+		protected function oneOf(num:int):Boolean {
+			return Math.round(Math.random() * num) == 1;
+		}
+		
+		protected function endGame(level:int): void {
+			if (score >= passScore) {
+				var state:WinState = new WinState(level);
+				FlxG.switchState(state);
+			} else {
+				var lostState:LostState = new LostState(level);
+				FlxG.switchState(lostState);	
+			}
 		}
 	}
 }

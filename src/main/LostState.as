@@ -9,23 +9,20 @@ package main
 	 * ...
 	 * @author Adrian
 	 */
-	public class WinState extends FlxState
+	public class LostState extends FlxState
 	{
-		public var nextStage : Number;
+		public var thisStage : Number;
 		
-		public function WinState(level:Number): void {
+		public function LostState(level:Number): void {
 			super();
-			nextStage = level + 1;
+			thisStage = level;
 		}
 		
 		override public function create(): void {
-			var winnerText:FlxText;
-			winnerText = new FlxText(0, 16, FlxG.width, "Winner");
-			winnerText.setFormat(null, 16, 0x11111111, "center");
-			add(winnerText);
+
 			
 			var instruction:FlxText;
-			instruction = new FlxText(0, 100, FlxG.width, "Press ENTER to go to next level");
+			instruction = new FlxText(0, 16, FlxG.width, "Press ENTER to restart level");
 			instruction.setFormat(null, 16, 0x11111111, "center");
 			add(instruction);
 			
@@ -34,8 +31,15 @@ package main
 		override public function update():void {
 			super.update();
 			if (FlxG.keys.justPressed("ENTER")) {
-				LostState.changeState(nextStage);
-				/*switch (nextStage) {
+				changeState(thisStage);
+			}
+		}
+		
+		public static function changeState(stage:Number):void {
+			switch (stage) {
+					case 1:
+						FlxG.switchState(new ALevel1());
+						break;
 					case 2:
 						FlxG.switchState(new ALevel2());
 						break;
@@ -45,8 +49,7 @@ package main
 					case 4:
 						FlxG.switchState(new Recycle1());
 						break;
-				}*/
-			}
+				}
 		}
 	}
 

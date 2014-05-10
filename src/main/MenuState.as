@@ -1,7 +1,7 @@
 package main 
 {
 	import org.flixel.*;
-	import a_basic_theme.Level1;
+	import a_basic_theme.*;
 	import utility.StaticVars;
 	/**
 	 * ...
@@ -34,11 +34,8 @@ package main
 		
 		override public function update():void {
 			super.update();
-			//if (FlxG.keys.justPressed("ENTER")) {
-			//	FlxG.switchState(new PlayState());
-			//}
 			if (FlxG.keys.P || FlxG.keys.justPressed("ENTER")) {
-				FlxG.switchState(new Level1());
+				FlxG.switchState(new ALevel1());
 			} else if (FlxG.keys.S) {
 				FlxG.switchState(new SettingState());
 			} else {

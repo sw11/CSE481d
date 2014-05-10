@@ -24,7 +24,8 @@ package b_recycle_theme
 		private var preLane:int;
 	
 		public function Recycle1():void {
-			super(50, 30000);	
+			maxScore = 30;
+			super(30000);	
 			
 			_recycables = new FlxGroup();
 			add(_recycables);
@@ -83,7 +84,7 @@ package b_recycle_theme
 			if (timer.hasExpired) {
 				// time has run out, check if user has won	
 				
-				if (score >= max_score*StaticVars.a1Pass) {
+				if (score >= maxScore*StaticVars.aPass) {
 					var state:WinState = new WinState(2);
 					FlxG.switchState(state);
 				} else {
