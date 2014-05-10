@@ -2,8 +2,6 @@ package main
 {
 	import org.flixel.*;
 	import a_basic_theme.*;
-	import org.flixel.FlxState;
-	import org.flixel.FlxText;
 	import b_recycle_theme.*;
 	/**
 	 * ...

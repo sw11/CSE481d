@@ -59,8 +59,12 @@ package main
 			scoreBar.killOnEmpty = false;
 			add(scoreBar);
 			
-			settingButton = new SettingButton(setting, StaticVars.SETTING_BUTTON_X, StaticVars.SETTING_BUTTON_Y);
-			add(settingButton);		
+			var levelInstr2:FlxText;
+			levelInstr2 = new FlxText(0, 16, FlxG.width, "Esc to main menu");
+			levelInstr2.setFormat(null, 11, StaticVars.BLACK, "left");
+			add(levelInstr2);
+			//settingButton = new SettingButton(setting, StaticVars.SETTING_BUTTON_X, StaticVars.SETTING_BUTTON_Y);
+			//add(settingButton);		
 			
 			remainingTimeDisplay = new FlxText(0, 16, FlxG.width, ""+timer.secondsRemaining);
 			remainingTimeDisplay.setFormat(null, 16, 0x11111111, "center");
@@ -68,7 +72,11 @@ package main
 		}
 	
 		override public function update():void {
+			if (FlxG.keys.justPressed("ESCAPE")) {
+				FlxG.switchState(new LevelState());
+			}
 			super.update();
+			
 			remainingTimeDisplay.text = "" + timer.secondsRemaining;
 			checkScore();
 		}
