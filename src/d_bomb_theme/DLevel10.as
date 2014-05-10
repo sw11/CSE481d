@@ -23,7 +23,7 @@ package d_bomb_theme
 			super(StaticVars.dTime);	
 			
 			passScore = maxScore * StaticVars.dPass;
-			
+			currectTheme = "BOMB";
 			_bombs = new FlxGroup();
 			add(_bombs);
 		}
@@ -33,9 +33,6 @@ package d_bomb_theme
 			bucket = new Bucket(bucketImg, 130, 525);
 			add(bucket);
 			
-			//remainingTimeDisplay = new FlxText(0, 16, FlxG.width, ""+timer.secondsRemaining);
-			//remainingTimeDisplay.setFormat(null, 16, 0x11111111, "center");
-			//add(remainingTimeDisplay);
 			score = maxScore;
 		}
 		
@@ -45,7 +42,7 @@ package d_bomb_theme
 			if (genRandom(StaticVars.d10Interval)) 
 			{
 				lane = genLane(lane);
-				fallBomb(lane);			
+				fallBomb();			
 			}
 			super.update();
 			
@@ -53,11 +50,9 @@ package d_bomb_theme
 				// time has run out, check if user has won	
 				endGame(10);
 			}
-			//remainingTimeDisplay.text = "" + timer.secondsRemaining;
-			//checkScore();
 		}
 		
-		private function fallBomb(lane:int):void {
+		private function fallBomb():void {
 			var obj:Bomb = new Bomb(lane, 0);
 			_bombs.add(obj);
 		}

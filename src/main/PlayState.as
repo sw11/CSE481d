@@ -35,6 +35,8 @@ package main
 		
 		protected var remainingTimeDisplay:FlxText;
 		
+		protected var currectTheme:String;
+		
 		/**
 		 * contructor of PlayState
 		 * 
@@ -60,7 +62,7 @@ package main
 			add(scoreBar);
 			
 			var levelInstr2:FlxText;
-			levelInstr2 = new FlxText(0, 16, FlxG.width, "Esc to main menu");
+			levelInstr2 = new FlxText(0, 16, FlxG.width, currectTheme + " theme\nEsc to main menu");
 			levelInstr2.setFormat(null, 11, StaticVars.BLACK, "left");
 			add(levelInstr2);
 			//settingButton = new SettingButton(setting, StaticVars.SETTING_BUTTON_X, StaticVars.SETTING_BUTTON_Y);

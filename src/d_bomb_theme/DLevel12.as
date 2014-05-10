@@ -16,14 +16,12 @@ package d_bomb_theme
 		
 		private var _bombs: FlxGroup;
 		
-		//private var remainingTimeDisplay:FlxText;
-		
 		public function DLevel12():void {
 			maxScore = StaticVars.d12MaxScore;
 			super(StaticVars.dTime);	
 			
 			passScore = maxScore * StaticVars.dPass;
-			
+			currectTheme = "BOMB";
 			_bombs = new FlxGroup();
 			add(_bombs);
 		}
@@ -34,7 +32,7 @@ package d_bomb_theme
 			add(bucket);
 			
 			remainingTimeDisplay = new FlxText(0, 16, FlxG.width, ""+timer.secondsRemaining);
-			remainingTimeDisplay.setFormat(null, 16, 0x11111111, "center");
+			remainingTimeDisplay.setFormat(null, 16, StaticVars.BLACK, "center");
 			add(remainingTimeDisplay);
 			score = maxScore;
 			
@@ -54,8 +52,6 @@ package d_bomb_theme
 				// time has run out, check if user has won	
 				endGame(12);
 			}
-			remainingTimeDisplay.text = "" + timer.secondsRemaining;
-			checkScore();
 		}
 		
 		private function fallBomb(lane:int):void {

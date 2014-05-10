@@ -1,6 +1,7 @@
 package main 
 {
 	import org.flixel.*;
+	import utility.StaticVars;
 	import a_basic_theme.*;
 	import b_recycle_theme.*;
 	/**
@@ -19,12 +20,12 @@ package main
 		override public function create(): void {
 			var winnerText:FlxText;
 			winnerText = new FlxText(0, 16, FlxG.width, "Winner");
-			winnerText.setFormat(null, 16, 0x11111111, "center");
+			winnerText.setFormat(null, 16, StaticVars.BLACK, "center");
 			add(winnerText);
 			
 			var instruction:FlxText;
 			instruction = new FlxText(0, 100, FlxG.width, "Press ENTER to go to next level");
-			instruction.setFormat(null, 16, 0x11111111, "center");
+			instruction.setFormat(null, 16, StaticVars.BLACK, "center");
 			add(instruction);
 			
 		}

@@ -24,7 +24,7 @@ package a_basic_theme
 			super(StaticVars.aTime);	
 			
 			passScore = maxScore * StaticVars.aPass;
-			
+			currectTheme = "BASIC";
 			_fallObj = new FlxGroup();
 			add(_fallObj);
 			_bombs = new FlxGroup();
@@ -35,10 +35,6 @@ package a_basic_theme
 			super.create();
 			bucket = new Bucket(bucketImg, 130, 525);
 			add(bucket);
-			
-			//remainingTimeDisplay = new FlxText(0, 16, FlxG.width, ""+timer.secondsRemaining);
-			//remainingTimeDisplay.setFormat(null, 16, 0x11111111, "center");
-			//add(remainingTimeDisplay);
 		}
 		
 		override public function update():void 
@@ -50,10 +46,10 @@ package a_basic_theme
 				lane = genLane(lane);
 				if (oneOf(StaticVars.a2BombRate)) 
 				{
-					fallBomb(lane);
+					fallBomb();
 				}
 				else {
-					fallObject(lane);
+					fallObject();
 				}			
 			}
 			super.update();
@@ -62,17 +58,14 @@ package a_basic_theme
 				// time has run out, check if user has won	
 				endGame(2);
 			}
-			//remainingTimeDisplay.text = "" + timer.secondsRemaining;
-			//checkScore();
 		}
 		
-		private function fallObject(prevLane:int):void {
-			// x should be random
-			var obj:FallingObj = new FallingObj(prevLane, 0);
+		private function fallObject():void {
+			var obj:FallingObj = new FallingObj(lane, 0);
 			_fallObj.add(obj);
 		}
 		
-		private function fallBomb(lane:int):void {
+		private function fallBomb():void {
 			var obj:Bomb = new Bomb(lane, 0);
 			_bombs.add(obj);
 		}
