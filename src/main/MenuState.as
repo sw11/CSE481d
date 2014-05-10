@@ -3,6 +3,7 @@ package main
 	import org.flixel.*;
 	import a_basic_theme.*;
 	import utility.StaticVars;
+	import d_bomb_theme.*;
 	/**
 	 * ...
 	 * @author Adrian
@@ -35,7 +36,7 @@ package main
 		override public function update():void {
 			super.update();
 			if (FlxG.keys.P || FlxG.keys.justPressed("ENTER")) {
-				FlxG.switchState(new ALevel1());
+				FlxG.switchState(new DLevel10());
 			} else if (FlxG.keys.S) {
 				FlxG.switchState(new SettingState());
 			} else {

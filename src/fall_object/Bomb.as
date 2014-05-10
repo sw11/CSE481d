@@ -1,4 +1,4 @@
-package a_basic_theme 
+package fall_object 
 {
 	import org.flixel.*;
 	/**
@@ -11,7 +11,6 @@ package a_basic_theme
 		public function Bomb(x:Number, y:Number) 
 		{
 			super(x, y);
-			//makeGraphic(50, 50, 0x10597137); // size and color of the object
 			loadGraphic(bomb, true, true, 50, 50);
 			velocity.y = 250; // move down velocity
 		}

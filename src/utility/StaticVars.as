@@ -48,11 +48,22 @@ package utility
 		public static const a2Interval:int = 25;
 		public static const a2BombRate:int = 10;
 		// level 3
-		// level 2
 		public static const a3MaxScore:int = 70;
 		public static const a3Interval:int = 20;
 		public static const a3BombRate:int = 7;
 		
+		// d bomb theme
+		public static const dTime:int = 60000;
+		public static const dPass:Number = 0.6;
+		// level 10
+		public static const d10MaxScore:int = 70;
+		public static const d10Interval:int = 35;
+		// level 11
+		public static const d11MaxScore:int = 60;
+		public static const d11Interval:int = 25;
+		// level 12
+		public static const d12MaxScore:int = 50;
+		public static const d12Interval:int = 15;
 	}
 
 }

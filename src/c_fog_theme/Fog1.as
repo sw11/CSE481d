@@ -1,4 +1,4 @@
-package fog_theme 
+package c_fog_theme 
 {
 	import main.PlayState;
 	/**
@@ -10,7 +10,7 @@ package fog_theme
 		
 		public function Fog1() 
 		{
-			super();
+			super(50000);
 		}
 		
 	}

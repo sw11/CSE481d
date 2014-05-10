@@ -35,17 +35,6 @@ package main
 			super.update();
 			if (FlxG.keys.justPressed("ENTER")) {
 				LostState.changeState(nextStage);
-				/*switch (nextStage) {
-					case 2:
-						FlxG.switchState(new ALevel2());
-						break;
-					case 3:
-						FlxG.switchState(new ALevel3());
-						break;
-					case 4:
-						FlxG.switchState(new Recycle1());
-						break;
-				}*/
 			}
 		}
 	}
