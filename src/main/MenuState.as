@@ -1,5 +1,6 @@
 package main 
 {
+	import b_recycle_theme.*;
 	import org.flixel.*;
 	import a_basic_theme.*;
 	import utility.StaticVars;
@@ -36,7 +37,7 @@ package main
 		override public function update():void {
 			super.update();
 			if (FlxG.keys.P || FlxG.keys.justPressed("ENTER")) {
-				FlxG.switchState(new DLevel10());
+				FlxG.switchState(new ALevel3());
 			} else if (FlxG.keys.S) {
 				FlxG.switchState(new SettingState());
 			} else {

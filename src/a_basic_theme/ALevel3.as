@@ -17,8 +17,6 @@ package a_basic_theme
 		private var _fallObj: FlxGroup;
 		private var _bombs: FlxGroup;
 		
-		private var remainingTimeDisplay:FlxText;
-		
 		public function ALevel3():void {
 			maxScore = StaticVars.a3MaxScore;
 			super(StaticVars.aTime);	
@@ -35,10 +33,6 @@ package a_basic_theme
 			super.create();
 			bucket = new Bucket(bucketImg, 130, 525);
 			add(bucket);
-			
-			remainingTimeDisplay = new FlxText(0, 16, FlxG.width, ""+timer.secondsRemaining);
-			remainingTimeDisplay.setFormat(null, 16, 0x11111111, "center");
-			add(remainingTimeDisplay);
 		}
 		
 		override public function update():void 
@@ -50,10 +44,10 @@ package a_basic_theme
 				lane = genLane(lane);
 				if (oneOf(StaticVars.a3BombRate)) 
 				{
-					fallBomb(lane);
+					fallBomb();
 				}
 				else {
-					fallObject(lane);
+					fallObject();
 				}			
 			}
 			super.update();
@@ -62,18 +56,16 @@ package a_basic_theme
 				// time has run out, check if user has won	
 				endGame(3);
 			}
-			remainingTimeDisplay.text = "" + timer.secondsRemaining;
-			checkScore();
 		}
 		
-		private function fallObject(prevLane:int):void {
-			// x should be random
-			var obj:FallingObj = new FallingObj(prevLane, 0);
+		private function fallObject():void {
+			var obj:FallingObj = new FallingObj(lane, 0);
 			_fallObj.add(obj);
 		}
 		
-		private function fallBomb(lane:int):void {
-			var obj:Bomb = new Bomb(lane, 0);
+		private function fallBomb():void {
+			var obj:Bomb = new Bomb(lane, randNum(100));
+			obj.velocity.y = randNum(200) + 50;
 			_bombs.add(obj);
 		}
 		
@@ -84,7 +76,7 @@ package a_basic_theme
 		
 		private function overlapBombBucket(but:Bucket, b:Bomb):void {
 			b.kill();
-			this.score -= 1;	
+			this.score -= StaticVars.a3BombRate;	
 		}
 	}
 }

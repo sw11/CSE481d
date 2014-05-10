@@ -16,7 +16,7 @@ package d_bomb_theme
 		
 		private var _bombs: FlxGroup;
 		
-		private var remainingTimeDisplay:FlxText;
+		//private var remainingTimeDisplay:FlxText;
 		
 		public function DLevel12():void {
 			maxScore = StaticVars.d12MaxScore;

@@ -17,7 +17,7 @@ package a_basic_theme
 		private var _fallObj: FlxGroup;
 		private var _bombs: FlxGroup;
 		
-		private var remainingTimeDisplay:FlxText;
+		//private var remainingTimeDisplay:FlxText;
 		
 		public function ALevel2():void {
 			maxScore = StaticVars.a2MaxScore;
@@ -36,9 +36,9 @@ package a_basic_theme
 			bucket = new Bucket(bucketImg, 130, 525);
 			add(bucket);
 			
-			remainingTimeDisplay = new FlxText(0, 16, FlxG.width, ""+timer.secondsRemaining);
-			remainingTimeDisplay.setFormat(null, 16, 0x11111111, "center");
-			add(remainingTimeDisplay);
+			//remainingTimeDisplay = new FlxText(0, 16, FlxG.width, ""+timer.secondsRemaining);
+			//remainingTimeDisplay.setFormat(null, 16, 0x11111111, "center");
+			//add(remainingTimeDisplay);
 		}
 		
 		override public function update():void 
@@ -62,8 +62,8 @@ package a_basic_theme
 				// time has run out, check if user has won	
 				endGame(2);
 			}
-			remainingTimeDisplay.text = "" + timer.secondsRemaining;
-			checkScore();
+			//remainingTimeDisplay.text = "" + timer.secondsRemaining;
+			//checkScore();
 		}
 		
 		private function fallObject(prevLane:int):void {

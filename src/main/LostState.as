@@ -48,13 +48,13 @@ package main
 						FlxG.switchState(new ALevel3());
 						break;
 					case 4:
-						FlxG.switchState(new Recycle1());
+						FlxG.switchState(new BLevel4());
 						break;
 					case 5:
-						FlxG.switchState(new Recycle1());
+						FlxG.switchState(new BLevel5());
 						break;
 					case 6:
-						FlxG.switchState(new Recycle1());
+						FlxG.switchState(new BLevel6());
 						break;
 					case 7:
 						FlxG.switchState(new Fog1());

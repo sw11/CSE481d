@@ -1,6 +1,7 @@
 package b_recycle_theme
 {
 	import org.flixel.*;
+	import utility.StaticVars;
 	
 	/**
 	 * Class used for levels with multiple bucket types, 
@@ -22,7 +23,7 @@ package b_recycle_theme
 		[Embed(source = '../../img/recycle.png')] private var recycleImg:Class;
 		[Embed(source = '../../img/compost.png')] private var compostImg:Class;
 		
-		public function MultiBucket ( x:Number, y:Number) {
+		public function MultiBucket (x:Number, y:Number) {
 			super(x, y);
 			xCoord = x;
 			yCoord = y;
@@ -32,7 +33,7 @@ package b_recycle_theme
 		}	
 		
 		public function getCurrentBucket() : int {
-			return cycBucket % 3;
+			return (cycBucket + StaticVars.NUM_BUCKET) % StaticVars.NUM_BUCKET;
 		}
 		
 		override public function update():void 
@@ -51,18 +52,28 @@ package b_recycle_theme
 					
 				}
 			} 
-			if (FlxG.keys.justPressed("SPACE")) {
+			
+			if (FlxG.keys.justPressed("SPACE") || FlxG.keys.justPressed("A")) {
 				cycBucket++;
-				if (cycBucket%3 == 0) {
-					loadGraphic(bucketImg, true, true, 100, 100);
-				} else if (cycBucket % 3 == 1) {
-					loadGraphic(recycleImg, true, true, 100, 100);
-				} else if (cycBucket % 3 == 2) {
-					loadGraphic(compostImg, true, true, 100, 100);
-				}
+				switchBucket();
+			} else if (FlxG.keys.justPressed("Z")) {
+				cycBucket--;
+				switchBucket();
 			}
 		}
 		
+		private function switchBucket():void {
+			var num:int = cycBucket % StaticVars.NUM_BUCKET;
+			//trace("buc is " + cycBucket + " num is " + num);
+			if (num == 0) {
+				loadGraphic(bucketImg, true, true, 100, 100);
+				cycBucket = 0;
+			} else if (num == 1 || num == -2) {
+				loadGraphic(recycleImg, true, true, 100, 100);
+			} else if (num == 2 || num == -1) {
+				loadGraphic(compostImg, true, true, 100, 100);
+			}
+		}
 	}
 
 }

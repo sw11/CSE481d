@@ -33,6 +33,8 @@ package main
 		
 		protected var lane:int;
 		
+		protected var remainingTimeDisplay:FlxText;
+		
 		/**
 		 * contructor of PlayState
 		 * 
@@ -53,14 +55,24 @@ package main
 			FlxG.bgColor = 0xeeeeeeee;
 			
 			scoreBar = new FlxBar(15, 130, FlxBar.FILL_BOTTOM_TO_TOP, 100, 495, this, "score", 0, maxScore, true);
-			
 			scoreBar.color = 0x999999;
 			scoreBar.killOnEmpty = false;
 			add(scoreBar);
+			
 			settingButton = new SettingButton(setting, StaticVars.SETTING_BUTTON_X, StaticVars.SETTING_BUTTON_Y);
 			add(settingButton);		
+			
+			remainingTimeDisplay = new FlxText(0, 16, FlxG.width, ""+timer.secondsRemaining);
+			remainingTimeDisplay.setFormat(null, 16, 0x11111111, "center");
+			add(remainingTimeDisplay);
 		}
 	
+		override public function update():void {
+			super.update();
+			remainingTimeDisplay.text = "" + timer.secondsRemaining;
+			checkScore();
+		}
+		
 		public function end_level() :void {
 			
 		}
@@ -89,7 +101,11 @@ package main
 		}
 		
 		protected function oneOf(num:int):Boolean {
-			return Math.round(Math.random() * num) == 1;
+			return randNum(num) == 1;
+		}
+		
+		protected function randNum(num:int):int {
+			return Math.round(Math.random() * num);
 		}
 		
 		protected function endGame(level:int): void {

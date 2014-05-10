@@ -50,7 +50,22 @@ package utility
 		// level 3
 		public static const a3MaxScore:int = 70;
 		public static const a3Interval:int = 20;
-		public static const a3BombRate:int = 7;
+		public static const a3BombRate:int = 5;
+		
+		// b recycle theme:
+		public static const bTime:int = 60000;
+		public static const bPass:Number = 0.5;
+		public static const NUM_BUCKET:int = 3;
+		// level 1
+		public static const b1MaxScore:int = 45;
+		public static const b1Interval:int = 35;
+		// level 2
+		public static const b2MaxScore:int = 50;
+		public static const b2Interval:int = 30;
+		// level 3
+		public static const b3MaxScore:int = 60;
+		public static const b3Interval:int = 20;
+		
 		
 		// d bomb theme
 		public static const dTime:int = 60000;

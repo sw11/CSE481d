@@ -4,7 +4,7 @@ package main
 	import a_basic_theme.*;
 	import org.flixel.FlxState;
 	import org.flixel.FlxText;
-	import b_recycle_theme.Recycle1;
+	import b_recycle_theme.*;
 	/**
 	 * ...
 	 * @author Adrian
