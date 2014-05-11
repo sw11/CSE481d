@@ -11,10 +11,12 @@ package b_recycle_theme
 	 */
 	public class MultiBucket extends FlxSprite
 	{
+		
 		private var cycBucket : int;
 		private var xCoord : int;
 		private var yCoord : int;
 		
+		private static const _move_speed : int = 400;
 		public static const TRASH : int = 0;
 		public static const RECYCLE : int = 1;
 		public static const COMPOST : int = 2;
@@ -39,19 +41,13 @@ package b_recycle_theme
 		override public function update():void 
 		{
 			super.update();
-			if (FlxG.keys.justPressed("RIGHT")) {
-				if (x < 440) {
-					x = xCoord + 100;
-					xCoord = xCoord + 100;
-					
-				}
-			} else if (FlxG.keys.justPressed("LEFT")) {
-				if (x > 130) {				
-					x = xCoord - 100;
-					xCoord = xCoord - 100;
-					
-				}
-			} 
+			if (FlxG.keys.LEFT && x > 130){
+				velocity.x = -_move_speed ;
+			} else if (FlxG.keys.RIGHT && x < 540) {
+				velocity.x = _move_speed ;
+			} else {
+				velocity.x = 0;
+			}
 			
 			if (FlxG.keys.justPressed("SPACE") || FlxG.keys.justPressed("A")) {
 				cycBucket++;

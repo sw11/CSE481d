@@ -7,7 +7,7 @@ package main
 	 */
 	public class Bucket extends FlxSprite
 	{
-		
+		private static const _move_speed : int = 400;
 		private var xCoord : int;
 		private var yCoord : int;
 		
@@ -15,27 +15,21 @@ package main
 			super(x, y);
 			xCoord = x;
 			yCoord = y;
+			maxVelocity.x = 200;
 			loadGraphic(graphic, true, true, 100, 100);
 		}	
 		
 		override public function update():void 
 		{
 			super.update();
-			 
-			if (FlxG.keys.justPressed("RIGHT")) {
-				if (x < 440) {
-					x = xCoord + 100;
-					xCoord = xCoord + 100;
-					
-				}
 			
-			} else if (FlxG.keys.justPressed("LEFT")) {
-				if (x > 130) {				
-					x = xCoord - 100;
-					xCoord = xCoord - 100;
-					
-				}
-			} 
+			if (FlxG.keys.LEFT && x > 130){
+				velocity.x = -_move_speed ;
+			} else if (FlxG.keys.RIGHT && x < 540) {
+				velocity.x = _move_speed ;
+			} else {
+				velocity.x = 0;
+			}	
 		}
 	}
 }
