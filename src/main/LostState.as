@@ -60,13 +60,13 @@ package main
 						FlxG.switchState(new BLevel6());
 						break;
 					case 7:
-						FlxG.switchState(new Fog1());
+						FlxG.switchState(new CLevel1());
 						break;
 					case 8:
-						FlxG.switchState(new Fog1());
+						FlxG.switchState(new CLevel2());
 						break;
 					case 9:
-						FlxG.switchState(new Fog1());
+						FlxG.switchState(new CLevel3());
 						break;
 					case 10:
 						FlxG.switchState(new DLevel10());
@@ -78,7 +78,7 @@ package main
 						FlxG.switchState(new DLevel12());
 						break;
 					case 13:
-						FlxG.switchState(new DLevel10());
+						FlxG.switchState(new LevelState());
 						break;
 				}
 		}
