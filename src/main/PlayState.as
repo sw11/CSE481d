@@ -78,7 +78,7 @@ package main
 			//add(settingButton);		
 			
 			killBar = new FlxSprite(130, 575);
-			killBar.makeGraphic(500, 5, 0xFFFFFFFF);
+			killBar.makeGraphic(500, 5, 0x00FFFFFF);
 			add(killBar);
 			
 			remainingTimeDisplay = new FlxText(0, 16, FlxG.width, ""+timer.secondsRemaining);
