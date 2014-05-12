@@ -1,11 +1,11 @@
 package main 
 {
-	
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.FlxBar;
 	import org.flixel.plugin.photonstorm.FlxDelay;
 	import utility.StaticVars;
 	import a_basic_theme.*;
+	import fall_object.*;
 	
 	/**
 	 * Default class for each level, holding common aspects such as timer and score
@@ -38,6 +38,12 @@ package main
 		protected var currectTheme:String;
 		protected var level:int;
 		
+		protected var killBar:FlxSprite;
+		protected var missCount:int;
+		
+		protected var _fallObj: FlxGroup;
+		protected var _bombs: FlxGroup;
+		
 		/**
 		 * contructor of PlayState
 		 * 
@@ -47,6 +53,7 @@ package main
 		public function PlayState(max_time:Number): void {
 			super();
 			resetCount(StaticVars.a1Interval);
+			missCount = 0;
 			this.max_time = max_time;
 			timer = new FlxDelay(max_time);
 			timer.start();
@@ -66,15 +73,21 @@ package main
 			levelInstr2 = new FlxText(0, 16, FlxG.width, currectTheme + " theme\nLevel " + level + "\nEsc to main menu");
 			levelInstr2.setFormat(null, 11, StaticVars.BLACK, "left");
 			add(levelInstr2);
+			
 			//settingButton = new SettingButton(setting, StaticVars.SETTING_BUTTON_X, StaticVars.SETTING_BUTTON_Y);
 			//add(settingButton);		
 			
+			killBar = new FlxSprite(130, 575);
+			killBar.makeGraphic(500, 5, 0xFFFFFFFF);
+			add(killBar);
+			
 			remainingTimeDisplay = new FlxText(0, 16, FlxG.width, ""+timer.secondsRemaining);
-			remainingTimeDisplay.setFormat(null, 16, 0x11111111, "center");
+			remainingTimeDisplay.setFormat(null, 16, StaticVars.BLACK, "center");
 			add(remainingTimeDisplay);
 		}
 	
 		override public function update():void {
+			FlxG.overlap(killBar, _fallObj, overlapKillBarObj);
 			if (FlxG.keys.justPressed("ESCAPE")) {
 				FlxG.switchState(new LevelState());
 			}
@@ -126,6 +139,14 @@ package main
 			} else {
 				var lostState:LostState = new LostState(level);
 				FlxG.switchState(lostState);	
+			}
+		}
+		
+		protected function overlapKillBarObj(killBar:FlxSprite, obj:FallingObj):void {
+			obj.kill();
+			if (missCount++ >= 10) {
+				score--;
+				missCount = 0;
 			}
 		}
 	}

@@ -20,6 +20,7 @@ package main
 		private static var FOG:int = 2;
 		private static var BOMB:int = 3;
 		
+		private var recycleInstr:FlxText;
 		
 		private static var RED:int = 0xFFFF0000;
 		private var currState:int;
@@ -27,13 +28,13 @@ package main
 		
 		public function LevelState(): void {
 			super();
-			yPos = 100;
+			yPos = 60;
 			currState = 0;
 		}
 		
 		override public function create(): void {
 			var levelInstr1:FlxText;
-			levelInstr1 = new FlxText(0, 16, FlxG.width, "Arrow up down to select theme");
+			levelInstr1 = new FlxText(0, yPos += 40, FlxG.width, "Arrow up down to select theme");
 			levelInstr1.setFormat(null, 16, StaticVars.BLACK, "center");
 			add(levelInstr1);
 			
@@ -51,10 +52,14 @@ package main
 			bomb = createText(yPos += 40, "BOMB")
 			add(bomb);
 			
-			var instruction:FlxText;
-			instruction = new FlxText(0, yPos += 40, FlxG.width, "Press ENTER to start");
-			instruction.setFormat(null, 16, StaticVars.BLACK, "center");
-			add(instruction);
+			
+			add(instr("Press ENTER to start"));
+			
+			add(instr("Control:\nArrow left right to move the bucket\nEsc to exit"));
+			
+			recycleInstr = new FlxText(0, yPos += 60, FlxG.width, "A or Z to toggle the bucket");
+			recycleInstr.setFormat(null, 16, StaticVars.BLACK, "center");
+			add(recycleInstr);
 		}
 		
 		private function createText(y:int, theme:String):FlxText {
@@ -83,18 +88,33 @@ package main
 			switch(currState) {
 				case 0:
 					currText = basic;
+					//remove(recycleInstr, false);
 					break;
 				case 1:
 					currText = rec;
+					//recycleInstr.text = "A or Z to toggle the bucket";
+					
 					break;
 				case 2:
 					currText = fog;
+					//recycleInstr.kill();
+					//trace("fog");
+					//remove(recycleInstr, false);
 					break;
 				case 3:
 					currText = bomb;
+					//remove(recycleInstr, false);
 					break;
 			}
+			
 			currText.color = RED;
+		}
+		
+		private function instr(text:String):FlxText 
+		{
+			var instruction:FlxText = new FlxText(0, yPos += 40, FlxG.width, text);
+			instruction.setFormat(null, 16, StaticVars.BLACK, "center");
+			return instruction;
 		}
 	}
 

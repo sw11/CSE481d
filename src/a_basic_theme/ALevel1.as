@@ -15,7 +15,7 @@ package a_basic_theme
 		
 		private var bucket: Bucket;
 		
-		private var _fallObj: FlxGroup;
+		//private var _fallObj: FlxGroup;
 		
 		//private var remainingTimeDisplay:FlxText;
 		
@@ -43,7 +43,7 @@ package a_basic_theme
 		override public function update():void 
 		{	
 			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
-			
+			FlxG.overlap(killBar, _fallObj, overlapKillBarObj);
 			if (genRandom(StaticVars.a1Interval)) 
 			{
 				lane = genLane(lane);

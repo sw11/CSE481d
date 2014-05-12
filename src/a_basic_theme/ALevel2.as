@@ -14,8 +14,8 @@ package a_basic_theme
 		
 		private var bucket: Bucket;
 		
-		private var _fallObj: FlxGroup;
-		private var _bombs: FlxGroup;
+		//private var _fallObj: FlxGroup;
+		//private var _bombs: FlxGroup;
 		
 		//private var remainingTimeDisplay:FlxText;
 		

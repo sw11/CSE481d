@@ -14,7 +14,7 @@ package d_bomb_theme
 		
 		private var bucket: Bucket;
 		
-		private var _bombs: FlxGroup;
+		//private var _bombs: FlxGroup;
 		
 		public function DLevel11():void {
 			maxScore = StaticVars.d11MaxScore;

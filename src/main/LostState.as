@@ -1,6 +1,7 @@
 package main 
 {
 	import org.flixel.*;
+	import utility.StaticVars;
 	import a_basic_theme.*;
 	import b_recycle_theme.*;
 	import c_fog_theme.*;
@@ -23,8 +24,8 @@ package main
 
 			
 			var instruction:FlxText;
-			instruction = new FlxText(0, 16, FlxG.width, "Press ENTER to restart level");
-			instruction.setFormat(null, 16, 0x11111111, "center");
+			instruction = new FlxText(0, 100, FlxG.width, "Fail!\nENTER to restart level\nESC to main menu");
+			instruction.setFormat(null, 20, StaticVars.BLACK, "center");
 			add(instruction);
 			
 		}
@@ -33,6 +34,8 @@ package main
 			super.update();
 			if (FlxG.keys.justPressed("ENTER")) {
 				changeState(thisStage);
+			} else if (FlxG.keys.justPressed("ESCAPE")) {
+				FlxG.switchState(new LevelState());
 			}
 		}
 		

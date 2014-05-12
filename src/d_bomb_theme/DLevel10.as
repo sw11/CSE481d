@@ -14,7 +14,7 @@ package d_bomb_theme
 		
 		private var bucket: Bucket;
 		
-		private var _bombs: FlxGroup;
+		//private var _bombs: FlxGroup;
 		
 		//private var remainingTimeDisplay:FlxText;
 		
