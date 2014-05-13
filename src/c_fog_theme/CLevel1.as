@@ -14,6 +14,9 @@ package c_fog_theme
 		[Embed(source = '../../img/wooden_bucket.png')] private var bucketImg:Class;
 		
 		private var bucket: Bucket;
+		[Embed(source = '../../img/grey.png')] private var fogImg:Class;
+		
+		private var fog:FlxSprite;
 		
 		//private var _fallObj: FlxGroup;
 		
@@ -28,6 +31,9 @@ package c_fog_theme
 			level = 1;
 			_fallObj = new FlxGroup();
 			add(_fallObj);	
+			fog = new FlxSprite(130, 200, fogImg);
+			fog.alpha = 1;
+			add(fog);
 		}
 	
 		override public function create(): void {
@@ -44,6 +50,8 @@ package c_fog_theme
 		{	
 			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
 			FlxG.overlap(killBar, _fallObj, overlapKillBarObj);
+			
+			
 			if (genRandom(StaticVars.a1Interval)) 
 			{
 				lane = genLane(lane);
@@ -53,11 +61,14 @@ package c_fog_theme
 			
 			if (timer.hasExpired) {
 				// time has run out, check if user has won	
-				endGame(1);
+				endGame(7);
 			}
+			
 			//remainingTimeDisplay.text = "" + timer.secondsRemaining;
 			//checkScore();
 		}
+		
+		
 		
 		private function fallObject(prevLane:int):void {
 			// x should be random

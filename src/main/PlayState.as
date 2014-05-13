@@ -65,8 +65,10 @@ package main
 			FlxG.bgColor = 0xeeeeeeee;
 			
 			scoreBar = new FlxBar(15, 130, FlxBar.FILL_BOTTOM_TO_TOP, 100, 495, this, "score", 0, maxScore, true);
-			scoreBar.color = 0x999999;
+			scoreBar.color = 0x141BE3;
+			scoreBar.createFilledBar(0x88141BE3, 0xFF14e32c, false, 0x00000000);
 			scoreBar.killOnEmpty = false;
+			
 			add(scoreBar);
 			
 			var levelInstr2:FlxText;
@@ -95,6 +97,9 @@ package main
 			
 			remainingTimeDisplay.text = "" + timer.secondsRemaining;
 			checkScore();
+			if (score >= maxScore) {
+				scoreBar.color = 0xDEA543;
+			}
 		}
 		
 		public function end_level() :void {

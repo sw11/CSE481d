@@ -14,6 +14,10 @@ package c_fog_theme
 		
 		private var bucket: Bucket;
 		
+		[Embed(source = '../../img/grey.png')] private var fogImg:Class;
+		
+		private var fog:FlxSprite;
+		
 		//private var _fallObj: FlxGroup;
 		//private var _bombs: FlxGroup;
 		
@@ -30,6 +34,9 @@ package c_fog_theme
 			add(_fallObj);
 			_bombs = new FlxGroup();
 			add(_bombs);
+			fog = new FlxSprite(130, 200, fogImg);
+			fog.alpha = 1;
+			add(fog);
 		}
 	
 		override public function create(): void {
@@ -57,7 +64,7 @@ package c_fog_theme
 			
 			if (timer.hasExpired) {
 				// time has run out, check if user has won	
-				endGame(2);
+				endGame(8);
 			}
 		}
 		
