@@ -90,6 +90,7 @@ package main
 	
 		override public function update():void {
 			FlxG.overlap(killBar, _fallObj, overlapKillBarObj);
+			FlxG.overlap(killBar, _bombs, overlapKillBarBomb);
 			if (FlxG.keys.justPressed("ESCAPE")) {
 				FlxG.switchState(new LevelState());
 			}
@@ -153,6 +154,10 @@ package main
 				score--;
 				missCount = 0;
 			}
+		}
+		
+		protected function  overlapKillBarBomb(killBar:FlxSprite, bomb:Bomb):void {
+			bomb.kill();
 		}
 	}
 }
