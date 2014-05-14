@@ -34,10 +34,10 @@ package main
 		private static var _6:int = 6;
 		
 		private var currState:int;
-		private var currTheme:String;
+		private var currTheme:int;
 		private var yPos:int;
 		
-		public function LevelState(theme:String, level:int): void {
+		public function LevelState(theme:int, level:int): void {
 			super();
 			yPos = 60;
 			currState = 1;
@@ -103,6 +103,7 @@ package main
 			locks.loadGraphic(lock, true, true, 30, 30);
 			add(locks);
 		}
+		
 		private function createText(y:int, theme:String):FlxText {
 			var text:FlxText = new FlxText(0, y, FlxG.width, theme);
 			text.setFormat(null, 20, StaticVars.BLACK, "center");
@@ -113,8 +114,9 @@ package main
 			super.update();
 			if (FlxG.keys.justPressed("ENTER")) {
 				startTheme();
-			}
-			if (FlxG.keys.justPressed("UP")) {
+			} else if (FlxG.keys.justPressed("ESCAPE")) {
+				FlxG.switchState(new ThemeState(currTheme, currState));
+			} else if (FlxG.keys.justPressed("UP")) {
 				currState = (--currState == 0) ? unlockLevel : currState;
 				changeColor();
 			} else if (FlxG.keys.justPressed("DOWN")) {
@@ -157,16 +159,16 @@ package main
 		
 		private function startTheme():void {
 			switch (currTheme) {
-				case "A":
+				case 1:
 					aTheme();
 					break;
-				case "B":
+				case 2:
 					bTheme();
 					break;
-				case "C":
+				case 3:
 					cTheme();
 					break;
-				case "D":
+				case 4:
 					dTheme();
 					break;			
 				}

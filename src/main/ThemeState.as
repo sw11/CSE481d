@@ -13,6 +13,8 @@ package main
 	 */
 	public class ThemeState extends FlxState
 	{
+		[Embed(source = '../../img/lock.png')] private var lock:Class;
+		
 		private var basic:FlxText;
 		private var rec:FlxText;
 		private var fog:FlxText;
@@ -28,14 +30,19 @@ package main
 		
 		private static var RED:int = 0xFFFF0000;
 		private var currState:int;
-		private var currTheme:String;
+		private var currTheme:int;
 		
 		private var yPos:int;
 		
-		public function ThemeState(): void {
+		private var unlockTheme:int;
+		private var unlockLevel:int;
+		
+		public function ThemeState(theme:int, level:int): void {
 			super();
 			yPos = 60;
-			currState = 0;
+			currState = 1;
+			unlockTheme = theme;
+			unlockLevel = level;
 		}
 		
 		override public function create(): void {
@@ -47,18 +54,31 @@ package main
 			basic = createText(yPos += 40, "BASIC");
 			currText = basic;
 			currText.color = StaticVars.RED;
-			currTheme = "A";
+			currTheme = 1;
 			add(currText);
+			
+
 			
 			rec = createText(yPos += 40, "RECYCLE")
 			add(rec);
 			
+			if (unlockTheme < 2) {
+				addLock();
+			}
+			
 			fog = createText(yPos += 40, "FOG")
 			add(fog);
+			
+			if (unlockTheme < 3) {
+				addLock();
+			}
 			
 			bomb = createText(yPos += 40, "BOMB")
 			add(bomb);
 			
+			if (unlockTheme < 4) {
+				addLock();
+			}
 			
 			add(instr("Press ENTER to start"));
 			
@@ -67,6 +87,12 @@ package main
 			recycleInstr = new FlxText(0, yPos += 60, FlxG.width, "A or Z to toggle the bucket");
 			recycleInstr.setFormat(null, 16, StaticVars.BLACK, "center");
 			add(recycleInstr);
+		}
+		
+		private function addLock():void {
+			var locks:FlxSprite = new FlxSprite(370, yPos - 5);
+			locks.loadGraphic(lock, true, true, 30, 30);
+			add(locks);
 		}
 		
 		private function createText(y:int, theme:String):FlxText {
@@ -82,10 +108,10 @@ package main
 				//getTheme();
 			}
 			if (FlxG.keys.justPressed("UP")) {
-				currState = (--currState == -1) ? 3 : currState;
+				currState = (--currState == 0) ? unlockTheme : currState;
 				changeColor();
 			} else if (FlxG.keys.justPressed("DOWN")) {
-				currState = (++currState == 4) ? 0 : currState;	
+				currState = (++currState == unlockTheme + 1) ? 1 : currState;	
 				changeColor();
 			}
 		}
@@ -111,21 +137,21 @@ package main
 		private function changeColor():void {
 			currText.color = StaticVars.BLACK;
 			switch(currState) {
-				case 0:
-					currText = basic;
-					currTheme = "A";
-					break;
 				case 1:
-					currText = rec;
-					currTheme = "B";
+					currText = basic;
+					currTheme = 1;
 					break;
 				case 2:
-					currText = fog;
-					currTheme = "C";
+					currText = rec;
+					currTheme = 2;
 					break;
 				case 3:
+					currText = fog;
+					currTheme = 3;
+					break;
+				case 4:
 					currText = bomb;
-					currTheme = "D";
+					currTheme = 4;
 					break;
 			}
 			

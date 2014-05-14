@@ -24,7 +24,7 @@ package a_basic_theme
 			super(StaticVars.aTime);	
 			
 			passScore = maxScore * StaticVars.aPass;
-			currectTheme = "BASIC";
+			currectTheme = StaticVars.A_THEME;
 			level = 1;
 			_fallObj = new FlxGroup();
 			add(_fallObj);	

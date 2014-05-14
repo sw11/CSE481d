@@ -27,7 +27,7 @@ package c_fog_theme
 			super(StaticVars.aTime);	
 			
 			passScore = maxScore * StaticVars.aPass;
-			currectTheme = "FOG";
+			currectTheme = StaticVars.C_THEME;
 			level = 1;
 			_fallObj = new FlxGroup();
 			add(_fallObj);	

@@ -30,6 +30,11 @@ package utility
 		public static const SETTING_SIZE_X:int = 100;
 		public static const SETTING_SIZE_Y:int = 100;
 		
+		public static const A_THEME:int = 1;
+		public static const B_THEME:int = 2;
+		public static const C_THEME:int = 3;
+		public static const D_THEME:int = 4;
+		
 		// lane x position
 		public static const lane1:int = 130;
 		public static const lane2:int = 230;
@@ -81,5 +86,7 @@ package utility
 		public static const d12MaxScore:int = 50;
 		public static const d12Interval:int = 15;
 	}
+	
+	
 
 }

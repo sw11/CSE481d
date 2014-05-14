@@ -35,7 +35,7 @@ package main
 		
 		protected var remainingTimeDisplay:FlxText;
 		
-		protected var currectTheme:String;
+		protected var currectTheme:int;
 		protected var level:int;
 		
 		protected var killBar:FlxSprite;
@@ -92,7 +92,7 @@ package main
 			FlxG.overlap(killBar, _fallObj, overlapKillBarObj);
 			FlxG.overlap(killBar, _bombs, overlapKillBarBomb);
 			if (FlxG.keys.justPressed("ESCAPE")) {
-				FlxG.switchState(new ThemeState());
+				FlxG.switchState(new ThemeState(currectTheme, level));
 			}
 			super.update();
 			

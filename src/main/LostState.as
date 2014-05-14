@@ -35,7 +35,7 @@ package main
 			if (FlxG.keys.justPressed("ENTER")) {
 				changeState(thisStage);
 			} else if (FlxG.keys.justPressed("ESCAPE")) {
-				FlxG.switchState(new ThemeState());
+				FlxG.switchState(new ThemeState(1, thisStage)); //TODO
 			}
 		}
 		
@@ -78,7 +78,7 @@ package main
 						FlxG.switchState(new DLevel12());
 						break;
 					case 13:
-						FlxG.switchState(new ThemeState());
+						FlxG.switchState(new ThemeState(1, 3)); // todo
 						break;
 				}
 		}

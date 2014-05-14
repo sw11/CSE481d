@@ -37,7 +37,7 @@ package main
 		override public function update():void {
 			super.update();
 			if (FlxG.keys.P || FlxG.keys.justPressed("ENTER")) {
-				FlxG.switchState(new ThemeState());
+				FlxG.switchState(new ThemeState(1, 1));
 			} else if (FlxG.keys.S) {
 				FlxG.switchState(new SettingState());
 			} else {
