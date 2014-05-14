@@ -50,7 +50,7 @@
   </build>
   <!-- SWC Include Libraries -->
   <includeLibraries>
-    <!-- example: <element path="..." /> -->
+    <element path="lib\CGSCommon.swc" />
   </includeLibraries>
   <!-- SWC Libraries -->
   <libraryPaths>
