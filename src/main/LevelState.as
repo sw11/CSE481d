@@ -1,5 +1,6 @@
 package main 
 {
+	import a_basic_theme.AState;
 	import org.flixel.*;
 	import utility.StaticVars;
 	
@@ -24,6 +25,8 @@ package main
 		
 		private static var RED:int = 0xFFFF0000;
 		private var currState:int;
+		private var currTheme:String;
+		
 		private var yPos:int;
 		
 		public function LevelState(): void {
@@ -40,7 +43,8 @@ package main
 			
 			basic = createText(yPos += 40, "BASIC");
 			currText = basic;
-			currText.color = RED;
+			currText.color = StaticVars.RED;
+			currTheme = "A";
 			add(currText);
 			
 			rec = createText(yPos += 40, "RECYCLE")
@@ -71,8 +75,7 @@ package main
 		override public function update():void {
 			super.update();
 			if (FlxG.keys.justPressed("ENTER")) {
-				trace(currState * 3 + 1);
-				LostState.changeState(currState*3 + 1);
+				getTheme();
 			}
 			if (FlxG.keys.justPressed("UP")) {
 				currState = (--currState == -1) ? 3 : currState;
@@ -83,27 +86,41 @@ package main
 			}
 		}
 		
+		private function getTheme():void {
+			switch (currTheme) {
+				case "A":
+					FlxG.switchState(new AState(6));
+					break;
+				case "B":
+					FlxG.switchState(new AState(6));
+					break;
+				case "C":
+					FlxG.switchState(new AState(6));
+					break;
+				case "D":
+					FlxG.switchState(new AState(6));
+					break;		
+			}
+		}
+		
 		private function changeColor():void {
 			currText.color = StaticVars.BLACK;
 			switch(currState) {
 				case 0:
 					currText = basic;
-					//remove(recycleInstr, false);
+					currTheme = "A";
 					break;
 				case 1:
 					currText = rec;
-					//recycleInstr.text = "A or Z to toggle the bucket";
-					
+					currTheme = "B";
 					break;
 				case 2:
 					currText = fog;
-					//recycleInstr.kill();
-					//trace("fog");
-					//remove(recycleInstr, false);
+					currTheme = "C";
 					break;
 				case 3:
 					currText = bomb;
-					//remove(recycleInstr, false);
+					currTheme = "D";
 					break;
 			}
 			

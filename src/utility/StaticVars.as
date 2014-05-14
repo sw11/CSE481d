@@ -23,7 +23,7 @@ package utility
 		
 		public static const WHITE:int = 0xffffff;
 		public static const BLACK:int = 0x11111111;
-		
+		public static const RED:int = 0xFFFF0000;
 		
 		public static const SETTING_BUTTON_X:int = 15;
 		public static const SETTING_BUTTON_Y:int = 15;
@@ -39,7 +39,7 @@ package utility
 		public static const lanes:Array = new Array(lane1, lane2, lane3, lane4, lane5);
 		
 		// a basic theme:
-		public static const aTime:int = 60000;
+		public static const aTime:int = 30000;
 		public static const aPass:Number = 0.6;
 		// level 1
 		public static const a1MaxScore:int = 50;
