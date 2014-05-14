@@ -47,14 +47,14 @@ package utility
 		public static const aTime:int = 30000;
 		public static const aPass:Number = 0.6;
 		// level 1
-		public static const a1MaxScore:int = 50;
+		public static const a1MaxScore:int = 30;
 		public static const a1Interval:int = 30;
 		// level 2
-		public static const a2MaxScore:int = 60;
+		public static const a2MaxScore:int = 35;
 		public static const a2Interval:int = 25;
 		public static const a2BombRate:int = 10;
 		// level 3
-		public static const a3MaxScore:int = 70;
+		public static const a3MaxScore:int = 40;
 		public static const a3Interval:int = 20;
 		public static const a3BombRate:int = 5;
 		

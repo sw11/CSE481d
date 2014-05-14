@@ -3,7 +3,7 @@ package main
 	import b_recycle_theme.*;
 	import org.flixel.*;
 	import a_basic_theme.*;
-	import utility.StaticVars;
+	import utility.*;
 	import d_bomb_theme.*;
 	/**
 	 * ...
@@ -16,6 +16,9 @@ package main
 		
 		private var play:Menu;
 		private var setting:Menu;
+		
+		//public static var unlockTheme:int;
+		//public static var unlockLevel:int;
 		
 		override public function create():void {
 			FlxG.bgColor = StaticVars.WHITE;
@@ -30,19 +33,20 @@ package main
 			
 			var winnerText:FlxText;
 			winnerText = new FlxText(0, 16, FlxG.width, "Press enter to start");
-			winnerText.setFormat(null, 16, 0x11111111, "center");
+			winnerText.setFormat(null, 16, StaticVars.BLACK, "center");
 			add(winnerText);
+			
+			State.unlockTheme = 1;
+			State.unlockLevel = 1;
 		}
 		
 		override public function update():void {
 			super.update();
 			if (FlxG.keys.P || FlxG.keys.justPressed("ENTER")) {
-				FlxG.switchState(new ThemeState(1, 1));
+				FlxG.switchState(new ThemeState());
 			} else if (FlxG.keys.S) {
 				FlxG.switchState(new SettingState());
-			} else {
-				return;
-			}
+			} 
 		}
 		
 	}

@@ -6,7 +6,7 @@ package main
 	import c_fog_theme.*;
 	import d_bomb_theme.*;
 	import main.*;
-	import utility.StaticVars;
+	import utility.*;
 	
 	/**
 	 * ...
@@ -24,7 +24,7 @@ package main
 		private var level6:FlxText;
 		
 		private var currText:FlxText;
-		private var unlockLevel:int;
+		//private var unlockLevel:int;
 		
 		private static var _1:int = 1;
 		private static var _2:int = 2;
@@ -37,11 +37,11 @@ package main
 		private var currTheme:int;
 		private var yPos:int;
 		
-		public function LevelState(theme:int, level:int): void {
+		public function LevelState(theme:int): void {
 			super();
 			yPos = 60;
 			currState = 1;
-			unlockLevel = level;
+			//unlockLevel = level;
 			currTheme = theme;
 		}
 		
@@ -60,35 +60,35 @@ package main
 			level2 = createText(yPos += 40, "Level 2")
 			add(level2);
 			
-			if (unlockLevel < 2) {
+			if (State.unlockLevel < 2) {
 				addLock();
 			}
 			
 			level3 = createText(yPos += 40, "Level 3")
 			add(level3);
 			
-			if (unlockLevel < 3) {
+			if (State.unlockLevel < 3) {
 				addLock();
 			}
 			
 			level4 = createText(yPos += 40, "Level 4")
 			add(level4);
 			
-			if (unlockLevel < 4) {
+			if (State.unlockLevel < 4) {
 				addLock();
 			}
 			
 			level5 = createText(yPos += 40, "Level 5")
 			add(level5);
 			
-			if (unlockLevel < 5) {
+			if (State.unlockLevel < 5) {
 				addLock();
 			}
 			
 			level6 = createText(yPos += 40, "Level 6")
 			add(level6);
 			
-			if (unlockLevel < 6) {
+			if (State.unlockLevel < 6) {
 				addLock();
 			}
 			
@@ -96,6 +96,11 @@ package main
 			
 			add(instr("Control:\nArrow left right to move the bucket\nEsc to exit"));
 			
+			if (currTheme == StaticVars.B_THEME) {
+				var recycleInstr:FlxText = new FlxText(0, yPos += 60, FlxG.width, "A or Z to toggle the bucket");
+				recycleInstr.setFormat(null, 16, StaticVars.BLACK, "center");
+				add(recycleInstr);
+			}
 		}
 		
 		private function addLock():void {
@@ -115,12 +120,12 @@ package main
 			if (FlxG.keys.justPressed("ENTER")) {
 				startTheme();
 			} else if (FlxG.keys.justPressed("ESCAPE")) {
-				FlxG.switchState(new ThemeState(currTheme, currState));
+				FlxG.switchState(new ThemeState());
 			} else if (FlxG.keys.justPressed("UP")) {
-				currState = (--currState == 0) ? unlockLevel : currState;
+				currState = (--currState == 0) ? State.unlockLevel : currState;
 				changeColor();
 			} else if (FlxG.keys.justPressed("DOWN")) {
-				currState = (++currState == unlockLevel + 1) ? 1 : currState;	
+				currState = (++currState == State.unlockLevel + 1) ? 1 : currState;	
 				changeColor();
 			}
 		}

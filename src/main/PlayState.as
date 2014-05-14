@@ -3,7 +3,7 @@ package main
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.FlxBar;
 	import org.flixel.plugin.photonstorm.FlxDelay;
-	import utility.StaticVars;
+	import utility.*;
 	import a_basic_theme.*;
 	import fall_object.*;
 	
@@ -16,7 +16,8 @@ package main
 		[Embed(source = '../../img/settings.png')] private var setting:Class;
 		/** Keep track of current score*/
 		public var score: Number;
-			
+		public var miss:int;
+		
 		/** Displays the score, keeps tract of "score"*/
 		public var scoreBar: FlxBar;
 		/** Max score of a level, used for defining score bar*/
@@ -92,7 +93,7 @@ package main
 			FlxG.overlap(killBar, _fallObj, overlapKillBarObj);
 			FlxG.overlap(killBar, _bombs, overlapKillBarBomb);
 			if (FlxG.keys.justPressed("ESCAPE")) {
-				FlxG.switchState(new ThemeState(currectTheme, level));
+				FlxG.switchState(new ThemeState());
 			}
 			super.update();
 			
@@ -101,10 +102,6 @@ package main
 			if (score >= maxScore) {
 				scoreBar.color = 0xDEA543;
 			}
-		}
-		
-		public function end_level() :void {
-			
 		}
 		
 		protected function checkScore():void {
@@ -140,17 +137,25 @@ package main
 		
 		protected function endGame(level:int): void {
 			if (score >= passScore) {
-				var state:WinState = new WinState(level);
-				FlxG.switchState(state);
+				//var state:WinState = ;
+				//State.unlockLevel ++;
+				/*if (State.unlockLevel == 7) {
+					State.unlockTheme ++;
+					
+					State.unlockLevel = 1;
+				} */
+				State.nextLevel();
+				FlxG.switchState(new EndState("WIN", score, miss));
 			} else {
-				var lostState:LostState = new LostState(level);
-				FlxG.switchState(lostState);	
+				
+				FlxG.switchState(new EndState("LOSE", score, miss));	
 			}
 		}
 		
 		protected function overlapKillBarObj(killBar:FlxSprite, obj:FallingObj):void {
 			obj.kill();
-			if (missCount++ >= 10) {
+			miss++;
+			if (missCount++ >= 5) {
 				score--;
 				missCount = 0;
 			}
