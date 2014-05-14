@@ -79,7 +79,7 @@ package main
 			//settingButton = new SettingButton(setting, StaticVars.SETTING_BUTTON_X, StaticVars.SETTING_BUTTON_Y);
 			//add(settingButton);		
 			
-			killBar = new FlxSprite(130, 575);
+			killBar = new FlxSprite(130, 600);
 			killBar.makeGraphic(500, 5, 0x00FFFFFF);
 			add(killBar);
 			
@@ -92,7 +92,7 @@ package main
 			FlxG.overlap(killBar, _fallObj, overlapKillBarObj);
 			FlxG.overlap(killBar, _bombs, overlapKillBarBomb);
 			if (FlxG.keys.justPressed("ESCAPE")) {
-				FlxG.switchState(new LevelState());
+				FlxG.switchState(new ThemeState());
 			}
 			super.update();
 			

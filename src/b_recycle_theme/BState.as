@@ -1,4 +1,4 @@
-package a_basic_theme
+package b_recycle_theme
 {
 	import org.flixel.*;
 	import main.*;
@@ -8,7 +8,7 @@ package a_basic_theme
 	 * ...
 	 * @author Sam Wilsonn
 	 */
-	public class AState extends FlxState
+	public class BState extends FlxState
 	{
 		[Embed(source = '../../img/lock.png')] private var lock:Class;
 		
@@ -33,7 +33,7 @@ package a_basic_theme
 		private var currState:int;
 		private var yPos:int;
 		
-		public function AState(level:int): void {
+		public function BState(level:int): void {
 			super();
 			yPos = 60;
 			currState = 1;
@@ -153,22 +153,22 @@ package a_basic_theme
 		private function startLevel():void {
 			switch (currState) {
 					case 1:
-						FlxG.switchState(new ALevel1());
+						FlxG.switchState(new BLevel4());
 						break;
 					case 2:
-						FlxG.switchState(new ALevel2());
+						FlxG.switchState(new BLevel5());
 						break;
 					case 3:
-						FlxG.switchState(new ALevel3());
+						FlxG.switchState(new BLevel6());
 						break;
 					case 4:
-						FlxG.switchState(new ALevel3()); // TODO
+						FlxG.switchState(new BLevel6()); // TODO
 						break;
 					case 5:
-						FlxG.switchState(new ALevel3()); // TODO
+						FlxG.switchState(new BLevel6()); // TODO
 						break;
 					case 6:
-						FlxG.switchState(new ALevel3()); // TODO
+						FlxG.switchState(new BLevel6()); // TODO
 						break;
 				}
 		}
