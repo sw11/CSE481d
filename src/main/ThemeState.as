@@ -5,7 +5,7 @@ package main
 	import c_fog_theme.*;
 	import d_bomb_theme.*;
 	import org.flixel.*;
-	import utility.StaticVars;
+	import utility.*;
 	
 	/**
 	 * ...
@@ -28,21 +28,21 @@ package main
 		
 		private var recycleInstr:FlxText;
 		
-		private static var RED:int = 0xFFFF0000;
+		//private static var RED:int = 0xFFFF0000;
 		private var currState:int;
 		private var currTheme:int;
 		
 		private var yPos:int;
 		
-		private var unlockTheme:int;
-		private var unlockLevel:int;
+		//private var unlockTheme:int;
+		//private var unlockLevel:int;
 		
-		public function ThemeState(theme:int, level:int): void {
+		public function ThemeState(): void {
 			super();
 			yPos = 60;
 			currState = 1;
-			unlockTheme = theme;
-			unlockLevel = level;
+			//unlockTheme = theme;
+			//unlockLevel = level;
 		}
 		
 		override public function create(): void {
@@ -50,6 +50,9 @@ package main
 			levelInstr1 = new FlxText(0, yPos += 40, FlxG.width, "Arrow up down to select theme");
 			levelInstr1.setFormat(null, 16, StaticVars.BLACK, "center");
 			add(levelInstr1);
+			
+			
+			//createText(yPos+=40, "Arrow up down to select theme");
 			
 			basic = createText(yPos += 40, "BASIC");
 			currText = basic;
@@ -62,31 +65,31 @@ package main
 			rec = createText(yPos += 40, "RECYCLE")
 			add(rec);
 			
-			if (unlockTheme < 2) {
+			if (State.unlockTheme < 2) {
 				addLock();
 			}
 			
 			fog = createText(yPos += 40, "FOG")
 			add(fog);
 			
-			if (unlockTheme < 3) {
+			if (State.unlockTheme < 3) {
 				addLock();
 			}
 			
 			bomb = createText(yPos += 40, "BOMB")
 			add(bomb);
 			
-			if (unlockTheme < 4) {
+			if (State.unlockTheme < 4) {
 				addLock();
 			}
 			
 			add(instr("Press ENTER to start"));
 			
-			add(instr("Control:\nArrow left right to move the bucket\nEsc to exit"));
+			//add(instr("Control:\nArrow left right to move the bucket\nEsc to exit"));
 			
-			recycleInstr = new FlxText(0, yPos += 60, FlxG.width, "A or Z to toggle the bucket");
-			recycleInstr.setFormat(null, 16, StaticVars.BLACK, "center");
-			add(recycleInstr);
+			//recycleInstr = new FlxText(0, yPos += 60, FlxG.width, "A or Z to toggle the bucket");
+			//recycleInstr.setFormat(null, 16, StaticVars.BLACK, "center");
+			//add(recycleInstr);
 		}
 		
 		private function addLock():void {
@@ -104,35 +107,20 @@ package main
 		override public function update():void {
 			super.update();
 			if (FlxG.keys.justPressed("ENTER")) {
-				FlxG.switchState(new LevelState(currTheme, 6));
-				//getTheme();
+				FlxG.switchState(new LevelState(currTheme));
 			}
 			if (FlxG.keys.justPressed("UP")) {
-				currState = (--currState == 0) ? unlockTheme : currState;
+				currState = (--currState == 0) ? State.unlockTheme : currState;
 				changeColor();
 			} else if (FlxG.keys.justPressed("DOWN")) {
-				currState = (++currState == unlockTheme + 1) ? 1 : currState;	
+				currState = (++currState == State.unlockTheme + 1) ? 1 : currState;	
 				changeColor();
+			} else if (FlxG.keys.justPressed("U")) {
+				State.unlockLevel = 6;
+				State.unlockTheme = 4;
+				FlxG.switchState(new ThemeState());
 			}
 		}
-		/*
-		private function getTheme():void {
-			
-			switch (currTheme) {
-				case "A":
-					FlxG.switchState(new AState(currTheme, 6));
-					break;
-				case "B":
-					FlxG.switchState(new BState(currTheme, 6));
-					break;
-				case "C":
-					FlxG.switchState(new AState(6));
-					break;
-				case "D":
-					FlxG.switchState(new AState(6));
-					break;		
-			}
-		}*/
 		
 		private function changeColor():void {
 			currText.color = StaticVars.BLACK;
@@ -154,8 +142,7 @@ package main
 					currTheme = 4;
 					break;
 			}
-			
-			currText.color = RED;
+			currText.color = StaticVars.RED;
 		}
 		
 		private function instr(text:String):FlxText 
