@@ -12,10 +12,10 @@ package main
 	public class MenuState extends FlxState
 	{
 		[Embed(source = '../../img/play_button.png')] private var playButton:Class;
-		[Embed(source = '../../img/setting_button.png')] private var settingButton:Class;
+		//[Embed(source = '../../img/setting_button.png')] private var settingButton:Class;
 		
 		private var play:Menu;
-		private var setting:Menu;
+		//private var setting:Menu;
 		
 		//public static var unlockTheme:int;
 		//public static var unlockLevel:int;
@@ -28,8 +28,8 @@ package main
 			add(play);
 			
 			// setting button
-			setting = new Menu(StaticVars.SETTING_BTN_X, StaticVars.SETTING_BTN_y, StaticVars.SETTING_W, StaticVars.SETTING_H, settingButton);
-			add(setting);
+			//setting = new Menu(StaticVars.SETTING_BTN_X, StaticVars.SETTING_BTN_y, StaticVars.SETTING_W, StaticVars.SETTING_H, settingButton);
+			//add(setting);
 			
 			var winnerText:FlxText;
 			winnerText = new FlxText(0, 16, FlxG.width, "Press enter to start");

@@ -12,7 +12,7 @@ package main
 	 * 
 	 * @author Sam Wilson
 	 */
-	public class PlayState extends FlxState {
+	public class BonusState extends FlxState {
 		[Embed(source = '../../img/settings.png')] private var setting:Class;
 		/** Keep track of current score*/
 		public var score: Number;
@@ -53,17 +53,20 @@ package main
 		protected var bonus:int;
 		protected var isStart:Boolean;
 		
+		protected var ammo:int;
+		protected var ammoCount:int;
 		/**
 		 * contructor of PlayState
 		 * 
 		 * @param	max_score define the max score for the score bar
 		 * @param max_time define the max time of a level in ms
 		 */
-		public function PlayState(max_time:Number): void {
+		public function BonusState(max_time:Number): void {
 			super();
 			resetCount(StaticVars.a1Interval);
 			missCount = 0;
-			score = 0;
+			ammoCount = 0;
+			score = maxScore;
 			this.max_time = max_time;
 			timer = new FlxDelay(max_time);
 			timer.start();
@@ -90,9 +93,6 @@ package main
 			scoreText.setFormat(null, 11, StaticVars.BLACK, "left");
 			add(scoreText);
 			
-			//settingButton = new SettingButton(setting, StaticVars.SETTING_BUTTON_X, StaticVars.SETTING_BUTTON_Y);
-			//add(settingButton);		
-			
 			killBar = new FlxSprite(130, 620);
 			killBar.makeGraphic(500, 5, StaticVars.INVISIBLE);
 			add(killBar);
@@ -103,8 +103,6 @@ package main
 		}
 	
 		override public function update():void {
-			
-			FlxG.overlap(killBar, _fallObj, overlapKillBarObj);
 			FlxG.overlap(killBar, _bombs, overlapKillBarBomb);
 			
 			if (FlxG.keys.justPressed("ESCAPE")) {
@@ -172,29 +170,24 @@ package main
 				if (currectTheme == State.unlockTheme && level == State.unlockLevel) {
 					State.nextLevel();
 				}
-				FlxG.switchState(new EndState("WIN", score, miss, bonus, maxScore, currectTheme, level));
+				FlxG.switchState(new EndState("WIN", score, miss, ammo/2, maxScore, currectTheme, level));
 			} else {
-				FlxG.switchState(new EndState("LOSE", score, miss, bonus, maxScore, currectTheme, level));	
+				FlxG.switchState(new EndState("LOSE", score, miss, ammo/2, maxScore, currectTheme, level));	
 			}
 		}
 		
 		protected function overlapKillBarObj(killBar:FlxSprite, obj:FallingObj):void {
 			obj.kill();
-			miss++;
-			if (!isMaxScore && missCount++ > 5) {
-				score--;
-				missCount = 0;
-			}
 		}
 		
 		protected function overlapKillBarBomb(killBar:FlxSprite, bomb:Bomb):void {
 			bomb.kill();
-		}
-		
-		protected function fallObject(yOffset:int, speed:int):void {
-			var obj:FallingObj = new FallingObj(lane, yOffset);
-			obj.velocity.y = speed;
-			_fallObj.add(obj);
+			//trace(ammoCount);
+			if (ammoCount++ >= 9) {
+				//trace(ammo);
+				//ammo++;
+				ammoCount = 0;
+			}
 		}
 		
 		protected function fallBomb(yOffset:int, speed:int):void {
@@ -202,11 +195,6 @@ package main
 			obj.offset = new FlxPoint(0, -StaticVars.bombOffSet);
 			obj.velocity.y = speed;
 			_bombs.add(obj);
-		}
-		
-		protected function overlapObjBucket(but:Bucket, obj:FallingObj):void {
-			obj.kill();
-			this.score += 1;	
 		}
 	}
 }

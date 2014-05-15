@@ -15,6 +15,7 @@ package main
 	public class LevelState extends FlxState
 	{
 		[Embed(source = '../../img/lock.png')] private var lock:Class;
+		[Embed(source = '../../img/star.png')] private var star:Class;
 		
 		private var level1:FlxText;
 		private var level2:FlxText;
@@ -36,13 +37,14 @@ package main
 		private var currState:int;
 		private var currTheme:int;
 		private var yPos:int;
+		private var themeArr:Array;
 		
 		public function LevelState(theme:int): void {
 			super();
 			yPos = 60;
 			currState = 1;
-			//unlockLevel = level;
 			currTheme = theme;
+			getArray();
 		}
 		
 		override public function create(): void {
@@ -57,11 +59,16 @@ package main
 			currText.color = StaticVars.RED;
 			add(currText);
 			
+			if (themeArr[0] as Boolean) {
+				addStar();
+			}
 			level2 = createText(yPos += 40, "Level 2")
 			add(level2);
 			
 			if (State.unlockLevel < 2) {
 				addLock();
+			} else if (themeArr[1] as Boolean) {
+				addStar();
 			}
 			
 			level3 = createText(yPos += 40, "Level 3")
@@ -69,6 +76,8 @@ package main
 			
 			if (State.unlockLevel < 3) {
 				addLock();
+			} else if (themeArr[2] as Boolean) {
+				addStar();
 			}
 			
 			level4 = createText(yPos += 40, "Level 4")
@@ -76,6 +85,8 @@ package main
 			
 			if (State.unlockLevel < 4) {
 				addLock();
+			} else if (themeArr[3] as Boolean) {
+				addStar();
 			}
 			
 			level5 = createText(yPos += 40, "Level 5")
@@ -83,13 +94,26 @@ package main
 			
 			if (State.unlockLevel < 5) {
 				addLock();
+			} else if (themeArr[4] as Boolean) {
+				addStar();
 			}
 			
-			level6 = createText(yPos += 40, "Level 6")
+			level6 = createText(yPos += 40, "Bonus")
 			add(level6);
+			
+			// todo
+			//for (var i:int = 0; i < themeArr.length - 1; i++) {
+			//	if (!themeArr[i]) {
+			//		addLock();
+			//		break;
+			//	}
+			//}
+			
 			
 			if (State.unlockLevel < 6) {
 				addLock();
+			} else if (themeArr[5] as Boolean) {
+				addStar();
 			}
 			
 			add(instr("Press ENTER to start"));
@@ -101,12 +125,41 @@ package main
 				recycleInstr.setFormat(null, 16, StaticVars.BLACK, "center");
 				add(recycleInstr);
 			}
+			
+			if (currTheme == StaticVars.A_THEME) {
+				var shoot:FlxText = new FlxText(0, yPos += 60, FlxG.width, "Space bar to fire in Level 5 and 6");
+				shoot.setFormat(null, 16, StaticVars.BLACK, "center");
+				add(shoot);
+			}
+		}
+		
+		private function getArray():void {
+			switch (currTheme) {
+				case 1:
+					themeArr = State.theme1;
+					break;
+				case 2:
+					themeArr = State.theme2;
+					break;
+				case 3:
+					themeArr = State.theme3;
+					break;
+				case 4:
+					themeArr = State.theme4;
+					break;
+			}
 		}
 		
 		private function addLock():void {
 			var locks:FlxSprite = new FlxSprite(370, yPos - 5);
 			locks.loadGraphic(lock, true, true, 30, 30);
 			add(locks);
+		}
+		
+		private function addStar():void {
+			var starIcon:FlxSprite = new FlxSprite(370, yPos - 3);
+			starIcon.loadGraphic(star, true, true, 24, 24);
+			add(starIcon);
 		}
 		
 		private function createText(y:int, theme:String):FlxText {
@@ -191,13 +244,13 @@ package main
 						FlxG.switchState(new ALevel3());
 						break;
 					case 4:
-						FlxG.switchState(new ALevel3()); // TODO
+						FlxG.switchState(new ALevel4()); 
 						break;
 					case 5:
-						FlxG.switchState(new ALevel3()); // TODO
+						FlxG.switchState(new ALevel5()); 
 						break;
 					case 6:
-						FlxG.switchState(new ALevel3()); // TODO
+						FlxG.switchState(new ALevel6()); 
 						break;
 			}
 		}

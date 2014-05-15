@@ -54,10 +54,10 @@ package c_fog_theme
 				lane = genLane(lane);
 				if (oneOf(StaticVars.a3BombRate)) 
 				{
-					fallBomb();
+					//fallBomb();
 				}
 				else {
-					fallObject();
+					//fallObject();
 				}			
 			}
 			super.update();
@@ -71,7 +71,7 @@ package c_fog_theme
 			}
 		}
 		
-		private function fallObject():void {
+		/*private function fallObject():void {
 			var obj:FallingObj = new FallingObj(lane, 0);
 			_fallObj.add(obj);
 		}
@@ -85,7 +85,7 @@ package c_fog_theme
 		private function overlapObjBucket(but:Bucket, obj:FallingObj):void {
 			obj.kill();
 			this.score += 1;	
-		}
+		}*/
 		
 		private function overlapBombBucket(but:Bucket, b:Bomb):void {
 			if (!b.killed) {

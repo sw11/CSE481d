@@ -7,6 +7,7 @@ package fall_object
 	 */
 	public class Bomb extends FlxSprite
 	{
+		
 		/*Check if kill has already been called on this object*/
 		public var killed : Boolean;
 		[Embed(source = '../../img/bombWithExp.png')] private var bomb:Class;

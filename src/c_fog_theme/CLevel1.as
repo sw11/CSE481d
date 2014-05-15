@@ -57,7 +57,7 @@ package c_fog_theme
 			if (genRandom(StaticVars.a1Interval)) 
 			{
 				lane = genLane(lane);
-				fallObject(lane);
+				//fallObject(lane);
 			}
 			super.update();
 			
@@ -75,7 +75,7 @@ package c_fog_theme
 		
 		
 		
-		private function fallObject(prevLane:int):void {
+		/*private function fallObject(prevLane:int):void {
 			// x should be random
 			var obj:FallingObj = new FallingObj(prevLane, 0);
 			_fallObj.add(obj);
@@ -84,6 +84,6 @@ package c_fog_theme
 		private function overlapObjBucket(but:Bucket, obj:FallingObj):void {
 			obj.kill();
 			this.score += 1;	
-		}
+		}*/
 	}
 }

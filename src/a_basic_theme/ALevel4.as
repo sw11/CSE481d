@@ -1,7 +1,6 @@
 package a_basic_theme 
 {
 	import org.flixel.*;
-	import org.flixel.plugin.photonstorm.FlxDelay;
 	import utility.StaticVars;
 	import main.*;
 	import fall_object.*;
@@ -10,20 +9,22 @@ package a_basic_theme
 	 * ...
 	 * @author Sam Wilson
 	 */
-	public class ALevel1 extends PlayState {	
-		[Embed(source = '../../img/wooden_bucket.png')] private var bucketImg:Class;
+	public class ALevel4 extends PlayState { 
+	 	[Embed(source = '../../img/wooden_bucket.png')] private var bucketImg:Class;
 		
 		private var bucket: Bucket;
 		
-		public function ALevel1():void {
-			maxScore = StaticVars.a1MaxScore;
+		public function ALevel4():void {
+			maxScore = StaticVars.a4MaxScore;
 			super(StaticVars.aTime);	
 			
 			passScore = maxScore * StaticVars.aPass;
 			currectTheme = StaticVars.A_THEME;
-			level = 1;
+			level = 4;
 			_fallObj = new FlxGroup();
-			add(_fallObj);	
+			add(_fallObj);
+			_bombs = new FlxGroup();
+			add(_bombs);
 			StaticVars.logger.logLevelStart(level, null);
 		}
 	
@@ -37,22 +38,34 @@ package a_basic_theme
 		{	
 			isMaxScore = score >= maxScore;
 			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
+			FlxG.overlap(bucket, _bombs, overlapBombBucket);
 			
-			if (genRandom(StaticVars.a1Interval) && !isMaxScore && !timer.hasExpired) 
+			if (genRandom(StaticVars.a4Interval)  && !isMaxScore && !timer.hasExpired) 
 			{
 				lane = genLane(lane);
-				fallObject(StaticVars.yOffset, StaticVars.fallSpeedSlow);
+				if (oneOf(StaticVars.a4BombRate) && _bombs.countLiving() < 5) 
+				{
+					fallBomb(randNum(-StaticVars.yOffset) - StaticVars.yOffset, randNum(StaticVars.fallSpeedFast) + StaticVars.speedOffset);
+				}
+				else {
+					fallObject(StaticVars.yOffset, StaticVars.fallSpeedMid);
+				}		
 				isStart = true;
 			}
 			super.update();
-
-			if (_fallObj.countLiving() == 0 && isStart) {
+			
+			if (_fallObj.countLiving() == 0 && _bombs.countLiving() == 0 && isStart) {
 				bonus = Math.max(0, timer.secondsRemaining);
 				//log info about score and miss count	
 				var data:Object = {"finalScore":score, "misses":miss};
 				StaticVars.logger.logLevelEnd(data);
-				endGame(1);
+				endGame(4);
 			}
+		}
+		
+		private function overlapBombBucket(but:Bucket, b:Bomb):void {
+			b.kill();
+			this.score -= StaticVars.a4BombScore;	
 		}
 	}
 }

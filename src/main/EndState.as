@@ -10,20 +10,28 @@ package main
 	 */
 	public class EndState extends FlxState
 	{
+		[Embed(source = '../../img/star.png')] private var star:Class;
 		//public var nextStage : Number;
 		private var result:String;
 		private var score:int;
 		private var miss:int;
+		private var bonus:int;
+		private var perfect:Number;
+		private var theme:int;
+		private var level:int;
 		private var yPos:int;
 		
 		
-		public function EndState(result:String, score:int, miss:int): void {
+		public function EndState(result:String, score:int, miss:int, bonus:int, perfect:Number, theme:int, level:int): void {
 			super();
 			this.result = result;
 			this.score = score;
 			this.miss = miss;
+			this.bonus = bonus
+			this.perfect = perfect;
+			this.theme = theme;
+			this.level = level;
 			yPos = 100;
-			//State.unlockLevel = level;
 		}
 		
 		override public function create(): void {
@@ -36,15 +44,22 @@ package main
 			addText("Score: " + score);
 			
 			addText("Miss: " + miss);
+			
+			addText("Time bonus: " + bonus);
+			
+			var total:int = score + bonus;
+			addText("Total score: " + total);
+			//trace(perfect);
+			if (total >= perfect) {
+				var starIcon:FlxSprite = new FlxSprite(420, yPos - 4);
+				starIcon.loadGraphic(star, true, true, 24, 24);
+				add(starIcon);
+				updateStar();
+			}
 			// todo
 			// add score summary points
 			addText("Press ENTER to continue");
 			
-			/*var instruction:FlxText;
-			instruction = new FlxText(0, 100, FlxG.width, "Press ENTER to continue");
-			instruction.setFormat(null, 16, StaticVars.BLACK, "center");
-			add(instruction);
-			*/
 		}
 		
 		private function addText(str:String):void {
@@ -57,19 +72,24 @@ package main
 		override public function update():void {
 			super.update();
 			if (FlxG.keys.justPressed("ENTER")) {
-				/*var currTheme:int = State.unlockTheme;
-				if (State.unlockLevel == 7) {
-					if (State.unlockTheme + 1 == 5) {
-						State.unlockTheme = 4;
-					} else {
-						State.unlockTheme ++;
-					}
-					State.unlockLevel = 1;
-				} else {
-					State.unlockLevel ++;
-				}*/
-				FlxG.switchState(new LevelState(State.unlockTheme));
-				///LostState.changeState(nextStage);
+				FlxG.switchState(new LevelState(theme));
+			}
+		}
+		
+		private function updateStar():void {
+			switch(theme) {
+				case 1:
+					State.theme1[level - 1] = true;
+					break;
+				case 2:
+					State.theme2[level - 1] = true;
+					break;
+				case 3:
+					State.theme3[level - 1] = true;
+					break;
+				case 4:
+					State.theme4[level - 1] = true;
+					break;
 			}
 		}
 	}
