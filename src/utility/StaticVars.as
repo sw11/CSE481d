@@ -24,6 +24,7 @@ package utility
 		public static const WHITE:int = 0xffffff;
 		public static const BLACK:int = 0x11111111;
 		public static const RED:int = 0xFFFF0000;
+		public static const INVISIBLE:int = 0x00FFFFFF;
 		
 		public static const SETTING_BUTTON_X:int = 15;
 		public static const SETTING_BUTTON_Y:int = 15;

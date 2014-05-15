@@ -27,7 +27,7 @@ package main
 		private var max_time: Number;
 		public var timer : FlxDelay;
 		
-		private var settingButton: SettingButton;
+		//private var settingButton: SettingButton;
 		
 		private var counter:int;
 		private var maxCount:int;
@@ -36,7 +36,9 @@ package main
 		
 		protected var remainingTimeDisplay:FlxText;
 		
+		// the current theme 
 		protected var currectTheme:int;
+		// the current level
 		protected var level:int;
 		
 		protected var killBar:FlxSprite;
@@ -55,13 +57,14 @@ package main
 			super();
 			resetCount(StaticVars.a1Interval);
 			missCount = 0;
+			score = 0;
 			this.max_time = max_time;
 			timer = new FlxDelay(max_time);
 			timer.start();
 		}
 				
 		override public function create():void {
-			score = 0;
+			
 			//set backgroud color
 			FlxG.bgColor = 0xeeeeeeee;
 			
@@ -81,7 +84,7 @@ package main
 			//add(settingButton);		
 			
 			killBar = new FlxSprite(130, 600);
-			killBar.makeGraphic(500, 5, 0x00FFFFFF);
+			killBar.makeGraphic(500, 5, StaticVars.INVISIBLE);
 			add(killBar);
 			
 			remainingTimeDisplay = new FlxText(0, 16, FlxG.width, ""+timer.secondsRemaining);
@@ -92,6 +95,7 @@ package main
 		override public function update():void {
 			FlxG.overlap(killBar, _fallObj, overlapKillBarObj);
 			FlxG.overlap(killBar, _bombs, overlapKillBarBomb);
+			
 			if (FlxG.keys.justPressed("ESCAPE")) {
 				FlxG.switchState(new ThemeState());
 			}
@@ -137,17 +141,9 @@ package main
 		
 		protected function endGame(level:int): void {
 			if (score >= passScore) {
-				//var state:WinState = ;
-				//State.unlockLevel ++;
-				/*if (State.unlockLevel == 7) {
-					State.unlockTheme ++;
-					
-					State.unlockLevel = 1;
-				} */
 				State.nextLevel();
 				FlxG.switchState(new EndState("WIN", score, miss));
 			} else {
-				
 				FlxG.switchState(new EndState("LOSE", score, miss));	
 			}
 		}
