@@ -14,9 +14,6 @@ package a_basic_theme
 		
 		private var bucket: Bucket;
 		
-		//private var _fallObj: FlxGroup;
-		//private var _bombs: FlxGroup;
-		
 		public function ALevel3():void {
 			maxScore = StaticVars.a3MaxScore;
 			super(StaticVars.aTime);	

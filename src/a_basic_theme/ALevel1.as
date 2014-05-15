@@ -15,10 +15,6 @@ package a_basic_theme
 		
 		private var bucket: Bucket;
 		
-		//private var _fallObj: FlxGroup;
-		
-		//private var remainingTimeDisplay:FlxText;
-		
 		public function ALevel1():void {
 			maxScore = StaticVars.a1MaxScore;
 			super(StaticVars.aTime);	
