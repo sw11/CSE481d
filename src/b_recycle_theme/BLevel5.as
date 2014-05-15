@@ -22,7 +22,7 @@ package b_recycle_theme
 			
 			passScore = maxScore * StaticVars.bPass;
 			currectTheme = StaticVars.B_THEME;
-			level = 2;
+			level = 5;
 			_recycables = new FlxGroup();
 			add(_recycables);
 			
@@ -31,6 +31,8 @@ package b_recycle_theme
 			
 			_compost = new FlxGroup();
 			add(_compost);
+			
+			StaticVars.logger.logLevelStart(level, null);
 		}
 	
 		override public function create(): void {
@@ -65,6 +67,9 @@ package b_recycle_theme
 			super.update();
 			
 			if (timer.hasExpired) {
+				//log info about score and miss count	
+				var data:Object = {"finalScore":score, "misses":miss};
+				StaticVars.logger.logLevelEnd(data);
 				// time has run out, check if user has won	
 				endGame(5);
 			}

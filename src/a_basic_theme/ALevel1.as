@@ -24,7 +24,7 @@ package a_basic_theme
 			level = 1;
 			_fallObj = new FlxGroup();
 			add(_fallObj);	
-			StaticVars.logger.logLevelStart(1, null);
+			StaticVars.logger.logLevelStart(level, null);
 		}
 	
 		override public function create(): void {

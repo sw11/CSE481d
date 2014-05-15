@@ -28,12 +28,14 @@ package c_fog_theme
 			
 			passScore = maxScore * StaticVars.aPass;
 			currectTheme = StaticVars.C_THEME;
-			level = 1;
+			level = 7;
 			_fallObj = new FlxGroup();
 			add(_fallObj);	
 			fog = new FlxSprite(130, 200, fogImg);
 			fog.alpha = 1;
 			add(fog);
+			
+			StaticVars.logger.logLevelStart(level, null);
 		}
 	
 		override public function create(): void {
@@ -60,6 +62,9 @@ package c_fog_theme
 			super.update();
 			
 			if (timer.hasExpired) {
+				//log info about score and miss count	
+				var data:Object = {"finalScore":score, "misses":miss};
+				StaticVars.logger.logLevelEnd(data);
 				// time has run out, check if user has won	
 				endGame(7);
 			}

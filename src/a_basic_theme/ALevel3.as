@@ -25,6 +25,7 @@ package a_basic_theme
 			add(_fallObj);
 			_bombs = new FlxGroup();
 			add(_bombs);
+			StaticVars.logger.logLevelStart(level, null);
 		}
 	
 		override public function create(): void {
@@ -51,6 +52,9 @@ package a_basic_theme
 			super.update();
 			
 			if (timer.hasExpired) {
+				//log info about score and miss count	
+				var data:Object = {"finalScore":score, "misses":miss};
+				StaticVars.logger.logLevelEnd(data);
 				// time has run out, check if user has won	
 				endGame(3);
 			}
