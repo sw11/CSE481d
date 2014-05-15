@@ -98,8 +98,17 @@ package main
 				addStar();
 			}
 			
-			level6 = createText(yPos += 40, "Level 6")
+			level6 = createText(yPos += 40, "Bonus")
 			add(level6);
+			
+			// todo
+			//for (var i:int = 0; i < themeArr.length - 1; i++) {
+			//	if (!themeArr[i]) {
+			//		addLock();
+			//		break;
+			//	}
+			//}
+			
 			
 			if (State.unlockLevel < 6) {
 				addLock();
