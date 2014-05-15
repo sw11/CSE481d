@@ -7,7 +7,7 @@ package fall_object
 	 */
 	public class Ammos extends FlxSprite
 	{
-		[Embed(source = '../../img/Ammo.png')] private var ammo:Class;
+		[Embed(source = '../../img/Ammo.png')] private static var ammo:Class;
 		
 		public function Ammos(x:Number, y:Number)  
 		{
