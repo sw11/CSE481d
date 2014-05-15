@@ -11,14 +11,13 @@ package b_recycle_theme
 	 * @author Sam Wilson
 	 */
 	public class BLevel1 extends PlayState {	
-		[Embed(source = '../../img/wooden_bucket.png')] private var bucketImg:Class;
+		[Embed(source = '../../img/wooden_bucket.png')] private static var bucketImg:Class;
 		[Embed(source = '../../img/fog_3.png')] private var fogImg:Class;
 		
 		private var bucket: Bucket;
 		private var fog:FlxSprite;
 		
 		private var fogSpeedCount:int;
-		
 		
 		public function BLevel1():void {
 			maxScore = StaticVars.b1MaxScore;
@@ -29,6 +28,8 @@ package b_recycle_theme
 			level = 1;
 			_fallObj = new FlxGroup();
 			add(_fallObj);	
+			_bombs = new FlxGroup();
+			add(_bombs);
 			StaticVars.logger.logLevelStart(level, null);
 		}
 	
@@ -47,11 +48,18 @@ package b_recycle_theme
 		{	
 			isMaxScore = score >= maxScore;
 			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
+			FlxG.overlap(bucket, _bombs, overlapBombBucket);
 			
-			if (genRandom(StaticVars.a1Interval) && !isMaxScore && !timer.hasExpired) 
+			if (genRandom(StaticVars.b1Interval) && !isMaxScore && !timer.hasExpired) 
 			{
 				lane = genLane(lane);
-				fallObject(StaticVars.yOffset, StaticVars.fallSpeedSlow);
+				if (oneOf(StaticVars.b1BombRate)) 
+				{
+					fallBomb(StaticVars.yOffset, StaticVars.fallSpeedSlow);
+				}
+				else {
+					fallObject(StaticVars.yOffset, StaticVars.fallSpeedSlow);
+				}	
 				isStart = true;
 			}
 			super.update();
@@ -61,7 +69,7 @@ package b_recycle_theme
 				fogSpeedCount = 0;
 			}
 			
-			if (_fallObj.countLiving() <= 0 && isStart) {
+			if (_fallObj.countLiving() <= 0 && _bombs.countLiving() <= 0 && isStart) {
 				bonus = Math.max(0, timer.secondsRemaining);
 				//log info about score and miss count	
 				var data:Object = {"finalScore":score, "misses":miss};

@@ -100,9 +100,11 @@ package utility
 		// level 1
 		public static const b1MaxScore:int = 25;
 		public static const b1Interval:int = 35;
+		public static const b1BombRate:int = 10;
 		// level 2
 		public static const b2MaxScore:int = 50;
 		public static const b2Interval:int = 30;
+		
 		// level 3
 		public static const b3MaxScore:int = 60;
 		public static const b3Interval:int = 20;

@@ -14,8 +14,7 @@ package fall_object
 			super(x, y);
 			loadGraphic(ammo, true, true, 25, 55);
 			velocity.y = -250; // move down velocity
-		}
-		
+		}		
 	}
 
 }

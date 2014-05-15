@@ -13,7 +13,7 @@ package main
 	 * @author Sam Wilson
 	 */
 	public class PlayState extends FlxState {
-		[Embed(source = '../../img/settings.png')] private var setting:Class;
+		//[Embed(source = '../../img/settings.png')] private var setting:Class;
 		/** Keep track of current score*/
 		public var score: Number;
 		public var miss:int;
