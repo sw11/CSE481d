@@ -61,8 +61,10 @@ package d_bomb_theme
 		}
 		
 		private function overlapBombBucket(but:Bucket, b:Bomb):void {
-			b.kill();
-			this.score -= 1;	
+			if (!b.killed) {
+				b.kill();
+				this.score -= 1;	
+			}
 		}
 	}
 }

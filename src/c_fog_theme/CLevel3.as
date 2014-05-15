@@ -88,8 +88,10 @@ package c_fog_theme
 		}
 		
 		private function overlapBombBucket(but:Bucket, b:Bomb):void {
-			b.kill();
-			this.score -= StaticVars.a3BombRate;	
+			if (!b.killed) {
+				b.kill();
+				this.score -= StaticVars.a3BombRate;	
+			}
 		}
 	}
 }
