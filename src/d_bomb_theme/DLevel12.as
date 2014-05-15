@@ -9,7 +9,7 @@ package d_bomb_theme
 	 * ...
 	 * @author Sam Wilson
 	 */
-	public class DLevel12 extends PlayState { 
+	public class DLevel12 extends DPlayState { 
 	 	[Embed(source = '../../img/wooden_bucket.png')] private var bucketImg:Class;
 		
 		private var bucket: Bucket;

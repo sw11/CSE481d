@@ -1,6 +1,6 @@
 package b_recycle_theme 
 {
-	import main.PlayState;
+	import main.*;
 	import org.flixel.*;
 	import utility.StaticVars;
 
@@ -8,9 +8,9 @@ package b_recycle_theme
 	 * ...
 	 * @author Sam Wilson
 	 */
-	public class BLevel6 extends PlayState
+	public class BLevel6 extends BPlayState
 	{
-		private var bucket: MultiBucket;
+		//private var bucket: MultiBucket;
 		
 		private var _recycables: FlxGroup;
 		private var _trash: FlxGroup;
@@ -37,7 +37,7 @@ package b_recycle_theme
 	
 		override public function create(): void {
 			super.create();
-			bucket = new MultiBucket(130, 525);
+			//bucket = new MultiBucket(130, 525);
 			add(bucket);
 		}
 		

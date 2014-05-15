@@ -10,14 +10,7 @@ package b_recycle_theme
 	 * ...
 	 * @author Sam Wilson
 	 */
-	public class BLevel1 extends PlayState {	
-		[Embed(source = '../../img/wooden_bucket.png')] private static var bucketImg:Class;
-		[Embed(source = '../../img/fog_3.png')] private var fogImg:Class;
-		
-		private var bucket: Bucket;
-		private var fog:FlxSprite;
-		
-		private var fogSpeedCount:int;
+	public class BLevel1 extends BPlayState {	
 		
 		public function BLevel1():void {
 			maxScore = StaticVars.b1MaxScore;

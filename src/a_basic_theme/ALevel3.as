@@ -9,7 +9,7 @@ package a_basic_theme
 	 * ...
 	 * @author Sam Wilson
 	 */
-	public class ALevel3 extends PlayState { 
+	public class ALevel3 extends APlayState { 
 	 	[Embed(source = '../../img/wooden_bucket.png')] private var bucketImg:Class;
 		
 		private var bucket: Bucket;

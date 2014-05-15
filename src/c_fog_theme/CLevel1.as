@@ -10,7 +10,7 @@ package c_fog_theme
 	 * ...
 	 * @author Sam Wilson
 	 */
-	public class CLevel1 extends PlayState {	
+	public class CLevel1 extends CPlayState {	
 		[Embed(source = '../../img/wooden_bucket.png')] private var bucketImg:Class;
 		
 		private var bucket: Bucket;

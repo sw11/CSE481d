@@ -1,4 +1,4 @@
-package main 
+package b_recycle_theme 
 {
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.FlxBar;
@@ -6,14 +6,21 @@ package main
 	import utility.*;
 	import a_basic_theme.*;
 	import fall_object.*;
+	import main.*;
 	
 	/**
 	 * Default class for each level, holding common aspects such as timer and score
 	 * 
 	 * @author Sam Wilson
 	 */
-	public class PlayState extends FlxState {
+	public class BPlayState extends FlxState {
+		[Embed(source = '../../img/wooden_bucket.png')] protected static var bucketImg:Class;
+		[Embed(source = '../../img/fog_3.png')] protected static var fogImg:Class;
+		
+		protected var bucket: Bucket;
 		//[Embed(source = '../../img/settings.png')] private var setting:Class;
+		protected var fog:FlxSprite;	
+		protected var fogSpeedCount:int;
 		/** Keep track of current score*/
 		public var score: Number;
 		public var miss:int;
@@ -61,7 +68,7 @@ package main
 		 * @param	max_score define the max score for the score bar
 		 * @param max_time define the max time of a level in ms
 		 */
-		public function PlayState(max_time:Number): void {
+		public function BPlayState(max_time:Number): void {
 			super();
 			resetCount(StaticVars.a1Interval);
 			missCount = 0;
