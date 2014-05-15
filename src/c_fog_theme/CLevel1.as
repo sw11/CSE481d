@@ -57,7 +57,7 @@ package c_fog_theme
 			if (genRandom(StaticVars.a1Interval)) 
 			{
 				lane = genLane(lane);
-				//fallObject(lane);
+				fallObject(StaticVars.yOffset, StaticVars.fallSpeedSlow);
 			}
 			super.update();
 			
@@ -66,7 +66,7 @@ package c_fog_theme
 				var data:Object = {"finalScore":score, "misses":miss};
 				StaticVars.logger.logLevelEnd(data);
 				// time has run out, check if user has won	
-				endGame(7);
+				endGame(1);
 			}
 			
 			//remainingTimeDisplay.text = "" + timer.secondsRemaining;
