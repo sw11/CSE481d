@@ -25,6 +25,7 @@ package a_basic_theme
 			passScore = maxScore * StaticVars.aPass;
 			currectTheme = StaticVars.A_THEME;
 			level = 5;
+			bombScore = StaticVars.a5BombScore;
 			_fallObj = new FlxGroup();
 			add(_fallObj);
 			_bombs = new FlxGroup();
@@ -82,13 +83,13 @@ package a_basic_theme
 				endGame(5);
 			}
 		}
-		
+		/*
 		private function overlapBombBucket(but:Bucket, b:Bomb):void {
 			if (!b.isKill()) {
 				b.kill();
 				this.score -= StaticVars.a5BombScore;
 			}
-		}
+		}*/
 		
 		private function fireAmmo(xPos:int):void {
 			ammo -= 1;

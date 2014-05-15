@@ -62,12 +62,12 @@ package d_bomb_theme
 			var obj:Bomb = new Bomb(lane, 0);
 			_bombs.add(obj);
 		}*/
-		
+		/*
 		private function overlapBombBucket(but:Bucket, b:Bomb):void {
 			if (!b.killed) {
 				b.kill();
 				this.score -= 1;
 			}
-		}
+		}*/
 	}
 }

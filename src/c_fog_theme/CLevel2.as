@@ -86,13 +86,13 @@ package c_fog_theme
 		private function overlapObjBucket(but:Bucket, obj:FallingObj):void {
 			obj.kill();
 			this.score += 1;	
-		}*/
+		}
 		
 		private function overlapBombBucket(but:Bucket, b:Bomb):void {
 			if (!b.killed) {
 				b.kill();
 				this.score -= 1;	
 			}
-		}
+		}*/
 	}
 }

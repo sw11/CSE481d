@@ -17,7 +17,7 @@ package a_basic_theme
 		public function ALevel3():void {
 			maxScore = StaticVars.a3MaxScore;
 			super(StaticVars.aTime);	
-			
+			bombScore = StaticVars.a3BombScore;
 			passScore = maxScore * StaticVars.aPass;
 			currectTheme = StaticVars.A_THEME;
 			level = 3;
@@ -62,12 +62,12 @@ package a_basic_theme
 				endGame(3);
 			}
 		}
-		
+		/*
 		private function overlapBombBucket(but:Bucket, b:Bomb):void {
 			if (!b.killed) {
 				b.kill();
 				this.score -= StaticVars.a3BombScore;
 			}
-		}
+		}*/
 	}
 }

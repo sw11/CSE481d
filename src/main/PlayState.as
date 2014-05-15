@@ -53,6 +53,8 @@ package main
 		protected var bonus:int;
 		protected var isStart:Boolean;
 		
+		protected var bombScore:int;
+		
 		/**
 		 * contructor of PlayState
 		 * 
@@ -210,6 +212,14 @@ package main
 			obj.kill();
 			but.play("green", false);
 			this.score += 1;	
+		}
+		
+		protected function overlapBombBucket(but:Bucket, b:Bomb):void {
+			if (!b.killed) {
+				b.kill();
+				but.play("red", false);
+				this.score -= bombScore;
+			}
 		}
 	}
 }
