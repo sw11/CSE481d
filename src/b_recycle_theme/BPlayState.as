@@ -45,7 +45,7 @@ package b_recycle_theme
 		//private var isDisplay:Boolean;
 		
 		// the current theme 
-		protected var currectTheme:int;
+		///protected var currectTheme:int;
 		// the current level that show on the screen
 		protected var level:int;
 		
@@ -73,6 +73,13 @@ package b_recycle_theme
 			resetCount(StaticVars.a1Interval);
 			missCount = 0;
 			score = 0;
+			
+			_fallObj = new FlxGroup();
+			add(_fallObj);	
+			_bombs = new FlxGroup();
+			add(_bombs);
+			StaticVars.logger.logLevelStart(level, null);
+			
 			this.max_time = max_time;
 			timer = new FlxDelay(max_time);
 			timer.start();
@@ -91,7 +98,7 @@ package b_recycle_theme
 			add(scoreBar);
 			
 			var levelInstr2:FlxText;
-			levelInstr2 = new FlxText(0, 16, FlxG.width, currectTheme + " theme\nLevel " + level + "\nEsc to main menu");
+			levelInstr2 = new FlxText(0, 16, FlxG.width, StaticVars.B_THEME + " theme\nLevel " + level + "\nEsc to main menu");
 			levelInstr2.setFormat(null, 11, StaticVars.BLACK, "left");
 			add(levelInstr2);
 			
@@ -142,6 +149,14 @@ package b_recycle_theme
 			} else {
 				scoreBar.color = StaticVars.BLACK; // todo , change this color
 			}
+			
+			if (_fallObj.countLiving() <= 0 && _bombs.countLiving() <= 0 && isStart) {
+				bonus = Math.max(0, timer.secondsRemaining);
+				//log info about score and miss count	
+				var data:Object = {"finalScore":score, "misses":miss};
+				StaticVars.logger.logLevelEnd(data);
+				endGame(level);
+			}
 		}
 		
 		protected function checkScore():void {
@@ -178,13 +193,13 @@ package b_recycle_theme
 		protected function endGame(level:int): void {
 			//var perfect:Number = maxScore * StaticVars.aPerf;
 			if (score >= passScore) {
-				trace("in end game() theme " + currectTheme + " level " + level);
-				if (currectTheme == State.unlockTheme && level == State.unlockLevel) {
+				//trace("in end game() theme " + StaticVars.B_THEME + " level " + level);
+				if (level == State.unlockLevel) {
 					State.nextLevel();
 				}
-				FlxG.switchState(new EndState("WIN", score, miss, bonus, maxScore, currectTheme, level));
+				FlxG.switchState(new EndState("WIN", score, miss, bonus, maxScore, StaticVars.B_THEME, level));
 			} else {
-				FlxG.switchState(new EndState("LOSE", score, miss, bonus, maxScore, currectTheme, level));	
+				FlxG.switchState(new EndState("LOSE", score, miss, bonus, maxScore, StaticVars.B_THEME, level));	
 			}
 		}
 		

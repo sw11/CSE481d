@@ -268,19 +268,19 @@ package main
 						FlxG.switchState(new BLevel1());
 						break;
 					case 2:
-						FlxG.switchState(new BLevel5());
+						FlxG.switchState(new BLevel1());
 						break;
 					case 3:
-						FlxG.switchState(new BLevel6());
+						FlxG.switchState(new BLevel1());
 						break;
 					case 4:
-						FlxG.switchState(new BLevel6()); // TODO
+						FlxG.switchState(new BLevel1()); // TODO
 						break;
 					case 5:
-						FlxG.switchState(new BLevel6()); // TODO
+						FlxG.switchState(new BLevel1()); // TODO
 						break;
 					case 6:
-						FlxG.switchState(new BLevel6()); // TODO
+						FlxG.switchState(new BLevel1()); // TODO
 						break;
 			}
 		}

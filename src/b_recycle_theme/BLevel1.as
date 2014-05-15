@@ -14,16 +14,9 @@ package b_recycle_theme
 		
 		public function BLevel1():void {
 			maxScore = StaticVars.b1MaxScore;
-			super(StaticVars.bTime);	
-			
-			passScore = maxScore * StaticVars.bPass;
-			currectTheme = StaticVars.B_THEME;
 			level = 1;
-			_fallObj = new FlxGroup();
-			add(_fallObj);	
-			_bombs = new FlxGroup();
-			add(_bombs);
-			StaticVars.logger.logLevelStart(level, null);
+			passScore = maxScore * StaticVars.bPass;
+			super(StaticVars.bTime);	
 		}
 	
 		override public function create(): void {
@@ -61,14 +54,14 @@ package b_recycle_theme
 				fog.velocity.y =  -fog.velocity.y;
 				fogSpeedCount = 0;
 			}
-			
+			/*
 			if (_fallObj.countLiving() <= 0 && _bombs.countLiving() <= 0 && isStart) {
 				bonus = Math.max(0, timer.secondsRemaining);
 				//log info about score and miss count	
 				var data:Object = {"finalScore":score, "misses":miss};
 				StaticVars.logger.logLevelEnd(data);
 				endGame(1);
-			}
+			}*/
 		}
 	}
 }
