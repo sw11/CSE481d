@@ -48,7 +48,7 @@ package utility
 		
 		// bucket
 		public static const bucket_x:int = 130;
-		public static const bucket_y:int = 525;
+		public static const bucket_y:int = 575;
 		public static var speed:int = 450;
 		// bomb
 		public static const bombOffSet:int = 25;

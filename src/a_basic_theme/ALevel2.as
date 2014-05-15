@@ -66,6 +66,7 @@ package a_basic_theme
 		private function overlapBombBucket(but:Bucket, b:Bomb):void {
 			if (!b.killed) {
 				b.kill();
+				but.play("red", false);
 				this.score -= 1;
 			}
 		}

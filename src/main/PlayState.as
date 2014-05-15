@@ -208,6 +208,7 @@ package main
 		
 		protected function overlapObjBucket(but:Bucket, obj:FallingObj):void {
 			obj.kill();
+			but.play("green", false);
 			this.score += 1;	
 		}
 	}
