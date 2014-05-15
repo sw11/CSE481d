@@ -1,6 +1,7 @@
 package main 
 {
 	import org.flixel.*;
+	import utility.*;
 	/**
 	 * ...
 	 * @author Adrian
@@ -24,9 +25,9 @@ package main
 			super.update();
 			
 			if (FlxG.keys.LEFT && x > 130){
-				velocity.x = -_move_speed ;
+				velocity.x = -StaticVars.speed;
 			} else if (FlxG.keys.RIGHT && x < 540) {
-				velocity.x = _move_speed ;
+				velocity.x = StaticVars.speed;
 			} else {
 				velocity.x = 0;
 			}	

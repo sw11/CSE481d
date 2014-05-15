@@ -7,7 +7,7 @@ package fall_object
 	 */
 	public class Bomb extends FlxSprite
 	{
-		[Embed(source = '../../img/bomb.png')] private var bomb:Class;
+		[Embed(source = '../../img/bomb_2.png')] private var bomb:Class;
 		public function Bomb(x:Number, y:Number) 
 		{
 			super(x, y);

@@ -9,18 +9,18 @@ package a_basic_theme
 	 * ...
 	 * @author Sam Wilson
 	 */
-	public class ALevel3 extends PlayState { 
+	public class ALevel4 extends PlayState { 
 	 	[Embed(source = '../../img/wooden_bucket.png')] private var bucketImg:Class;
 		
 		private var bucket: Bucket;
 		
-		public function ALevel3():void {
-			maxScore = StaticVars.a3MaxScore;
+		public function ALevel4():void {
+			maxScore = StaticVars.a4MaxScore;
 			super(StaticVars.aTime);	
 			
 			passScore = maxScore * StaticVars.aPass;
 			currectTheme = StaticVars.A_THEME;
-			level = 3;
+			level = 4;
 			_fallObj = new FlxGroup();
 			add(_fallObj);
 			_bombs = new FlxGroup();
@@ -39,15 +39,15 @@ package a_basic_theme
 			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
 			FlxG.overlap(bucket, _bombs, overlapBombBucket);
 			
-			if (genRandom(StaticVars.a3Interval)  && !isMaxScore && !timer.hasExpired) 
+			if (genRandom(StaticVars.a4Interval)  && !isMaxScore && !timer.hasExpired) 
 			{
 				lane = genLane(lane);
-				if (oneOf(StaticVars.a3BombRate)) 
+				if (oneOf(StaticVars.a4BombRate) && _bombs.countLiving() < 5) 
 				{
-					fallBomb(randNum(-StaticVars.yOffset) - StaticVars.yOffset, randNum(StaticVars.fallSpeedMid) + StaticVars.speedOffset);
+					fallBomb(randNum(-StaticVars.yOffset) - StaticVars.yOffset, randNum(StaticVars.fallSpeedFast) + StaticVars.speedOffset);
 				}
 				else {
-					fallObject(StaticVars.yOffset, StaticVars.fallSpeedSlow);
+					fallObject(StaticVars.yOffset, StaticVars.fallSpeedMid);
 				}		
 				isStart = true;
 			}
@@ -55,13 +55,13 @@ package a_basic_theme
 			
 			if (_fallObj.countLiving() == 0 && _bombs.countLiving() == 0 && isStart) {
 				bonus = Math.max(0, timer.secondsRemaining);
-				endGame(3);
+				endGame(4);
 			}
 		}
 		
 		private function overlapBombBucket(but:Bucket, b:Bomb):void {
 			b.kill();
-			this.score -= StaticVars.a3BombScore;	
+			this.score -= StaticVars.a4BombScore;	
 		}
 	}
 }

@@ -14,11 +14,6 @@ package a_basic_theme
 		
 		private var bucket: Bucket;
 		
-		//private var _fallObj: FlxGroup;
-		//private var _bombs: FlxGroup;
-		
-		//private var remainingTimeDisplay:FlxText;
-		
 		public function ALevel2():void {
 			maxScore = StaticVars.a2MaxScore;
 			super(StaticVars.aTime);	
@@ -34,46 +29,34 @@ package a_basic_theme
 	
 		override public function create(): void {
 			super.create();
-			bucket = new Bucket(bucketImg, 130, 525);
+			bucket = new Bucket(bucketImg, StaticVars.bucket_x, StaticVars.bucket_y);
 			add(bucket);
 		}
 		
 		override public function update():void 
 		{	
+			isMaxScore = score >= maxScore;
 			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
 			FlxG.overlap(bucket, _bombs, overlapBombBucket);
-			if (genRandom(StaticVars.a2Interval)) 
+			
+			if (genRandom(StaticVars.a2Interval) && !isMaxScore && !timer.hasExpired)
 			{
 				lane = genLane(lane);
 				if (oneOf(StaticVars.a2BombRate)) 
 				{
-					fallBomb();
+					fallBomb(StaticVars.yOffset, StaticVars.fallSpeedSlow);
 				}
 				else {
-					fallObject();
-				}			
+					fallObject(StaticVars.yOffset, StaticVars.fallSpeedSlow);
+				}	
+				isStart = true;
 			}
 			super.update();
 			
-			if (timer.hasExpired) {
-				// time has run out, check if user has won	
+			if (_fallObj.countLiving() == 0 && _bombs.countLiving() == 0 && isStart) {
+				bonus = Math.max(0, timer.secondsRemaining);
 				endGame(2);
 			}
-		}
-		
-		private function fallObject():void {
-			var obj:FallingObj = new FallingObj(lane, 0);
-			_fallObj.add(obj);
-		}
-		
-		private function fallBomb():void {
-			var obj:Bomb = new Bomb(lane, 0);
-			_bombs.add(obj);
-		}
-		
-		private function overlapObjBucket(but:Bucket, obj:FallingObj):void {
-			obj.kill();
-			this.score += 1;	
 		}
 		
 		private function overlapBombBucket(but:Bucket, b:Bomb):void {

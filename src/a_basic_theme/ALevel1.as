@@ -28,42 +28,27 @@ package a_basic_theme
 	
 		override public function create(): void {
 			super.create();
-			bucket = new Bucket(bucketImg, 130, 525);
+			bucket = new Bucket(bucketImg, StaticVars.bucket_x, StaticVars.bucket_y);
 			add(bucket);
-			
-			//remainingTimeDisplay = new FlxText(0, 16, FlxG.width, ""+timer.secondsRemaining);
-			//remainingTimeDisplay.setFormat(null, 16, 0x11111111, "center");
-			//add(remainingTimeDisplay);
 		}
 		
 		override public function update():void 
 		{	
+			isMaxScore = score >= maxScore;
 			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
-			FlxG.overlap(killBar, _fallObj, overlapKillBarObj);
-			if (genRandom(StaticVars.a1Interval)) 
+			
+			if (genRandom(StaticVars.a1Interval) && !isMaxScore && !timer.hasExpired) 
 			{
 				lane = genLane(lane);
-				fallObject(lane);
+				fallObject(StaticVars.yOffset, StaticVars.fallSpeedSlow);
+				isStart = true;
 			}
 			super.update();
 			
-			if (timer.hasExpired) {
-				// time has run out, check if user has won	
+			if (_fallObj.countLiving() == 0 && isStart) {
+				bonus = Math.max(0, timer.secondsRemaining);
 				endGame(1);
 			}
-			//remainingTimeDisplay.text = "" + timer.secondsRemaining;
-			//checkScore();
-		}
-		
-		private function fallObject(prevLane:int):void {
-			// x should be random
-			var obj:FallingObj = new FallingObj(prevLane, 0);
-			_fallObj.add(obj);
-		}
-		
-		private function overlapObjBucket(but:Bucket, obj:FallingObj):void {
-			obj.kill();
-			this.score += 1;	
 		}
 	}
 }

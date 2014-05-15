@@ -43,7 +43,7 @@ package d_bomb_theme
 			if (genRandom(StaticVars.d10Interval)) 
 			{
 				lane = genLane(lane);
-				fallBomb();			
+				//fallBomb();			
 			}
 			super.update();
 			
@@ -53,10 +53,10 @@ package d_bomb_theme
 			}
 		}
 		
-		private function fallBomb():void {
+		/*private function fallBomb():void {
 			var obj:Bomb = new Bomb(lane, 0);
 			_bombs.add(obj);
-		}
+		}*/
 		
 		private function overlapBombBucket(but:Bucket, b:Bomb):void {
 			b.kill();
