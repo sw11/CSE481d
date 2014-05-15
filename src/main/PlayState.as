@@ -169,7 +169,7 @@ package main
 		protected function endGame(level:int): void {
 			//var perfect:Number = maxScore * StaticVars.aPerf;
 			if (score >= passScore) {
-				trace("theme " + currectTheme + " level " + level);
+				trace("in end game() theme " + currectTheme + " level " + level);
 				if (currectTheme == State.unlockTheme && level == State.unlockLevel) {
 					State.nextLevel();
 				}

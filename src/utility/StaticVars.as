@@ -94,11 +94,11 @@ package utility
 		public static const a6AmmoNum:int = 20;
 		
 		// b recycle theme:
-		public static const bTime:int = 60000;
+		public static const bTime:int = 30000;
 		public static const bPass:Number = 0.5;
 		public static const NUM_BUCKET:int = 3;
 		// level 1
-		public static const b1MaxScore:int = 45;
+		public static const b1MaxScore:int = 25;
 		public static const b1Interval:int = 35;
 		// level 2
 		public static const b2MaxScore:int = 50;

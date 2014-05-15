@@ -71,6 +71,24 @@ package utility
 			}
 			return null;
 		}
+		
+		public static function levelUpdate(): void {
+			themeUpdate(theme1, unlockLevels[0]);
+			themeUpdate(theme2, unlockLevels[1]);
+			themeUpdate(theme3, unlockLevels[2]);
+			themeUpdate(theme4, unlockLevels[3]);
+		}
+		
+		private static function themeUpdate(arr:Array, lvl:int): void {
+			var i:int = 0;
+			for (; i < lvl; i++) {
+				arr[i][0] = true;
+			}
+			for (var j:int = i; j < arr.length; j++) {
+				arr[j][0] = false;
+				arr[j][1] = false;
+			}
+		}
 	}
 
 }

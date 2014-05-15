@@ -105,12 +105,21 @@ package main
 			} else if (FlxG.keys.justPressed("U")) {
 				State.unlockLevel = State.maxLevel;
 				State.unlockTheme = State.maxTheme;
+				unlock(State.maxLevel);
 				FlxG.switchState(new ThemeState());
 			} else if (FlxG.keys.justPressed("L")) {
 				State.unlockLevel = 1;
 				State.unlockTheme = 1;
+				unlock(1);
 				FlxG.switchState(new ThemeState());
 			}
+		}
+		
+		private function unlock(lvl:int):void {
+			for (var i:int = 0; i < State.unlockLevels.length; i++) {
+					State.unlockLevels[i] = lvl;
+				}
+				State.levelUpdate();
 		}
 		
 		private function changeColor():void {

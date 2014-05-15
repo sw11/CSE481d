@@ -265,7 +265,7 @@ package main
 		private function bTheme():void {
 			switch(currState) {
 					case 1:
-						FlxG.switchState(new BLevel4());
+						FlxG.switchState(new BLevel1());
 						break;
 					case 2:
 						FlxG.switchState(new BLevel5());
