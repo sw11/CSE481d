@@ -103,8 +103,8 @@ package main
 				currState = (++currState == State.unlockTheme + 1) ? 1 : currState;	
 				changeColor();
 			} else if (FlxG.keys.justPressed("U")) {
-				State.unlockLevel = 6;
-				State.unlockTheme = 4;
+				State.unlockLevel = State.maxLevel;
+				State.unlockTheme = State.maxTheme;
 				FlxG.switchState(new ThemeState());
 			} else if (FlxG.keys.justPressed("L")) {
 				State.unlockLevel = 1;

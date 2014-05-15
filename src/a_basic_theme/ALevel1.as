@@ -46,7 +46,7 @@ package a_basic_theme
 			}
 			super.update();
 
-			if (_fallObj.countLiving() == 0 && isStart) {
+			if (_fallObj.countLiving() <= 0 && isStart) {
 				bonus = Math.max(0, timer.secondsRemaining);
 				//log info about score and miss count	
 				var data:Object = {"finalScore":score, "misses":miss};

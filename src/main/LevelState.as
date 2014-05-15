@@ -34,6 +34,8 @@ package main
 		private static var _5:int = 5;
 		private static var _6:int = 6;
 		
+		private var isBonus:Boolean;
+		
 		private var currState:int;
 		private var currTheme:int;
 		private var yPos:int;
@@ -59,60 +61,65 @@ package main
 			currText.color = StaticVars.RED;
 			add(currText);
 			
-			if (themeArr[0] as Boolean) {
+			if (themeArr[0][1] as Boolean) {
 				addStar();
 			}
 			level2 = createText(yPos += 40, "Level 2")
 			add(level2);
 			
-			if (State.unlockLevel < 2) {
+			if (!themeArr[1][0] as Boolean) {
 				addLock();
-			} else if (themeArr[1] as Boolean) {
+			} else if (themeArr[1][1] as Boolean) {
 				addStar();
 			}
 			
 			level3 = createText(yPos += 40, "Level 3")
 			add(level3);
 			
-			if (State.unlockLevel < 3) {
+			if (!themeArr[2][0] as Boolean) {
 				addLock();
-			} else if (themeArr[2] as Boolean) {
+			} else if (themeArr[2][1] as Boolean) {
 				addStar();
 			}
 			
 			level4 = createText(yPos += 40, "Level 4")
 			add(level4);
 			
-			if (State.unlockLevel < 4) {
+			if (!themeArr[3][0] as Boolean) {
 				addLock();
-			} else if (themeArr[3] as Boolean) {
+			} else if (themeArr[3][1] as Boolean) {
 				addStar();
 			}
 			
 			level5 = createText(yPos += 40, "Level 5")
 			add(level5);
 			
-			if (State.unlockLevel < 5) {
+			if (!themeArr[4][0] as Boolean) {
 				addLock();
-			} else if (themeArr[4] as Boolean) {
+			} else if (themeArr[4][1] as Boolean) {
 				addStar();
 			}
 			
-			level6 = createText(yPos += 40, "Bonus")
+			var i:int = 0;
+			for (i = 0; i < themeArr.length - 1; i++) {
+				//for (var j:int = 0; j < themeArr[i].length; j++) {
+				if (!themeArr[i][1]) {
+					//addLock();
+					break;
+				}
+			}
+			
+			isBonus = i == themeArr.length - 1;
+			
+			level6 = createText(yPos += 40, isBonus ? "BONUS" : "???")
 			add(level6);
 			
-			// todo
-			//for (var i:int = 0; i < themeArr.length - 1; i++) {
-			//	if (!themeArr[i]) {
-			//		addLock();
-			//		break;
-			//	}
-			//}
-			
-			
-			if (State.unlockLevel < 6) {
+			if (!isBonus) {
 				addLock();
-			} else if (themeArr[5] as Boolean) {
+			} else {
+				State.unlockLevels[currTheme - 1] = State.maxLevel + 1;
+			}
+			if (themeArr[5][1] as Boolean) {
 				addStar();
 			}
 			
@@ -175,10 +182,10 @@ package main
 			} else if (FlxG.keys.justPressed("ESCAPE")) {
 				FlxG.switchState(new ThemeState());
 			} else if (FlxG.keys.justPressed("UP")) {
-				currState = (--currState == 0) ? State.unlockLevel : currState;
+				currState = (--currState == 0) ? State.unlockLevels[currTheme - 1] : currState;
 				changeColor();
 			} else if (FlxG.keys.justPressed("DOWN")) {
-				currState = (++currState == State.unlockLevel + 1) ? 1 : currState;	
+				currState = (++currState == State.unlockLevels[currTheme - 1] + 1) ? 1 : currState;	
 				changeColor();
 			}
 		}

@@ -169,6 +169,7 @@ package main
 		protected function endGame(level:int): void {
 			//var perfect:Number = maxScore * StaticVars.aPerf;
 			if (score >= passScore) {
+				trace("theme " + currectTheme + " level " + level);
 				if (currectTheme == State.unlockTheme && level == State.unlockLevel) {
 					State.nextLevel();
 				}
@@ -188,7 +189,8 @@ package main
 		}
 		
 		protected function overlapKillBarBomb(killBar:FlxSprite, bomb:Bomb):void {
-			bomb.kill();
+			if (!bomb.isKill())
+				bomb.kill();
 		}
 		
 		protected function fallObject(yOffset:int, speed:int):void {

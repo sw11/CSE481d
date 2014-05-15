@@ -79,16 +79,16 @@ package main
 		private function updateStar():void {
 			switch(theme) {
 				case 1:
-					State.theme1[level - 1] = true;
+					State.theme1[level - 1][1] = true;
 					break;
 				case 2:
-					State.theme2[level - 1] = true;
+					State.theme2[level - 1][1] = true;
 					break;
 				case 3:
-					State.theme3[level - 1] = true;
+					State.theme3[level - 1][1] = true;
 					break;
 				case 4:
-					State.theme4[level - 1] = true;
+					State.theme4[level - 1][1] = true;
 					break;
 			}
 		}

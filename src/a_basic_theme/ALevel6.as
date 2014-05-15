@@ -91,9 +91,11 @@ package a_basic_theme
 		}
 		
 		private function overlapBombBucket(but:Bucket, b:Bomb):void {
-			b.kill();
-			miss++;
-			this.score -= StaticVars.a6BombScore;	
+			if (!b.isKill()) {
+				b.kill();
+				miss++;
+				this.score -= StaticVars.a6BombScore;	
+			}
 		}
 		
 		private function fireAmmo(xPos:int):void {

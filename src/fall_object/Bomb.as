@@ -14,10 +14,10 @@ package fall_object
 		public function Bomb(x:Number, y:Number) 
 		{
 			super(x, y);
-			loadGraphic(bomb, true, false, 100, 100);
+			loadGraphic(bomb, true, false, 50, 50);
 			velocity.y = 250; // move down velocity
 			this.offset = new FlxPoint(0, -25);
-			addAnimation("explosion", [0, 1], 120, false);
+			addAnimation("explosion", [0, 1], 60, false);
 			killed = false;
 		}
 		
@@ -36,6 +36,10 @@ package fall_object
 		private function onDeadTimeout (timer:FlxTimer):void {
 			timer.stop();
 			exists = false;
+		}
+		
+		public function isKill():Boolean {
+			return killed;
 		}
 	}
 }
