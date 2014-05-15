@@ -24,6 +24,7 @@ package a_basic_theme
 			level = 1;
 			_fallObj = new FlxGroup();
 			add(_fallObj);	
+			StaticVars.logger.logLevelStart(level, null);
 		}
 	
 		override public function create(): void {
@@ -44,9 +45,12 @@ package a_basic_theme
 				isStart = true;
 			}
 			super.update();
-			
+
 			if (_fallObj.countLiving() == 0 && isStart) {
 				bonus = Math.max(0, timer.secondsRemaining);
+				//log info about score and miss count	
+				var data:Object = {"finalScore":score, "misses":miss};
+				StaticVars.logger.logLevelEnd(data);
 				endGame(1);
 			}
 		}

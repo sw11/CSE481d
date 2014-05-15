@@ -35,6 +35,7 @@ package a_basic_theme
 			ammoText = new FlxText(0, 56, FlxG.width, "Ammo: " + ammo);
 			ammoText.setFormat(null, 11, StaticVars.BLACK, "left");
 			add(ammoText);
+			StaticVars.logger.logLevelStart(level, null);
 		}
 	
 		override public function create(): void {
@@ -75,6 +76,9 @@ package a_basic_theme
 			
 			if (_fallObj.countLiving() == 0 && _bombs.countLiving() == 0 && isStart) {
 				bonus = Math.max(0, timer.secondsRemaining);
+				//log info about score and miss count	
+				var data:Object = {"finalScore":score, "misses":miss};
+				StaticVars.logger.logLevelEnd(data);
 				endGame(5);
 			}
 		}

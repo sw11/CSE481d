@@ -32,6 +32,7 @@ package a_basic_theme
 			ammoText = new FlxText(0, 56, FlxG.width, "Ammo: " + ammo);
 			ammoText.setFormat(null, 11, StaticVars.BLACK, "left");
 			add(ammoText);
+			StaticVars.logger.logLevelStart(level, null);
 		}
 	
 		override public function create(): void {
@@ -63,7 +64,7 @@ package a_basic_theme
 			if (oneOf(50) && _bombs.length > 0) {
 				var moveBomb:Bomb = _bombs.members[randNum(_bombs.length - 1)] as Bomb;
 				if (moveBomb.y < 400) {
-					trace("move " + moveBomb.y);
+					//trace("move " + moveBomb.y);
 					if (oneOf(2)){
 						moveBomb.x = Math.max(130, moveBomb.x - 100);
 					} else {
@@ -82,7 +83,9 @@ package a_basic_theme
 			super.update();
 			
 			if (timer.hasExpired) {
-				//bonus = Math.max(0, timer.secondsRemaining);
+				//log info about score and miss count	
+				var data:Object = {"finalScore":score, "misses":miss};
+				StaticVars.logger.logLevelEnd(data);
 				endGame(6);
 			}
 		}

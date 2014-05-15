@@ -184,7 +184,7 @@ package main
 			bomb.kill();
 			//trace(ammoCount);
 			if (ammoCount++ >= 9) {
-				trace(ammo);
+				//trace(ammo);
 				//ammo++;
 				ammoCount = 0;
 			}
