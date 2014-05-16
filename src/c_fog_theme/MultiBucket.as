@@ -53,10 +53,10 @@ package c_fog_theme
 				velocity.x = 0;
 			}
 			
-			if (FlxG.keys.justPressed("SPACE") || FlxG.keys.justPressed("A")) {
+			if (FlxG.keys.justPressed("SPACE") || FlxG.keys.justPressed("Z")) {
 				cycBucket++;
 				switchBucket();
-			} else if (FlxG.keys.justPressed("Z")) {
+			} else if (FlxG.keys.justPressed("A")) {
 				cycBucket--;
 				switchBucket();
 			}
