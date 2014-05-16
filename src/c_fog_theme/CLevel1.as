@@ -19,6 +19,7 @@ package c_fog_theme
 			
 			passScore = maxScore * StaticVars.cPass;
 			currectTheme = StaticVars.C_THEME;
+			instrStr = "Right stuff into the right bin!\n1, 2 or 3 to switch the bin.\nPress Enter to start.";
 		}
 	/*
 		override public function create(): void {
@@ -36,11 +37,7 @@ package c_fog_theme
 				return pauseGroup.update();
 			}
 			
-			FlxG.overlap(bucket, _recycables, overlapRecycle);
-			FlxG.overlap(bucket, _trash, overTrash);
-			FlxG.overlap(bucket, _compost, overlapCompost);
-			
-			if (genRandom(StaticVars.c1Interval)  && !isMaxScore && !timer.hasExpired)) 
+			if (genRandom(StaticVars.c1Interval)  && !isMaxScore && !timer.hasExpired) 
 			{
 				lane = genLane(lane);
 				var num:int = randNum(StaticVars.NUM_BUCKET);
@@ -85,54 +82,5 @@ package c_fog_theme
 			}
 		}
 		
-		private function recycleObject():void {
-			var obj:Recycable = new Recycable(lane, 0);
-			_recycables.add(obj);
-		}
-		
-		private function overlapRecycle(but:MultiBucket, obj:Recycable):void {
-			obj.kill();
-			if (but.getCurrentBucket() == MultiBucket.RECYCLE) {
-				this.score += 1;	
-				bucket.play("add");
-			} else {
-				this.score -= 1;
-				bucket.play("minus");
-			}
-		}
-		
-		private function overTrash(but:MultiBucket, b:Trash):void {
-			b.kill();
-			if (but.getCurrentBucket() == MultiBucket.TRASH) {
-				this.score += 1;	
-				bucket.play("add");
-			} else {
-				this.score -= 1;
-				bucket.play("minus");
-			}
-		}
-		
-		private function overlapCompost (but:MultiBucket, obj:Compostable):void {
-			obj.kill();
-			if (but.getCurrentBucket() == MultiBucket.COMPOST) {
-				this.score += 1;
-				bucket.play("add");
-			} else {
-				this.score -= 1;
-				bucket.play("minus");
-			}
-		}
-		
-		private function compostObject():void 
-		{
-			var obj:Compostable = new Compostable(lane, 0);
-			_compost.add(obj);
-		}
-		
-		private function trashObject():void 
-		{
-			var trash:Trash = new Trash(lane, 0);
-			_trash.add(trash);
-		}
 	}
 }

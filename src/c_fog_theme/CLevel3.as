@@ -28,10 +28,10 @@ package c_fog_theme
 			passScore = maxScore * StaticVars.aPass;
 			currectTheme = StaticVars.C_THEME;
 			level = 9;
-			_fallObj = new FlxGroup();
-			add(_fallObj);
-			_bombs = new FlxGroup();
-			add(_bombs);
+			//_fallObj = new FlxGroup();
+			//add(_fallObj);
+			//_bombs = new FlxGroup();
+			//add(_bombs);
 			fog = new FlxSprite(130, 200, fogImg);
 			fog.alpha = 1;
 			add(fog);
@@ -47,8 +47,8 @@ package c_fog_theme
 		
 		override public function update():void 
 		{	
-			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
-			FlxG.overlap(bucket, _bombs, overlapBombBucket);
+			//FlxG.overlap(bucket, _fallObj, overlapObjBucket);
+			//FlxG.overlap(bucket, _bombs, overlapBombBucket);
 			if (genRandom(StaticVars.a3Interval)) 
 			{
 				lane = genLane(lane);

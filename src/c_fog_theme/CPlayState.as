@@ -16,14 +16,14 @@ package c_fog_theme
 	public class CPlayState extends FlxState {
 		
 		/** Keep track of current score*/
-		public var score: Number;
+		public var score: int;
 		public var miss:int;
 		
 		/** Displays the score, keeps tract of "score"*/
 		public var scoreBar: FlxBar;
 		/** Max score of a level, used for defining score bar*/
 		protected var maxScore:int;
-		protected var passScore:int;
+		protected var passScore:Number;
 		
 		private var max_time: Number;
 		public var timer : FlxDelay;
@@ -46,18 +46,18 @@ package c_fog_theme
 		protected var killBar:FlxSprite;
 		protected var missCount:int;
 		
-		protected var _fallObj: FlxGroup;
-		protected var _bombs: FlxGroup;
+		//protected var _fallObj: FlxGroup;
+		//protected var _bombs: FlxGroup;
 		
 		private var scoreText:FlxText;
 		protected var isMaxScore:Boolean;
 		protected var bonus:int;
 		protected var isStart:Boolean;
 		
-		protected var bombScore:int;
+		//protected var bombScore:int;
 		
 		protected var binIndicator:BinIndicator;
-		
+	
 		protected var bucket: MultiBucket;
 		
 		protected var paused:Boolean;
@@ -68,6 +68,9 @@ package c_fog_theme
 		protected var _recycables: FlxGroup;
 		protected var _trash: FlxGroup;
 		protected var _compost: FlxGroup;
+		
+		protected var passText:FlxText;
+		protected var perfectText:FlxText;
 		
 		/**
 		 * contructor of PlayState
@@ -80,10 +83,11 @@ package c_fog_theme
 			resetCount(StaticVars.a1Interval);
 			missCount = 0;
 			score = 0;
-			StaticVars.logger.logLevelStart(level, null);
+			StaticVars.logger.logLevelStart(level + (StaticVars.C_THEME - 1) * 6, null);
 			this.max_time = max_time;
 			timer = new FlxDelay(max_time);
-			//timer.start();
+			passText = null;
+			perfectText = null;
 		}
 				
 		override public function create():void {
@@ -118,7 +122,7 @@ package c_fog_theme
 			
 			binIndicator = new BinIndicator(15, 130);
 			add(binIndicator);
-			
+		
 			bucket = new MultiBucket(StaticVars.bucket_x, StaticVars.bucket_y);
 			add(bucket);
 			
@@ -134,7 +138,6 @@ package c_fog_theme
 			instr = new FlxText(StaticVars.WIDTH/2 - FlxG.width/2, 250, FlxG.width, instrStr);
 			instr.setFormat(null, 30, StaticVars.BLACK, "center");
 			add(instr);
-			
 		}
 	
 		override public function update():void {
@@ -151,9 +154,10 @@ package c_fog_theme
 				return pauseGroup.update();
 			}
 			
-			FlxG.overlap(killBar, _fallObj, overlapKillBarObj);
-			FlxG.overlap(killBar, _bombs, overlapKillBarBomb);
-			
+			fadeText();
+			FlxG.overlap(bucket, _recycables, overlapRecycle);
+			FlxG.overlap(bucket, _trash, overTrash);
+			FlxG.overlap(bucket, _compost, overlapCompost);
 			super.update();
 			
 			checkScore();
@@ -166,11 +170,36 @@ package c_fog_theme
 			if (isMaxScore) {
 				//trace("Max");
 				scoreBar.color = StaticVars.YELLOW; // todo, won't work
+				if (perfectText == null) {
+					perfectText = new FlxText(0, 0, FlxG.width, "Perfect score!");
+					perfectText.setFormat(null, 32, StaticVars.BLACK, "center");
+					add(perfectText);
+				}
 			} else if (score >= passScore) {
-				//trace("pass");
 				scoreBar.color = StaticVars.GREEN;
+				if (passText == null) {
+					passText = new FlxText(0, 0, FlxG.width, "Passed!");
+					passText.setFormat(null, 32, StaticVars.BLACK, "center");
+					add(passText);
+				}
 			} else {
 				scoreBar.color = StaticVars.BLACK; // todo , change this color
+				passText = null;
+			}
+		}
+		
+		protected function fadeText(): void {
+			if (perfectText != null) {
+				perfectText.alpha = perfectText.alpha - 0.005;
+				if (perfectText.alpha <= 0 ) {
+					perfectText.kill();
+				}
+			}
+			if (passText != null) {
+				passText.alpha = passText.alpha - 0.005;
+				if (passText.alpha <= 0) {
+					passText.kill();
+				}
 			}
 		}
 		
@@ -217,7 +246,7 @@ package c_fog_theme
 				FlxG.switchState(new EndState("LOSE", score, miss, bonus, maxScore, currectTheme, level));	
 			}
 		}
-		
+		/*
 		protected function overlapKillBarObj(killBar:FlxSprite, obj:FallingObj):void {
 			obj.kill();
 			miss++;
@@ -257,6 +286,57 @@ package c_fog_theme
 				but.play("red", false);
 				this.score -= bombScore;
 			}
+		}*/
+		
+		
+		protected function recycleObject():void {
+			var obj:Recycable = new Recycable(lane, 0);
+			_recycables.add(obj);
+		}
+		
+		protected function overlapRecycle(but:MultiBucket, obj:Recycable):void {
+			obj.kill();
+			if (but.getCurrentBucket() == MultiBucket.RECYCLE) {
+				this.score += 1;	
+				bucket.play("add");
+			} else {
+				this.score -= 1;
+				bucket.play("minus");
+			}
+		}
+		
+		protected function overTrash(but:MultiBucket, b:Trash):void {
+			b.kill();
+			if (but.getCurrentBucket() == MultiBucket.TRASH) {
+				this.score += 1;	
+				bucket.play("add");
+			} else {
+				this.score -= 1;
+				bucket.play("minus");
+			}
+		}
+		
+		protected function overlapCompost (but:MultiBucket, obj:Compostable):void {
+			obj.kill();
+			if (but.getCurrentBucket() == MultiBucket.COMPOST) {
+				this.score += 1;
+				bucket.play("add");
+			} else {
+				this.score -= 1;
+				bucket.play("minus");
+			}
+		}
+		
+		protected function compostObject():void 
+		{
+			var obj:Compostable = new Compostable(lane, 0);
+			_compost.add(obj);
+		}
+		
+		protected function trashObject():void 
+		{
+			var trash:Trash = new Trash(lane, 0);
+			_trash.add(trash);
 		}
 	}
 }

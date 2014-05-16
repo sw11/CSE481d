@@ -56,6 +56,9 @@ package d_bomb_theme
 		
 		protected var bombScore:int;
 		
+		protected var passText:FlxText;
+		protected var perfectText:FlxText;
+		
 		/**
 		 * contructor of PlayState
 		 * 
@@ -70,6 +73,9 @@ package d_bomb_theme
 			this.max_time = max_time;
 			timer = new FlxDelay(max_time);
 			timer.start();
+			
+			passText = null;
+			perfectText = null;
 		}
 				
 		override public function create():void {
@@ -106,6 +112,7 @@ package d_bomb_theme
 		}
 	
 		override public function update():void {
+			fadeText();
 			
 			FlxG.overlap(killBar, _fallObj, overlapKillBarObj);
 			FlxG.overlap(killBar, _bombs, overlapKillBarBomb);
@@ -130,11 +137,36 @@ package d_bomb_theme
 			if (isMaxScore) {
 				//trace("Max");
 				scoreBar.color = StaticVars.YELLOW; // todo, won't work
+				if (perfectText == null) {
+					perfectText = new FlxText(0, 0, FlxG.width, "Perfect score!");
+					perfectText.setFormat(null, 32, 0x11111111, "center");
+					add(perfectText);
+				}
 			} else if (score >= passScore) {
 				//trace("pass");
 				scoreBar.color = StaticVars.GREEN;
+				if (passText == null) {
+					passText = new FlxText(0, 0, FlxG.width, "Passed!");
+					passText.setFormat(null, 32, 0x11111111, "center");
+					add(passText);
+				}
 			} else {
 				scoreBar.color = StaticVars.BLACK; // todo , change this color
+			}
+		}
+		
+		protected function fadeText(): void {
+			if (perfectText != null) {
+				perfectText.alpha = perfectText.alpha - 0.005;
+				if (perfectText.alpha <= 0 ) {
+					perfectText.kill();
+				}
+			}
+			if (passText != null) {
+				passText.alpha = passText.alpha - 0.005;
+				if (passText.alpha <= 0) {
+					passText.kill();
+				}
 			}
 		}
 		

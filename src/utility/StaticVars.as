@@ -134,9 +134,10 @@ package utility
 		
 		// c recycle theme
 		public static const cTime:int = 40000;
-		public static const cPass:int = 0.6;
+		public static const cPass:Number = 0.6;
 		// level 1
 		public static const c1MaxScore:int = 40;
+		public static const c1Interval:int = 30;
 		
 		// d bomb theme
 		public static const dTime:int = 60000;
