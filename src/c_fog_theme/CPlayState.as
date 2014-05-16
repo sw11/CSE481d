@@ -87,16 +87,13 @@ package c_fog_theme
 			add(scoreBar);
 			
 			var levelInstr2:FlxText;
-			levelInstr2 = new FlxText(0, 16, FlxG.width, currectTheme + " theme\nLevel " + level + "\nEsc to main menu");
+			levelInstr2 = new FlxText(0, 16, FlxG.width, "Level " + level + "\nEsc to main menu");
 			levelInstr2.setFormat(null, 11, StaticVars.BLACK, "left");
 			add(levelInstr2);
 			
 			scoreText = new FlxText(0, 96, FlxG.width, "Score: " + score + "\nMiss: " + miss);
 			scoreText.setFormat(null, 11, StaticVars.BLACK, "left");
 			add(scoreText);
-			
-			//settingButton = new SettingButton(setting, StaticVars.SETTING_BUTTON_X, StaticVars.SETTING_BUTTON_Y);
-			//add(settingButton);		
 			
 			killBar = new FlxSprite(130, 620);
 			killBar.makeGraphic(500, 5, StaticVars.INVISIBLE);
@@ -120,10 +117,7 @@ package c_fog_theme
 			}
 			super.update();
 			
-			//if (timer.secondsRemaining <= 10 && !isDisplay) {
-			//	add(remainingTimeDisplay);
-			//	isDisplay = true;
-			//}
+			
 			
 			checkScore();
 			scoreText.text = "Score: " + score + "\nMiss: " + miss;
