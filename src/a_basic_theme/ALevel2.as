@@ -17,9 +17,9 @@ package a_basic_theme
 		public function ALevel2():void {
 			maxScore = StaticVars.a2MaxScore;
 			super(StaticVars.aTime);	
+			instrStr = "There are bombs!\nAvoid them!\nPress Enter to start.";
 			bombScore = 1;
 			passScore = maxScore * StaticVars.aPass;
-			///currectTheme = StaticVars.A_THEME;
 			level = 2;
 			_fallObj = new FlxGroup();
 			add(_fallObj);
@@ -37,6 +37,11 @@ package a_basic_theme
 		override public function update():void 
 		{	
 			isMaxScore = score >= maxScore;
+			super.update();
+			if (paused) {
+				return pauseGroup.update();
+			}
+			
 			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
 			FlxG.overlap(bucket, _bombs, overlapBombBucket);
 			
@@ -52,8 +57,7 @@ package a_basic_theme
 				}	
 				isStart = true;
 			}
-			super.update();
-			//trace(_fallObj.countLiving() + " " +  _bombs.countLiving());
+			
 			if (_fallObj.countLiving() <= 0 && _bombs.countLiving() <= 0 && isStart) {
 				bonus = Math.max(0, timer.secondsRemaining);
 				//log info about score and miss count	
@@ -62,15 +66,5 @@ package a_basic_theme
 				endGame(2);
 			}
 		}
-		/*
-		private function overlapBombBucket(but:Bucket, b:Bomb):void {
-			if (!b.killed) {
-				b.kill();
-				but.play("red", false);
-				this.score -= 1;
-			}
-		}
-		*/
-		
 	}
 }

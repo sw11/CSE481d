@@ -23,7 +23,7 @@ package a_basic_theme
 			super(StaticVars.aTime);	
 			ammo = StaticVars.a5AmmoNum;
 			passScore = maxScore * StaticVars.aPass;
-			//currectTheme = StaticVars.A_THEME;
+			instrStr = "We have got weapon!\nSpaceBar to shot the bomb!\nMake sure you have enough ammos.\nPress Enter to start.";
 			level = 5;
 			bombScore = StaticVars.a5BombScore;
 			_fallObj = new FlxGroup();
@@ -48,6 +48,11 @@ package a_basic_theme
 		override public function update():void 
 		{	
 			isMaxScore = score >= maxScore;
+			super.update();
+			if (paused) {
+				return pauseGroup.update();
+			}
+			
 			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
 			FlxG.overlap(bucket, _bombs, overlapBombBucket);
 			FlxG.overlap(_ammos, _bombs, overlapAmmoBomb);
@@ -71,9 +76,7 @@ package a_basic_theme
 				ammoText.text = "Ammo: " + ammo;
 			} else if (FlxG.keys.justPressed("SPACE")) {
 				ammoText.color = StaticVars.RED;
-			}
-			
-			super.update();
+			}			
 			
 			if (_fallObj.countLiving() == 0 && _bombs.countLiving() == 0 && isStart) {
 				bonus = Math.max(0, timer.secondsRemaining);
@@ -83,13 +86,6 @@ package a_basic_theme
 				endGame(5);
 			}
 		}
-		/*
-		private function overlapBombBucket(but:Bucket, b:Bomb):void {
-			if (!b.isKill()) {
-				b.kill();
-				this.score -= StaticVars.a5BombScore;
-			}
-		}*/
 		
 		private function fireAmmo(xPos:int):void {
 			ammo -= 1;

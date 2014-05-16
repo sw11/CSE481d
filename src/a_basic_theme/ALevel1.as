@@ -18,9 +18,8 @@ package a_basic_theme
 		public function ALevel1():void {
 			maxScore = StaticVars.a1MaxScore;
 			super(StaticVars.aTime);	
-			
+			instrStr = "Catch everything!\nPress Enter to start.";
 			passScore = maxScore * StaticVars.aPass;
-			//currectTheme = StaticVars.A_THEME;
 			level = 1;
 			_fallObj = new FlxGroup();
 			add(_fallObj);	
@@ -36,6 +35,11 @@ package a_basic_theme
 		override public function update():void 
 		{	
 			isMaxScore = score >= maxScore;
+			super.update();
+			if (paused) {
+				return pauseGroup.update();
+			}
+			
 			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
 			
 			if (genRandom(StaticVars.a1Interval) && !isMaxScore && !timer.hasExpired) 
@@ -44,7 +48,7 @@ package a_basic_theme
 				fallObject(StaticVars.yOffset, StaticVars.fallSpeedSlow);
 				isStart = true;
 			}
-			super.update();
+			
 
 			if (_fallObj.countLiving() <= 0 && isStart) {
 				bonus = Math.max(0, timer.secondsRemaining);

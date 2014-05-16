@@ -18,8 +18,8 @@ package main
 			yCoord = y;
 			maxVelocity.x = 200;
 			loadGraphic(graphic, true, false, 100, 50);
-			addAnimation("green", [1, 0], 3, false);
-			addAnimation("red", [2, 0], 2, false);
+			addAnimation("green", [1, 0], 10, false);
+			addAnimation("red", [2, 0], 3, false);
 		}	
 		
 		override public function update():void 

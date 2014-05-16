@@ -19,7 +19,7 @@ package a_basic_theme
 			super(StaticVars.aTime);	
 			bombScore = StaticVars.a3BombScore;
 			passScore = maxScore * StaticVars.aPass;
-			//currectTheme = StaticVars.A_THEME;
+			instrStr = "Watch out the bombs!\nIt become unstable.\nPress Enter to start.";
 			level = 3;
 			_fallObj = new FlxGroup();
 			add(_fallObj);
@@ -37,6 +37,11 @@ package a_basic_theme
 		override public function update():void 
 		{	
 			isMaxScore = score >= maxScore;
+			super.update();
+			if (paused) {
+				return pauseGroup.update();
+			}
+			
 			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
 			FlxG.overlap(bucket, _bombs, overlapBombBucket);
 			
@@ -52,7 +57,6 @@ package a_basic_theme
 				}			
 				isStart = true;
 			}
-			super.update();
 			
 			if (_fallObj.countLiving() == 0 && _bombs.countLiving() == 0 && isStart) {
 				bonus = Math.max(0, timer.secondsRemaining);

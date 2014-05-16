@@ -69,12 +69,12 @@ package main
 				addLock();
 			}
 			
-			bomb = createText(yPos += 40, "EXPERT")
+			bomb = createText(yPos += 40, "???")
 			add(bomb);
-			
-			if (State.unlockTheme < 4) {
+			// todo: unlock this later
+			//if (State.unlockTheme < 4) {
 				addLock();
-			}
+			//}
 			
 			add(instr("Press ENTER to start"));
 		}
