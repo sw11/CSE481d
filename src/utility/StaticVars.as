@@ -51,7 +51,7 @@ package utility
 		public static const speedOffset:int = 50;
 		// a basic theme:
 		public static const aTime:int = 35000;
-		public static const aPass:Number = 0.6;
+		public static const aPass:Number = 0.7;
 		// level 1
 		public static const a1MaxScore:int = 30;
 		public static const a1Interval:int = 40;
@@ -75,7 +75,7 @@ package utility
 		public static const a5BombRate:int = 2;
 		public static const a5BombScore:int = 2;
 		public static const a5AmmoNum:int = 10;
-		// level 6
+		// bonus level 6
 		public static const a6Time:int = 60000;
 		public static const a6MaxScore:int = 10;
 		public static const a6Interval:int = 20;
@@ -127,11 +127,16 @@ package utility
 		public static const b5Alpha:Number = 0.01;
 		public static const b5FogYPos:int = 150;
 		public static const b5BombRate:int = 3;
-		public static const b5BombScore:int = 4;
+		public static const b5BombScore:int = 5;
 		public static const b5AmmoNum:int = 25;
 		public static const b5FogSpeed:int = -30;
 		public static const b5FogMove:int = 250;
-		//public static const b3FogYPos:int = 100;
+		
+		// c recycle theme
+		public static const cTime:int = 40000;
+		public static const cPass:int = 0.6;
+		// level 1
+		public static const c1MaxScore:int = 40;
 		
 		// d bomb theme
 		public static const dTime:int = 60000;

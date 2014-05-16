@@ -11,43 +11,36 @@ package c_fog_theme
 	 * @author Sam Wilson
 	 */
 	public class CLevel1 extends CPlayState {	
-		private var bucket: MultiBucket;
-		
-		private var _recycables: FlxGroup;
-		private var _trash: FlxGroup;
-		private var _compost: FlxGroup;
 		
 		public function CLevel1():void {
-			maxScore = StaticVars.b1MaxScore;
-			super(StaticVars.bTime);	
+			maxScore = StaticVars.c1MaxScore;
+			level = 1;
+			super(StaticVars.cTime);	
 			
-			passScore = maxScore * StaticVars.bPass;
-			currectTheme = StaticVars.B_THEME;
-			level = 7;
-			_recycables = new FlxGroup();
-			add(_recycables);
-			
-			_trash = new FlxGroup();
-			add(_trash);
-			
-			_compost = new FlxGroup();
-			add(_compost);
-			StaticVars.logger.logLevelStart(level, null);
+			passScore = maxScore * StaticVars.cPass;
+			currectTheme = StaticVars.C_THEME;
 		}
-	
+	/*
 		override public function create(): void {
 			super.create();
-			bucket = new MultiBucket(130, 525);
-			add(bucket);
+			//bucket = new MultiBucket(130, 525);
+			//add(bucket);
 		}
-		
+		*/
 		override public function update():void 
 		{
+			isMaxScore = score >= maxScore;
+			
+			super.update();
+			if (paused) {
+				return pauseGroup.update();
+			}
+			
 			FlxG.overlap(bucket, _recycables, overlapRecycle);
 			FlxG.overlap(bucket, _trash, overTrash);
 			FlxG.overlap(bucket, _compost, overlapCompost);
 			
-			if (genRandom(StaticVars.b1Interval)) 
+			if (genRandom(StaticVars.c1Interval)  && !isMaxScore && !timer.hasExpired)) 
 			{
 				lane = genLane(lane);
 				var num:int = randNum(StaticVars.NUM_BUCKET);
@@ -63,16 +56,25 @@ package c_fog_theme
 					trashObject();
 					//trace("add trash");
 				}		
+				isStart = true;
 			}
 			super.update();
 			
+			if (_recycables.countLiving() <= 0 && _trash.countLiving() <= 0 && _compost.countLiving() <= 0 && isStart) {
+				bonus = Math.max(0, timer.secondsRemaining);
+				//log info about score and miss count	
+				var data:Object = {"finalScore":score, "misses":miss};
+				StaticVars.logger.logLevelEnd(data);
+				endGame(level);
+			}
+			/*
 			if (timer.hasExpired) {
 				//log info about score and miss count	
 				var data:Object = {"finalScore":score, "misses":miss};
 				StaticVars.logger.logLevelEnd(data);
 				// time has run out, check if user has won	
 				endGame(4);
-			}
+			}*/
 			
 			if (bucket.getCurrentBucket() == MultiBucket.RECYCLE) {
 				binIndicator.play("recycle", false);

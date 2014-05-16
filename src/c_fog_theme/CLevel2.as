@@ -10,9 +10,9 @@ package c_fog_theme
 	 * @author Sam Wilson
 	 */
 	public class CLevel2 extends CPlayState { 
-	 	[Embed(source = '../../img/wooden_bucket.png')] private var bucketImg:Class;
+	 	//[Embed(source = '../../img/wooden_bucket.png')] private var bucketImg:Class;
 		
-		private var bucket: Bucket;
+		//private var bucket: Bucket;
 		
 		[Embed(source = '../../img/grey.png')] private var fogImg:Class;
 		
@@ -40,13 +40,13 @@ package c_fog_theme
 			
 			StaticVars.logger.logLevelStart(level, null);
 		}
-	
+	/*
 		override public function create(): void {
 			super.create();
 			bucket = new Bucket(bucketImg, 130, 525);
 			add(bucket);
 		}
-		
+		*/
 		override public function update():void 
 		{	
 			FlxG.overlap(bucket, _fallObj, overlapObjBucket);

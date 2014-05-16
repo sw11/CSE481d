@@ -14,7 +14,7 @@ package c_fog_theme
 	 * @author Sam Wilson
 	 */
 	public class CPlayState extends FlxState {
-		//[Embed(source = '../../img/settings.png')] private var setting:Class;
+		
 		/** Keep track of current score*/
 		public var score: Number;
 		public var miss:int;
@@ -58,6 +58,17 @@ package c_fog_theme
 		
 		protected var binIndicator:BinIndicator;
 		
+		protected var bucket: MultiBucket;
+		
+		protected var paused:Boolean;
+		protected var pauseGroup:FlxGroup;
+		protected var instr:FlxText;
+		protected var instrStr:String;
+		
+		protected var _recycables: FlxGroup;
+		protected var _trash: FlxGroup;
+		protected var _compost: FlxGroup;
+		
 		/**
 		 * contructor of PlayState
 		 * 
@@ -69,13 +80,15 @@ package c_fog_theme
 			resetCount(StaticVars.a1Interval);
 			missCount = 0;
 			score = 0;
+			StaticVars.logger.logLevelStart(level, null);
 			this.max_time = max_time;
 			timer = new FlxDelay(max_time);
-			timer.start();
+			//timer.start();
 		}
 				
 		override public function create():void {
-			
+			paused = true;
+			pauseGroup = new FlxGroup();
 			//set backgroud color
 			FlxG.bgColor = 0xeeeeeeee;
 			
@@ -99,25 +112,49 @@ package c_fog_theme
 			killBar.makeGraphic(500, 5, StaticVars.INVISIBLE);
 			add(killBar);
 			
-			remainingTimeDisplay = new FlxText(0, 76, FlxG.width, "Time: "+timer.secondsRemaining);
+			remainingTimeDisplay = new FlxText(0, 76, FlxG.width, "Time: "+ max_time/1000);
 			remainingTimeDisplay.setFormat(null, 11, StaticVars.BLACK, "left");
 			add(remainingTimeDisplay);
 			
 			binIndicator = new BinIndicator(15, 130);
 			add(binIndicator);
+			
+			bucket = new MultiBucket(StaticVars.bucket_x, StaticVars.bucket_y);
+			add(bucket);
+			
+			_recycables = new FlxGroup();
+			add(_recycables);
+			
+			_trash = new FlxGroup();
+			add(_trash);
+			
+			_compost = new FlxGroup();
+			add(_compost);
+			
+			instr = new FlxText(StaticVars.WIDTH/2 - FlxG.width/2, 250, FlxG.width, instrStr);
+			instr.setFormat(null, 30, StaticVars.BLACK, "center");
+			add(instr);
+			
 		}
 	
 		override public function update():void {
 			
+			if (paused && FlxG.keys.justPressed("ENTER")) {
+				paused = !paused;
+				instr.kill();
+				timer.start();
+			} else if (FlxG.keys.justPressed("ESCAPE")) {
+				FlxG.switchState(new ThemeState());
+			}
+			
+			if (paused) {
+				return pauseGroup.update();
+			}
+			
 			FlxG.overlap(killBar, _fallObj, overlapKillBarObj);
 			FlxG.overlap(killBar, _bombs, overlapKillBarBomb);
 			
-			if (FlxG.keys.justPressed("ESCAPE")) {
-				FlxG.switchState(new ThemeState());
-			}
 			super.update();
-			
-			
 			
 			checkScore();
 			scoreText.text = "Score: " + score + "\nMiss: " + miss;

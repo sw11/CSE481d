@@ -16,7 +16,7 @@ package c_fog_theme
 		private var xCoord : int;
 		private var yCoord : int;
 		
-		private static const _move_speed : int = 400;
+		//private static const _move_speed : int = 400;
 		public static const TRASH : int = 0;
 		public static const RECYCLE : int = 1;
 		public static const COMPOST : int = 2;
@@ -46,18 +46,27 @@ package c_fog_theme
 		{
 			super.update();
 			if (FlxG.keys.LEFT && x > 130){
-				velocity.x = -_move_speed ;
+				velocity.x = -StaticVars.speed;
 			} else if (FlxG.keys.RIGHT && x < 540) {
-				velocity.x = _move_speed ;
+				velocity.x = StaticVars.speed;
 			} else {
 				velocity.x = 0;
 			}
 			
-			if (FlxG.keys.justPressed("SPACE") || FlxG.keys.justPressed("Z")) {
+			if (FlxG.keys.justPressed("Z")) {
 				cycBucket++;
 				switchBucket();
 			} else if (FlxG.keys.justPressed("A")) {
 				cycBucket--;
+				switchBucket();
+			} else if (FlxG.keys.justPressed("ONE")) {
+				cycBucket = 0;
+				switchBucket();
+			} else if (FlxG.keys.justPressed("TWO")) {
+				cycBucket = 1;
+				switchBucket();
+			} else if (FlxG.keys.justPressed("THREE")) {
+				cycBucket = 2;
 				switchBucket();
 			}
 		}
