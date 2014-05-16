@@ -39,7 +39,7 @@ package a_basic_theme
 		//private var isDisplay:Boolean;
 		
 		// the current theme 
-		protected var currectTheme:int;
+		//protected var currectTheme:int;
 		// the current level that show on the screen
 		protected var level:int;
 		
@@ -85,7 +85,7 @@ package a_basic_theme
 			add(scoreBar);
 			
 			var levelInstr2:FlxText;
-			levelInstr2 = new FlxText(0, 16, FlxG.width, currectTheme + " theme\nLevel " + level + "\nEsc to main menu");
+			levelInstr2 = new FlxText(0, 16, FlxG.width, StaticVars.A_THEME + " theme\nLevel " + level + "\nEsc to main menu");
 			levelInstr2.setFormat(null, 11, StaticVars.BLACK, "left");
 			add(levelInstr2);
 			
@@ -172,13 +172,13 @@ package a_basic_theme
 		protected function endGame(level:int): void {
 			//var perfect:Number = maxScore * StaticVars.aPerf;
 			if (score >= passScore) {
-				trace("in end game() theme " + currectTheme + " level " + level);
-				if (currectTheme == State.unlockTheme && level == State.unlockLevel) {
+				//trace("in end game() theme " + StaticVars.A_THEME + " level " + level);
+				if (level == State.unlockLevel) {
 					State.nextLevel();
 				}
-				FlxG.switchState(new EndState("WIN", score, miss, bonus, maxScore, currectTheme, level));
+				FlxG.switchState(new EndState("WIN", score, miss, bonus, maxScore, StaticVars.A_THEME, level));
 			} else {
-				FlxG.switchState(new EndState("LOSE", score, miss, bonus, maxScore, currectTheme, level));	
+				FlxG.switchState(new EndState("LOSE", score, miss, bonus, maxScore, StaticVars.A_THEME, level));	
 			}
 		}
 		

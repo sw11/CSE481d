@@ -15,12 +15,6 @@ package utility
 		public static const PLAY_BTN_X:int = 220;
 		public static const PLAY_BTN_y:int = 100;
 		
-		/* setting button 
-		public static const SETTING_W:int =  200;
-		public static const SETTING_H:int =  100; 
-		public static const SETTING_BTN_X:int = 220;
-		public static const SETTING_BTN_y:int = 300;
-		*/
 		public static const WHITE:int = 0xffffff;
 		public static const BLACK:int = 0x11111111;
 		public static const RED:int = 0xFFFF0000;
@@ -28,11 +22,6 @@ package utility
 		public static const YELLOW:int = 0xFFFF00;
 		public static const INVISIBLE:int = 0x00FFFFFF;
 		
-		/*public static const SETTING_BUTTON_X:int = 15;
-		public static const SETTING_BUTTON_Y:int = 15;
-		public static const SETTING_SIZE_X:int = 100;
-		public static const SETTING_SIZE_Y:int = 100;
-		*/
 		public static const A_THEME:int = 1;
 		public static const B_THEME:int = 2;
 		public static const C_THEME:int = 3;
@@ -93,7 +82,7 @@ package utility
 		public static const a6BombScore:int = 1;
 		public static const a6AmmoNum:int = 20;
 		
-		// b recycle theme:
+		// b fog theme:
 		public static const bTime:int = 30000;
 		public static const bPass:Number = 0.5;
 		public static const fogRate:int = 100;
@@ -106,16 +95,22 @@ package utility
 		public static const b1Interval:int = 35;
 		public static const b1BombRate:int = 10;
 		public static const b1FogYPos:int = 50;
+		public static const b1BombScore:int = 1;
 		// level 2
 		public static const b2MaxScore:int = 30;
 		public static const b2Interval:int = 30;
 		public static const b2Alpha:Number = 0.02;
 		public static const b2FogYPos:int = 100;
-		
+		public static const b2BombRate:int = 7;
+		public static const b2BombScore:int = 2;
 		// level 3
-		public static const b3MaxScore:int = 60;
-		public static const b3Interval:int = 20;
-		
+		public static const b3MaxScore:int = 30;
+		public static const b3Interval:int = 25;
+		public static const b3Alpha:Number = 0.015;
+		public static const b3BombRate:int = 5;
+		public static const b3BombScore:int = 3;
+		public static const b3AmmoNum:int = 10;
+		//public static const b3FogYPos:int = 100;
 		
 		// d bomb theme
 		public static const dTime:int = 60000;

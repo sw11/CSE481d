@@ -14,7 +14,7 @@ package b_recycle_theme
 	 * @author Sam Wilson
 	 */
 	public class BPlayState extends FlxState {
-		[Embed(source = '../../img/wooden_bucket.png')] protected static var bucketImg:Class;
+		[Embed(source = '../../img/TrashCan1.png')] protected static var bucketImg:Class;
 		[Embed(source = '../../img/fog_3.png')] protected static var fogImg:Class;
 		
 		protected var bucket: Bucket;
@@ -63,6 +63,11 @@ package b_recycle_theme
 		protected var bombScore:int;
 		
 		protected var alphaArr:Array;
+		protected var bombArr:Array;
+		
+		protected var _ammos:FlxGroup;
+		protected var ammo:int;
+		protected var ammoText:FlxText;
 		
 		/**
 		 * contructor of PlayState
@@ -83,6 +88,7 @@ package b_recycle_theme
 			StaticVars.logger.logLevelStart(level, null);
 			
 			alphaArr = new Array();
+			bombArr = new Array();
 			
 			this.max_time = max_time;
 			timer = new FlxDelay(max_time);
@@ -129,7 +135,8 @@ package b_recycle_theme
 			
 			if (FlxG.keys.justPressed("ESCAPE")) {
 				FlxG.switchState(new ThemeState());
-			}
+			} 
+			
 			super.update();
 			
 			//if (timer.secondsRemaining <= 10 && !isDisplay) {
@@ -167,6 +174,11 @@ package b_recycle_theme
 			score = Math.max(0, Math.min(score, maxScore));
 		}
 		
+		protected function fireAmmo(xPos:int):void {
+			ammo -= 1;
+			_ammos.add(new Ammos(xPos, 550));
+		}
+		
 		protected function genRandom(interval:int):Boolean {
 			if (counter++ > maxCount) {
 				resetCount(interval);
@@ -195,9 +207,7 @@ package b_recycle_theme
 		}
 		
 		protected function endGame(level:int): void {
-			//var perfect:Number = maxScore * StaticVars.aPerf;
 			if (score >= passScore) {
-				//trace("in end game() theme " + StaticVars.B_THEME + " level " + level);
 				if (level == State.unlockLevel) {
 					State.nextLevel();
 				}
@@ -241,7 +251,6 @@ package b_recycle_theme
 			obj.kill();
 			but.play("green", false);
 			this.score += 1;	
-			
 		}
 		
 		protected function overlapBombBucket(but:Bucket, b:Bomb):void {
@@ -249,6 +258,13 @@ package b_recycle_theme
 				b.kill();
 				but.play("red", false);
 				this.score -= bombScore;
+			}
+		}
+		
+		protected function overlapAmmoBomb(ammoObj:Ammos, bomb:Bomb):void {
+			ammoObj.kill();
+			if (!bomb.isKill()){
+				bomb.kill();
 			}
 		}
 	}

@@ -10,14 +10,23 @@ package b_recycle_theme
 	 * ...
 	 * @author Sam Wilson
 	 */
-	public class BLevel2 extends BPlayState {	
+	public class BLevel3 extends BPlayState {	
 		
-		public function BLevel2():void {
-			maxScore = StaticVars.b2MaxScore;
-			level = 2;
-			bombScore = StaticVars.b2BombScore;
+		public function BLevel3():void {
+			maxScore = StaticVars.b3MaxScore;
+			level = 3;
+			bombScore = StaticVars.b3BombScore;
 			passScore = maxScore * StaticVars.bPass;
-			super(StaticVars.bTime);	
+			super(StaticVars.bTime);
+			
+			ammo = StaticVars.a5AmmoNum;
+			
+			_ammos = new FlxGroup();
+			add(_ammos);
+			
+			ammoText = new FlxText(0, 56, FlxG.width, "Ammo: " + ammo);
+			ammoText.setFormat(null, 11, StaticVars.BLACK, "left");
+			add(ammoText);	
 		}
 	
 		override public function create(): void {
@@ -36,11 +45,19 @@ package b_recycle_theme
 			isMaxScore = score >= maxScore;
 			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
 			FlxG.overlap(bucket, _bombs, overlapBombBucket);
+			FlxG.overlap(_ammos, _bombs, overlapAmmoBomb);
 			
-			if (genRandom(StaticVars.b2Interval) && !isMaxScore && !timer.hasExpired) 
+			if (FlxG.keys.justPressed("SPACE") && ammo > 0) {
+				fireAmmo(bucket.x + 35);
+				ammoText.text = "Ammo: " + ammo;
+			} else if (FlxG.keys.justPressed("SPACE")) {
+				ammoText.color = StaticVars.RED;
+			}
+			
+			if (genRandom(StaticVars.b3Interval) && !isMaxScore && !timer.hasExpired) 
 			{
 				lane = genLane(lane);
-				if (oneOf(StaticVars.b2BombRate)) 
+				if (oneOf(StaticVars.b3BombRate)) 
 				{
 					//var bombObj:Bomb = 
 					fallBomb(StaticVars.yOffset, StaticVars.fallSpeedSlow);
@@ -64,7 +81,7 @@ package b_recycle_theme
 				if (fallObj == null || !fallObj.alive) {
 					alphaArr.splice(i, 1);
 				}
-				if (fallObj.alpha >= 1) {
+				if (fallObj.alpha == 1) {
 					continue;
 				}
 				if ((++alphaArr[i][1]) % StaticVars.fogRate == 0) {
@@ -73,5 +90,7 @@ package b_recycle_theme
 				fallObj.alpha -= alphaArr[i][2];
 			}
 		}
+		
+
 	}
 }

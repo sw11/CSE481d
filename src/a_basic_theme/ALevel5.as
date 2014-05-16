@@ -23,7 +23,7 @@ package a_basic_theme
 			super(StaticVars.aTime);	
 			ammo = StaticVars.a5AmmoNum;
 			passScore = maxScore * StaticVars.aPass;
-			currectTheme = StaticVars.A_THEME;
+			//currectTheme = StaticVars.A_THEME;
 			level = 5;
 			bombScore = StaticVars.a5BombScore;
 			_fallObj = new FlxGroup();
@@ -98,8 +98,9 @@ package a_basic_theme
 		
 		private function overlapAmmoBomb(ammoObj:Ammos, bomb:Bomb):void {
 			ammoObj.kill();
-			bomb.kill();
-			// todo add explosion
+			if (!bomb.isKill()) {
+				bomb.kill();
+			}
 		}
 	}
 }

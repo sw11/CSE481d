@@ -15,6 +15,7 @@ package b_recycle_theme
 		public function BLevel1():void {
 			maxScore = StaticVars.b1MaxScore;
 			level = 1;
+			bombScore = StaticVars.b1BombScore;
 			passScore = maxScore * StaticVars.bPass;
 			super(StaticVars.bTime);	
 		}
