@@ -16,11 +16,12 @@ package a_basic_theme
 		
 		public function ALevel3():void {
 			maxScore = StaticVars.a3MaxScore;
+			level = 3;
 			super(StaticVars.aTime);	
 			bombScore = StaticVars.a3BombScore;
 			passScore = maxScore * StaticVars.aPass;
 			instrStr = "Watch out the bombs!\nIt become unstable.\nPress Enter to start.";
-			level = 3;
+			
 			_fallObj = new FlxGroup();
 			add(_fallObj);
 			_bombs = new FlxGroup();

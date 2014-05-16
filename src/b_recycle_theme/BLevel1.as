@@ -15,9 +15,10 @@ package b_recycle_theme
 		public function BLevel1():void {
 			maxScore = StaticVars.b1MaxScore;
 			level = 1;
+			super(StaticVars.bTime);	
 			bombScore = StaticVars.b1BombScore;
 			passScore = maxScore * StaticVars.bPass;
-			super(StaticVars.bTime);	
+			instrStr = "It's getting foggy!\nPress Enter to start.";
 		}
 	
 		override public function create(): void {
@@ -34,6 +35,11 @@ package b_recycle_theme
 		override public function update():void 
 		{	
 			isMaxScore = score >= maxScore;
+			super.update();
+			if (paused) {
+				return pauseGroup.update();
+			}
+			
 			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
 			FlxG.overlap(bucket, _bombs, overlapBombBucket);
 			
@@ -49,7 +55,6 @@ package b_recycle_theme
 				}	
 				isStart = true;
 			}
-			super.update();
 			
 			if (++fogSpeedCount % StaticVars.fogRate == 0) {
 				fog.velocity.y =  -fog.velocity.y;

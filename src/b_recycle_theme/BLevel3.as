@@ -15,18 +15,19 @@ package b_recycle_theme
 		public function BLevel3():void {
 			maxScore = StaticVars.b3MaxScore;
 			level = 3;
+			super(StaticVars.bTime);
 			bombScore = StaticVars.b3BombScore;
 			passScore = maxScore * StaticVars.bPass;
-			super(StaticVars.bTime);
 			
-			ammo = StaticVars.a5AmmoNum;
-			
+			ammo = StaticVars.b3AmmoNum;
 			_ammos = new FlxGroup();
 			add(_ammos);
 			
 			ammoText = new FlxText(0, 56, FlxG.width, "Ammo: " + ammo);
 			ammoText.setFormat(null, 11, StaticVars.BLACK, "left");
-			add(ammoText);	
+			add(ammoText);
+			
+			instrStr = "At least I can see the bomb.\nShot it!\nPress Enter to start.";
 		}
 	
 		override public function create(): void {
@@ -43,6 +44,12 @@ package b_recycle_theme
 		override public function update():void 
 		{	
 			isMaxScore = score >= maxScore;
+			
+			super.update();
+			if (paused) {
+				return pauseGroup.update();
+			}
+			
 			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
 			FlxG.overlap(bucket, _bombs, overlapBombBucket);
 			FlxG.overlap(_ammos, _bombs, overlapAmmoBomb);
@@ -60,16 +67,15 @@ package b_recycle_theme
 				if (oneOf(StaticVars.b3BombRate)) 
 				{
 					//var bombObj:Bomb = 
-					fallBomb(StaticVars.yOffset, StaticVars.fallSpeedSlow);
+					fallBomb(randNum(-StaticVars.yOffset) - StaticVars.yOffset, randNum(StaticVars.fallSpeedFast) + StaticVars.speedOffset);
 					//alphaArr.push(new Array(obj, 0, StaticVars.b2Alpha));		
 				}
 				else {
 					var obj:FallingObj = fallObject(StaticVars.yOffset, StaticVars.fallSpeedSlow);
-					alphaArr.push(new Array(obj, 0, StaticVars.b2Alpha));
+					alphaArr.push(new Array(obj, 0, StaticVars.b3Alpha));
 				}	
 				isStart = true;
 			}
-			super.update();
 			
 			if (++fogSpeedCount % StaticVars.fogRate == 0) {
 				fog.velocity.y =  -fog.velocity.y;
@@ -81,7 +87,7 @@ package b_recycle_theme
 				if (fallObj == null || !fallObj.alive) {
 					alphaArr.splice(i, 1);
 				}
-				if (fallObj.alpha == 1) {
+				if (fallObj.alpha >= 1) {
 					continue;
 				}
 				if ((++alphaArr[i][1]) % StaticVars.fogRate == 0) {

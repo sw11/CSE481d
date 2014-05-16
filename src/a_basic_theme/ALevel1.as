@@ -17,10 +17,10 @@ package a_basic_theme
 		
 		public function ALevel1():void {
 			maxScore = StaticVars.a1MaxScore;
+			level = 1;
 			super(StaticVars.aTime);	
 			instrStr = "Catch everything!\nPress Enter to start.";
 			passScore = maxScore * StaticVars.aPass;
-			level = 1;
 			_fallObj = new FlxGroup();
 			add(_fallObj);	
 			StaticVars.logger.logLevelStart(level, null);

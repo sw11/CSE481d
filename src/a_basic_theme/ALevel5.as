@@ -20,11 +20,12 @@ package a_basic_theme
 		
 		public function ALevel5():void {
 			maxScore = StaticVars.a5MaxScore;
+			level = 5;
 			super(StaticVars.aTime);	
 			ammo = StaticVars.a5AmmoNum;
 			passScore = maxScore * StaticVars.aPass;
 			instrStr = "We have got weapon!\nSpaceBar to shot the bomb!\nMake sure you have enough ammos.\nPress Enter to start.";
-			level = 5;
+			
 			bombScore = StaticVars.a5BombScore;
 			_fallObj = new FlxGroup();
 			add(_fallObj);

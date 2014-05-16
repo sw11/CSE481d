@@ -16,11 +16,12 @@ package a_basic_theme
 		
 		public function ALevel4():void {
 			maxScore = StaticVars.a4MaxScore;
+			level = 4;
 			super(StaticVars.aTime);	
 			bombScore = StaticVars.a4BombScore;
 			passScore = maxScore * StaticVars.aPass;
 			instrStr = "Bombs, Bombs, Bombs!\nPress Enter to start.";
-			level = 4;
+			
 			_fallObj = new FlxGroup();
 			add(_fallObj);
 			_bombs = new FlxGroup();

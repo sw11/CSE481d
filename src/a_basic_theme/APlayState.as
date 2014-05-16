@@ -155,14 +155,6 @@ package a_basic_theme
 			}
 		}
 		
-		/*
-		override public function render():void
-		{
-			if(paused)
-				return pauseGroup.render();
-			super.render();
-		}*/
-		
 		protected function checkScore():void {
 			score = Math.max(0, Math.min(score, maxScore));
 		}

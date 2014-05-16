@@ -69,6 +69,11 @@ package b_recycle_theme
 		protected var ammo:int;
 		protected var ammoText:FlxText;
 		
+		protected var paused:Boolean;
+		protected var pauseGroup:FlxGroup;
+		protected var instr:FlxText;
+		protected var instrStr:String;
+		
 		/**
 		 * contructor of PlayState
 		 * 
@@ -92,11 +97,12 @@ package b_recycle_theme
 			
 			this.max_time = max_time;
 			timer = new FlxDelay(max_time);
-			timer.start();
+			//timer.start();
 		}
 				
 		override public function create():void {
-			
+			paused = true;
+			pauseGroup = new FlxGroup();
 			//set backgroud color
 			FlxG.bgColor = 0xeeeeeeee;
 			
@@ -108,27 +114,40 @@ package b_recycle_theme
 			add(scoreBar);
 			
 			var levelInstr2:FlxText;
-			levelInstr2 = new FlxText(0, 16, FlxG.width, StaticVars.B_THEME + " theme\nLevel " + level + "\nEsc to main menu");
+			levelInstr2 = new FlxText(0, 16, FlxG.width, "Level " + level + "\nEsc to main menu");
 			levelInstr2.setFormat(null, 11, StaticVars.BLACK, "left");
 			add(levelInstr2);
 			
 			scoreText = new FlxText(0, 96, FlxG.width, "Score: " + score + "\nMiss: " + miss);
 			scoreText.setFormat(null, 11, StaticVars.BLACK, "left");
 			add(scoreText);
-			
-			//settingButton = new SettingButton(setting, StaticVars.SETTING_BUTTON_X, StaticVars.SETTING_BUTTON_Y);
-			//add(settingButton);		
-			
+	
 			killBar = new FlxSprite(130, 620);
 			killBar.makeGraphic(500, 5, StaticVars.INVISIBLE);
 			add(killBar);
 			
-			remainingTimeDisplay = new FlxText(0, 76, FlxG.width, "Time: "+timer.secondsRemaining);
+			remainingTimeDisplay = new FlxText(0, 76, FlxG.width, "Time: "+ max_time/1000);
 			remainingTimeDisplay.setFormat(null, 11, StaticVars.BLACK, "left");
 			add(remainingTimeDisplay);
+			
+			instr = new FlxText(StaticVars.WIDTH/2 - FlxG.width/2, 250, FlxG.width, instrStr);
+			instr.setFormat(null, 30, StaticVars.BLACK, "center");
+			add(instr);
 		}
 	
 		override public function update():void {
+			
+			if (paused && FlxG.keys.justPressed("ENTER")) {
+				paused = !paused;
+				instr.kill();
+				timer.start();
+			} else if (FlxG.keys.justPressed("ESCAPE")) {
+				FlxG.switchState(new ThemeState());
+			}
+			
+			if (paused) {
+				return pauseGroup.update();
+			}
 			
 			FlxG.overlap(killBar, _fallObj, overlapKillBarObj);
 			FlxG.overlap(killBar, _bombs, overlapKillBarBomb);

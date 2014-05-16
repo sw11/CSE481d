@@ -16,11 +16,12 @@ package a_basic_theme
 		
 		public function ALevel2():void {
 			maxScore = StaticVars.a2MaxScore;
+			level = 2;
 			super(StaticVars.aTime);	
 			instrStr = "There are bombs!\nAvoid them!\nPress Enter to start.";
 			bombScore = 1;
 			passScore = maxScore * StaticVars.aPass;
-			level = 2;
+			
 			_fallObj = new FlxGroup();
 			add(_fallObj);
 			_bombs = new FlxGroup();
