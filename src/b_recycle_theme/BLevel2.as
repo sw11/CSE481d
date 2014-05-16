@@ -10,11 +10,11 @@ package b_recycle_theme
 	 * ...
 	 * @author Sam Wilson
 	 */
-	public class BLevel1 extends BPlayState {	
+	public class BLevel2 extends BPlayState {	
 		
-		public function BLevel1():void {
+		public function BLevel2():void {
 			maxScore = StaticVars.b1MaxScore;
-			level = 1;
+			level = 2;
 			passScore = maxScore * StaticVars.bPass;
 			super(StaticVars.bTime);	
 		}
@@ -24,7 +24,7 @@ package b_recycle_theme
 			bucket = new Bucket(bucketImg, StaticVars.bucket_x, StaticVars.bucket_y);
 			add(bucket);
 			
-			fog = new FlxSprite(StaticVars.fogXPos, StaticVars.b1FogYPos, fogImg);
+			fog = new FlxSprite(StaticVars.fogXPos, StaticVars.b2FogYPos, fogImg);
 			fog.alpha = 1;
 			fog.velocity.y = StaticVars.fogSpeed;
 			add(fog);
@@ -41,10 +41,13 @@ package b_recycle_theme
 				lane = genLane(lane);
 				if (oneOf(StaticVars.b1BombRate)) 
 				{
+					//var bombObj:Bomb = 
 					fallBomb(StaticVars.yOffset, StaticVars.fallSpeedSlow);
+					//alphaArr.push(new Array(obj, 0, StaticVars.b2Alpha));		
 				}
 				else {
-					fallObject(StaticVars.yOffset, StaticVars.fallSpeedSlow);
+					var obj:FallingObj = fallObject(StaticVars.yOffset, StaticVars.fallSpeedSlow);
+					alphaArr.push(new Array(obj, 0, StaticVars.b2Alpha));
 				}	
 				isStart = true;
 			}
@@ -53,6 +56,20 @@ package b_recycle_theme
 			if (++fogSpeedCount % StaticVars.fogRate == 0) {
 				fog.velocity.y =  -fog.velocity.y;
 				fogSpeedCount = 0;
+			}
+			
+			for (var i:int = alphaArr.length - 1; i >= 0 ; i--) {
+				var fallObj:FallingObj = alphaArr[i][0] as FallingObj;
+				if (fallObj == null || !fallObj.alive) {
+					alphaArr.splice(i, 1);
+				}
+				if (fallObj.alpha == 1) {
+					continue;
+				}
+				if ((++alphaArr[i][1]) % StaticVars.fogRate == 0) {
+					alphaArr[i][2] = -alphaArr[i][2];
+				}
+				fallObj.alpha -= alphaArr[i][2];
 			}
 		}
 	}

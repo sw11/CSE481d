@@ -62,6 +62,8 @@ package b_recycle_theme
 		
 		protected var bombScore:int;
 		
+		protected var alphaArr:Array;
+		
 		/**
 		 * contructor of PlayState
 		 * 
@@ -79,6 +81,8 @@ package b_recycle_theme
 			_bombs = new FlxGroup();
 			add(_bombs);
 			StaticVars.logger.logLevelStart(level, null);
+			
+			alphaArr = new Array();
 			
 			this.max_time = max_time;
 			timer = new FlxDelay(max_time);
@@ -217,27 +221,31 @@ package b_recycle_theme
 				bomb.kill();
 		}
 		
-		protected function fallObject(yOffset:int, speed:int):void {
+		protected function fallObject(yOffset:int, speed:int):FallingObj {
 			var obj:FallingObj = new FallingObj(lane, yOffset);
 			obj.velocity.y = speed;
+			obj.alpha = 0.99;
 			_fallObj.add(obj);
+			return obj;
 		}
 		
-		protected function fallBomb(yOffset:int, speed:int):void {
+		protected function fallBomb(yOffset:int, speed:int):Bomb {
 			var obj:Bomb = new Bomb(lane + StaticVars.bombOffSet, yOffset);
 			obj.offset = new FlxPoint(0, -StaticVars.bombOffSet);
 			obj.velocity.y = speed;
 			_bombs.add(obj);
+			return obj;
 		}
 		
 		protected function overlapObjBucket(but:Bucket, obj:FallingObj):void {
 			obj.kill();
 			but.play("green", false);
 			this.score += 1;	
+			
 		}
 		
 		protected function overlapBombBucket(but:Bucket, b:Bomb):void {
-			if (!b.killed) {
+			if (!b.isKill()) {
 				b.kill();
 				but.play("red", false);
 				this.score -= bombScore;

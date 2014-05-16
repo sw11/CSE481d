@@ -96,14 +96,21 @@ package utility
 		// b recycle theme:
 		public static const bTime:int = 30000;
 		public static const bPass:Number = 0.5;
+		public static const fogRate:int = 100;
+		public static const fogXPos:int = 130;
+		public static const fogSpeed:int = -10;
+		
 		public static const NUM_BUCKET:int = 3;
 		// level 1
 		public static const b1MaxScore:int = 25;
 		public static const b1Interval:int = 35;
 		public static const b1BombRate:int = 10;
+		public static const b1FogYPos:int = 50;
 		// level 2
-		public static const b2MaxScore:int = 50;
+		public static const b2MaxScore:int = 30;
 		public static const b2Interval:int = 30;
+		public static const b2Alpha:Number = 0.02;
+		public static const b2FogYPos:int = 100;
 		
 		// level 3
 		public static const b3MaxScore:int = 60;
