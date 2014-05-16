@@ -22,7 +22,6 @@ package b_recycle_theme
 		}
 	
 		override public function create(): void {
-			super.create();
 			bucket = new Bucket(bucketImg, StaticVars.bucket_x, StaticVars.bucket_y);
 			add(bucket);
 			
@@ -30,6 +29,8 @@ package b_recycle_theme
 			fog.alpha = 1;
 			fog.velocity.y = StaticVars.fogSpeed;
 			add(fog);
+			
+			super.create();
 		}
 		
 		override public function update():void 
