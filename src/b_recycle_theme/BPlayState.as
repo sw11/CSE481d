@@ -50,6 +50,7 @@ package b_recycle_theme
 		protected var level:int;
 		
 		protected var killBar:FlxSprite;
+		protected var topKillBar:FlxSprite;
 		protected var missCount:int;
 		
 		protected var _fallObj: FlxGroup;
@@ -126,6 +127,10 @@ package b_recycle_theme
 			killBar.makeGraphic(500, 5, StaticVars.INVISIBLE);
 			add(killBar);
 			
+			topKillBar = new FlxSprite(130, -60);
+			topKillBar.makeGraphic(500, 5, StaticVars.INVISIBLE);
+			add(topKillBar);
+			
 			remainingTimeDisplay = new FlxText(0, 76, FlxG.width, "Time: "+ max_time/1000);
 			remainingTimeDisplay.setFormat(null, 11, StaticVars.BLACK, "left");
 			add(remainingTimeDisplay);
@@ -151,17 +156,12 @@ package b_recycle_theme
 			
 			FlxG.overlap(killBar, _fallObj, overlapKillBarObj);
 			FlxG.overlap(killBar, _bombs, overlapKillBarBomb);
-			
+			FlxG.overlap(topKillBar, _ammos, overlapTopKillBarAmmo);
 			if (FlxG.keys.justPressed("ESCAPE")) {
 				FlxG.switchState(new ThemeState());
 			} 
 			
 			super.update();
-			
-			//if (timer.secondsRemaining <= 10 && !isDisplay) {
-			//	add(remainingTimeDisplay);
-			//	isDisplay = true;
-			//}
 			
 			checkScore();
 			scoreText.text = "Score: " + score + "\nMiss: " + miss;
@@ -196,6 +196,7 @@ package b_recycle_theme
 		protected function fireAmmo(xPos:int):void {
 			ammo -= 1;
 			_ammos.add(new Ammos(xPos, 550));
+			score ++;
 		}
 		
 		protected function genRandom(interval:int):Boolean {
@@ -262,6 +263,7 @@ package b_recycle_theme
 			var obj:Bomb = new Bomb(lane + StaticVars.bombOffSet, yOffset);
 			obj.offset = new FlxPoint(0, -StaticVars.bombOffSet);
 			obj.velocity.y = speed;
+			obj.alpha = 0.99;
 			_bombs.add(obj);
 			return obj;
 		}
@@ -282,9 +284,14 @@ package b_recycle_theme
 		
 		protected function overlapAmmoBomb(ammoObj:Ammos, bomb:Bomb):void {
 			ammoObj.kill();
-			if (!bomb.isKill()){
+			if (!bomb.isKill()) {
+				bomb.alpha = 0.99;
 				bomb.kill();
 			}
+		}
+		
+		protected function  overlapTopKillBarAmmo(ammoObj:Ammos, topBar:FlxSprite):void {
+			ammoObj.kill();
 		}
 	}
 }

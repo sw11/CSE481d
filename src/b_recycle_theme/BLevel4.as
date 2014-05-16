@@ -13,13 +13,13 @@ package b_recycle_theme
 	public class BLevel4 extends BPlayState {	
 		
 		public function BLevel4():void {
-			maxScore = StaticVars.b3MaxScore;
-			level = 3;
+			maxScore = StaticVars.b4MaxScore;
+			level = 4;
 			super(StaticVars.bTime);
-			bombScore = StaticVars.b3BombScore;
+			bombScore = StaticVars.b4BombScore;
 			passScore = maxScore * StaticVars.bPass;
 			
-			ammo = StaticVars.b3AmmoNum;
+			ammo = StaticVars.b4AmmoNum;
 			_ammos = new FlxGroup();
 			add(_ammos);
 			
@@ -27,7 +27,7 @@ package b_recycle_theme
 			ammoText.setFormat(null, 11, StaticVars.BLACK, "left");
 			add(ammoText);
 			
-			instrStr = "At least I can see the bomb.\nShot it!\nPress Enter to start.";
+			instrStr = "It's getting harder to shot the bomb!\nPress Enter to start.";
 		}
 	
 		override public function create(): void {
@@ -37,7 +37,7 @@ package b_recycle_theme
 			
 			fog = new FlxSprite(StaticVars.fogXPos, StaticVars.b2FogYPos, fogImg);
 			fog.alpha = 1;
-			fog.velocity.y = StaticVars.fogSpeed;
+			fog.velocity.y = StaticVars.b4FogSpeed;
 			add(fog);
 		}
 		
@@ -61,18 +61,17 @@ package b_recycle_theme
 				ammoText.color = StaticVars.RED;
 			}
 			
-			if (genRandom(StaticVars.b3Interval) && !isMaxScore && !timer.hasExpired) 
+			if (genRandom(StaticVars.b4Interval) && !isMaxScore && !timer.hasExpired) 
 			{
 				lane = genLane(lane);
-				if (oneOf(StaticVars.b3BombRate)) 
+				if (oneOf(StaticVars.b4BombRate)) 
 				{
-					//var bombObj:Bomb = 
-					fallBomb(randNum(-StaticVars.yOffset) - StaticVars.yOffset, randNum(StaticVars.fallSpeedFast) + StaticVars.speedOffset);
-					//alphaArr.push(new Array(obj, 0, StaticVars.b2Alpha));		
+					var bombObj:Bomb = fallBomb(StaticVars.yOffset, randNum(StaticVars.fallSpeedFast) + StaticVars.speedOffset);
+					bombArr.push(new Array(bombObj, 0, StaticVars.b2Alpha));		
 				}
 				else {
 					var obj:FallingObj = fallObject(StaticVars.yOffset, StaticVars.fallSpeedSlow);
-					alphaArr.push(new Array(obj, 0, StaticVars.b3Alpha));
+					alphaArr.push(new Array(obj, 0, StaticVars.b4Alpha));
 				}	
 				isStart = true;
 			}
@@ -87,16 +86,29 @@ package b_recycle_theme
 				if (fallObj == null || !fallObj.alive) {
 					alphaArr.splice(i, 1);
 				}
-				if (fallObj.alpha >= 1) {
+				if (fallObj.alpha <= 0) {
 					continue;
 				}
-				if ((++alphaArr[i][1]) % StaticVars.fogRate == 0) {
-					alphaArr[i][2] = -alphaArr[i][2];
-				}
+				//if ((++alphaArr[i][1]) % StaticVars.b4FogRate == 0) {
+				//	alphaArr[i][2] = -alphaArr[i][2];
+				//}
 				fallObj.alpha -= alphaArr[i][2];
 			}
+			
+			for (var j:int = bombArr.length - 1; j >= 0 ; j--) {
+				var bObj:Bomb = bombArr[j][0] as Bomb;
+				if (bObj == null || !bObj.alive) {
+					bombArr.splice(j, 1);
+					continue;
+				}
+				if (bObj.alpha >= 1) {
+					continue;
+				}
+				if ((++bombArr[j][1]) % StaticVars.fogRate == 0) {
+					bombArr[j][2] = -bombArr[j][2];
+				}
+				bObj.alpha -= bombArr[j][2];
+			}
 		}
-		
-
 	}
 }

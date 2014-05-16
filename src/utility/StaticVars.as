@@ -110,6 +110,16 @@ package utility
 		public static const b3BombRate:int = 5;
 		public static const b3BombScore:int = 3;
 		public static const b3AmmoNum:int = 10;
+		public static const b3FogRate:int = 170;
+		// level 4
+		public static const b4MaxScore:int = 30;
+		public static const b4Interval:int = 20;
+		public static const b4Alpha:Number = 0.01;
+		public static const b4BombRate:int = 4;
+		public static const b4BombScore:int = 4;
+		public static const b4AmmoNum:int = 20;
+		public static const b4FogSpeed:int = -15;
+		public static const b4FogRate:int = 500;
 		//public static const b3FogYPos:int = 100;
 		
 		// d bomb theme

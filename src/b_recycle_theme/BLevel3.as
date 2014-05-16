@@ -86,11 +86,12 @@ package b_recycle_theme
 				var fallObj:FallingObj = alphaArr[i][0] as FallingObj;
 				if (fallObj == null || !fallObj.alive) {
 					alphaArr.splice(i, 1);
+					continue;
 				}
 				if (fallObj.alpha >= 1) {
 					continue;
 				}
-				if ((++alphaArr[i][1]) % StaticVars.fogRate == 0) {
+				if ((++alphaArr[i][1]) % StaticVars.b3FogRate == 0) {
 					alphaArr[i][2] = -alphaArr[i][2];
 				}
 				fallObj.alpha -= alphaArr[i][2];
