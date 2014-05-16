@@ -277,7 +277,7 @@ package main
 						FlxG.switchState(new BLevel4()); 
 						break;
 					case 5:
-						FlxG.switchState(new BLevel1()); // TODO
+						FlxG.switchState(new BLevel5()); // TODO
 						break;
 					case 6:
 						FlxG.switchState(new BLevel1()); // TODO
