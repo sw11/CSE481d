@@ -10,16 +10,16 @@ package b_recycle_theme
 	 * ...
 	 * @author Sam Wilson
 	 */
-	public class BLevel3 extends BPlayState {	
+	public class BLevel5 extends BPlayState {	
 		
-		public function BLevel3():void {
-			maxScore = StaticVars.b3MaxScore;
-			level = 3;
-			super(StaticVars.bTime);
-			bombScore = StaticVars.b3BombScore;
+		public function BLevel5():void {
+			maxScore = StaticVars.b5MaxScore;
+			level = 5;
+			super(StaticVars.b5Time);
+			bombScore = StaticVars.b5BombScore;
 			passScore = maxScore * StaticVars.bPass;
 			
-			ammo = StaticVars.b3AmmoNum;
+			ammo = StaticVars.b5AmmoNum;
 			_ammos = new FlxGroup();
 			add(_ammos);
 			
@@ -27,16 +27,16 @@ package b_recycle_theme
 			ammoText.setFormat(null, 11, StaticVars.BLACK, "left");
 			add(ammoText);
 			
-			instrStr = "At least I can see the bomb.\nShot it!\nPress Enter to start.";
+			instrStr = "Everything is disappear!\nPress Enter to start.";
 		}
 	
 		override public function create(): void {
 			bucket = new Bucket(bucketImg, StaticVars.bucket_x, StaticVars.bucket_y);
 			add(bucket);
 			
-			fog = new FlxSprite(StaticVars.fogXPos, StaticVars.b2FogYPos, fogImg);
+			fog = new FlxSprite(StaticVars.fogXPos, StaticVars.b5FogYPos, fogImg);
 			fog.alpha = 1;
-			fog.velocity.y = StaticVars.fogSpeed;
+			fog.velocity.y = StaticVars.b5FogSpeed;
 			add(fog);
 			
 			super.create();
@@ -62,23 +62,22 @@ package b_recycle_theme
 				ammoText.color = StaticVars.RED;
 			}
 			
-			if (genRandom(StaticVars.b3Interval) && !isMaxScore && !timer.hasExpired) 
+			if (genRandom(StaticVars.b5Interval) && !isMaxScore && !timer.hasExpired) 
 			{
 				lane = genLane(lane);
-				if (oneOf(StaticVars.b3BombRate)) 
+				if (oneOf(StaticVars.b5BombRate)) 
 				{
-					//var bombObj:Bomb = 
-					fallBomb(randNum(-StaticVars.yOffset) - StaticVars.yOffset, randNum(StaticVars.fallSpeedFast) + StaticVars.speedOffset);
-					//alphaArr.push(new Array(obj, 0, StaticVars.b2Alpha));		
+					var bombObj:Bomb = fallBomb(StaticVars.yOffset, randNum(StaticVars.fallSpeedFast) + StaticVars.speedOffset);
+					bombArr.push(new Array(bombObj, 0, StaticVars.b5Alpha));		
 				}
 				else {
 					var obj:FallingObj = fallObject(StaticVars.yOffset, StaticVars.fallSpeedSlow);
-					alphaArr.push(new Array(obj, 0, StaticVars.b3Alpha));
+					alphaArr.push(new Array(obj, 0, StaticVars.b5Alpha));
 				}	
 				isStart = true;
 			}
 			
-			if (++fogSpeedCount % StaticVars.fogRate == 0) {
+			if (++fogSpeedCount % StaticVars.b5FogMove == 0) {
 				fog.velocity.y =  -fog.velocity.y;
 				fogSpeedCount = 0;
 			}
@@ -87,18 +86,30 @@ package b_recycle_theme
 				var fallObj:FallingObj = alphaArr[i][0] as FallingObj;
 				if (fallObj == null || !fallObj.alive) {
 					alphaArr.splice(i, 1);
+				}
+				if (fallObj.alpha <= 0) {
 					continue;
 				}
-				if (fallObj.alpha >= 1) {
-					continue;
-				}
-				if ((++alphaArr[i][1]) % StaticVars.b3FogRate == 0) {
-					alphaArr[i][2] = -alphaArr[i][2];
-				}
+				//if ((++alphaArr[i][1]) % StaticVars.b4FogRate == 0) {
+				//	alphaArr[i][2] = -alphaArr[i][2];
+				//}
 				fallObj.alpha -= alphaArr[i][2];
 			}
+			
+			for (var j:int = bombArr.length - 1; j >= 0 ; j--) {
+				var bObj:Bomb = bombArr[j][0] as Bomb;
+				if (bObj == null || !bObj.alive) {
+					bombArr.splice(j, 1);
+					continue;
+				}
+				if (bObj.alpha <= 0) {
+					continue;
+				}
+				//if ((++bombArr[j][1]) % StaticVars.fogRate == 0) {
+				//	bombArr[j][2] = -bombArr[j][2];
+				//}
+				bObj.alpha -= bombArr[j][2];
+			}
 		}
-		
-
 	}
 }

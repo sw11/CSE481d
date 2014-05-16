@@ -108,17 +108,19 @@ package main
 					break;
 				}
 			}
-			
-			isBonus = i == themeArr.length - 1;
+			// todo enable this
+			//isBonus = i == themeArr.length - 1;
 			
 			level6 = createText(yPos += 40, isBonus ? "BONUS" : "???")
 			add(level6);
 			
 			if (!isBonus) {
 				addLock();
-			} else {
-				State.unlockLevels[currTheme - 1] = State.maxLevel + 1;
-			}
+			} 
+			// todo enable this once bonus is done
+			//else {
+			//	State.unlockLevels[currTheme - 1] = State.maxLevel + 1;
+			//}
 			if (themeArr[5][1] as Boolean) {
 				addStar();
 			}
@@ -277,7 +279,7 @@ package main
 						FlxG.switchState(new BLevel4()); 
 						break;
 					case 5:
-						FlxG.switchState(new BLevel1()); // TODO
+						FlxG.switchState(new BLevel5()); // TODO
 						break;
 					case 6:
 						FlxG.switchState(new BLevel1()); // TODO

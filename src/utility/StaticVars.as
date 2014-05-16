@@ -120,6 +120,17 @@ package utility
 		public static const b4AmmoNum:int = 20;
 		public static const b4FogSpeed:int = -15;
 		public static const b4FogRate:int = 500;
+		// level 5
+		public static const b5MaxScore:int = 40;
+		public static const b5Time:int = 45000;
+		public static const b5Interval:int = 20;
+		public static const b5Alpha:Number = 0.01;
+		public static const b5FogYPos:int = 150;
+		public static const b5BombRate:int = 3;
+		public static const b5BombScore:int = 4;
+		public static const b5AmmoNum:int = 25;
+		public static const b5FogSpeed:int = -30;
+		public static const b5FogMove:int = 250;
 		//public static const b3FogYPos:int = 100;
 		
 		// d bomb theme

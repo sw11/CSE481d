@@ -8,7 +8,7 @@ package main
 	 */
 	public class Bucket extends FlxSprite
 	{
-		private static const _move_speed : int = 400;
+		//private static const _move_speed : int = 400;
 		private var xCoord : int;
 		private var yCoord : int;
 		
