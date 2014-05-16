@@ -11,53 +11,58 @@ package c_fog_theme
 	 * @author Sam Wilson
 	 */
 	public class CLevel1 extends CPlayState {	
-		[Embed(source = '../../img/wooden_bucket.png')] private var bucketImg:Class;
+		private var bucket: MultiBucket;
 		
-		private var bucket: Bucket;
-		[Embed(source = '../../img/grey.png')] private var fogImg:Class;
-		
-		private var fog:FlxSprite;
-		
-		//private var _fallObj: FlxGroup;
-		
-		//private var remainingTimeDisplay:FlxText;
+		private var _recycables: FlxGroup;
+		private var _trash: FlxGroup;
+		private var _compost: FlxGroup;
 		
 		public function CLevel1():void {
-			maxScore = StaticVars.a1MaxScore;
-			super(StaticVars.aTime);	
+			maxScore = StaticVars.b1MaxScore;
+			super(StaticVars.bTime);	
 			
-			passScore = maxScore * StaticVars.aPass;
-			currectTheme = StaticVars.C_THEME;
+			passScore = maxScore * StaticVars.bPass;
+			currectTheme = StaticVars.B_THEME;
 			level = 7;
-			_fallObj = new FlxGroup();
-			add(_fallObj);	
-			fog = new FlxSprite(130, 200, fogImg);
-			fog.alpha = 1;
-			add(fog);
+			_recycables = new FlxGroup();
+			add(_recycables);
 			
+			_trash = new FlxGroup();
+			add(_trash);
+			
+			_compost = new FlxGroup();
+			add(_compost);
 			StaticVars.logger.logLevelStart(level, null);
 		}
 	
 		override public function create(): void {
 			super.create();
-			bucket = new Bucket(bucketImg, 130, 525);
+			bucket = new MultiBucket(130, 525);
 			add(bucket);
-			
-			//remainingTimeDisplay = new FlxText(0, 16, FlxG.width, ""+timer.secondsRemaining);
-			//remainingTimeDisplay.setFormat(null, 16, 0x11111111, "center");
-			//add(remainingTimeDisplay);
 		}
 		
 		override public function update():void 
-		{	
-			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
-			FlxG.overlap(killBar, _fallObj, overlapKillBarObj);
+		{
+			FlxG.overlap(bucket, _recycables, overlapRecycle);
+			FlxG.overlap(bucket, _trash, overTrash);
+			FlxG.overlap(bucket, _compost, overlapCompost);
 			
-			
-			if (genRandom(StaticVars.a1Interval)) 
+			if (genRandom(StaticVars.b1Interval)) 
 			{
 				lane = genLane(lane);
-				fallObject(StaticVars.yOffset, StaticVars.fallSpeedSlow);
+				var num:int = randNum(StaticVars.NUM_BUCKET);
+				if (num == 1) 
+				{
+					compostObject();
+					//trace("add compost");
+				}
+				else if (num == 2) {
+					recycleObject();
+					//trace("add recycle");
+				} else {
+					trashObject();
+					//trace("add trash");
+				}		
 			}
 			super.update();
 			
@@ -66,24 +71,66 @@ package c_fog_theme
 				var data:Object = {"finalScore":score, "misses":miss};
 				StaticVars.logger.logLevelEnd(data);
 				// time has run out, check if user has won	
-				endGame(1);
+				endGame(4);
 			}
 			
-			//remainingTimeDisplay.text = "" + timer.secondsRemaining;
-			//checkScore();
+			if (bucket.getCurrentBucket() == MultiBucket.RECYCLE) {
+				binIndicator.play("recycle", false);
+			} else if (bucket.getCurrentBucket() == MultiBucket.COMPOST) {
+				binIndicator.play("compost", false);
+			} else {
+				binIndicator.play("garbage", false);
+			}
 		}
 		
-		
-		
-		/*private function fallObject(prevLane:int):void {
-			// x should be random
-			var obj:FallingObj = new FallingObj(prevLane, 0);
-			_fallObj.add(obj);
+		private function recycleObject():void {
+			var obj:Recycable = new Recycable(lane, 0);
+			_recycables.add(obj);
 		}
 		
-		private function overlapObjBucket(but:Bucket, obj:FallingObj):void {
+		private function overlapRecycle(but:MultiBucket, obj:Recycable):void {
 			obj.kill();
-			this.score += 1;	
-		}*/
+			if (but.getCurrentBucket() == MultiBucket.RECYCLE) {
+				this.score += 1;	
+				bucket.play("add");
+			} else {
+				this.score -= 1;
+				bucket.play("minus");
+			}
+		}
+		
+		private function overTrash(but:MultiBucket, b:Trash):void {
+			b.kill();
+			if (but.getCurrentBucket() == MultiBucket.TRASH) {
+				this.score += 1;	
+				bucket.play("add");
+			} else {
+				this.score -= 1;
+				bucket.play("minus");
+			}
+		}
+		
+		private function overlapCompost (but:MultiBucket, obj:Compostable):void {
+			obj.kill();
+			if (but.getCurrentBucket() == MultiBucket.COMPOST) {
+				this.score += 1;
+				bucket.play("add");
+			} else {
+				this.score -= 1;
+				bucket.play("minus");
+			}
+		}
+		
+		private function compostObject():void 
+		{
+			var obj:Compostable = new Compostable(lane, 0);
+			_compost.add(obj);
+		}
+		
+		private function trashObject():void 
+		{
+			var trash:Trash = new Trash(lane, 0);
+			_trash.add(trash);
+		}
 	}
 }

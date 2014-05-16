@@ -1,4 +1,4 @@
-package b_recycle_theme
+package c_fog_theme
 {
 	import org.flixel.*;
 	import utility.StaticVars;
@@ -21,17 +21,21 @@ package b_recycle_theme
 		public static const RECYCLE : int = 1;
 		public static const COMPOST : int = 2;
 		
-		[Embed(source = '../../img/wooden_bucket.png')] private var bucketImg:Class;
-		[Embed(source = '../../img/recycle.png')] private var recycleImg:Class;
-		[Embed(source = '../../img/compost.png')] private var compostImg:Class;
+		[Embed(source = '../../img/GarbageBin.png')] private var bucketImg:Class;
+		[Embed(source = '../../img/RecycleBin.png')] private var recycleImg:Class;
+		[Embed(source = '../../img/CompostBin.png')] private var compostImg:Class;
 		
 		public function MultiBucket (x:Number, y:Number) {
 			super(x, y);
 			xCoord = x;
 			yCoord = y;
-			loadGraphic(bucketImg, true, true, 100, 100);
+			loadGraphic(bucketImg, true, false, 100, 50);
 			
 			cycBucket = 0;
+			
+			addAnimation("add", [1, 0], 5, false);
+			addAnimation("minus", [2, 0], 5, false);
+			
 		}	
 		
 		public function getCurrentBucket() : int {
@@ -62,12 +66,12 @@ package b_recycle_theme
 			var num:int = cycBucket % StaticVars.NUM_BUCKET;
 			//trace("buc is " + cycBucket + " num is " + num);
 			if (num == 0) {
-				loadGraphic(bucketImg, true, true, 100, 100);
+				loadGraphic(bucketImg, true, true, 100, 50);
 				cycBucket = 0;
 			} else if (num == 1 || num == -2) {
-				loadGraphic(recycleImg, true, true, 100, 100);
+				loadGraphic(recycleImg, true, true, 100, 50);
 			} else if (num == 2 || num == -1) {
-				loadGraphic(compostImg, true, true, 100, 100);
+				loadGraphic(compostImg, true, true, 100, 50);
 			}
 		}
 	}

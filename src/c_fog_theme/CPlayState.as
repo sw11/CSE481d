@@ -56,6 +56,8 @@ package c_fog_theme
 		
 		protected var bombScore:int;
 		
+		protected var binIndicator:BinIndicator;
+		
 		/**
 		 * contructor of PlayState
 		 * 
@@ -77,7 +79,7 @@ package c_fog_theme
 			//set backgroud color
 			FlxG.bgColor = 0xeeeeeeee;
 			
-			scoreBar = new FlxBar(15, 130, FlxBar.FILL_BOTTOM_TO_TOP, 100, 495, this, "score", 0, maxScore, true);
+			scoreBar = new FlxBar(15, 300, FlxBar.FILL_BOTTOM_TO_TOP, 100, 325, this, "score", 0, maxScore, true);
 			scoreBar.color = 0x141BE3;
 			scoreBar.createFilledBar(0x88141BE3, 0xFF14e32c, false, 0x00000000);
 			scoreBar.killOnEmpty = false;
@@ -103,6 +105,9 @@ package c_fog_theme
 			remainingTimeDisplay = new FlxText(0, 76, FlxG.width, "Time: "+timer.secondsRemaining);
 			remainingTimeDisplay.setFormat(null, 11, StaticVars.BLACK, "left");
 			add(remainingTimeDisplay);
+			
+			binIndicator = new BinIndicator(15, 130);
+			add(binIndicator);
 		}
 	
 		override public function update():void {
