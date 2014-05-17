@@ -142,12 +142,11 @@ package b_recycle_theme
 			add(remainingTimeDisplay);
 			
 			instr = new FlxText(StaticVars.WIDTH/2 - FlxG.width/2, 250, FlxG.width, instrStr);
-			instr.setFormat(null, 30, StaticVars.BLACK, "center");
+			instr.setFormat(null, 20, StaticVars.BLACK, "center");
 			add(instr);
 		}
 	
 		override public function update():void {
-			
 			if (paused && FlxG.keys.justPressed("ENTER")) {
 				paused = !paused;
 				instr.kill();

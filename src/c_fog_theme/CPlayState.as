@@ -137,7 +137,7 @@ package c_fog_theme
 			add(_compost);
 			
 			instr = new FlxText(StaticVars.WIDTH/2 - FlxG.width/2, 250, FlxG.width, instrStr);
-			instr.setFormat(null, 30, StaticVars.BLACK, "center");
+			instr.setFormat(null, 20, StaticVars.BLACK, "center");
 			add(instr);
 		}
 	
@@ -159,9 +159,12 @@ package c_fog_theme
 			FlxG.overlap(bucket, _recycables, overlapRecycle);
 			FlxG.overlap(bucket, _trash, overTrash);
 			FlxG.overlap(bucket, _compost, overlapCompost);
+			FlxG.overlap(killBar, _recycables, overlapRecycleBar);
+			FlxG.overlap(killBar, _trash, overTrashBar);
+			FlxG.overlap(killBar, _compost, overlapCompostBar);
 			super.update();
-			
 			checkScore();
+			isMaxScore = score >= maxScore;
 			scoreText.text = "Score: " + score + "\nMiss: " + miss;
 			remainingTimeDisplay.text = "Time: " + Math.max(0, timer.secondsRemaining);
 			if (timer.secondsRemaining <= 5) {
@@ -169,7 +172,6 @@ package c_fog_theme
 			}
 			
 			if (isMaxScore) {
-				//trace("Max");
 				scoreBar.color = StaticVars.YELLOW; // todo, won't work
 				if (perfectText == null) {
 					perfectText = new FlxText(0, 0, FlxG.width, "Perfect score!");
@@ -247,48 +249,6 @@ package c_fog_theme
 				FlxG.switchState(new EndState("LOSE", score, miss, bonus, maxScore, currectTheme, level));	
 			}
 		}
-		/*
-		protected function overlapKillBarObj(killBar:FlxSprite, obj:FallingObj):void {
-			obj.kill();
-			miss++;
-			if (!isMaxScore && missCount++ > 5) {
-				score--;
-				missCount = 0;
-			}
-		}
-		
-		protected function overlapKillBarBomb(killBar:FlxSprite, bomb:Bomb):void {
-			if (!bomb.isKill())
-				bomb.kill();
-		}
-		
-		protected function fallObject(yOffset:int, speed:int):void {
-			var obj:FallingObj = new FallingObj(lane, yOffset);
-			obj.velocity.y = speed;
-			_fallObj.add(obj);
-		}
-		
-		protected function fallBomb(yOffset:int, speed:int):void {
-			var obj:Bomb = new Bomb(lane + StaticVars.bombOffSet, yOffset);
-			obj.offset = new FlxPoint(0, -StaticVars.bombOffSet);
-			obj.velocity.y = speed;
-			_bombs.add(obj);
-		}
-		
-		protected function overlapObjBucket(but:Bucket, obj:FallingObj):void {
-			obj.kill();
-			but.play("green", false);
-			this.score += 1;	
-		}
-		
-		protected function overlapBombBucket(but:Bucket, b:Bomb):void {
-			if (!b.killed) {
-				b.kill();
-				but.play("red", false);
-				this.score -= bombScore;
-			}
-		}*/
-		
 		
 		protected function recycleObject(speed:int):void {
 			var obj:Recycable = new Recycable(lane, 0);
@@ -303,6 +263,7 @@ package c_fog_theme
 				bucket.play("add");
 			} else {
 				this.score -= 1;
+				miss++;
 				bucket.play("minus");
 			}
 		}
@@ -314,6 +275,7 @@ package c_fog_theme
 				bucket.play("add");
 			} else {
 				this.score -= 1;
+				miss++;
 				bucket.play("minus");
 			}
 		}
@@ -325,6 +287,7 @@ package c_fog_theme
 				bucket.play("add");
 			} else {
 				this.score -= 1;
+				miss++;
 				bucket.play("minus");
 			}
 		}
@@ -341,6 +304,21 @@ package c_fog_theme
 			var trash:Trash = new Trash(lane, 0);
 			trash.velocity.y = speed;
 			_trash.add(trash);
+		}
+		
+		protected function overlapRecycleBar(bar:FlxSprite, rec:Recycable):void {
+			rec.kill();
+			miss++;
+		}
+		
+		protected function overTrashBar(bar:FlxSprite, trash:Trash):void {
+			trash.kill();
+			miss++;
+		}
+		
+		protected function overlapCompostBar(bar:FlxSprite, compost:Compostable):void {
+			compost.kill();
+			miss++;
 		}
 	}
 }

@@ -22,16 +22,8 @@ package c_fog_theme
 			instrStr = "Right stuff into the right bin!\n1, 2 or 3 to switch the bin.\nPress Enter to start.";
 		}
 	
-		override public function create(): void {
-			super.create();
-			//bucket = new MultiBucket(130, 525);
-			//add(bucket);
-		}
-		
 		override public function update():void 
 		{
-			isMaxScore = score >= maxScore;
-			
 			super.update();
 			if (paused) {
 				return pauseGroup.update();
@@ -43,19 +35,18 @@ package c_fog_theme
 				var num:int = randNum(StaticVars.NUM_BUCKET);
 				if (num == 1) 
 				{
-					compostObject(Math.random() < 0.5 ? StaticVars.fallSpeedSlow : StaticVars.fallSpeedSlow);
+					compostObject(StaticVars.fallSpeedSlow);
 					//trace("add compost");
 				}
 				else if (num == 2) {
-					recycleObject(Math.random() < 0.5 ? StaticVars.fallSpeedSlow : StaticVars.fallSpeedSlow);
+					recycleObject(StaticVars.fallSpeedSlow);
 					//trace("add recycle");
 				} else {
-					trashObject(Math.random() < 0.5 ? StaticVars.fallSpeedSlow : StaticVars.fallSpeedSlow);
+					trashObject(StaticVars.fallSpeedSlow);
 					//trace("add trash");
 				}		
 				isStart = true;
 			}
-			super.update();
 			
 			if (_recycables.countLiving() <= 0 && _trash.countLiving() <= 0 && _compost.countLiving() <= 0 && isStart) {
 				bonus = Math.max(0, timer.secondsRemaining);
@@ -64,14 +55,7 @@ package c_fog_theme
 				StaticVars.logger.logLevelEnd(data);
 				endGame(level);
 			}
-			/*
-			if (timer.hasExpired) {
-				//log info about score and miss count	
-				var data:Object = {"finalScore":score, "misses":miss};
-				StaticVars.logger.logLevelEnd(data);
-				// time has run out, check if user has won	
-				endGame(4);
-			}*/
+			
 			
 			if (bucket.getCurrentBucket() == MultiBucket.RECYCLE) {
 				binIndicator.play("recycle", false);

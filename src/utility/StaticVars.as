@@ -38,7 +38,7 @@ package utility
 		// bucket
 		public static const bucket_x:int = 130;
 		public static const bucket_y:int = 575;
-		public static var speed:int = 450;
+		public static var speed:int = 500;
 		// bomb
 		public static const bombOffSet:int = 25;
 		// fall objects
@@ -88,8 +88,6 @@ package utility
 		public static const fogRate:int = 100;
 		public static const fogXPos:int = 130;
 		public static const fogSpeed:int = -10;
-		
-		public static const NUM_BUCKET:int = 3;
 		// level 1
 		public static const b1MaxScore:int = 25;
 		public static const b1Interval:int = 35;
@@ -135,6 +133,7 @@ package utility
 		// c recycle theme
 		public static const cTime:int = 40000;
 		public static const cPass:Number = 0.6;
+		public static const NUM_BUCKET:int = 3;
 		// level 1
 		public static const c1MaxScore:int = 40;
 		public static const c1Interval:int = 30;
