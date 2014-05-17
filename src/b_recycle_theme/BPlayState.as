@@ -228,7 +228,6 @@ package b_recycle_theme
 		protected function fireAmmo(xPos:int):void {
 			ammo -= 1;
 			_ammos.add(new Ammos(xPos, 550));
-			score ++;
 		}
 		
 		protected function genRandom(interval:int):Boolean {

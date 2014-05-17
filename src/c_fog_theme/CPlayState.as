@@ -36,25 +36,17 @@ package c_fog_theme
 		protected var lane:int;
 		
 		protected var remainingTimeDisplay:FlxText;
-		//private var isDisplay:Boolean;
 		
-		// the current theme 
-		protected var currectTheme:int;
 		// the current level that show on the screen
 		protected var level:int;
 		
 		protected var killBar:FlxSprite;
 		protected var missCount:int;
 		
-		//protected var _fallObj: FlxGroup;
-		//protected var _bombs: FlxGroup;
-		
 		private var scoreText:FlxText;
 		protected var isMaxScore:Boolean;
 		protected var bonus:int;
 		protected var isStart:Boolean;
-		
-		//protected var bombScore:int;
 		
 		protected var binIndicator:BinIndicator;
 	
@@ -72,6 +64,12 @@ package c_fog_theme
 		protected var passText:FlxText;
 		protected var perfectText:FlxText;
 		
+		protected var bombScore:int;
+		protected var _bombs:FlxGroup;
+		
+		protected var _ammos:FlxGroup;
+		protected var ammo:int;
+		protected var ammoText:FlxText;
 		
 		/**
 		 * contructor of PlayState
@@ -162,6 +160,7 @@ package c_fog_theme
 			FlxG.overlap(killBar, _recycables, overlapRecycleBar);
 			FlxG.overlap(killBar, _trash, overTrashBar);
 			FlxG.overlap(killBar, _compost, overlapCompostBar);
+			
 			super.update();
 			checkScore();
 			isMaxScore = score >= maxScore;
@@ -238,15 +237,13 @@ package c_fog_theme
 		}
 		
 		protected function endGame(level:int): void {
-			//var perfect:Number = maxScore * StaticVars.aPerf;
 			if (score >= passScore) {
-				//trace("in end game() theme " + currectTheme + " level " + level);
-				if (currectTheme == State.unlockTheme && level == State.unlockLevel) {
+				if (level == State.unlockLevel) {
 					State.nextLevel();
 				}
-				FlxG.switchState(new EndState("WIN", score, miss, bonus, maxScore, currectTheme, level));
+				FlxG.switchState(new EndState("WIN", score, miss, bonus, maxScore, StaticVars.C_THEME, level));
 			} else {
-				FlxG.switchState(new EndState("LOSE", score, miss, bonus, maxScore, currectTheme, level));	
+				FlxG.switchState(new EndState("LOSE", score, miss, bonus, maxScore, StaticVars.C_THEME, level));	
 			}
 		}
 		
@@ -262,7 +259,7 @@ package c_fog_theme
 				this.score += 1;	
 				bucket.play("add");
 			} else {
-				this.score -= 1;
+				//this.score -= 1;
 				miss++;
 				bucket.play("minus");
 			}
@@ -274,7 +271,7 @@ package c_fog_theme
 				this.score += 1;	
 				bucket.play("add");
 			} else {
-				this.score -= 1;
+				//this.score -= 1;
 				miss++;
 				bucket.play("minus");
 			}
@@ -286,7 +283,7 @@ package c_fog_theme
 				this.score += 1;
 				bucket.play("add");
 			} else {
-				this.score -= 1;
+				//this.score -= 1;
 				miss++;
 				bucket.play("minus");
 			}
@@ -319,6 +316,46 @@ package c_fog_theme
 		protected function overlapCompostBar(bar:FlxSprite, compost:Compostable):void {
 			compost.kill();
 			miss++;
+		}
+		
+		protected function overlapKillBarBomb(killBar:FlxSprite, bomb:Bomb):void {
+			if (!bomb.isKill())
+				bomb.kill();
+		}
+		
+		protected function fallBomb(yOffset:int, speed:int):Bomb {
+			var obj:Bomb = new Bomb(lane + StaticVars.bombOffSet, yOffset);
+			obj.offset = new FlxPoint(0, -StaticVars.bombOffSet);
+			obj.velocity.y = speed;
+			obj.alpha = 0.99;
+			_bombs.add(obj);
+			return obj;
+		}
+		
+		protected function overlapBucketBomb(but:MultiBucket, bomb:Bomb):void {
+			if (!bomb.isKill()) {
+				bomb.kill();
+				but.play("minus");
+				this.score -= bombScore;
+			}
+		}
+		
+		protected function fireAmmo(xPos:int):void {
+			ammo -= 1;
+			_ammos.add(new Ammos(xPos, 550));
+		}
+		
+		protected function  overlapTopKillBarAmmo(ammoObj:Ammos, topBar:FlxSprite):void {
+			ammoObj.kill();
+		}
+		
+		protected function overlapAmmoBomb(ammoObj:Ammos, bomb:Bomb):void {
+			ammoObj.kill();
+			if (!bomb.isKill()) {
+				bomb.alpha = 0.99;
+				bomb.kill();
+			}
+			score++;
 		}
 	}
 }

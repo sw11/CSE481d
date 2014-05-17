@@ -1,6 +1,7 @@
 package c_fog_theme 
 {
 	import org.flixel.*;
+	import org.flixel.plugin.photonstorm.FlxDelay;
 	import utility.StaticVars;
 	import main.*;
 	import fall_object.*;
@@ -9,90 +10,61 @@ package c_fog_theme
 	 * ...
 	 * @author Sam Wilson
 	 */
-	public class CLevel2 extends CPlayState { 
-	 	//[Embed(source = '../../img/wooden_bucket.png')] private var bucketImg:Class;
-		
-		//private var bucket: Bucket;
-		
-		[Embed(source = '../../img/grey.png')] private var fogImg:Class;
-		
-		private var fog:FlxSprite;
-		
-		//private var _fallObj: FlxGroup;
-		//private var _bombs: FlxGroup;
-		
-		//private var remainingTimeDisplay:FlxText;
+	public class CLevel2 extends CPlayState {	
 		
 		public function CLevel2():void {
-			maxScore = StaticVars.a2MaxScore;
-			super(StaticVars.aTime);	
-			
-			passScore = maxScore * StaticVars.aPass;
-			currectTheme = StaticVars.C_THEME;
-			level = 8;
-			//_fallObj = new FlxGroup();
-			//add(_fallObj);
-			//_bombs = new FlxGroup();
-			//add(_bombs);
-			fog = new FlxSprite(130, 200, fogImg);
-			fog.alpha = 1;
-			add(fog);
-			
-			StaticVars.logger.logLevelStart(level, null);
+			maxScore = StaticVars.c2MaxScore;
+			level = 2;
+			super(StaticVars.cTime);	
+			passScore = maxScore * StaticVars.cPass;
+			instrStr = "Watch out the bombs!\nPress Enter to start.";
+			bombScore = StaticVars.c2BombScore;
+			_bombs = new FlxGroup();
+			add(_bombs);
 		}
-	/*
-		override public function create(): void {
-			super.create();
-			bucket = new Bucket(bucketImg, 130, 525);
-			add(bucket);
-		}
-		*/
+	
 		override public function update():void 
-		{	
-			//FlxG.overlap(bucket, _fallObj, overlapObjBucket);
-			//FlxG.overlap(bucket, _bombs, overlapBombBucket);
-			if (genRandom(StaticVars.a2Interval)) 
+		{
+			super.update();
+			if (paused) {
+				return pauseGroup.update();
+			}
+			
+			FlxG.overlap(killBar, _bombs, overlapKillBarBomb);
+			FlxG.overlap(bucket, _bombs, overlapBucketBomb);
+			
+			if (genRandom(StaticVars.c2Interval) && !isMaxScore && !timer.hasExpired) 
 			{
 				lane = genLane(lane);
-				if (oneOf(StaticVars.a2BombRate)) 
-				{
-					//fallBomb();
+				var num:int = randNum(StaticVars.NUM_BUCKET + 1);
+				if (num == 1) {
+					compostObject(StaticVars.fallSpeedMid);
+				} else if (num == 2) {
+					recycleObject(StaticVars.fallSpeedMid);
+				} else if (num == 3){
+					trashObject(StaticVars.fallSpeedMid);
+				} else {
+					fallBomb(StaticVars.yOffset, StaticVars.fallSpeedMid);
 				}
-				else {
-					//fallObject();
-				}			
+				isStart = true;
 			}
-			super.update();
 			
-			if (timer.hasExpired) {
+			if (_recycables.countLiving() <= 0 && _trash.countLiving() <= 0 && _compost.countLiving() <= 0 && isStart) {
+				bonus = Math.max(0, timer.secondsRemaining);
 				//log info about score and miss count	
 				var data:Object = {"finalScore":score, "misses":miss};
 				StaticVars.logger.logLevelEnd(data);
-				// time has run out, check if user has won	
-				endGame(8);
+				endGame(level);
+			}
+			
+			if (bucket.getCurrentBucket() == MultiBucket.RECYCLE) {
+				binIndicator.play("recycle", false);
+			} else if (bucket.getCurrentBucket() == MultiBucket.COMPOST) {
+				binIndicator.play("compost", false);
+			} else {
+				binIndicator.play("garbage", false);
 			}
 		}
-		/*
-		private function fallObject():void {
-			var obj:FallingObj = new FallingObj(lane, 0);
-			_fallObj.add(obj);
-		}
 		
-		private function fallBomb():void {
-			var obj:Bomb = new Bomb(lane, 0);
-			_bombs.add(obj);
-		}
-		
-		private function overlapObjBucket(but:Bucket, obj:FallingObj):void {
-			obj.kill();
-			this.score += 1;	
-		}
-		
-		private function overlapBombBucket(but:Bucket, b:Bomb):void {
-			if (!b.killed) {
-				b.kill();
-				this.score -= 1;	
-			}
-		}*/
 	}
 }

@@ -137,6 +137,15 @@ package utility
 		// level 1
 		public static const c1MaxScore:int = 40;
 		public static const c1Interval:int = 30;
+		// level 2
+		public static const c2MaxScore:int = 30;
+		public static const c2Interval:int = 25;
+		public static const c2BombScore:int = 1;
+		// level 3
+		public static const c3MaxScore:int = 40;
+		public static const c3Interval:int = 20;
+		public static const c3BombScore:int = 2;
+		public static const c3BombRate:int = 10;
 		
 		// d bomb theme
 		public static const dTime:int = 60000;

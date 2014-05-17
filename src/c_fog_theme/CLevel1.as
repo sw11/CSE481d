@@ -16,9 +16,7 @@ package c_fog_theme
 			maxScore = StaticVars.c1MaxScore;
 			level = 1;
 			super(StaticVars.cTime);	
-			
 			passScore = maxScore * StaticVars.cPass;
-			currectTheme = StaticVars.C_THEME;
 			instrStr = "Right stuff into the right bin!\n1, 2 or 3 to switch the bin.\nPress Enter to start.";
 		}
 	
@@ -29,21 +27,18 @@ package c_fog_theme
 				return pauseGroup.update();
 			}
 			
-			if (genRandom(StaticVars.c1Interval)  && !isMaxScore && !timer.hasExpired) 
+			if (genRandom(StaticVars.c1Interval) && !isMaxScore && !timer.hasExpired) 
 			{
 				lane = genLane(lane);
 				var num:int = randNum(StaticVars.NUM_BUCKET);
 				if (num == 1) 
 				{
 					compostObject(StaticVars.fallSpeedSlow);
-					//trace("add compost");
 				}
 				else if (num == 2) {
 					recycleObject(StaticVars.fallSpeedSlow);
-					//trace("add recycle");
 				} else {
 					trashObject(StaticVars.fallSpeedSlow);
-					//trace("add trash");
 				}		
 				isStart = true;
 			}
@@ -55,7 +50,6 @@ package c_fog_theme
 				StaticVars.logger.logLevelEnd(data);
 				endGame(level);
 			}
-			
 			
 			if (bucket.getCurrentBucket() == MultiBucket.RECYCLE) {
 				binIndicator.play("recycle", false);
