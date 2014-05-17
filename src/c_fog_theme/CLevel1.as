@@ -21,13 +21,13 @@ package c_fog_theme
 			currectTheme = StaticVars.C_THEME;
 			instrStr = "Right stuff into the right bin!\n1, 2 or 3 to switch the bin.\nPress Enter to start.";
 		}
-	/*
+	
 		override public function create(): void {
 			super.create();
 			//bucket = new MultiBucket(130, 525);
 			//add(bucket);
 		}
-		*/
+		
 		override public function update():void 
 		{
 			isMaxScore = score >= maxScore;
@@ -43,14 +43,14 @@ package c_fog_theme
 				var num:int = randNum(StaticVars.NUM_BUCKET);
 				if (num == 1) 
 				{
-					compostObject();
+					compostObject(Math.random() < 0.5 ? StaticVars.fallSpeedSlow : StaticVars.fallSpeedSlow);
 					//trace("add compost");
 				}
 				else if (num == 2) {
-					recycleObject();
+					recycleObject(Math.random() < 0.5 ? StaticVars.fallSpeedSlow : StaticVars.fallSpeedSlow);
 					//trace("add recycle");
 				} else {
-					trashObject();
+					trashObject(Math.random() < 0.5 ? StaticVars.fallSpeedSlow : StaticVars.fallSpeedSlow);
 					//trace("add trash");
 				}		
 				isStart = true;

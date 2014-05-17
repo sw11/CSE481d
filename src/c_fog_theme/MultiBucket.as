@@ -30,12 +30,11 @@ package c_fog_theme
 			xCoord = x;
 			yCoord = y;
 			loadGraphic(bucketImg, true, false, 100, 50);
-			
+			maxVelocity.x = 200;
 			cycBucket = 0;
 			
-			addAnimation("add", [1, 0], 5, false);
-			addAnimation("minus", [2, 0], 5, false);
-			
+			addAnimation("add", [1, 0], 10, false);
+			addAnimation("minus", [2, 0], 10, false);
 		}	
 		
 		public function getCurrentBucket() : int {
@@ -53,13 +52,14 @@ package c_fog_theme
 				velocity.x = 0;
 			}
 			
-			if (FlxG.keys.justPressed("Z")) {
-				cycBucket++;
-				switchBucket();
-			} else if (FlxG.keys.justPressed("A")) {
-				cycBucket--;
-				switchBucket();
-			} else if (FlxG.keys.justPressed("ONE")) {
+			//if (FlxG.keys.justPressed("Z")) {
+			//	cycBucket++;
+			//	switchBucket();
+			//} else if (FlxG.keys.justPressed("A")) {
+			//	cycBucket--;
+			//	switchBucket();
+			//} else 
+			if (FlxG.keys.justPressed("ONE")) {
 				cycBucket = 0;
 				switchBucket();
 			} else if (FlxG.keys.justPressed("TWO")) {

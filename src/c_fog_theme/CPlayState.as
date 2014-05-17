@@ -72,6 +72,7 @@ package c_fog_theme
 		protected var passText:FlxText;
 		protected var perfectText:FlxText;
 		
+		
 		/**
 		 * contructor of PlayState
 		 * 
@@ -237,7 +238,7 @@ package c_fog_theme
 		protected function endGame(level:int): void {
 			//var perfect:Number = maxScore * StaticVars.aPerf;
 			if (score >= passScore) {
-				trace("in end game() theme " + currectTheme + " level " + level);
+				//trace("in end game() theme " + currectTheme + " level " + level);
 				if (currectTheme == State.unlockTheme && level == State.unlockLevel) {
 					State.nextLevel();
 				}
@@ -289,8 +290,9 @@ package c_fog_theme
 		}*/
 		
 		
-		protected function recycleObject():void {
+		protected function recycleObject(speed:int):void {
 			var obj:Recycable = new Recycable(lane, 0);
+			obj.velocity.y = speed;
 			_recycables.add(obj);
 		}
 		
@@ -327,15 +329,17 @@ package c_fog_theme
 			}
 		}
 		
-		protected function compostObject():void 
+		protected function compostObject(speed:int):void 
 		{
 			var obj:Compostable = new Compostable(lane, 0);
+			obj.velocity.y = speed;
 			_compost.add(obj);
 		}
 		
-		protected function trashObject():void 
+		protected function trashObject(speed:int):void 
 		{
 			var trash:Trash = new Trash(lane, 0);
+			trash.velocity.y = speed;
 			_trash.add(trash);
 		}
 	}

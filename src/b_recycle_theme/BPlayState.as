@@ -78,6 +78,7 @@ package b_recycle_theme
 		protected var passText:FlxText;
 		protected var perfectText:FlxText;
 		
+		
 		/**
 		 * contructor of PlayState
 		 * 
@@ -146,6 +147,7 @@ package b_recycle_theme
 		}
 	
 		override public function update():void {
+			
 			if (paused && FlxG.keys.justPressed("ENTER")) {
 				paused = !paused;
 				instr.kill();
