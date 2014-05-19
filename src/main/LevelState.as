@@ -299,10 +299,10 @@ package main
 						FlxG.switchState(new CLevel3());
 						break;
 					case 4:
-						FlxG.switchState(new CLevel3()); // TODO
+						FlxG.switchState(new CLevel4()); // TODO
 						break;
 					case 5:
-						FlxG.switchState(new CLevel3()); // TODO
+						FlxG.switchState(new CLevel5()); // TODO
 						break;
 					case 6:
 						FlxG.switchState(new CLevel1()); // TODO

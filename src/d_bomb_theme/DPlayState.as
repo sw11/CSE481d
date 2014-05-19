@@ -229,7 +229,7 @@ package d_bomb_theme
 		}
 		
 		protected function fallObject(yOffset:int, speed:int):void {
-			var obj:FallingObj = new FallingObj(lane, yOffset);
+			var obj:FallingObj = new FallingObj(lane, yOffset, false);
 			obj.velocity.y = speed;
 			_fallObj.add(obj);
 		}

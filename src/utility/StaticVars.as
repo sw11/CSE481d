@@ -146,7 +146,18 @@ package utility
 		public static const c3Interval:int = 20;
 		public static const c3BombScore:int = 2;
 		public static const c3BombRate:int = 10;
-		
+		// level 4
+		public static const c4MaxScore:int = 40;
+		public static const c4Interval:int = 20;
+		public static const c4Alpha:Number = 0.02;
+		public static const c4FogRate:int = 120;
+		// level 5
+		public static const c5MaxScore:int = 40;
+		public static const c5Interval:int = 20;
+		public static const c5BombScore:int = 4;
+		public static const c5Alpha:Number = 0.015;
+		public static const c5FogRate:int = 150;
+		public static const c5BombRate:int = 10;
 		// d bomb theme
 		public static const dTime:int = 60000;
 		public static const dPass:Number = 0.6;

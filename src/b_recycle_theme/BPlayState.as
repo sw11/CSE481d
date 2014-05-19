@@ -283,7 +283,7 @@ package b_recycle_theme
 		}
 		
 		protected function fallObject(yOffset:int, speed:int):FallingObj {
-			var obj:FallingObj = new FallingObj(lane, yOffset);
+			var obj:FallingObj = new FallingObj(lane, yOffset, false);
 			obj.velocity.y = speed;
 			obj.alpha = 0.99;
 			_fallObj.add(obj);

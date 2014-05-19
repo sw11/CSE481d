@@ -14,7 +14,7 @@ package c_fog_theme
 	 * @author Sam Wilson
 	 */
 	public class CPlayState extends FlxState {
-		
+		[Embed(source = '../../img/fog_3.png')] protected static var fogImg:Class;
 		/** Keep track of current score*/
 		public var score: int;
 		public var miss:int;
@@ -57,19 +57,24 @@ package c_fog_theme
 		protected var instr:FlxText;
 		protected var instrStr:String;
 		
-		protected var _recycables: FlxGroup;
-		protected var _trash: FlxGroup;
-		protected var _compost: FlxGroup;
+		protected var _fallObj: FlxGroup;
+		protected var fallArr:Array;
+		//protected var _trash: FlxGroup;
+		//protected var _compost: FlxGroup;
 		
 		protected var passText:FlxText;
 		protected var perfectText:FlxText;
 		
 		protected var bombScore:int;
 		protected var _bombs:FlxGroup;
+		protected var bombArr:Array;
 		
 		protected var _ammos:FlxGroup;
 		protected var ammo:int;
 		protected var ammoText:FlxText;
+		
+		protected var fog:FlxSprite;	
+		protected var fogSpeedCount:int;
 		
 		/**
 		 * contructor of PlayState
@@ -87,6 +92,9 @@ package c_fog_theme
 			timer = new FlxDelay(max_time);
 			passText = null;
 			perfectText = null;
+			
+			fallArr = new Array();
+			bombArr = new Array();
 		}
 				
 		override public function create():void {
@@ -122,17 +130,21 @@ package c_fog_theme
 			binIndicator = new BinIndicator(15, 130);
 			add(binIndicator);
 		
+			_fallObj = new FlxGroup();
+			add(_fallObj);
+			
 			bucket = new MultiBucket(StaticVars.bucket_x, StaticVars.bucket_y);
 			add(bucket);
 			
-			_recycables = new FlxGroup();
-			add(_recycables);
 			
-			_trash = new FlxGroup();
-			add(_trash);
+			//_recycables = new FlxGroup();
+			//add(_recycables);
 			
-			_compost = new FlxGroup();
-			add(_compost);
+			//_trash = new FlxGroup();
+			//add(_trash);
+			
+			//_compost = new FlxGroup();
+			//add(_compost);
 			
 			instr = new FlxText(StaticVars.WIDTH/2 - FlxG.width/2, 250, FlxG.width, instrStr);
 			instr.setFormat(null, 20, StaticVars.BLACK, "center");
@@ -154,12 +166,14 @@ package c_fog_theme
 			}
 			
 			fadeText();
-			FlxG.overlap(bucket, _recycables, overlapRecycle);
-			FlxG.overlap(bucket, _trash, overTrash);
-			FlxG.overlap(bucket, _compost, overlapCompost);
-			FlxG.overlap(killBar, _recycables, overlapRecycleBar);
-			FlxG.overlap(killBar, _trash, overTrashBar);
-			FlxG.overlap(killBar, _compost, overlapCompostBar);
+			//FlxG.overlap(bucket, _recycables, overlapRecycle);
+			//FlxG.overlap(bucket, _trash, overTrash);
+			//FlxG.overlap(bucket, _compost, overlapCompost);
+			FlxG.overlap(bucket, _fallObj, overlapBucketFallObj);
+			FlxG.overlap(killBar, _fallObj, overlapBarFallObj);
+			//FlxG.overlap(killBar, _recycables, overlapRecycleBar);
+			//FlxG.overlap(killBar, _trash, overTrashBar);
+			//FlxG.overlap(killBar, _compost, overlapCompostBar);
 			
 			super.update();
 			checkScore();
@@ -247,6 +261,16 @@ package c_fog_theme
 			}
 		}
 		
+		protected function fallRecObj(speed:int):FallingObj {
+			var obj:FallingObj = new FallingObj(lane, StaticVars.yOffset, true);
+			obj.velocity.y = speed;
+			obj.alpha = 0.99;
+			_fallObj.add(obj);
+			//trace(obj);
+			return obj;
+		}
+		/*
+		
 		protected function recycleObject(speed:int):void {
 			var obj:Recycable = new Recycable(lane, 0);
 			obj.velocity.y = speed;
@@ -311,12 +335,17 @@ package c_fog_theme
 		protected function overTrashBar(bar:FlxSprite, trash:Trash):void {
 			trash.kill();
 			miss++;
-		}
+		}*/
 		
+		protected function overlapBarFallObj(bar:FlxSprite, obj:FallingObj):void {
+			obj.kill();
+			miss++;
+		}
+		/*
 		protected function overlapCompostBar(bar:FlxSprite, compost:Compostable):void {
 			compost.kill();
 			miss++;
-		}
+		}*/
 		
 		protected function overlapKillBarBomb(killBar:FlxSprite, bomb:Bomb):void {
 			if (!bomb.isKill())
@@ -348,7 +377,7 @@ package c_fog_theme
 		protected function  overlapTopKillBarAmmo(ammoObj:Ammos, topBar:FlxSprite):void {
 			ammoObj.kill();
 		}
-		
+
 		protected function overlapAmmoBomb(ammoObj:Ammos, bomb:Bomb):void {
 			ammoObj.kill();
 			if (!bomb.isKill()) {
@@ -356,6 +385,18 @@ package c_fog_theme
 				bomb.kill();
 			}
 			score++;
+		}
+		
+		protected function overlapBucketFallObj(but:MultiBucket, b:FallingObj):void {
+			b.kill();
+			if (but.getCurrentBucket() == b.getCurrentObj()) {
+				this.score += 1;	
+				bucket.play("add");
+			} else {
+				//this.score -= 1;
+				miss++;
+				bucket.play("minus");
+			}
 		}
 	}
 }

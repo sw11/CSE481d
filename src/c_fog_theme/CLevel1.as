@@ -30,6 +30,8 @@ package c_fog_theme
 			if (genRandom(StaticVars.c1Interval) && !isMaxScore && !timer.hasExpired) 
 			{
 				lane = genLane(lane);
+				fallRecObj(StaticVars.fallSpeedMid);
+				/*
 				var num:int = randNum(StaticVars.NUM_BUCKET);
 				if (num == 1) 
 				{
@@ -39,11 +41,11 @@ package c_fog_theme
 					recycleObject(StaticVars.fallSpeedSlow);
 				} else {
 					trashObject(StaticVars.fallSpeedSlow);
-				}		
+				}*/		
 				isStart = true;
 			}
 			
-			if (_recycables.countLiving() <= 0 && _trash.countLiving() <= 0 && _compost.countLiving() <= 0 && isStart) {
+			if (_fallObj.countLiving() <= 0 && isStart) {
 				bonus = Math.max(0, timer.secondsRemaining);
 				//log info about score and miss count	
 				var data:Object = {"finalScore":score, "misses":miss};
