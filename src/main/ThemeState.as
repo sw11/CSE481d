@@ -38,6 +38,7 @@ package main
 		//private var unlockLevel:int;
 		
 		public function ThemeState(): void {
+			
 			super();
 			yPos = 60;
 			currState = 1;
@@ -46,6 +47,7 @@ package main
 		}
 		
 		override public function create(): void {
+			FlxG.bgColor = StaticVars.WHITE;
 			
 			add(instr("Arrow up down to select theme"));
 			

@@ -17,7 +17,7 @@ package c_fog_theme
 			level = 4;
 			super(StaticVars.cTime);	
 			passScore = maxScore * StaticVars.cPass;
-			instrStr = "Watch out the bombs!\nPress Enter to start.";
+			instrStr = "It's getting foggy again!\nPress Enter to start.";
 			//bombScore = StaticVars.c4BombScore;
 			
 			fog = new FlxSprite(StaticVars.fogXPos, StaticVars.b2FogYPos, fogImg);

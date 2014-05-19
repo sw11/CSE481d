@@ -129,14 +129,21 @@ package main
 			
 			add(instr("Control:\nArrow left right to move the bucket\nEsc to exit"));
 			
-			if (currTheme == StaticVars.B_THEME) {
-				var recycleInstr:FlxText = new FlxText(0, yPos += 60, FlxG.width, "A or Z to toggle the bucket");
+			
+			if (currTheme == StaticVars.C_THEME) {
+				var recycleInstr:FlxText = new FlxText(0, yPos += 60, FlxG.width, "1 for trash bin\n2 for recycle bin\n3 for compost bin");
 				recycleInstr.setFormat(null, 16, StaticVars.BLACK, "center");
 				add(recycleInstr);
 			}
 			
+			if (currTheme == StaticVars.B_THEME) {
+				var fogInstr:FlxText = new FlxText(0, yPos += 60, FlxG.width, "Space bar to fire ammo");
+				fogInstr.setFormat(null, 16, StaticVars.BLACK, "center");
+				add(fogInstr);
+			}
+			
 			if (currTheme == StaticVars.A_THEME) {
-				var shoot:FlxText = new FlxText(0, yPos += 60, FlxG.width, "Space bar to fire in Level 5 and 6");
+				var shoot:FlxText = new FlxText(0, yPos += 60, FlxG.width, "Space bar to fire in Level 5");
 				shoot.setFormat(null, 16, StaticVars.BLACK, "center");
 				add(shoot);
 			}

@@ -1,7 +1,7 @@
 package main
 {
 	import org.flixel.*;
-	import utility.StaticVars
+	import utility.*;
 	[SWF(width="640", height="640", backgroundColor="#ffffff")] 
 	/**
 	 * ...
@@ -11,7 +11,9 @@ package main
 	{
 		public function Main() 
 		{
-			super(StaticVars.WIDTH, StaticVars.HEIGHT, MenuState,1);
+			State.unlockTheme = 1;
+			State.unlockLevel = 1;
+			super(StaticVars.WIDTH, StaticVars.HEIGHT, ThemeState,1);
 		}		
 	}
 }
