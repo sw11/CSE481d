@@ -1,8 +1,8 @@
 package main 
 {
-	import a_basic_theme.*;
-	import b_recycle_theme.*;
-	import c_fog_theme.*;
+	import beginner.*;
+	import intermediate.*;
+	import advance.*;
 	import d_bomb_theme.*;
 	import org.flixel.*;
 	import utility.*;

@@ -1,4 +1,4 @@
-package b_recycle_theme 
+package intermediate 
 {
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.FlxDelay;
@@ -10,15 +10,24 @@ package b_recycle_theme
 	 * ...
 	 * @author Sam Wilson
 	 */
-	public class BLevel2 extends BPlayState {	
+	public class BLevel3 extends BPlayState {	
 		
-		public function BLevel2():void {
-			maxScore = StaticVars.b2MaxScore;
-			level = 2;
+		public function BLevel3():void {
+			maxScore = StaticVars.b3MaxScore;
+			level = 3;
 			super(StaticVars.bTime);
-			bombScore = StaticVars.b2BombScore;
+			bombScore = StaticVars.b3BombScore;
 			passScore = maxScore * StaticVars.bPass;
-			instrStr = "OMG, cannot see!\nPress Enter to start.";
+			
+			ammo = StaticVars.b3AmmoNum;
+			_ammos = new FlxGroup();
+			add(_ammos);
+			
+			ammoText = new FlxText(0, 56, FlxG.width, "Ammo: " + ammo);
+			ammoText.setFormat(null, 11, StaticVars.BLACK, "left");
+			add(ammoText);
+			
+			instrStr = "At least I can see the bomb.\nShot it!\nPress Enter to start.";
 		}
 	
 		override public function create(): void {
@@ -36,6 +45,7 @@ package b_recycle_theme
 		override public function update():void 
 		{	
 			isMaxScore = score >= maxScore;
+			
 			super.update();
 			if (paused) {
 				return pauseGroup.update();
@@ -43,19 +53,27 @@ package b_recycle_theme
 			
 			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
 			FlxG.overlap(bucket, _bombs, overlapBombBucket);
+			FlxG.overlap(_ammos, _bombs, overlapAmmoBomb);
 			
-			if (genRandom(StaticVars.b2Interval) && !isMaxScore && !timer.hasExpired) 
+			if (FlxG.keys.justPressed("SPACE") && ammo > 0) {
+				fireAmmo(bucket.x + 35);
+				ammoText.text = "Ammo: " + ammo;
+			} else if (FlxG.keys.justPressed("SPACE")) {
+				ammoText.color = StaticVars.RED;
+			}
+			
+			if (genRandom(StaticVars.b3Interval) && !isMaxScore && !timer.hasExpired) 
 			{
 				lane = genLane(lane);
-				if (oneOf(StaticVars.b2BombRate)) 
+				if (oneOf(StaticVars.b3BombRate)) 
 				{
 					//var bombObj:Bomb = 
-					fallBomb(StaticVars.yOffset, StaticVars.fallSpeedMid);
+					fallBomb(randNum(-StaticVars.yOffset) - StaticVars.yOffset, randNum(StaticVars.fallSpeedFast) + StaticVars.speedOffset);
 					//alphaArr.push(new Array(obj, 0, StaticVars.b2Alpha));		
 				}
 				else {
 					var obj:FallingObj = fallObject(StaticVars.yOffset, StaticVars.fallSpeedSlow);
-					alphaArr.push(new Array(obj, 0, StaticVars.b2Alpha));
+					alphaArr.push(new Array(obj, 0, StaticVars.b3Alpha));
 				}	
 				isStart = true;
 			}
@@ -69,15 +87,18 @@ package b_recycle_theme
 				var fallObj:FallingObj = alphaArr[i][0] as FallingObj;
 				if (fallObj == null || !fallObj.alive) {
 					alphaArr.splice(i, 1);
+					continue;
 				}
 				if (fallObj.alpha >= 1) {
 					continue;
 				}
-				if ((++alphaArr[i][1]) % StaticVars.fogRate == 0) {
+				if ((++alphaArr[i][1]) % StaticVars.b3FogRate == 0) {
 					alphaArr[i][2] = -alphaArr[i][2];
 				}
 				fallObj.alpha -= alphaArr[i][2];
 			}
 		}
+		
+
 	}
 }

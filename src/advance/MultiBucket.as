@@ -1,4 +1,4 @@
-package c_fog_theme
+package advance
 {
 	import org.flixel.*;
 	import utility.StaticVars;

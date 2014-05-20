@@ -1,4 +1,4 @@
-package b_recycle_theme 
+package intermediate 
 {
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.FlxDelay;

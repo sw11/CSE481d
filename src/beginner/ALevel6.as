@@ -1,4 +1,4 @@
-package a_basic_theme 
+package beginner 
 {
 	import org.flixel.*;
 	import utility.StaticVars;

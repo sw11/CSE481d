@@ -1,10 +1,10 @@
-package a_basic_theme 
+package intermediate 
 {
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.FlxBar;
 	import org.flixel.plugin.photonstorm.FlxDelay;
 	import utility.*;
-	import a_basic_theme.*;
+	//import a_basic_theme.*;
 	import fall_object.*;
 	import main.*;
 	
@@ -13,8 +13,14 @@ package a_basic_theme
 	 * 
 	 * @author Sam Wilson
 	 */
-	public class APlayState extends FlxState {
+	public class BPlayState extends FlxState {
+		[Embed(source = '../../img/TrashCan1.png')] protected static var bucketImg:Class;
+		[Embed(source = '../../img/fog_3.png')] protected static var fogImg:Class;
+		
+		protected var bucket: Bucket;
 		//[Embed(source = '../../img/settings.png')] private var setting:Class;
+		protected var fog:FlxSprite;	
+		protected var fogSpeedCount:int;
 		/** Keep track of current score*/
 		public var score: Number;
 		public var miss:int;
@@ -39,11 +45,12 @@ package a_basic_theme
 		//private var isDisplay:Boolean;
 		
 		// the current theme 
-		//protected var currectTheme:int;
+		///protected var currectTheme:int;
 		// the current level that show on the screen
 		protected var level:int;
 		
 		protected var killBar:FlxSprite;
+		protected var topKillBar:FlxSprite;
 		protected var missCount:int;
 		
 		protected var _fallObj: FlxGroup;
@@ -56,6 +63,13 @@ package a_basic_theme
 		
 		protected var bombScore:int;
 		
+		protected var alphaArr:Array;
+		protected var bombArr:Array;
+		
+		protected var _ammos:FlxGroup;
+		protected var ammo:int;
+		protected var ammoText:FlxText;
+		
 		protected var paused:Boolean;
 		protected var pauseGroup:FlxGroup;
 		protected var instr:FlxText;
@@ -64,19 +78,31 @@ package a_basic_theme
 		protected var passText:FlxText;
 		protected var perfectText:FlxText;
 		
+		
 		/**
 		 * contructor of PlayState
 		 * 
 		 * @param	max_score define the max score for the score bar
 		 * @param max_time define the max time of a level in ms
 		 */
-		public function APlayState(max_time:Number): void {
+		public function BPlayState(max_time:Number): void {
 			super();
 			resetCount(StaticVars.a1Interval);
 			missCount = 0;
 			score = 0;
+			
+			_fallObj = new FlxGroup();
+			add(_fallObj);	
+			_bombs = new FlxGroup();
+			add(_bombs);
+			StaticVars.logger.logLevelStart(level  + (StaticVars.B_THEME - 1) * 6, null);
+			
+			alphaArr = new Array();
+			bombArr = new Array();
+			
 			this.max_time = max_time;
 			timer = new FlxDelay(max_time);
+			//timer.start();
 			passText = null;
 			perfectText = null;
 		}
@@ -99,17 +125,21 @@ package a_basic_theme
 			levelInstr2.setFormat(null, 11, StaticVars.BLACK, "left");
 			add(levelInstr2);
 			
-			remainingTimeDisplay = new FlxText(0, 76, FlxG.width, "Time: "+ max_time/1000);
-			remainingTimeDisplay.setFormat(null, 11, StaticVars.BLACK, "left");
-			add(remainingTimeDisplay);
-			
 			scoreText = new FlxText(0, 96, FlxG.width, "Score: " + score + "\nMiss: " + miss);
 			scoreText.setFormat(null, 11, StaticVars.BLACK, "left");
 			add(scoreText);
-
+	
 			killBar = new FlxSprite(130, 620);
 			killBar.makeGraphic(500, 5, StaticVars.INVISIBLE);
 			add(killBar);
+			
+			topKillBar = new FlxSprite(130, -60);
+			topKillBar.makeGraphic(500, 5, StaticVars.INVISIBLE);
+			add(topKillBar);
+			
+			remainingTimeDisplay = new FlxText(0, 76, FlxG.width, "Time: "+ max_time/1000);
+			remainingTimeDisplay.setFormat(null, 11, StaticVars.BLACK, "left");
+			add(remainingTimeDisplay);
 			
 			instr = new FlxText(StaticVars.WIDTH/2 - FlxG.width/2, 250, FlxG.width, instrStr);
 			instr.setFormat(null, 20, StaticVars.BLACK, "center");
@@ -117,7 +147,6 @@ package a_basic_theme
 		}
 	
 		override public function update():void {
-			
 			if (paused && FlxG.keys.justPressed("ENTER")) {
 				paused = !paused;
 				instr.kill();
@@ -129,17 +158,16 @@ package a_basic_theme
 			if (paused) {
 				return pauseGroup.update();
 			}
-				
+			
 			fadeText();
 			FlxG.overlap(killBar, _fallObj, overlapKillBarObj);
 			FlxG.overlap(killBar, _bombs, overlapKillBarBomb);
+			FlxG.overlap(topKillBar, _ammos, overlapTopKillBarAmmo);
+			if (FlxG.keys.justPressed("ESCAPE")) {
+				FlxG.switchState(new ThemeState());
+			} 
 			
 			super.update();
-			
-			//if (timer.secondsRemaining <= 10 && !isDisplay) {
-			//	add(remainingTimeDisplay);
-			//	isDisplay = true;
-			//}
 			
 			checkScore();
 			scoreText.text = "Score: " + score + "\nMiss: " + miss;
@@ -163,10 +191,18 @@ package a_basic_theme
 					passText = new FlxText(0, 0, FlxG.width, "Passed!");
 					passText.setFormat(null, 32, 0x11111111, "center");
 					add(passText);
-				}				
+				}
 			} else {
 				scoreBar.color = StaticVars.BLACK; // todo , change this color
 				passText = null;
+			}
+			
+			if (_fallObj.countLiving() <= 0 && _bombs.countLiving() <= 0 && isStart) {
+				bonus = Math.max(0, timer.secondsRemaining);
+				//log info about score and miss count	
+				var data:Object = {"finalScore":score, "misses":miss};
+				StaticVars.logger.logLevelEnd(data);
+				endGame(level);
 			}
 		}
 		
@@ -175,20 +211,23 @@ package a_basic_theme
 				perfectText.alpha = perfectText.alpha - 0.005;
 				if (perfectText.alpha <= 0 ) {
 					perfectText.kill();
-					//perfectText = null;
 				}
 			}
 			if (passText != null) {
 				passText.alpha = passText.alpha - 0.005;
 				if (passText.alpha <= 0) {
 					passText.kill();
-					//passText = null;
 				}
 			}
 		}
 		
 		protected function checkScore():void {
 			score = Math.max(0, Math.min(score, maxScore));
+		}
+		
+		protected function fireAmmo(xPos:int):void {
+			ammo -= 1;
+			_ammos.add(new Ammos(xPos, 550));
 		}
 		
 		protected function genRandom(interval:int):Boolean {
@@ -219,15 +258,13 @@ package a_basic_theme
 		}
 		
 		protected function endGame(level:int): void {
-			//var perfect:Number = maxScore * StaticVars.aPerf;
 			if (score >= passScore) {
-				//trace("in end game() theme " + StaticVars.A_THEME + " level " + level);
 				if (level == State.unlockLevel) {
 					State.nextLevel();
 				}
-				FlxG.switchState(new EndState("WIN", score, miss, bonus, maxScore, StaticVars.A_THEME, level));
+				FlxG.switchState(new EndState("WIN", score, miss, bonus, maxScore, StaticVars.B_THEME, level));
 			} else {
-				FlxG.switchState(new EndState("LOSE", score, miss, bonus, maxScore, StaticVars.A_THEME, level));	
+				FlxG.switchState(new EndState("LOSE", score, miss, bonus, maxScore, StaticVars.B_THEME, level));	
 			}
 		}
 		
@@ -245,17 +282,21 @@ package a_basic_theme
 				bomb.kill();
 		}
 		
-		protected function fallObject(yOffset:int, speed:int):void {
+		protected function fallObject(yOffset:int, speed:int):FallingObj {
 			var obj:FallingObj = new FallingObj(lane, yOffset, false);
 			obj.velocity.y = speed;
+			obj.alpha = 0.99;
 			_fallObj.add(obj);
+			return obj;
 		}
 		
-		protected function fallBomb(yOffset:int, speed:int):void {
+		protected function fallBomb(yOffset:int, speed:int):Bomb {
 			var obj:Bomb = new Bomb(lane + StaticVars.bombOffSet, yOffset);
 			obj.offset = new FlxPoint(0, -StaticVars.bombOffSet);
 			obj.velocity.y = speed;
+			obj.alpha = 0.99;
 			_bombs.add(obj);
+			return obj;
 		}
 		
 		protected function overlapObjBucket(but:Bucket, obj:FallingObj):void {
@@ -265,12 +306,24 @@ package a_basic_theme
 		}
 		
 		protected function overlapBombBucket(but:Bucket, b:Bomb):void {
-			if (!b.killed) {
+			if (!b.isKill()) {
 				b.kill();
 				but.play("red", false);
 				this.score -= bombScore;
 				FlxG.shake(0.04, 0.1, null, true, 1);
 			}
+		}
+		
+		protected function overlapAmmoBomb(ammoObj:Ammos, bomb:Bomb):void {
+			ammoObj.kill();
+			if (!bomb.isKill()) {
+				bomb.alpha = 0.99;
+				bomb.kill();
+			}
+		}
+		
+		protected function  overlapTopKillBarAmmo(ammoObj:Ammos, topBar:FlxSprite):void {
+			ammoObj.kill();
 		}
 	}
 }

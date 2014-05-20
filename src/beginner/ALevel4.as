@@ -1,4 +1,4 @@
-package a_basic_theme 
+package beginner 
 {
 	import org.flixel.*;
 	import utility.StaticVars;
@@ -9,36 +9,23 @@ package a_basic_theme
 	 * ...
 	 * @author Sam Wilson
 	 */
-	public class ALevel5 extends APlayState { 
+	public class ALevel4 extends APlayState { 
 	 	[Embed(source = '../../img/wooden_bucket.png')] private var bucketImg:Class;
 		
-		public static const INSTRUCTION:String = "Use SpaceBar to shoot down the bombs\nDon't use up all your ammo at once!\nPress Enter to start.";
-		
-		private var _ammos: FlxGroup;
 		private var bucket: Bucket;
 		
-		private var ammo:int;
-		private var ammoText:FlxText;
-		
-		public function ALevel5():void {
-			maxScore = StaticVars.a5MaxScore;
-			level = 5;
+		public function ALevel4():void {
+			maxScore = StaticVars.a4MaxScore;
+			level = 4;
 			super(StaticVars.aTime);	
-			ammo = StaticVars.a5AmmoNum;
+			bombScore = StaticVars.a4BombScore;
 			passScore = maxScore * StaticVars.aPass;
-			instrStr = INSTRUCTION;
+			instrStr = "Bombs, Bombs, Bombs!\nPress Enter to start.";
 			
-			bombScore = StaticVars.a5BombScore;
 			_fallObj = new FlxGroup();
 			add(_fallObj);
 			_bombs = new FlxGroup();
 			add(_bombs);
-			_ammos = new FlxGroup();
-			add(_ammos);
-			
-			ammoText = new FlxText(0, 56, FlxG.width, "Ammo: " + ammo);
-			ammoText.setFormat(null, 11, StaticVars.BLACK, "left");
-			add(ammoText);
 			StaticVars.logger.logLevelStart(level, null);
 		}
 	
@@ -58,13 +45,11 @@ package a_basic_theme
 			
 			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
 			FlxG.overlap(bucket, _bombs, overlapBombBucket);
-			FlxG.overlap(_ammos, _bombs, overlapAmmoBomb);
 			
-
-			if (genRandom(StaticVars.a5Interval)  && !isMaxScore && !timer.hasExpired) 
+			if (genRandom(StaticVars.a4Interval)  && !isMaxScore && !timer.hasExpired) 
 			{
 				lane = genLane(lane);
-				if (oneOf(StaticVars.a5BombRate) && _bombs.countLiving() < 5) 
+				if (oneOf(StaticVars.a4BombRate) && _bombs.countLiving() < 5) 
 				{
 					fallBomb(randNum(-StaticVars.yOffset) - StaticVars.yOffset, randNum(StaticVars.fallSpeedFast) + StaticVars.speedOffset);
 				}
@@ -74,32 +59,20 @@ package a_basic_theme
 				isStart = true;
 			}
 			
-			if (FlxG.keys.justPressed("SPACE") && ammo > 0) {
-				fireAmmo(bucket.x + 35);
-				ammoText.text = "Ammo: " + ammo;
-			} else if (FlxG.keys.justPressed("SPACE")) {
-				ammoText.color = StaticVars.RED;
-			}			
-			
 			if (_fallObj.countLiving() == 0 && _bombs.countLiving() == 0 && isStart) {
 				bonus = Math.max(0, timer.secondsRemaining);
 				//log info about score and miss count	
 				var data:Object = {"finalScore":score, "misses":miss};
 				StaticVars.logger.logLevelEnd(data);
-				endGame(5);
+				endGame(4);
 			}
 		}
-		
-		private function fireAmmo(xPos:int):void {
-			ammo -= 1;
-			_ammos.add(new Ammos(xPos, 550));
-		}
-		
-		private function overlapAmmoBomb(ammoObj:Ammos, bomb:Bomb):void {
-			ammoObj.kill();
-			if (!bomb.isKill()) {
-				bomb.kill();
+		/*
+		private function overlapBombBucket(but:Bucket, b:Bomb):void {
+			if (!b.isKill()) {
+				b.kill();
+				this.score -= StaticVars.a4BombScore;
 			}
-		}
+		}*/
 	}
 }

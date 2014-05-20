@@ -2,8 +2,9 @@ package main
 {
 	import org.flixel.*;
 	import utility.*;
-	import a_basic_theme.*;
-	import b_recycle_theme.*;
+	import beginner.*;
+	import intermediate.*;
+	import advance.*;
 	/**
 	 * ...
 	 * @author Adrian

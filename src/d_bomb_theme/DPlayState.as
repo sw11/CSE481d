@@ -4,7 +4,7 @@ package d_bomb_theme
 	import org.flixel.plugin.photonstorm.FlxBar;
 	import org.flixel.plugin.photonstorm.FlxDelay;
 	import utility.*;
-	import a_basic_theme.*;
+	//import a_basic_theme.*;
 	import fall_object.*;
 	import main.*;
 	
