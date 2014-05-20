@@ -12,13 +12,15 @@ package a_basic_theme
 	public class ALevel2 extends APlayState { 
 	 	[Embed(source = '../../img/wooden_bucket.png')] private var bucketImg:Class;
 		
+		public static const INSTRUCTION:String = "Catch everything, but avoid the bombs!\nPress Enter to start.";
+		
 		private var bucket: Bucket;
 		
 		public function ALevel2():void {
 			maxScore = StaticVars.a2MaxScore;
 			level = 2;
 			super(StaticVars.aTime);	
-			instrStr = "There are bombs!\nAvoid them!\nPress Enter to start.";
+			instrStr = INSTRUCTION;
 			bombScore = 1;
 			passScore = maxScore * StaticVars.aPass;
 			

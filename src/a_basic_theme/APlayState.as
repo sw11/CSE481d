@@ -269,6 +269,7 @@ package a_basic_theme
 				b.kill();
 				but.play("red", false);
 				this.score -= bombScore;
+				FlxG.shake(0.04, 0.1, null, true, 1);
 			}
 		}
 	}

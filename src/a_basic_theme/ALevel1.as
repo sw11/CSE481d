@@ -13,13 +13,15 @@ package a_basic_theme
 	public class ALevel1 extends APlayState {	
 		[Embed(source = '../../img/wooden_bucket.png')] private static var bucketImg:Class;
 		
+		public static const INSTRUCTION:String = "Catch everything!\nPress Enter to start.";
+		
 		private var bucket: Bucket;
 		
 		public function ALevel1():void {
 			maxScore = StaticVars.a1MaxScore;
 			level = 1;
 			super(StaticVars.aTime);	
-			instrStr = "Catch everything!\nPress Enter to start.";
+			instrStr = INSTRUCTION;
 			passScore = maxScore * StaticVars.aPass;
 			_fallObj = new FlxGroup();
 			add(_fallObj);	

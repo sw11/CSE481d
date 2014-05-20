@@ -12,7 +12,9 @@ package a_basic_theme
 	public class ALevel5 extends APlayState { 
 	 	[Embed(source = '../../img/wooden_bucket.png')] private var bucketImg:Class;
 		
-		private var _ammos:FlxGroup;
+		public static const INSTRUCTION:String = "Use SpaceBar to shoot down the bombs\nDon't use up all your ammo at once!\nPress Enter to start.";
+		
+		private var _ammos: FlxGroup;
 		private var bucket: Bucket;
 		
 		private var ammo:int;
@@ -24,7 +26,7 @@ package a_basic_theme
 			super(StaticVars.aTime);	
 			ammo = StaticVars.a5AmmoNum;
 			passScore = maxScore * StaticVars.aPass;
-			instrStr = "We have got weapon!\nSpaceBar to shot the bomb!\nMake sure you have enough ammos.\nPress Enter to start.";
+			instrStr = INSTRUCTION;
 			
 			bombScore = StaticVars.a5BombScore;
 			_fallObj = new FlxGroup();

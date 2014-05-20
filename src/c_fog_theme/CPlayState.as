@@ -366,6 +366,7 @@ package c_fog_theme
 				bomb.kill();
 				but.play("minus");
 				this.score -= bombScore;
+				FlxG.shake(0.04, 0.1, null, true, 1);
 			}
 		}
 		

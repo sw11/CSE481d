@@ -12,6 +12,8 @@ package a_basic_theme
 	public class ALevel3 extends APlayState { 
 	 	[Embed(source = '../../img/wooden_bucket.png')] private var bucketImg:Class;
 		
+		public static const INSTRUCTION:String = "Catch everything, but avoid the bombs!\nPress Enter to start.";
+		
 		private var bucket: Bucket;
 		
 		public function ALevel3():void {
@@ -20,7 +22,7 @@ package a_basic_theme
 			super(StaticVars.aTime);	
 			bombScore = StaticVars.a3BombScore;
 			passScore = maxScore * StaticVars.aPass;
-			instrStr = "Watch out the bombs!\nIt become unstable.\nPress Enter to start.";
+			instrStr = INSTRUCTION;
 			
 			_fallObj = new FlxGroup();
 			add(_fallObj);
