@@ -8,12 +8,13 @@ package main
 	import main.*;
 	import utility.*;
 	import levels.*;
+	import fall_object.Objects;
 	
 	/**
 	 * ...
 	 * @author Sam Wilson
 	 */
-	public class LevelState extends FlxState
+	public class LevelSelect extends FlxState
 	{
 		[Embed(source = '../../img/lock.png')] private var lock:Class;
 		[Embed(source = '../../img/star.png')] private var star:Class;
@@ -42,16 +43,63 @@ package main
 		private var yPos:int;
 		private var themeArr:Array;
 		
-		public function LevelState(theme:int): void {
-			super();
-			yPos = 60;
-			currState = 1;
-			currTheme = theme;
-			getArray();
-		}
+		private var maxLevel:int;
+		private var currLevel:int;
+		private var textArr:Array;
+		private var selected:FlxSprite;
 		
 		override public function create(): void {
 			
+			var levelInstr1:FlxText;
+			levelInstr1 = createText(320, 50, 30, "Level");
+			//levelInstr1.setFormat(null, 50, StaticVars.BLACK, "center");
+			add(levelInstr1);
+			
+			
+			
+			//var _1:FlxText;
+			//_1 = createText(100, 100, 20, "Lvl");
+			//add(_1);
+			textArr = new Array();
+			for (var i:int = 1; i <= 3; i++) {
+				for (var j:int = 1; j <= 5; j++) {
+					var text:FlxText = createText(j * 100, i * 100 + 50, 30, "Lv" + (j + (i - 1) * 5));
+					textArr.push(text);
+					add(text);
+				}				
+			}
+			
+			for (var k:int = State.levelArr.length - 1; k >= 0; k--) {
+				maxLevel = k + 1;
+					currLevel = k + 1;
+				if (State.levelArr[k][0]) {
+					(textArr[k] as FlxText).color = StaticVars.RED;
+					
+					break;
+				} else {
+					(textArr[k] as FlxText).color = StaticVars.GREY;
+					
+				}
+			}
+			
+			//selected = new FlxSprite(100, 100);
+			//selected.makeGraphic(50, 50, 0x00000000);
+			
+			//selected.drawLine(100, 100, 400, 100, StaticVars.RED, 5);
+			//selected.drawLine(100, 100, 100, 400, StaticVars.RED, 5);
+			//selected.drawLine(200, 200, 400, 100, StaticVars.RED, 5);
+			//selected.drawLine(200, 200, 100, 400, StaticVars.RED, 5);
+			//add(selected);
+			//getArray();
+			// draw levels
+			//var boxes:FlxSprite = new FlxSprite(100, 100);
+			//boxes.loadGraphic(Objects.candy, false, false, 75, 75, false);
+			
+			//boxes.alpha = 0.5;
+			//boxes.makeGraphic(50, 50, StaticVars.BLACK, false, "1");
+			//addLock(100, 100);
+			//add(boxes);
+			/*
 			var levelInstr1:FlxText;
 			levelInstr1 = new FlxText(0, yPos += 40, FlxG.width, "Arrow up down to select the level");
 			levelInstr1.setFormat(null, 16, StaticVars.BLACK, "center");
@@ -147,10 +195,10 @@ package main
 				var shoot:FlxText = new FlxText(0, yPos += 60, FlxG.width, "Space bar to fire in Level 5");
 				shoot.setFormat(null, 16, StaticVars.BLACK, "center");
 				add(shoot);
-			}
+			}*/
 		}
 		
-		private function getArray():void {
+		/*private function getArray():void {
 			switch (currTheme) {
 				case 1:
 					themeArr = State.theme1;
@@ -165,10 +213,10 @@ package main
 					themeArr = State.theme4;
 					break;
 			}
-		}
+		}*/
 		
-		private function addLock():void {
-			var locks:FlxSprite = new FlxSprite(370, yPos - 5);
+		private function addLock(x:int, y:int):void {
+			var locks:FlxSprite = new FlxSprite(x, y);
 			locks.loadGraphic(lock, true, true, 30, 30);
 			add(locks);
 		}
@@ -179,51 +227,47 @@ package main
 			add(starIcon);
 		}
 		
-		private function createText(y:int, theme:String):FlxText {
-			var text:FlxText = new FlxText(0, y, FlxG.width, theme);
-			text.setFormat(null, 20, StaticVars.BLACK, "center");
+		private function createText(x:int, y:int, fontSize:int, theme:String):FlxText {
+			var text:FlxText = new FlxText(x, y, FlxG.width, theme);
+			text.setFormat(null, fontSize, StaticVars.BLACK);// , null, 0xFF0000);
 			return text;
 		}
 		
 		override public function update():void {
 			super.update();
 			if (FlxG.keys.justPressed("ENTER")) {
-				startTheme();
+				startLevel();
 			} else if (FlxG.keys.justPressed("ESCAPE")) {
-				FlxG.switchState(new ThemeState());
+				FlxG.switchState(new MainState());
+			} else if (FlxG.keys.justPressed("LEFT")) {
+				//trace("left " + currLevel);
+				(textArr[currLevel-1] as FlxText).color = StaticVars.BLACK;
+				currLevel = (--currLevel == 0) ? 1 : currLevel;
+				(textArr[currLevel-1] as FlxText).color = StaticVars.RED;
+				//changeColor();
+			} else if (FlxG.keys.justPressed("RIGHT")) {
+				(textArr[currLevel-1] as FlxText).color = StaticVars.BLACK;
+				currLevel = (++currLevel > maxLevel) ? maxLevel : currLevel;
+				(textArr[currLevel-1] as FlxText).color = StaticVars.RED;
+				//changeColor();
 			} else if (FlxG.keys.justPressed("UP")) {
-				currState = (--currState == 0) ? State.unlockLevels[currTheme - 1] : currState;
-				changeColor();
+				(textArr[currLevel-1] as FlxText).color = StaticVars.BLACK;
+				currLevel = (currLevel <= 5) ? Math.max(1, currLevel) : currLevel - 5;
+				(textArr[currLevel-1] as FlxText).color = StaticVars.RED;
 			} else if (FlxG.keys.justPressed("DOWN")) {
-				currState = (++currState == State.unlockLevels[currTheme - 1] + 1) ? 1 : currState;	
-				changeColor();
+				(textArr[currLevel - 1] as FlxText).color = StaticVars.BLACK;
+				if (currLevel + 5 <= maxLevel && currLevel <= 10) {
+					currLevel += 5;
+				}
+				currLevel = Math.min(15, currLevel);
+				//currLevel = (++currLevel > maxLevel) ? maxLevel : currLevel;	
+				(textArr[currLevel-1] as FlxText).color = StaticVars.RED;
+			} else if (FlxG.keys.justPressed("U")) {
+				State.levelArr[14][0] = true;
+				FlxG.switchState(new LevelSelect());
 			}
 		}
 		
-		private function changeColor():void {
-			currText.color = StaticVars.BLACK;
-			switch(currState) {
-				case 1:
-					currText = level1;
-					break;
-				case 2:
-					currText = level2;
-					break;
-				case 3:
-					currText = level3;
-					break;
-				case 4:
-					currText = level4;
-					break;
-				case 5:
-					currText = level5;
-					break;
-				case 6:
-					currText = level6;
-					break;
-			}
-			currText.color = StaticVars.RED;
-		}
 		
 		private function instr(text:String):FlxText 
 		{
@@ -232,21 +276,12 @@ package main
 			return instruction;
 		}
 		
-		private function startTheme():void {
-			switch (currTheme) {
+		private function startLevel():void {
+			switch(currLevel) {
 				case 1:
-					aTheme();
+					FlxG.switchState(new Level1());
 					break;
-				case 2:
-					bTheme();
-					break;
-				case 3:
-					cTheme();
-					break;
-				case 4:
-					dTheme();
-					break;			
-				}
+			}
 		}
 		
 		private function aTheme():void {

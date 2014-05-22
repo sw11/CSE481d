@@ -38,6 +38,23 @@ package utility
 												new Array(false, false), 
 												new Array(false, false), 
 												new Array(false, false));
+												
+		public static var levelArr:Array = new Array(new Array(true, false), // level 1, unlock, star
+												new Array(false, false), // 2
+												new Array(false, false), // 3
+												new Array(false, false), // 4
+												new Array(false, false), // 5
+												new Array(false, false), // 6
+												new Array(false, false), // 7
+												new Array(false, false), // 8
+												new Array(false, false), // 9
+												new Array(false, false), // 10
+												new Array(false, false), // 11
+												new Array(false, false), // 12
+												new Array(false, false), // 13
+												new Array(false, false), // 14
+												new Array(false, false) // 15
+												);
 		
 		//public static var level1:Array = new Array(false, false, false, false, false, false);
 		

@@ -7,19 +7,19 @@ package main
 	 * ...
 	 * @author Adrian
 	 */
-	public class Bucket extends FlxSprite
+	public class BucketBar extends FlxSprite
 	{
 		//private static const _move_speed : int = 400;
 		private var xCoord : int;
 		private var yCoord : int;
-		//private var scoreBar:FlxBar;
+		private var scoreBar:FlxBar;
 		
-		public function Bucket (graphic:Class, x:Number, y:Number) {
+		public function BucketBar (graphic:Class, x:Number, y:Number, scoreBar:FlxBar) {
 			super(x, y);
 			xCoord = x;
 			yCoord = y;
 			maxVelocity.x = 200;
-			//this.scoreBar = scoreBar;
+			this.scoreBar = scoreBar;
 			loadGraphic(graphic, true, false, 100, 50);
 			addAnimation("green", [1, 0], 10, false);
 			addAnimation("red", [2, 0], 3, false);
@@ -38,7 +38,7 @@ package main
 			} else {
 				velocity.x = 0;
 			}	
-			//scoreBar.velocity.x = velocity.x;
+			scoreBar.x = x;
 		}
 	}
 }

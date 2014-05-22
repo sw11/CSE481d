@@ -83,8 +83,5 @@ package utility
 			cgsUser.logQuestEnd(data);
 		}
 		
-		
-		
-
 	}
 }

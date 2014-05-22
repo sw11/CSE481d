@@ -21,6 +21,7 @@ package utility
 		public static const GREEN:int = 0xDEA543;
 		public static const YELLOW:int = 0xFFFF00;
 		public static const INVISIBLE:int = 0x00FFFFFF;
+		public static const GREY:int = 0xeeeeeeee;
 		
 		public static const A_THEME:int = 1;
 		public static const B_THEME:int = 2;
@@ -37,7 +38,7 @@ package utility
 		
 		// bucket
 		public static const bucket_x:int = 130;
-		public static const bucket_y:int = 575;
+		public static const bucket_y:int = 525;// 575;
 		public static var speed:int = 500;
 		// bomb
 		public static const bombOffSet:int = 25;
@@ -55,6 +56,7 @@ package utility
 		// level 1
 		public static const a1MaxScore:int = 30;
 		public static const a1Interval:int = 40;
+		public static const _1MaxMiss:int = 10;
 		// level 2
 		public static const a2MaxScore:int = 30;
 		public static const a2Interval:int = 35;

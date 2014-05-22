@@ -32,7 +32,7 @@ package fall_object
 			} else {
 				randClass = Objects.getFallObjs();// FlxU.getRandom(fallObjs, 0, 5) as Class;
 			}
-			loadGraphic(randClass, true, true, 100, 100);
+			loadGraphic(randClass, true, true, 75, 75);
 			offset = new FlxPoint(0, StaticVars.objOffset);
 			//velocity.y = 200; // move down velocity
 		}
