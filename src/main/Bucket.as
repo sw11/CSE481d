@@ -13,7 +13,7 @@ package main
 		private var xCoord : int;
 		private var yCoord : int;
 		//private var scoreBar:FlxBar;
-		
+		public var score:Number;
 		public function Bucket (graphic:Class, x:Number, y:Number) {
 			super(x, y);
 			xCoord = x;

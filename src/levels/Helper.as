@@ -1,6 +1,7 @@
 package levels 
 {
 	import fall_object.FallingObj;
+	import fall_object.FallObjs;
 	import org.flixel.*;
 	import utility.*;
 	import main.EndState;
@@ -58,12 +59,12 @@ package levels
 			return lane;
 		}
 		
-		protected function oneOf(num:int):Boolean {
+		public static function oneOf(num:int):Boolean {
 			return randNum(num) == 1;
 		}
 		
-		protected function randNum(num:int):int {
-			return Math.round(Math.random() * num);
+		public static function randNum(num:int):int {
+			return Math.floor(Math.random() * num);
 		}
 		
 		public static function endGame(data:Object): void {
@@ -93,6 +94,12 @@ package levels
 			obj.velocity.y = speed;
 			obj.alpha = 0.99;
 			return obj;
+		}
+		
+		public static function fallObj(lane:int, yOffset:int, speed:int, whichObj:int):FallObjs {
+			var obj:FallObjs = new FallObjs(lane, yOffset, whichObj);
+			obj.velocity.y = speed;
+			return obj
 		}
 	}
 

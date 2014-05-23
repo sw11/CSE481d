@@ -6,9 +6,13 @@ package utility
 	 */
 	public class StaticVars 
 	{
-		public static const WIDTH:int = 640;
+		public static const WIDTH:int = 510;
 		public static const HEIGHT:int = 640;
 		
+		
+		// kill bar
+		public static const KILLBAR_X:int = 5;
+		public static const KILLBAR_Y:int = 580;
 		// play button
 		public static const PLAY_W:int = 200;
 		public static const PLAY_H:int = 100; 

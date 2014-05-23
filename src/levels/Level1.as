@@ -7,6 +7,7 @@ package levels
 	import utility.*;
 	import main.*;
 	import fall_object.*;
+	import transportation.Truck;
 	
 	/**
 	 * ...
@@ -18,7 +19,7 @@ package levels
 		public var score: Number;
 		private var scoreText:FlxText;
 		// count how many miss
-		private var miss:int;
+		private var health:int;
 		
 		/** Displays the score, keeps tract of "score"*/
 		private var scoreBar: FlxBar;
@@ -29,8 +30,8 @@ package levels
 		
 		/////////////////////////// Time /////////////////////////////
 		//private var max_time: Number;
-		private var timer : FlxDelay;
-		private var remainingTimeDisplay:FlxText;
+		//private var timer : FlxDelay;
+		//private var remainingTimeDisplay:FlxText;
 		
 		private var lane:int;
 		
@@ -62,7 +63,9 @@ package levels
 		private var bucket: BucketBar;
 		
 
-		
+		/////////////////////////// track /////////////////////////////
+		private var truck:Truck;
+		private var truckFillBar:FlxBar;
 		
 		/////////////////////////// tutorial /////////////////////////////
 		protected var paused:Boolean;
@@ -94,7 +97,7 @@ package levels
 			//missCount = 0;
 			score = 0;
 
-			timer = new FlxDelay(StaticVars.aTime);
+			//timer = new FlxDelay(StaticVars.aTime);
 			passText = null;
 			perfectText = null;
 			
@@ -103,7 +106,7 @@ package levels
 			
 			
 			instrStr = INSTRUCTION;
-			
+			health = 5;
 			//StaticVars.logger.logLevelStart(level + (StaticVars.C_THEME - 1) * 6, null);
 			StaticVars.logger.logLevelStart(1, null);
 			//trace("constructor");
@@ -120,37 +123,47 @@ package levels
 			FlxG.bgColor = 0xeeeeeeee;
 			
 			//scoreBar = new FlxBar(15, 300, FlxBar.FILL_BOTTOM_TO_TOP, 50, 325, this, "score", 0, maxScore, true);
-			scoreBar = new FlxBar(StaticVars.bucket_x - 3, StaticVars.bucket_y, FlxBar.FILL_BOTTOM_TO_TOP, 5, 40, this, "score", 0, maxScore, true);
-			scoreBar.color = 0x141BE3;
-			scoreBar.createFilledBar(0x88141BE3, 0xFF14e32c, false, 0x00000000);
-			scoreBar.killOnEmpty = false;
-
-			add(scoreBar);
+			
 			
 			//var levelInstr2:FlxText;
 			//levelInstr2 = new FlxText(0, 16, FlxG.width, "Level 1\nEsc to main menu");
 			//levelInstr2.setFormat(null, 11, StaticVars.BLACK, "left");
 			//add(levelInstr2);
 			
-			remainingTimeDisplay = new FlxText(0, 76, FlxG.width, "Time: "+ StaticVars.aTime/1000);
-			remainingTimeDisplay.setFormat(null, 11, StaticVars.BLACK, "left");
-			add(remainingTimeDisplay);
+			//remainingTimeDisplay = new FlxText(0, 76, FlxG.width, "Time: "+ StaticVars.aTime/1000);
+			//remainingTimeDisplay.setFormat(null, 11, StaticVars.BLACK, "left");
+			//add(remainingTimeDisplay);
 			
-			scoreText = new FlxText(0, 96, FlxG.width, "Score: " + score + "\nMiss: " + miss);
-			scoreText.setFormat(null, 11, StaticVars.BLACK, "left");
-			add(scoreText);
-
-			killBar = new FlxSprite(130, 640);
-			killBar.makeGraphic(500, 5, StaticVars.INVISIBLE);
+			//scoreText = new FlxText(0, 96, FlxG.width, "Score: " + score + "\nMiss: " + miss);
+			//scoreText.setFormat(null, 11, StaticVars.BLACK, "left");
+			//add(scoreText);
+			/////////////////////// killbar ////////////////////////////
+			killBar = new FlxSprite(StaticVars.KILLBAR_X, StaticVars.KILLBAR_Y);
+			killBar.makeGraphic(500, 5, StaticVars.RED);
 			add(killBar);
-			
+			/////////////////////// tutorial ////////////////////////////
 			instr = new FlxText(StaticVars.WIDTH/2 - FlxG.width/2, 250, FlxG.width, instrStr);
 			instr.setFormat(null, 20, StaticVars.BLACK, "center");
 			add(instr);
+			/////////////////////// truck ////////////////////////////
+			truck = new Truck(30, 5);
+			add(truck);
 			
-			bucket = new BucketBar(bucketImg, StaticVars.bucket_x, StaticVars.bucket_y, scoreBar);
+			truckFillBar = new FlxBar(30, 5, FlxBar.FILL_BOTTOM_TO_TOP, 7, 40, truck, "numObjs", 0, 10, true);
+			truckFillBar.trackParent(95, 5);
+			add(truckFillBar);
+			/////////////////////// bucket ////////////////////////////
+			bucket = new BucketBar(bucketImg, StaticVars.bucket_x, StaticVars.bucket_y);
 			add(bucket);
 			
+			scoreBar = new FlxBar(StaticVars.bucket_x, StaticVars.bucket_y, FlxBar.FILL_HORIZONTAL_INSIDE_OUT, 40, 10, bucket, "healthLeft", 0, maxScore, true);
+			//scoreBar.color = 0x141BE3;
+			//scoreBar.createFilledBar(0x88141BE3, 0xFF14e32c, false, 0x00000000);
+			scoreBar.createImageBar(Objects.candy, Objects.fish);
+			scoreBar.killOnEmpty = false;
+			scoreBar.trackParent(0, StaticVars.bucket_y);
+			add(scoreBar);
+			/////////////////////// lost instr ////////////////////////////
 			lostText = new FlxText(100, 100, FlxG.width, "You Lost");
 			lostText.setFormat(null, 20, StaticVars.BLACK, "center");
 			
@@ -164,7 +177,7 @@ package levels
 			if (paused && FlxG.keys.justPressed("ENTER")) {
 				paused = !paused;
 				instr.kill();
-				timer.start();
+				//timer.start();
 			} else if (FlxG.keys.justPressed("ESCAPE")) {
 				FlxG.switchState(new ThemeState());
 			}
@@ -173,7 +186,7 @@ package levels
 				return pauseGroup.update();
 			}
 			
-			if (miss >= StaticVars._1MaxMiss) {
+			if (health <= 0) {
 				if (lostText.alpha >= 1) {
 					add(lostText);
 				}
@@ -186,14 +199,14 @@ package levels
 				return pauseGroup.update();
 			}
 			
-			isMaxScore = score >= maxScore;
-			
+			//isMaxScore = score >= maxScore;
+			//bucket.score = score;
 			//scoreBar.x = bucket.x;
 			
-			if (Helper.genRandom(StaticVars.a1Interval) && !isMaxScore && !timer.hasExpired) 
+			if (Helper.genRandom(StaticVars.a1Interval) && !isMaxScore)// && !timer.hasExpired) 
 			{
-				lane = Helper.genLane(lane);
-				_fallObj.add(Helper.fallObject(lane, StaticVars.yOffset, StaticVars.fallSpeedSlow, false));
+				lane = truck.getX();// Helper.genLane(lane);
+				_fallObj.add(Helper.fallObj(lane, StaticVars.yOffset, StaticVars.fallSpeedSlow, FallObjs.RECYCLE));
 			}
 			
 			FlxG.overlap(killBar, _fallObj, overlapKillBarObj);
@@ -209,12 +222,12 @@ package levels
 			Helper.fadeText(perfectText);
 			Helper.fadeText(passText);
 			
-			scoreText.text = "Score: " + score + "\nMiss: " + miss;
-			remainingTimeDisplay.text = "Time: " + Math.max(0, timer.secondsRemaining);
+			//scoreText.text = "Score: " + score + "\nMiss: " + miss;
+			//remainingTimeDisplay.text = "Time: " + Math.max(0, timer.secondsRemaining);
 			
-			if (timer.secondsRemaining <= 5) {
-				remainingTimeDisplay.color = StaticVars.RED;
-			}
+			//if (timer.secondsRemaining <= 5) {
+			//	remainingTimeDisplay.color = StaticVars.RED;
+			//}
 			/*
 			// TODO
 			if (isMaxScore) {
@@ -242,7 +255,7 @@ package levels
 		
 		
 		//////////////////////////// overlap ///////////////////////////
-		private function overlapObjBucket(but:Bucket, obj:FallingObj):void {
+		private function overlapObjBucket(but:BucketBar, obj:FallObjs):void {
 			obj.kill();
 			//obj.x = but.x;
 			//trace(obj.y + " " + but.y);
@@ -255,10 +268,11 @@ package levels
 		}
 		
 		
-		private function overlapKillBarObj(killBar:FlxSprite, obj:FallingObj):void {
+		private function overlapKillBarObj(killBar:FlxSprite, obj:FallObjs):void {
 			obj.kill();
-			miss++;
-
+			health--;
+			// health --
+			FlxG.shake(0.04, 0.1, null, true, 1);
 			
 			//if (!isMaxScore && missCount++ > 5) {
 			//	score--;
@@ -268,9 +282,9 @@ package levels
 
 		
 		private function endGame(): void {
-			var logData:Object = {"finalScore":score, "misses":miss};
+			var logData:Object = {"finalScore":score, "misses":health};
 			StaticVars.logger.logLevelEnd(logData);
-			var obj:Object = { "score":score, "miss":miss, "level":1, "passScore":passScore, "maxScore":maxScore };//"bonus":bonus, 
+			var obj:Object = { "score":score, "miss":health, "level":1, "passScore":passScore, "maxScore":maxScore };//"bonus":bonus, 
 			Helper.dropCount = 0;
 			Helper.endGame(obj);
 		}
