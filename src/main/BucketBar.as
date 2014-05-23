@@ -14,7 +14,7 @@ package main
 		//private var yCoord : int;
 		//private var scoreBar:FlxBar;
 		//[Embed(source = '../../img/GarbageBin.png')] private static var garbage:Class;
-		public var healthLeft:int;
+		public var healthLeft:Number;
 		
 		public function BucketBar (graphic:Class, x:Number, y:Number) {
 			super(x, y);

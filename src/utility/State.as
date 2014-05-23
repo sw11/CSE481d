@@ -58,6 +58,17 @@ package utility
 		
 		//public static var level1:Array = new Array(false, false, false, false, false, false);
 		
+		public static function toNextLevel():void {
+			if (unlockLevel == 15) {
+				// done!
+			} else {
+				levelArr[unlockLevel][0] = true;
+				unlockLevel++;
+				
+			}
+			//unlockLevel = Math.min(++unlockLevel, 15);
+		}
+		
 		public static function nextLevel():void {
 			unlockLevel ++;
 			

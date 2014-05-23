@@ -4,7 +4,7 @@ package levels
 	import fall_object.FallObjs;
 	import org.flixel.*;
 	import utility.*;
-	import main.EndState;
+	import main.*;
 	/**
 	 * ...
 	 * @author Sam
@@ -88,6 +88,39 @@ package levels
 			}
 		}
 		
+		public static function endgame(data:Object): void {
+			//var score:int = data["score"];
+			//var miss:int = data["miss"];
+			//var bonus:int = data["bonus"];
+			//var maxScore:int = data["maxScore"];
+			var level:int = data["level"];
+			//var passScore:int = data["passScore"];
+			var health:int = data["health"];
+			//trace("level " + level + " miss " + miss);
+			//trace(score);
+			//var perfect:Number = maxScore * StaticVars.aPerf;
+			if (health > 0) {
+				// win
+				if (level == State.unlockLevel) {
+					State.toNextLevel();
+				}
+				FlxG.switchState(new FinishState("WIN", health, level));
+			} else {
+				// lost
+				FlxG.switchState(new FinishState("LOST", health, level));
+			}
+			/*
+			if (score >= passScore) {
+				//trace("in end game() theme " + StaticVars.A_THEME + " level " + level);
+				if (level == State.unlockLevel) {
+					State.nextLevel();
+				}
+				FlxG.switchState(new EndState("WIN", score, miss, bonus, maxScore, StaticVars.A_THEME, level));
+			} else {
+				FlxG.switchState(new EndState("LOSE", score, miss, bonus, maxScore, StaticVars.A_THEME, level));	
+			}*/
+		}
+		
 		///////////////////////////// Fall objects /////////////////////////////////
 		public static function fallObject(lane:int, yOffset:int, speed:int, isRecycle:Boolean):FallingObj {
 			var obj:FallingObj = new FallingObj(lane, yOffset, isRecycle);
@@ -96,6 +129,7 @@ package levels
 			return obj;
 		}
 		
+		// new one
 		public static function fallObj(lane:int, yOffset:int, speed:int, whichObj:int):FallObjs {
 			var obj:FallObjs = new FallObjs(lane, yOffset, whichObj);
 			obj.velocity.y = speed;

@@ -13,6 +13,11 @@ package utility
 		// kill bar
 		public static const KILLBAR_X:int = 5;
 		public static const KILLBAR_Y:int = 580;
+		
+		
+		// level 1
+		public static const _1_TOTAL_OBJ:int = 30;
+		
 		// play button
 		public static const PLAY_W:int = 200;
 		public static const PLAY_H:int = 100; 

@@ -50,10 +50,10 @@ package fall_object
 			return FlxU.getRandom(trashArr, 0, 10) as Class;
 		}
 		
-		[Embed(source = '../../img/Bottle.png')] private static var bottle:Class;
-		[Embed(source = '../../img/Can.png')] private static var can:Class;
-		[Embed(source = '../../img/Glass.png')] private static var glass:Class;
-		[Embed(source = '../../img/Plastic.png')] private static var plastic:Class;
+		[Embed(source = '../../img/recycle/Bottle.png')] private static var bottle:Class;
+		[Embed(source = '../../img/recycle/Can.png')] private static var can:Class;
+		[Embed(source = '../../img/recycle/Glass.png')] private static var glass:Class;
+		[Embed(source = '../../img/recycle/Plastic.png')] private static var plastic:Class;
 		
 		private static var recycleArr:Array = new Array(bottle, can, glass, plastic);
 		
