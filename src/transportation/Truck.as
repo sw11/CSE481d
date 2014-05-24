@@ -10,7 +10,7 @@ package transportation
 	 */
 	public class Truck extends FlxSprite
 	{
-		[Embed(source = '../../img/fallObjs/microwave.png')] private static var truck:Class;
+		[Embed(source = '../../img/truck.png')] private static var truck:Class;
 		
 		private static const moveSpeed:int = 200;
 		//private var xCoord : int;
@@ -27,8 +27,9 @@ package transportation
 			//maxVelocity.x = 200;
 			//this.scoreBar = scoreBar;
 			loadGraphic(truck, true, false, 120, 60);
-			//addAnimation("green", [1, 0], 10, false);
-			//addAnimation("red", [2, 0], 3, false);
+			addAnimation("left", [0], 0, false);
+			addAnimation("right", [1], 0, false);
+			
 			velocity.x = moveSpeed;
 		}	
 		
@@ -37,16 +38,24 @@ package transportation
 			super.update();
 			// need random walk
 			if (x < 5) {
+				play("right", false);
 				velocity.x = moveSpeed;
 				counter = 0;
 			} else if (x > 405) {
+				play("left", false);
 				velocity.x = -moveSpeed;
 				counter = 0;
 			} else if (counter++ > maxCount) {
+				
 				counter = 0;
 				maxCount = Math.floor(Math.random() * 50 + 50);
 				///trace(velocity.x);
 				velocity.x = -velocity.x; // StaticVars.speed * maxCount * ( -1);
+				if (velocity.x > 0 ) {
+					play("right", false);
+				} else {
+					play("left", false);
+				}
 			} 
 			/*
 			if (Helper.oneOf(2) && x > 5) {
