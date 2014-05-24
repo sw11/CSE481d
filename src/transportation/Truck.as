@@ -26,7 +26,7 @@ package transportation
 			//yCoord = y;
 			//maxVelocity.x = 200;
 			//this.scoreBar = scoreBar;
-			loadGraphic(truck, true, false, 100, 100);
+			loadGraphic(truck, true, false, 120, 60);
 			//addAnimation("green", [1, 0], 10, false);
 			//addAnimation("red", [2, 0], 3, false);
 			velocity.x = moveSpeed;

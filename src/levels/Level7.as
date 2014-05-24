@@ -9,13 +9,13 @@ package levels
 	import main.*;
 	import fall_object.*;
 	import transportation.*;
-	import bucketBin.ThreeBucket;
+	import bucketBin.*;
 	
 	/**
 	 * ...
 	 * @author Sam Wilson
 	 */
-	public class Level6 extends FlxState {	
+	public class Level7 extends FlxState {	
 		//////////////////////// scores ///////////////////////////
 		private var health:int;
 		
@@ -28,6 +28,7 @@ package levels
 		private var instruction:FlxText;
 		private var instrBool1:Boolean;
 		private var skipInstr:FlxText;
+		private var firstAmmo:Ammos;
 		
 		/////////////////////////// Killbar /////////////////////////////
 		protected var killBar:FlxSprite;
@@ -35,11 +36,16 @@ package levels
 		//protected var missCount:int;
 		/////////////////////////// Fall obj /////////////////////////////
 		//protected var _fallObj: FlxGroup;
-		protected var _bombs:FlxGroup;
+		private var _bombs:FlxGroup;
 		private var _objLeft:int;
+		private var _ammos:FlxGroup;
+		private var ammoArr:Array;
+		private var _ammoLeft:int;
+		private var ammoBox:FlxSprite;
+		private var healthUp:FlxSprite;
 		
 		/////////////////////////// bucket /////////////////////////////
-		private var person:Person;
+		private var tank:Tank;
 		
 		
 		/////////////////////////// track /////////////////////////////
@@ -58,6 +64,18 @@ package levels
 			//StaticVars.logger.logLevelStart(1, null);
 			_bombs = new FlxGroup();
 			add(_bombs);	
+			
+			_ammos = new FlxGroup();
+			add(_ammos);
+			
+			_ammoLeft = 20;
+			
+			ammoArr = new Array();
+			for (var i:int = _ammoLeft; i > 0; i--) {
+				var a:AmmoCount = new AmmoCount(i * 23, 600);
+				ammoArr.push(a);
+				_ammos.add(a);
+			}
 			
 			instrBool1 = true;
 			instrBool2 = true;
@@ -81,10 +99,10 @@ package levels
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
-			instruction = Helper.addInstr("Protect yourself!\nAvoid bombs!\nPress enter to start", 0, 250, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("Bomb is falling!\nPress spacebar to shoot the bomb!", 0, 250, StaticVars.BLACK, 20);
 			add(instruction);
 
-			skipInstr = Helper.addInstr("[S] to skip the tutoial", 0, 600, StaticVars.RED, 15);
+			skipInstr = Helper.addInstr("[S] to skip the tutoial", 0, 450, StaticVars.RED, 15);
 			add(skipInstr);
 			
 			/////////////////////// truck ////////////////////////////
@@ -96,10 +114,10 @@ package levels
 			airplaneFillBar.trackParent(93, 5);
 			add(airplaneFillBar);
 			/////////////////////// bucket ////////////////////////////
-			person = new Person(StaticVars.bucket_x, StaticVars.bucket_y);
-			add(person);
+			tank = new Tank(StaticVars.bucket_x, StaticVars.bucket_y);
+			add(tank);
 			
-			scoreBar = new FlxBar(StaticVars.bucket_x, StaticVars.bucket_y, FlxBar.FILL_LEFT_TO_RIGHT, 90, 10, person, "healthLeft", 0, health, true);
+			scoreBar = new FlxBar(StaticVars.bucket_x, StaticVars.bucket_y, FlxBar.FILL_LEFT_TO_RIGHT, 90, 10, tank, "healthLeft", 0, health, true);
 			
 			scoreBar.createImageBar(Objects.candy, null, 0x88000000, 0xFF000000);//, 0xff000000, 0xff00ff00);
 			scoreBar.trackParent(5, 50);
@@ -107,6 +125,9 @@ package levels
 			/////////////////////// lost instr ////////////////////////////
 			lostText = new FlxText(0, 100, FlxG.width, "You Lost");
 			lostText.setFormat(null, 20, StaticVars.BLACK, "center");
+			
+			/////////////////////// add bomb for tutorial ////////////////////////////
+			_bombs.add(Helper.fallBomb(tank.x, 300, StaticVars.fallSpeedMid));
 			
 			super.create();
 		}
@@ -129,6 +150,14 @@ package levels
 				return pauseGroup.update();
 			}
 
+			if (FlxG.keys.justPressed("SPACE") && _ammoLeft > 0) {
+				(ammoArr.pop() as AmmoCount).kill(); 
+				_ammos.add(Helper.fireAmmo(tank.x + 40));
+				_ammoLeft--;
+			} else if (FlxG.keys.justPressed("SPACE") && _ammoLeft == 0) {
+				// show no ammos
+			}
+			
 			if (health <= 0) {
 				if (lostText.alpha >= 1) {
 					add(lostText);
@@ -144,7 +173,7 @@ package levels
 				endGame();
 			}
 			
-			person.healthLeft = health;
+			tank.healthLeft = health;
 			airplane.numObjs = _objLeft;
 			
 			if (Helper.genRandom(StaticVars._6_FALL_RATE) && _objLeft > 0)
@@ -157,7 +186,8 @@ package levels
 			}
 			
 			FlxG.overlap(killBar, _bombs, overlapKillBarObj);
-			FlxG.overlap(person, _bombs, overlapObjBucket);
+			FlxG.overlap(tank, _bombs, overlapObjBucket);
+			FlxG.overlap(_bombs, _ammos, overlapAmmoBomb);
 			//trace(_fallObj.countLiving() + " " + _fallObj.length);
 			//var arr:Array = _fallObj.members;
 			/*for (var i:int = 0; i < objArr.length; i++) {
@@ -174,7 +204,7 @@ package levels
 		
 		
 		//////////////////////////// overlap ///////////////////////////
-		private function overlapObjBucket(but:Person, bomb:Bomb):void {
+		private function overlapObjBucket(but:Tank, bomb:Bomb):void {
 			if (!bomb.isKill()) {
 				bomb.kill();
 				but.play("minus");
@@ -192,19 +222,45 @@ package levels
 				//FlxG.shake(0.04, 0.1, null, true, 1);
 			}	
 		}
+		
+		private function overlapAmmoBomb(bomb:Bomb, ammoObj:Ammos):void {
+			
+			if (!instrBool1) {
+				instruction.kill();
+				skipInstr.kill();
+				//add(scoreBar);
+				paused = false;
+			}
+			ammoObj.kill();
+			if (!bomb.isKill()) {
+				//bomb.alpha = 0.99;
+				bomb.kill();
+			}
+			// may fall some good things
+			//score++;
+		}
 
 		//////////////////////////// tutorial ///////////////////////////
 		private function tutorial():Boolean {
-			
-			
+			FlxG.overlap(_bombs, _ammos, overlapAmmoBomb);
+			if (!instrBool1 && _ammos.countLiving() > 0) {
+				firstAmmo.y -= 3; 
+			}
 			/*if (FlxG.keys.ONE){
 				bucket.tutorialBucketSwitching(ThreeBucket.TRASH);
 			} */
+			if (instrBool1 && FlxG.keys.justPressed("SPACE")) {
+				(ammoArr.pop() as AmmoCount).kill(); 
+				firstAmmo = Helper.fireAmmo(tank.x + 40)
+				_ammos.add(firstAmmo);
+				_ammoLeft--;
+				instrBool1 = false;
+			}
 			// skip tutorial
-			if (FlxG.keys.justPressed("S") || FlxG.keys.justPressed("ENTER")) {
+			if (FlxG.keys.justPressed("S")) {
 				instruction.kill();
 				skipInstr.kill();
-				add(scoreBar);
+				//add(scoreBar);
 				paused = false;
 			}
 			/*

@@ -280,7 +280,9 @@ package main
 				//currLevel = (++currLevel > maxLevel) ? maxLevel : currLevel;	
 				(textArr[currLevel-1] as FlxText).color = StaticVars.RED;
 			} else if (FlxG.keys.justPressed("U")) {
-				State.levelArr[11][0] = true;
+				for (var i:int = 0; i < State.levelArr.length; i++) {
+					State.levelArr[i][0] = true;
+				}
 				FlxG.switchState(new LevelSelect());
 			}  
 			//else if (FlxG.keys.justPressed("L")) {
@@ -309,6 +311,18 @@ package main
 					FlxG.switchState(new Level3());
 					break;
 				case 4:
+					FlxG.switchState(new Level4());
+					break;
+				case 5:
+					FlxG.switchState(new Level5());
+					break;
+				case 6:
+					FlxG.switchState(new Level6());
+					break;
+				case 7:
+					FlxG.switchState(new Level7());
+					break;
+				case 8:
 					FlxG.switchState(new Level4());
 					break;
 			}

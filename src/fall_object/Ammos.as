@@ -12,7 +12,7 @@ package fall_object
 		public function Ammos(x:Number, y:Number)  
 		{
 			super(x, y);
-			loadGraphic(ammo, true, true, 25, 55);
+			loadGraphic(ammo, true, true, 20, 45);
 			velocity.y = -250; // move down velocity
 		}		
 	}

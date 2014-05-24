@@ -1,5 +1,6 @@
 package levels 
 {
+	import fall_object.Ammos;
 	import fall_object.Bomb;
 	import fall_object.FallingObj;
 	import fall_object.FallObjs;
@@ -143,9 +144,16 @@ package levels
 		///////////////////////////// Fall bombs /////////////////////////////////
 		// new one
 		public static function fallBomb(lane:int, yOffset:int, speed:int):Bomb {
-			var obj:Bomb = new Bomb(lane, 0);
+			var obj:Bomb = new Bomb(lane, yOffset);
 			obj.velocity.y = speed;
 			return obj
+		}
+		
+		public static function fireAmmo(xPos:int):Ammos {
+			//ammo -= 1;
+			var ammo:Ammos = new Ammos(xPos, 500);
+			return ammo;
+			//_ammos.add(new Ammos(xPos, 550));
 		}
 		
 		

@@ -16,13 +16,10 @@ package levels
 	 * @author Sam Wilson
 	 */
 	public class Level1 extends FlxState {	
-		[Embed(source = '../../img/RecycleBin.png')] private static var bucketImg:Class;
+		[Embed(source = '../../img/TrashCan2.png')] private static var bucketImg:Class;
 		[Embed(source = '../../img/zelda-hearts.png')] private static var heart:Class;
 		
 		//////////////////////// scores ///////////////////////////
-		//public var score: Number;
-		//private var scoreText:FlxText;
-		// count how many miss
 		private var health:int;
 		
 		/** Displays the score, keeps tract of "score"*/
@@ -271,7 +268,7 @@ package levels
 			if (Helper.genRandom(StaticVars._1_FALL_RATE) && _objLeft > 0)// && !isMaxScore)// && !timer.hasExpired) 
 			{
 				var lane:int = truck.getX();// Helper.genLane(lane);
-				_fallObj.add(Helper.fallObj(lane, StaticVars.yOffset, StaticVars.fallSpeedSlow, FallObjs.RECYCLE));
+				_fallObj.add(Helper.fallObj(lane, StaticVars.yOffset, StaticVars.fallSpeedSlow, FallObjs.TRASH));
 				_objLeft--;
 			}
 			

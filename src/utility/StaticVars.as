@@ -26,6 +26,17 @@ package utility
 		// level 3
 		public static const _3_TOTAL_OBJ:int = 20;
 		public static const _3_FALL_RATE:int = 60;
+		// level 4
+		public static const _4_TOTAL_OBJ:int = 20;
+		public static const _4_FALL_RATE:int = 60;
+		// level 5
+		public static const _5_TOTAL_OBJ:int = 20;
+		public static const _5_FALL_RATE:int = 60;
+		// level 6
+		public static const _6_TOTAL_OBJ:int = 30;
+		public static const _6_FALL_RATE:int = 30;
+		
+		
 		
 		// buckets
 		public static const TWO_BUCKETS:int = 2;
@@ -61,7 +72,7 @@ package utility
 		
 		// bucket
 		public static const bucket_x:int = 130;
-		public static const bucket_y:int = 525;// 575;
+		public static const bucket_y:int = 500;// 575;
 		public static var speed:int = 500;
 		public static const BUCKET_LEFT:int = 5;
 		public static const BUCKET_RIGHT:int = 405;

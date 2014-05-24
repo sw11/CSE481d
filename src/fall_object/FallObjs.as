@@ -15,6 +15,7 @@ package fall_object
 		public static const RECYCLE:int = 1;
 		public static const TRASH_RECYCLE:int = 2;
 		public static const ALL_THREE:int = 3;
+		public static const TRASH:int = 4;
 		
 		private var currentObj:int;
 		
@@ -48,6 +49,9 @@ package fall_object
 						randClass = Objects.getTrashObj();
 						currentObj = ThreeBucket.TRASH;
 					}
+					break;
+				case TRASH:
+					randClass = Objects.getTrashObj();
 					break;
 			}
 			
