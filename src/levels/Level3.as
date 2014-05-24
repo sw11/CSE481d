@@ -115,15 +115,15 @@ package levels
 		
 		override public function update():void 
 		{	
-			if (paused && tutorial()) {
-				return pauseGroup.update();
-			}
-			
 			if (FlxG.keys.justPressed("ESCAPE")) {
 				// need to log?
 				FlxG.switchState(new LevelSelect());
 			}
 			
+			if (paused && tutorial()) {
+				return pauseGroup.update();
+			}
+				
 			if (health <= 0) {
 				if (lostText.alpha >= 1) {
 					add(lostText);

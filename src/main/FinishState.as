@@ -5,6 +5,7 @@ package main
 	import beginner.*;
 	import intermediate.*;
 	import advance.*;
+	import levels.Helper;
 	/**
 	 * ...
 	 * @author Adrian
@@ -33,9 +34,21 @@ package main
 			winnerText = new FlxText(0, yPos += 40, FlxG.width, result);
 			winnerText.setFormat(null, 16, StaticVars.BLACK, "center");
 			add(winnerText);*/
-			addText(result, 100, 40);
+			addText(result, 100, 35);
+			//trace(_health + " in finish state");
 			if (_health > 0) {
-				addText("Health left: " + _health, 150, 25);
+				add(Helper.addInstr("Health left: " + _health, -30, 200, StaticVars.BLACK, 20));
+				
+				
+				//addText("Health left: " + _health, 200, 20);
+			} 
+			if (_health == 5) {
+				// add star
+				//trace("add star");
+				//State.star(level);
+				var starIcon:FlxSprite = new FlxSprite(StaticVars.WIDTH/2 + 50, 200);
+				starIcon.loadGraphic(star, true, true, 24, 24);
+				add(starIcon);
 			}
 			
 			
@@ -58,9 +71,9 @@ package main
 			if (State.unlockLevel == 12) {
 				
 			} else {
-				addText("Press ENTER to next level", 250, 20);
+				addText("Press ENTER to next level", 400, 15);
 			}
-			addText("Press ESC back to main menu", 290, 20);
+			addText("Press ESC back to main menu", 450, 15);
 			
 		}
 		

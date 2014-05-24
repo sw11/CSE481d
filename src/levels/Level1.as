@@ -200,6 +200,10 @@ package levels
 			//if (startToturial) {
 			//	tutorial();
 			//}
+			if (FlxG.keys.justPressed("ESCAPE")) {
+				FlxG.switchState(new LevelSelect());
+			}
+			
 			if (paused && tutorial()) {
 				//if (tutorial()) {
 					return pauseGroup.update();
@@ -234,9 +238,7 @@ package levels
 				return pauseGroup.update();
 			} */
 			
-			if (FlxG.keys.justPressed("ESCAPE")) {
-				FlxG.switchState(new LevelSelect());
-			}
+
 			
 			//if (paused) {
 			//	return pauseGroup.update();

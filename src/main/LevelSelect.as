@@ -40,7 +40,7 @@ package main
 		
 		private var currState:int;
 		private var currTheme:int;
-		private var yPos:int;
+		//private var yPos:int;
 		private var themeArr:Array;
 		
 		private var maxLevel:int;
@@ -65,7 +65,7 @@ package main
 			textArr = new Array();
 			for (var i:int = 1; i <= 3; i++) {
 				for (var j:int = 1; j <= 4; j++) {
-					var text:FlxText = Helper.addInstr("Lv" + (j + (i - 1) * 4), (j - 2) * 100 - 50, i * 100 + 50, StaticVars.BLACK, 20);
+					var text:FlxText = Helper.addInstr("Lv" + (j + (i - 1) * 4), (j - 2) * 100 - 50, i * 100 + 60, StaticVars.BLACK, 20);
 					//createText((j-2) * 100 - 50, i * 100 + 50, 30, "Lv" + (j + (i - 1) * 4));
 					textArr.push(text);
 					//trace(i + " " + j);
@@ -73,16 +73,26 @@ package main
 				}				
 			}
 			
+			var lastLv:Boolean = true;
 			for (var k:int = State.levelArr.length - 1; k >= 0; k--) {
-				maxLevel = k + 1;
-				currLevel = k + 1;
+				
+				
+				var t:FlxText = textArr[k] as FlxText;
 				// trace(k); 
 				if (State.levelArr[k][0]) {
-					(textArr[k] as FlxText).color = StaticVars.RED;
-					break;
+					if (lastLv) {
+						maxLevel = k + 1;
+						currLevel = k + 1;
+						t.color = StaticVars.RED;
+						lastLv = false;
+					}
+					//trace(k + " " + State.levelArr[k][1]);
+					if (State.levelArr[k][1]) {
+						addStar(t.x + StaticVars.WIDTH / 2 - 12, t.y + 27);
+					}
 				} else {
-					(textArr[k] as FlxText).color = StaticVars.GREY;
-					
+					t.color = StaticVars.GREY;
+					addLock(t.x + StaticVars.WIDTH/2 - 15, t.y + 25);
 				}
 			}
 			
@@ -228,8 +238,8 @@ package main
 			add(locks);
 		}
 		
-		private function addStar():void {
-			var starIcon:FlxSprite = new FlxSprite(370, yPos - 3);
+		private function addStar(xPos:int, yPos:int):void {
+			var starIcon:FlxSprite = new FlxSprite(xPos, yPos);
 			starIcon.loadGraphic(star, true, true, 24, 24);
 			add(starIcon);
 		}

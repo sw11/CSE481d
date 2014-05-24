@@ -61,11 +61,16 @@ package utility
 			} else {
 				//trace("State to next level " + unlockLevel);
 				levelArr[unlockLevel][0] = true;
-				trace("To next level " + levelArr[unlockLevel][0]);
+				//trace("To next level " + levelArr[unlockLevel][0]);
 				unlockLevel++;
 				
 			}
 			//unlockLevel = Math.min(++unlockLevel, 15);
+		}
+		
+		public static function star(lv:int):void {
+			levelArr[lv - 1][1] = true;
+			//trace(levelArr[lv - 1][0] + " " + levelArr[lv - 1][1]);
 		}
 		
 		public static function nextLevel():void {
