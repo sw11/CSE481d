@@ -42,6 +42,12 @@ package utility
 		public static const TWO_BUCKETS:int = 2;
 		public static const THREE_BUCKETS:int = 3;
 		
+		
+		// fog
+		public static const fogXPos:int = 0;
+		public static const fogYPos:int = 130;
+		
+		
 		// play button
 		public static const PLAY_W:int = 200;
 		public static const PLAY_H:int = 100; 
@@ -124,7 +130,7 @@ package utility
 		public static const bTime:int = 30000;
 		public static const bPass:Number = 0.5;
 		public static const fogRate:int = 100;
-		public static const fogXPos:int = 130;
+		
 		public static const fogSpeed:int = -10;
 		// level 1
 		public static const b1MaxScore:int = 25;

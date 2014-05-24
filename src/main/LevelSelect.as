@@ -99,138 +99,8 @@ package main
 			var enter:FlxText = Helper.addInstr("Press enter to play", 0, 600, StaticVars.RED, 15);
 			//createText(0, 600, 15, "Press enter to play");
 			add(enter);
-			//selected = new FlxSprite(100, 100);
-			//selected.makeGraphic(50, 50, 0x00000000);
-			
-			//selected.drawLine(100, 100, 400, 100, StaticVars.RED, 5);
-			//selected.drawLine(100, 100, 100, 400, StaticVars.RED, 5);
-			//selected.drawLine(200, 200, 400, 100, StaticVars.RED, 5);
-			//selected.drawLine(200, 200, 100, 400, StaticVars.RED, 5);
-			//add(selected);
-			//getArray();
-			// draw levels
-			//var boxes:FlxSprite = new FlxSprite(100, 100);
-			//boxes.loadGraphic(Objects.candy, false, false, 75, 75, false);
-			
-			//boxes.alpha = 0.5;
-			//boxes.makeGraphic(50, 50, StaticVars.BLACK, false, "1");
-			//addLock(100, 100);
-			//add(boxes);
-			/*
-			var levelInstr1:FlxText;
-			levelInstr1 = new FlxText(0, yPos += 40, FlxG.width, "Arrow up down to select the level");
-			levelInstr1.setFormat(null, 16, StaticVars.BLACK, "center");
-			add(levelInstr1);
-			
-			level1 = createText(yPos += 40, "Level 1");
-			currText = level1;
-			currText.color = StaticVars.RED;
-			add(currText);
-			
-			if (themeArr[0][1] as Boolean) {
-				addStar();
-			}
-			level2 = createText(yPos += 40, "Level 2")
-			add(level2);
-			
-			if (!themeArr[1][0] as Boolean) {
-				addLock();
-			} else if (themeArr[1][1] as Boolean) {
-				addStar();
-			}
-			
-			level3 = createText(yPos += 40, "Level 3")
-			add(level3);
-			
-			if (!themeArr[2][0] as Boolean) {
-				addLock();
-			} else if (themeArr[2][1] as Boolean) {
-				addStar();
-			}
-			
-			level4 = createText(yPos += 40, "Level 4")
-			add(level4);
-			
-			if (!themeArr[3][0] as Boolean) {
-				addLock();
-			} else if (themeArr[3][1] as Boolean) {
-				addStar();
-			}
-			
-			level5 = createText(yPos += 40, "Level 5")
-			add(level5);
-			
-			if (!themeArr[4][0] as Boolean) {
-				addLock();
-			} else if (themeArr[4][1] as Boolean) {
-				addStar();
-			}
-			
-			var i:int = 0;
-			for (i = 0; i < themeArr.length - 1; i++) {
-				//for (var j:int = 0; j < themeArr[i].length; j++) {
-				if (!themeArr[i][1]) {
-					//addLock();
-					break;
-				}
-			}
-			// todo enable this
-			//isBonus = i == themeArr.length - 1;
-			
-			level6 = createText(yPos += 40, isBonus ? "BONUS" : "???")
-			add(level6);
-			
-			if (!isBonus) {
-				addLock();
-			} 
-			// todo enable this once bonus is done
-			//else {
-			//	State.unlockLevels[currTheme - 1] = State.maxLevel + 1;
-			//}
-			if (themeArr[5][1] as Boolean) {
-				addStar();
-			}
-			
-			add(instr("Press ENTER to start"));
-			
-			add(instr("Control:\nArrow left right to move the bucket\nEsc to exit"));
-			
-			
-			if (currTheme == StaticVars.C_THEME) {
-				var recycleInstr:FlxText = new FlxText(0, yPos += 60, FlxG.width, "1 for trash bin\n2 for recycle bin\n3 for compost bin");
-				recycleInstr.setFormat(null, 16, StaticVars.BLACK, "center");
-				add(recycleInstr);
-			}
-			
-			if (currTheme == StaticVars.B_THEME) {
-				var fogInstr:FlxText = new FlxText(0, yPos += 60, FlxG.width, "Space bar to fire ammo");
-				fogInstr.setFormat(null, 16, StaticVars.BLACK, "center");
-				add(fogInstr);
-			}
-			
-			if (currTheme == StaticVars.A_THEME) {
-				var shoot:FlxText = new FlxText(0, yPos += 60, FlxG.width, "Space bar to fire in Level 5");
-				shoot.setFormat(null, 16, StaticVars.BLACK, "center");
-				add(shoot);
-			}*/
 		}
 		
-		/*private function getArray():void {
-			switch (currTheme) {
-				case 1:
-					themeArr = State.theme1;
-					break;
-				case 2:
-					themeArr = State.theme2;
-					break;
-				case 3:
-					themeArr = State.theme3;
-					break;
-				case 4:
-					themeArr = State.theme4;
-					break;
-			}
-		}*/
 		
 		private function addLock(x:int, y:int):void {
 			var locks:FlxSprite = new FlxSprite(x, y);
@@ -244,11 +114,6 @@ package main
 			add(starIcon);
 		}
 		
-		/*private function createText(x:int, y:int, fontSize:int, theme:String, color:int):FlxText {
-			var text:FlxText = new FlxText(x, y, FlxG.width, theme);
-			text.setFormat(null, fontSize, StaticVars.BLACK, "center");// , null, 0xFF0000);
-			return text;
-		}*/
 		
 		override public function update():void {
 			super.update();
@@ -323,7 +188,19 @@ package main
 					FlxG.switchState(new Level7());
 					break;
 				case 8:
-					FlxG.switchState(new Level4());
+					FlxG.switchState(new Level8());
+					break;
+				case 9:
+					FlxG.switchState(new Level9());
+					break;
+				case 10:
+					FlxG.switchState(new Level10());
+					break;
+				case 11:
+					FlxG.switchState(new Level7());
+					break;
+				case 12:
+					FlxG.switchState(new Level8());
 					break;
 			}
 		}
