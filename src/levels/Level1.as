@@ -17,6 +17,8 @@ package levels
 	 */
 	public class Level1 extends FlxState {	
 		[Embed(source = '../../img/RecycleBin.png')] private static var bucketImg:Class;
+		[Embed(source = '../../img/zelda-hearts.png')] private static var heart:Class;
+		
 		//////////////////////// scores ///////////////////////////
 		//public var score: Number;
 		//private var scoreText:FlxText;
@@ -181,13 +183,13 @@ package levels
 			bucket = new BucketBar(bucketImg, StaticVars.bucket_x, StaticVars.bucket_y);
 			add(bucket);
 			
-			scoreBar = new FlxBar(StaticVars.bucket_x, StaticVars.bucket_y, FlxBar.FILL_LEFT_TO_RIGHT, 90, 10, bucket, "healthLeft", 0, health, true);
-			//scoreBar.color = 0x141BE3;
-			//scoreBar.createFilledBar(0x88141BE3, 0xFF14e32c, false, 0x00000000);
-			scoreBar.createImageBar(Objects.candy, null, 0x88000000, 0xFF000000);//, 0xff000000, 0xff00ff00);
-			//scoreBar.killOnEmpty = false;
-			scoreBar.trackParent(5, 50);
-			//add(scoreBar);
+			//configure health bar for bucket
+			scoreBar = new FlxBar(StaticVars.bucket_x + 10, StaticVars.bucket_y + 50,FlxBar.FILL_LEFT_TO_RIGHT, 158, 14);
+			scoreBar.createImageBar(null, heart, 0x0);//, 0xff000000, 0xff00ff00);
+			scoreBar.setRange(0, 10);
+			scoreBar.setParent(bucket, "healthLeft", true, 10, 50);
+			add(scoreBar);
+			
 			/////////////////////// lost instr ////////////////////////////
 			lostText = new FlxText(0, 100, FlxG.width, "You Lost");
 			lostText.setFormat(null, 20, StaticVars.BLACK, "center");
@@ -197,6 +199,7 @@ package levels
 		
 		override public function update():void 
 		{	
+			scoreBar.currentValue = health;
 			//if (startToturial) {
 			//	tutorial();
 			//}
@@ -339,7 +342,7 @@ package levels
 			if (FlxG.keys.justPressed("S")) {
 				instruction.kill();
 				skipInstr.kill();
-				add(scoreBar);
+				//add(scoreBar);
 				paused = false;
 			}
 			
@@ -377,7 +380,7 @@ package levels
 					paused = !paused;
 					instruction.kill();
 					skipInstr.kill();
-					add(scoreBar);
+					//add(scoreBar);
 				//timer.start();
 				}
 				return true;
