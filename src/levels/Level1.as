@@ -171,10 +171,10 @@ package levels
 			truck = new Truck(30, 5);
 			add(truck);
 			
-			truckFillBar = new FlxBar(30, 5, FlxBar.FILL_BOTTOM_TO_TOP, 7, 45, truck, "numObjs", 0, _objLeft, true);
+			truckFillBar = new FlxBar(15, 5, FlxBar.FILL_BOTTOM_TO_TOP, 10, 60, truck, "numObjs", 0, _objLeft, true);
 			//truckFillBar.color = 0x141BE3;
 			//truckFillBar.createFilledBar(0x88141BE3, 0xFF14e32c, false, 0x00000000);
-			truckFillBar.trackParent(93, 5);
+			truckFillBar.trackParent(-13, 0);
 			add(truckFillBar);
 			/////////////////////// bucket ////////////////////////////
 			bucket = new BucketBar(bucketImg, StaticVars.bucket_x, StaticVars.bucket_y);
