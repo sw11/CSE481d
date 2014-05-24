@@ -16,7 +16,7 @@ package levels
 	 * @author Sam Wilson
 	 */
 	public class Level1 extends FlxState {	
-		[Embed(source = '../../img/TrashCan2.png')] private static var bucketImg:Class;
+		[Embed(source = '../../img/GarbageBin.png')] private static var bucketImg:Class;
 		[Embed(source = '../../img/zelda-hearts.png')] private static var heart:Class;
 		
 		//////////////////////// scores ///////////////////////////
