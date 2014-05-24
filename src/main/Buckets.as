@@ -55,7 +55,7 @@ package main
 		}	
 		
 		public function getCurrentBucket() : int {
-			return (cycBucket + StaticVars.NUM_BUCKET) % StaticVars.NUM_BUCKET;
+			return (cycBucket + StaticVars.THREE_BUCKETS) % StaticVars.THREE_BUCKETS;
 		}
 		
 		override public function update():void 
@@ -85,7 +85,7 @@ package main
 		}
 		
 		private function switchBucket():void {
-			var num:int = cycBucket % StaticVars.NUM_BUCKET;
+			var num:int = cycBucket % StaticVars.THREE_BUCKETS;
 			//trace("buc is " + cycBucket + " num is " + num);
 			if (num == 0) {
 				loadGraphic(bucketImg, true, true, 100, 50);

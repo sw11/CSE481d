@@ -1,4 +1,4 @@
-package advance
+package bucketBin
 {
 	import org.flixel.*;
 	import utility.StaticVars;
@@ -6,15 +6,18 @@ package advance
 	/**
 	 * Class used for levels with multiple bucket types, 
 	 * for recycling, compost and trash
-	 * 
+	 * 1 for Trash
+	 * 2 for recycle
+	 * 3 for compost
 	 * @author Adrian
 	 */
-	public class MultiBucket extends FlxSprite
+	public class ThreeBucket extends FlxSprite
 	{
 		
 		private var cycBucket : int;
-		private var xCoord : int;
-		private var yCoord : int;
+		//private var xCoord : int;
+		//private var yCoord : int;
+		public var healthLeft:int;
 		
 		//private static const _move_speed : int = 400;
 		public static const TRASH : int = 0;
@@ -25,16 +28,17 @@ package advance
 		[Embed(source = '../../img/RecycleBin.png')] private var recycleImg:Class;
 		[Embed(source = '../../img/CompostBin.png')] private var compostImg:Class;
 		
-		public function MultiBucket (x:Number, y:Number) {
+		public function ThreeBucket (x:Number, y:Number) {
 			super(x, y);
-			xCoord = x;
-			yCoord = y;
-			loadGraphic(bucketImg, true, false, 100, 50);
+			//xCoord = x;
+			//yCoord = y;
+			loadGraphic(compostImg, true, false, 100, 50);
 			maxVelocity.x = 200;
-			cycBucket = 0;
 			
 			addAnimation("add", [1, 0], 10, false);
 			addAnimation("minus", [2, 0], 10, false);
+			//cycBucket = 1;
+			//switchBucket();
 		}	
 		
 		public function getCurrentBucket() : int {
@@ -44,21 +48,14 @@ package advance
 		override public function update():void 
 		{
 			super.update();
-			if (FlxG.keys.LEFT && x > 130){
+			if (FlxG.keys.LEFT && x > StaticVars.BUCKET_LEFT){
 				velocity.x = -StaticVars.speed;
-			} else if (FlxG.keys.RIGHT && x < 540) {
+			} else if (FlxG.keys.RIGHT && x < StaticVars.BUCKET_RIGHT) {
 				velocity.x = StaticVars.speed;
 			} else {
 				velocity.x = 0;
 			}
 			
-			//if (FlxG.keys.justPressed("Z")) {
-			//	cycBucket++;
-			//	switchBucket();
-			//} else if (FlxG.keys.justPressed("A")) {
-			//	cycBucket--;
-			//	switchBucket();
-			//} else 
 			if (FlxG.keys.justPressed("ONE")) {
 				cycBucket = 0;
 				switchBucket();
@@ -69,6 +66,11 @@ package advance
 				cycBucket = 2;
 				switchBucket();
 			}
+		}
+		
+		public function tutorialBucketSwitching(bucketNum:int):void {
+			cycBucket = bucketNum;
+			switchBucket();
 		}
 		
 		private function switchBucket():void {

@@ -49,32 +49,36 @@ package main
 		private var selected:FlxSprite;
 		
 		override public function create(): void {
-			
+			FlxG.bgColor = StaticVars.WHITE;
 			var levelInstr1:FlxText;
-			levelInstr1 = createText(320, 50, 30, "Level");
+			levelInstr1 = Helper.addInstr("Level", 0, 50, StaticVars.BLACK, 30);
+			
+			//createText(0, 50, 30, "Level");
 			//levelInstr1.setFormat(null, 50, StaticVars.BLACK, "center");
 			add(levelInstr1);
 			
 			
-			
+			//trace("Inside level select");
 			//var _1:FlxText;
 			//_1 = createText(100, 100, 20, "Lvl");
 			//add(_1);
 			textArr = new Array();
 			for (var i:int = 1; i <= 3; i++) {
-				for (var j:int = 1; j <= 5; j++) {
-					var text:FlxText = createText(j * 100, i * 100 + 50, 30, "Lv" + (j + (i - 1) * 5));
+				for (var j:int = 1; j <= 4; j++) {
+					var text:FlxText = Helper.addInstr("Lv" + (j + (i - 1) * 4), (j - 2) * 100 - 50, i * 100 + 50, StaticVars.BLACK, 20);
+					//createText((j-2) * 100 - 50, i * 100 + 50, 30, "Lv" + (j + (i - 1) * 4));
 					textArr.push(text);
+					//trace(i + " " + j);
 					add(text);
 				}				
 			}
 			
 			for (var k:int = State.levelArr.length - 1; k >= 0; k--) {
 				maxLevel = k + 1;
-					currLevel = k + 1;
+				currLevel = k + 1;
+				// trace(k); 
 				if (State.levelArr[k][0]) {
 					(textArr[k] as FlxText).color = StaticVars.RED;
-					
 					break;
 				} else {
 					(textArr[k] as FlxText).color = StaticVars.GREY;
@@ -82,6 +86,9 @@ package main
 				}
 			}
 			
+			var enter:FlxText = Helper.addInstr("Press enter to play", 0, 600, StaticVars.RED, 15);
+			//createText(0, 600, 15, "Press enter to play");
+			add(enter);
 			//selected = new FlxSprite(100, 100);
 			//selected.makeGraphic(50, 50, 0x00000000);
 			
@@ -227,16 +234,16 @@ package main
 			add(starIcon);
 		}
 		
-		private function createText(x:int, y:int, fontSize:int, theme:String):FlxText {
+		/*private function createText(x:int, y:int, fontSize:int, theme:String, color:int):FlxText {
 			var text:FlxText = new FlxText(x, y, FlxG.width, theme);
-			text.setFormat(null, fontSize, StaticVars.BLACK);// , null, 0xFF0000);
+			text.setFormat(null, fontSize, StaticVars.BLACK, "center");// , null, 0xFF0000);
 			return text;
-		}
+		}*/
 		
 		override public function update():void {
 			super.update();
 			if (FlxG.keys.justPressed("ENTER")) {
-				startLevel();
+				startLevel(currLevel);
 			} else if (FlxG.keys.justPressed("ESCAPE")) {
 				FlxG.switchState(new MainState());
 			} else if (FlxG.keys.justPressed("LEFT")) {
@@ -252,35 +259,46 @@ package main
 				//changeColor();
 			} else if (FlxG.keys.justPressed("UP")) {
 				(textArr[currLevel-1] as FlxText).color = StaticVars.BLACK;
-				currLevel = (currLevel <= 5) ? Math.max(1, currLevel) : currLevel - 5;
+				currLevel = (currLevel <= 4) ? Math.max(1, currLevel) : currLevel - 4;
 				(textArr[currLevel-1] as FlxText).color = StaticVars.RED;
 			} else if (FlxG.keys.justPressed("DOWN")) {
 				(textArr[currLevel - 1] as FlxText).color = StaticVars.BLACK;
-				if (currLevel + 5 <= maxLevel && currLevel <= 10) {
-					currLevel += 5;
+				if (currLevel + 4 <= maxLevel && currLevel <= 8) {
+					currLevel += 4;
 				}
 				currLevel = Math.min(15, currLevel);
 				//currLevel = (++currLevel > maxLevel) ? maxLevel : currLevel;	
 				(textArr[currLevel-1] as FlxText).color = StaticVars.RED;
 			} else if (FlxG.keys.justPressed("U")) {
-				State.levelArr[14][0] = true;
+				State.levelArr[11][0] = true;
 				FlxG.switchState(new LevelSelect());
-			}
+			}  
+			//else if (FlxG.keys.justPressed("L")) {
+			//	State.levelArr[11][0] = false;
+			//	FlxG.switchState(new LevelSelect());
+			//}
 		}
 		
 		
-		private function instr(text:String):FlxText 
-		{
-			var instruction:FlxText = new FlxText(0, yPos += 40, FlxG.width, text);
-			instruction.setFormat(null, 16, StaticVars.BLACK, "center");
-			return instruction;
-		}
+		//private function instr(text:String):FlxText 
+		//{
+		//	var instruction:FlxText = new FlxText(0, yPos += 40, FlxG.width, text);
+		//	instruction.setFormat(null, 16, StaticVars.BLACK, "center");
+		//	return instruction;
+		//}
 		
-		private function startLevel():void {
-			switch(currLevel) {
+		public static function startLevel(thisLevel:int):void {
+			switch(thisLevel) {
 				case 1:
 					FlxG.switchState(new Level1());
 					break;
+				case 2:
+					FlxG.switchState(new Level2());
+					break;
+				case 3:
+					FlxG.switchState(new Level3());
+					break;
+				
 			}
 		}
 		

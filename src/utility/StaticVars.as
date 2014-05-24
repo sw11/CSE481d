@@ -14,9 +14,22 @@ package utility
 		public static const KILLBAR_X:int = 5;
 		public static const KILLBAR_Y:int = 580;
 		
+		// health
+		public static const TOTAL_HEALTH:int = 5;
 		
 		// level 1
-		public static const _1_TOTAL_OBJ:int = 30;
+		public static const _1_TOTAL_OBJ:int = 12;
+		public static const _1_FALL_RATE:int = 50;
+		// level 2
+		public static const _2_TOTAL_OBJ:int = 15;
+		public static const _2_FALL_RATE:int = 55;
+		// level 3
+		public static const _3_TOTAL_OBJ:int = 20;
+		public static const _3_FALL_RATE:int = 60;
+		
+		// buckets
+		public static const TWO_BUCKETS:int = 2;
+		public static const THREE_BUCKETS:int = 3;
 		
 		// play button
 		public static const PLAY_W:int = 200;
@@ -27,10 +40,11 @@ package utility
 		public static const WHITE:int = 0xffffff;
 		public static const BLACK:int = 0x11111111;
 		public static const RED:int = 0xFFFF0000;
-		public static const GREEN:int = 0xDEA543;
+		public static const GREEN:int = 0xFF00FF00;
 		public static const YELLOW:int = 0xFFFF00;
+		public static const BLUE:int = 0xFF0000FF;
 		public static const INVISIBLE:int = 0x00FFFFFF;
-		public static const GREY:int = 0xeeeeeeee;
+		public static const GREY:int = 0xFFAAAAAA;
 		
 		public static const A_THEME:int = 1;
 		public static const B_THEME:int = 2;
@@ -49,6 +63,8 @@ package utility
 		public static const bucket_x:int = 130;
 		public static const bucket_y:int = 525;// 575;
 		public static var speed:int = 500;
+		public static const BUCKET_LEFT:int = 5;
+		public static const BUCKET_RIGHT:int = 405;
 		// bomb
 		public static const bombOffSet:int = 25;
 		// fall objects
@@ -144,7 +160,7 @@ package utility
 		// c recycle theme
 		public static const cTime:int = 40000;
 		public static const cPass:Number = 0.6;
-		public static const NUM_BUCKET:int = 3;
+		
 		// level 1
 		public static const c1MaxScore:int = 40;
 		public static const c1Interval:int = 30;

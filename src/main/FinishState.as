@@ -34,8 +34,10 @@ package main
 			winnerText.setFormat(null, 16, StaticVars.BLACK, "center");
 			add(winnerText);*/
 			addText(result, 100, 40);
+			if (_health > 0) {
+				addText("Health left: " + _health, 150, 25);
+			}
 			
-			addText("Health left: " + _health, 150, 40);
 			
 			//addText("Miss: " + miss);
 			
@@ -53,12 +55,12 @@ package main
 			}*/
 			// todo
 			// add score summary points
-			if (State.unlockLevel == 15) {
+			if (State.unlockLevel == 12) {
 				
 			} else {
-				addText("Press ENTER to next level", 200, 40);
+				addText("Press ENTER to next level", 250, 20);
 			}
-			addText("Press ESC back to main menu", 250, 40);
+			addText("Press ESC back to main menu", 290, 20);
 			
 		}
 		
@@ -72,8 +74,12 @@ package main
 		override public function update():void {
 			super.update();
 			if (FlxG.keys.justPressed("ENTER")) {
+				// todo to next level
+				LevelSelect.startLevel(level + 1);
+				//FlxG.switchState(new LevelSelect());
+			} else if (FlxG.keys.justPressed("ESCAPE")) {
 				FlxG.switchState(new LevelSelect());
-			}
+			} 
 		}
 		
 		private function updateStar():void {

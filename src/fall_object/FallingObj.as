@@ -22,7 +22,7 @@ package fall_object
 			var randClass:Class;
 			
 			if (isRecycle) {
-				var num:int = Math.round(Math.random() * StaticVars.NUM_BUCKET);
+				var num:int = Math.round(Math.random() * StaticVars.THREE_BUCKETS);
 				if (num == 1) {
 					currentObj = MultiBucket.RECYCLE;
 					randClass = Objects.getRecycleObj();

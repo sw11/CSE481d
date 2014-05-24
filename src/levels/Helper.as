@@ -97,7 +97,7 @@ package levels
 			//var passScore:int = data["passScore"];
 			var health:int = data["health"];
 			//trace("level " + level + " miss " + miss);
-			//trace(score);
+			//trace("level " + level + " health " + health + " unlocklevel " + State.unlockLevel);
 			//var perfect:Number = maxScore * StaticVars.aPerf;
 			if (health > 0) {
 				// win
@@ -131,9 +131,15 @@ package levels
 		
 		// new one
 		public static function fallObj(lane:int, yOffset:int, speed:int, whichObj:int):FallObjs {
-			var obj:FallObjs = new FallObjs(lane, yOffset, whichObj);
+			var obj:FallObjs = new FallObjs(lane, 0, whichObj);
 			obj.velocity.y = speed;
 			return obj
+		}
+		
+		public static function addInstr(text:String, xPos:int, yPos:int, color:int, fontSize:int):FlxText {
+			var str:FlxText = new FlxText(xPos, yPos, FlxG.width, text);
+			str.setFormat(null, fontSize, color, "center");
+			return str;
 		}
 	}
 

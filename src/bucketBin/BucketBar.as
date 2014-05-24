@@ -1,4 +1,4 @@
-package main 
+package bucketBin 
 {
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.FlxBar;
@@ -31,7 +31,8 @@ package main
 		
 		override public function update():void 
 		{
-			super.update();
+			//trace("inside bucket");
+			//moveBucket();
 			
 			if (FlxG.keys.LEFT && x > 5){
 				velocity.x = -StaticVars.speed;
@@ -40,7 +41,20 @@ package main
 			} else {
 				velocity.x = 0;
 			}	
+			super.update();
 			//scoreBar.x = x;
 		}
+		
+		/*public function moveBucket():void {
+			//trace("inside bucket");
+			if (FlxG.keys.LEFT && x > 5){
+				x -= 10;
+			} else if (FlxG.keys.RIGHT && x < 405) {
+				x += 10;
+			} 
+			/*else {
+				velocity.x = 0;
+			}
+		}*/
 	}
 }

@@ -8,8 +8,8 @@ package utility
 	{
 		
 		public static var unlockTheme:int;
-		public static var unlockLevel:int;
-		public static const maxLevel:int = 5;
+		public static var unlockLevel:int = 1;
+		public static const maxLevel:int = 12;
 		public static const maxTheme:int = 3; // todo only 3 themes available now
 		//public static const maxTheme:int = 4;
 		public static var unlockLevels:Array = new Array(1, 1, 1, 1);
@@ -50,19 +50,18 @@ package utility
 												new Array(false, false), // 9
 												new Array(false, false), // 10
 												new Array(false, false), // 11
-												new Array(false, false), // 12
-												new Array(false, false), // 13
-												new Array(false, false), // 14
-												new Array(false, false) // 15
+												new Array(false, false)  // 12
 												);
 		
 		//public static var level1:Array = new Array(false, false, false, false, false, false);
 		
 		public static function toNextLevel():void {
-			if (unlockLevel == 15) {
+			if (unlockLevel == maxLevel) {
 				// done!
 			} else {
+				//trace("State to next level " + unlockLevel);
 				levelArr[unlockLevel][0] = true;
+				trace("To next level " + levelArr[unlockLevel][0]);
 				unlockLevel++;
 				
 			}

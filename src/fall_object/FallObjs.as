@@ -4,6 +4,7 @@ package fall_object
 	import utility.*;
 	import advance.MultiBucket;
 	import levels.Helper;
+	import bucketBin.*;
 	/**
 	 * ...
 	 * @author Sam Wilson
@@ -12,7 +13,7 @@ package fall_object
 	{	
 		
 		public static const RECYCLE:int = 1;
-		public static const RECYCLE_AND_COMPOST:int = 2;
+		public static const TRASH_RECYCLE:int = 2;
 		public static const ALL_THREE:int = 3;
 		
 		private var currentObj:int;
@@ -26,17 +27,26 @@ package fall_object
 				case RECYCLE:
 					randClass = Objects.getRecycleObj();
 					break;
-				case RECYCLE_AND_COMPOST:
-					randClass = Helper.randNum(2) == 0 ? Objects.getCompostObj(): Objects.getRecycleObj();
+				case TRASH_RECYCLE:
+					if (Helper.oneOf(StaticVars.TWO_BUCKETS)) {
+						randClass = Objects.getTrashObj();
+						currentObj = TwoBucket.TRASH;
+					} else {
+						randClass = Objects.getRecycleObj();
+						currentObj = TwoBucket.RECYCLE;
+					}
 					break;
 				case ALL_THREE:
-					var rand:int = Helper.randNum(3);
+					var rand:int = Helper.randNum(StaticVars.THREE_BUCKETS);
 					if (rand == 0) {
 						randClass = Objects.getRecycleObj();
+						currentObj = ThreeBucket.RECYCLE;
 					} else if (rand == 1) {
 						randClass = Objects.getCompostObj();
+						currentObj = ThreeBucket.COMPOST;
 					} else {
 						randClass = Objects.getTrashObj();
+						currentObj = ThreeBucket.TRASH;
 					}
 					break;
 			}
