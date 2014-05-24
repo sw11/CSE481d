@@ -15,8 +15,6 @@ package bucketBin
 	{
 		
 		private var cycBucket : int;
-		//private var xCoord : int;
-		//private var yCoord : int;
 		public var healthLeft:int;
 		
 		//private static const _move_speed : int = 400;
@@ -30,19 +28,16 @@ package bucketBin
 		
 		public function ThreeBucket (x:Number, y:Number) {
 			super(x, y);
-			//xCoord = x;
-			//yCoord = y;
 			loadGraphic(compostImg, true, false, 100, 50);
 			maxVelocity.x = 200;
 			
 			addAnimation("add", [1, 0], 10, false);
 			addAnimation("minus", [2, 0], 10, false);
-			//cycBucket = 1;
-			//switchBucket();
+			cycBucket = COMPOST;
 		}	
 		
 		public function getCurrentBucket() : int {
-			return (cycBucket + StaticVars.THREE_BUCKETS) % StaticVars.THREE_BUCKETS;
+			return cycBucket;
 		}
 		
 		override public function update():void 
@@ -74,14 +69,12 @@ package bucketBin
 		}
 		
 		private function switchBucket():void {
-			var num:int = cycBucket % StaticVars.THREE_BUCKETS;
-			//trace("buc is " + cycBucket + " num is " + num);
-			if (num == 0) {
+			if (cycBucket == 0) {
 				loadGraphic(bucketImg, true, true, 100, 50);
 				cycBucket = 0;
-			} else if (num == 1 || num == -2) {
+			} else if (cycBucket == 1) {
 				loadGraphic(recycleImg, true, true, 100, 50);
-			} else if (num == 2 || num == -1) {
+			} else if (cycBucket == 2) {
 				loadGraphic(compostImg, true, true, 100, 50);
 			}
 		}

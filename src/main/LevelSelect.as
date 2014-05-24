@@ -298,7 +298,9 @@ package main
 				case 3:
 					FlxG.switchState(new Level3());
 					break;
-				
+				case 4:
+					FlxG.switchState(new Level4());
+					break;
 			}
 		}
 		

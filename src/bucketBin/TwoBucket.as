@@ -22,7 +22,6 @@ package bucketBin
 		//private static const _move_speed : int = 400;
 		public static const TRASH : int = 0;
 		public static const RECYCLE : int = 1;
-		//public static const COMPOST : int = 2;
 		
 		[Embed(source = '../../img/GarbageBin.png')] private var bucketImg:Class;
 		[Embed(source = '../../img/RecycleBin.png')] private var recycleImg:Class;
@@ -37,8 +36,7 @@ package bucketBin
 			
 			addAnimation("add", [1, 0], 10, false);
 			addAnimation("minus", [2, 0], 10, false);
-			//cycBucket = 1;
-			//switchBucket();
+			cycBucket = RECYCLE;
 		}	
 		
 		public function getCurrentBucket() : int {
@@ -63,10 +61,6 @@ package bucketBin
 				cycBucket = 1;
 				loadGraphic(recycleImg, true, true, 100, 50);
 			} 
-			//else if (FlxG.keys.justPressed("THREE")) {
-			//	cycBucket = 2;
-			//	switchBucket();
-			//}
 		}
 		
 		public function tutorialBucketSwitching(bucketNum:int):void {
