@@ -16,6 +16,7 @@ package levels
 	 * @author Sam Wilson
 	 */
 	public class Level1 extends FlxState {	
+		[Embed(source = '../../img/cliff-background.png')] private static var background:Class;
 		[Embed(source = '../../img/TrashCan2.png')] private static var bucketImg:Class;
 		[Embed(source = '../../img/zelda-hearts.png')] private static var heart:Class;
 		
@@ -118,6 +119,9 @@ package levels
 		}*/
 	
 		override public function create(): void {
+			
+			var splash:FlxSprite = new FlxSprite(0, 0, background);
+			add(splash)
 			//StaticVars.logger.logLevelStart(1, null);
 			_fallObj = new FlxGroup();
 			add(_fallObj);	
