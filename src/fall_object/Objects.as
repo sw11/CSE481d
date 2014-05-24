@@ -32,7 +32,11 @@ package fall_object
 			return  FlxU.getRandom(objArr, 0, 15) as Class;
 		}
 		
+		private static var foodArr:Array = new Array(candy, pizza);
 		
+		public static function getFoodObj():Class {
+			return FlxU.getRandom(foodArr, 0, 2) as Class;
+		}
 		
 		[Embed(source = '../../img/trash/AxeBlack.png')] private static var axeB:Class;
 		[Embed(source = '../../img/trash/ChairBlack.png')] private static var chairB:Class;

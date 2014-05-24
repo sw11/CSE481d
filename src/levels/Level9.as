@@ -12,10 +12,10 @@ package levels
 	import bucketBin.*;
 	
 	/**
-	 * ...
+	 * bomb + shoot + wind + fog
 	 * @author Sam Wilson
 	 */
-	public class Level8 extends FlxState {	
+	public class Level9 extends FlxState {	
 		[Embed(source = '../../img/fog_3.png')] protected static var fogImg:Class;
 		//////////////////////// scores ///////////////////////////
 		private var health:int;
