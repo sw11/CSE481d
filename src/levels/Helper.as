@@ -1,5 +1,6 @@
 package levels 
 {
+	import fall_object.Bomb;
 	import fall_object.FallingObj;
 	import fall_object.FallObjs;
 	import org.flixel.*;
@@ -139,11 +140,21 @@ package levels
 			return obj
 		}
 		
+		///////////////////////////// Fall bombs /////////////////////////////////
+		// new one
+		public static function fallBomb(lane:int, yOffset:int, speed:int):Bomb {
+			var obj:Bomb = new Bomb(lane, 0);
+			obj.velocity.y = speed;
+			return obj
+		}
+		
+		
 		public static function addInstr(text:String, xPos:int, yPos:int, color:int, fontSize:int):FlxText {
 			var str:FlxText = new FlxText(xPos, yPos, FlxG.width, text);
 			str.setFormat(null, fontSize, color, "center");
 			return str;
 		}
+		
 	}
 
 }
