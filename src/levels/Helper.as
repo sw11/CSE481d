@@ -157,6 +157,11 @@ package levels
 			//_ammos.add(new Ammos(xPos, 550));
 		}
 		
+		public static function addLostText():FlxText {
+			var lostText:FlxText = new FlxText(0, 300, FlxG.width, "You Lost");
+			lostText.setFormat(null, 30, StaticVars.RED, "center");
+			return lostText;
+		}
 		
 		public static function addInstr(text:String, xPos:int, yPos:int, color:int, fontSize:int):FlxText {
 			var str:FlxText = new FlxText(xPos, yPos, FlxG.width, text);
@@ -168,8 +173,14 @@ package levels
 			var scoreBar:FlxBar = new FlxBar(StaticVars.bucket_x + 10, StaticVars.bucket_y + 50,FlxBar.FILL_LEFT_TO_RIGHT, 158, 14);
 			scoreBar.createImageBar(null, graphic, 0x0);
 			scoreBar.setRange(0, 10);
-			//scoreBar.setParent(bucket, "healthLeft", true, 10, 50);
 			return scoreBar;
+		}
+		
+		public static function addKillBar():FlxSprite {
+			var killBar:FlxSprite = new FlxSprite(StaticVars.KILLBAR_X, StaticVars.KILLBAR_Y);
+			killBar.makeGraphic(510, 5, StaticVars.INVISIBLE);
+			//killBar.offset = new FlxPoint(0, StaticVars.objOffset);
+			return killBar;
 		}
 		
 	}

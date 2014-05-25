@@ -15,7 +15,7 @@ package levels
 	 * @author Sam Wilson
 	 */
 	public class Level2 extends FlxState {	
-		[Embed(source = '../../img/zelda-hearts.png')] private static var heart:Class;
+		
 		//////////////////////// scores ///////////////////////////
 		private var health:int;
 		
@@ -62,7 +62,7 @@ package levels
 			paused = true;
 			pauseGroup = new FlxGroup();
 			
-			_objLeft = StaticVars._1_TOTAL_OBJ;
+			_objLeft = StaticVars._2_TOTAL_OBJ;
 
 			health = 5;
 			
@@ -70,8 +70,7 @@ package levels
 			FlxG.bgColor = 0xeeeeeeee;
 			
 			/////////////////////// killbar ////////////////////////////
-			killBar = new FlxSprite(StaticVars.KILLBAR_X, StaticVars.KILLBAR_Y);
-			killBar.makeGraphic(500, 5, StaticVars.RED);
+			killBar = Helper.addKillBar();
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
@@ -85,15 +84,14 @@ package levels
 			truck = new Truck(30, 5);
 			add(truck);
 			
-			truckFillBar = new FlxBar(30, 5, FlxBar.FILL_BOTTOM_TO_TOP, 7, 45, truck, "numObjs", 0, _objLeft, true);
-			
-			truckFillBar.trackParent(93, 5);
+			truckFillBar = new FlxBar(15, 5, FlxBar.FILL_BOTTOM_TO_TOP, 10, 60, truck, "numObjs", 0, _objLeft, true);
+			truckFillBar.trackParent(-13, 0);
 			add(truckFillBar);
 			/////////////////////// bucket ////////////////////////////
 			bucket = new TwoBucket(StaticVars.bucket_x, StaticVars.bucket_y);
 			add(bucket);
 			
-			scoreBar = Helper.addHealthBar(heart);
+			scoreBar = Helper.addHealthBar(Img.heart);
 			scoreBar.setParent(bucket, "healthLeft", true, 10, 50);
 			add(scoreBar);
 			/////////////////////// lost instr ////////////////////////////
@@ -105,6 +103,7 @@ package levels
 		
 		override public function update():void 
 		{	
+			scoreBar.currentValue = health;
 			if (FlxG.keys.justPressed("ESCAPE")) {
 				// need to log?
 				FlxG.switchState(new LevelSelect());

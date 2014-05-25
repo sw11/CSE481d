@@ -4,7 +4,6 @@ package levels
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.FlxDelay;
 	import org.flixel.plugin.photonstorm.FlxBar;
-	import org.flixel.plugin.photonstorm.FlxDelay;
 	import utility.*;
 	import main.*;
 	import fall_object.*;
@@ -22,55 +21,25 @@ package levels
 		
 		//////////////////////// scores ///////////////////////////
 		private var health:int;
-		
 		/** Displays the score, keeps tract of "score"*/
 		private var scoreBar: FlxBar;
-		/** Max score of a level, used for defining score bar*/
-		//private var maxScore:int;
-		//private var passScore:int;
-		//private var isMaxScore:Boolean;
-		
-		/////////////////////////// Time /////////////////////////////
-		//private var max_time: Number;
-		//private var timer : FlxDelay;
-		//private var remainingTimeDisplay:FlxText;
-		
-		//private var lane:int;
-		
-		//private var counter:int;
-		//private var maxCount:int;
-		
 		/////////////////////////// toturial /////////////////////////////
-		//private var startToturial:Boolean;
-		//private var startFall:Boolean;
-		//private var firstObj:FallObjs;
 		private var instrBool2:Boolean;
 		private var instrBool3:Boolean;
 		private var instruction:FlxText;
 		private var instrBool1:Boolean;
 		private var skipInstr:FlxText;
-		//private var isDisplay:Boolean;
-		
-		// the current theme 
-		//protected var currectTheme:int;
-		// the current level that show on the screen
-		
 		
 		/////////////////////////// Killbar /////////////////////////////
 		protected var killBar:FlxSprite;
 		
-		//protected var missCount:int;
 		/////////////////////////// Fall obj /////////////////////////////
 		protected var _fallObj: FlxGroup;
 		private var _objLeft:int;
-		/////////////////////////// bomb /////////////////////////////
-		//protected var _bombs: FlxGroup;
-		//protected var bombScore:int;
 		
 		/////////////////////////// bucket /////////////////////////////
 		private var bucket: BucketBar;
 		
-
 		/////////////////////////// track /////////////////////////////
 		private var truck:Truck;
 		private var truckFillBar:FlxBar;
@@ -79,45 +48,9 @@ package levels
 		protected var paused:Boolean;
 		protected var pauseGroup:FlxGroup;
 		
-		/////////////////////////// instr /////////////////////////////
-		//protected var instr:FlxText;
-		//protected var instrStr:String;
-		//public static const INSTRUCTION:String = "Catch everything!\nPress Enter to start.";
-		
-		
-		
-		/////////////////////////// pass perfect text /////////////////////////////
-		//protected var passText:FlxText;
-		//protected var perfectText:FlxText;
-		
-		
+		/////////////////////////// lost instr /////////////////////////////
 		private var lostText:FlxText;
 		
-				
-		//protected var bonus:int;
-		//protected var isStart:Boolean;
-		
-		//private var logData:Object;
-		
-		/*public function Level1():void {
-			
-			//maxScore = StaticVars.a1MaxScore;
-			//passScore = maxScore * StaticVars.aPass;
-			
-			//missCount = 0;
-			//score = 0;
-
-			//timer = new FlxDelay(StaticVars.aTime);
-			//passText = null;
-			//perfectText = null;
-			
-			
-			//StaticVars.logger.logLevelStart(level + (StaticVars.C_THEME - 1) * 6, null);
-			//StaticVars.logger.logLevelStart(1, null);
-			//trace("constructor");
-			super();	
-		}*/
-	
 		override public function create(): void {
 			
 			var splash:FlxSprite = new FlxSprite(0, 0, background);
@@ -125,59 +58,33 @@ package levels
 			//StaticVars.logger.logLevelStart(1, null);
 			_fallObj = new FlxGroup();
 			add(_fallObj);	
-			//startToturial = true;
+
 			instrBool1 = true;
 			instrBool2 = true;
 			instrBool3 = true;
-			//startFall = true;
+
 			paused = true;
 			pauseGroup = new FlxGroup();
 			
 			_objLeft = StaticVars._1_TOTAL_OBJ;
-			//instrStr = INSTRUCTION;
+
 			health = StaticVars.TOTAL_HEALTH;
-			
-			//set backgroud color
-			//FlxG.bgColor = 0xeeeeeeee;
-			
-			//scoreBar = new FlxBar(15, 300, FlxBar.FILL_BOTTOM_TO_TOP, 50, 325, this, "score", 0, maxScore, true);
-			
-			
-			//var levelInstr2:FlxText;
-			//levelInstr2 = new FlxText(0, 16, FlxG.width, "Level 1\nEsc to main menu");
-			//levelInstr2.setFormat(null, 11, StaticVars.BLACK, "left");
-			//add(levelInstr2);
-			
-			//remainingTimeDisplay = new FlxText(0, 76, FlxG.width, "Time: "+ StaticVars.aTime/1000);
-			//remainingTimeDisplay.setFormat(null, 11, StaticVars.BLACK, "left");
-			//add(remainingTimeDisplay);
-			
-			//scoreText = new FlxText(0, 96, FlxG.width, "Score: " + score + "\nMiss: " + miss);
-			//scoreText.setFormat(null, 11, StaticVars.BLACK, "left");
-			//add(scoreText);
+
 			/////////////////////// killbar ////////////////////////////
-			killBar = new FlxSprite(StaticVars.KILLBAR_X, StaticVars.KILLBAR_Y);
-			killBar.makeGraphic(500, 5, StaticVars.BLACK);
+			killBar = Helper.addKillBar();
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
-			
 			instruction = Helper.addInstr("Left arrow to move bucket to left", 0, 250, StaticVars.BLACK, 20);
 			add(instruction);
 			
-			skipInstr = Helper.addInstr("[S] to skip the tutoial", 0, 600, StaticVars.RED, 15);
+			skipInstr = Helper.addInstr("[S] to skip the tutoial", 0, 450, StaticVars.RED, 15);
 			add(skipInstr);
-			
-			
-			//instr = new FlxText(StaticVars.WIDTH/2 - FlxG.width/2, 250, FlxG.width, instrStr);
-			//instr.setFormat(null, 20, StaticVars.BLACK, "center");
-			//add(instr);
+
 			/////////////////////// truck ////////////////////////////
 			truck = new Truck(30, 5);
 			add(truck);
 			
 			truckFillBar = new FlxBar(15, 5, FlxBar.FILL_BOTTOM_TO_TOP, 10, 60, truck, "numObjs", 0, _objLeft, true);
-			//truckFillBar.color = 0x141BE3;
-			//truckFillBar.createFilledBar(0x88141BE3, 0xFF14e32c, false, 0x00000000);
 			truckFillBar.trackParent(-13, 0);
 			add(truckFillBar);
 			/////////////////////// bucket ////////////////////////////
@@ -185,15 +92,12 @@ package levels
 			add(bucket);
 			
 			//configure health bar for bucket
-			scoreBar = new FlxBar(StaticVars.bucket_x + 10, StaticVars.bucket_y + 50,FlxBar.FILL_LEFT_TO_RIGHT, 158, 14);
-			scoreBar.createImageBar(null, heart, 0x0);//, 0xff000000, 0xff00ff00);
-			scoreBar.setRange(0, 10);
+			scoreBar = Helper.addHealthBar(heart);
 			scoreBar.setParent(bucket, "healthLeft", true, 10, 50);
 			add(scoreBar);
 			
 			/////////////////////// lost instr ////////////////////////////
-			lostText = new FlxText(0, 100, FlxG.width, "You Lost");
-			lostText.setFormat(null, 20, StaticVars.BLACK, "center");
+			lostText = Helper.addLostText();
 			
 			super.create();
 		}
@@ -201,59 +105,19 @@ package levels
 		override public function update():void 
 		{	
 			scoreBar.currentValue = health;
-			//if (startToturial) {
-			//	tutorial();
-			//}
 			if (FlxG.keys.justPressed("ESCAPE")) {
 				FlxG.switchState(new LevelSelect());
 			}
 			
 			if (paused && tutorial()) {
-				//if (tutorial()) {
-					return pauseGroup.update();
-				//}
-				//bucket.moveBucket();
-			}
-			/*
-			if (instrBool1) {
-				if (FlxG.keys.justPressed("LEFT")) {
-					instrText1.text = "Right arrow to move bucket to right";
-					instrBool1 = false;
-				}
-				return pauseGroup.update();
-			
-			} 
-			
-			if (instrBool2) {
-				if (FlxG.keys.justPressed("RIGHT")) {
-					instrText1.text = "Catch the falling object\nPress Enter to start";
-					instrBool2 = false;
-				}
 				return pauseGroup.update();
 			}
-			
-			if (paused) {
-				if (FlxG.keys.justPressed("ENTER")) {
-					paused = !paused;
-					instrText1.kill();
-					add(scoreBar);
-				//timer.start();
-				}
-				return pauseGroup.update();
-			} */
-			
-
-			
-			//if (paused) {
-			//	return pauseGroup.update();
-			//}
-			
 			if (health <= 0) {
 				if (lostText.alpha >= 1) {
 					add(lostText);
 				}
 				
-				lostText.alpha -= 0.01;
+				lostText.alpha -= 0.005;
 				
 				if (lostText.alpha <= 0) {
 					endGame();
@@ -263,60 +127,18 @@ package levels
 				endGame();
 			}
 			
-			//isMaxScore = score >= maxScore;
-			//bucket.score = score;
-			//scoreBar.x = bucket.x;
 			bucket.healthLeft = health;
 			truck.numObjs = _objLeft;
 			
-			if (Helper.genRandom(StaticVars._1_FALL_RATE) && _objLeft > 0)// && !isMaxScore)// && !timer.hasExpired) 
+			if (Helper.genRandom(StaticVars._1_FALL_RATE) && _objLeft > 0)
 			{
-				var lane:int = truck.getX();// Helper.genLane(lane);
-				_fallObj.add(Helper.fallObj(lane, StaticVars.yOffset, StaticVars.fallSpeedSlow, FallObjs.TRASH));
+				_fallObj.add(Helper.fallObj(truck.getX(), StaticVars.yOffset, StaticVars.fallSpeedSlow, FallObjs.TRASH));
 				_objLeft--;
 			}
 			
 			FlxG.overlap(killBar, _fallObj, overlapKillBarObj);
 			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
 			
-			//score = Helper.checkScore(score, maxScore);
-			
-			//if (_fallObj.countLiving() <= 0 ) {
-			//	endGame();
-			//}
-			
-			
-			//Helper.fadeText(perfectText);
-			//Helper.fadeText(passText);
-			
-			//scoreText.text = "Score: " + score + "\nMiss: " + miss;
-			//remainingTimeDisplay.text = "Time: " + Math.max(0, timer.secondsRemaining);
-			
-			//if (timer.secondsRemaining <= 5) {
-			//	remainingTimeDisplay.color = StaticVars.RED;
-			//}
-			/*
-			// TODO
-			if (isMaxScore) {
-				//trace("Max");
-				//scoreBar.color = StaticVars.YELLOW; // todo, won't work
-				if (perfectText == null) {
-					perfectText = new FlxText(0, 0, FlxG.width, "Perfect score!");
-					perfectText.setFormat(null, 32, 0x11111111, "center");
-					add(perfectText);
-				}
-			} else if (score >= passScore) {
-				//trace("pass");
-				scoreBar.color = StaticVars.GREEN;
-				if (passText == null) {
-					passText = new FlxText(0, 0, FlxG.width, "Passed!");
-					passText.setFormat(null, 32, 0x11111111, "center");
-					add(passText);
-				}				
-			} else {
-				scoreBar.color = StaticVars.BLACK; // todo , change this color
-				passText = null;
-			}*/
 			super.update();
 		}
 		
@@ -324,26 +146,19 @@ package levels
 		//////////////////////////// overlap ///////////////////////////
 		private function overlapObjBucket(but:BucketBar, obj:FallObjs):void {
 			obj.kill();
-			//obj.x = but.x;
-			//trace(obj.y + " " + but.y);
-			//if (obj.y >= but.y - 50) {
-				but.play("green", false);
-				//this.score += 1;
-				//obj.kill();
-			//}
-				
+			but.play("green", false);
 		}
 		
 		private function tutorial():Boolean {
-			//bucket.moveBucket();
+			
 			if (FlxG.keys.LEFT && bucket.x > 5){
 				bucket.x -= 10;
+				scoreBar.x -= 10;
 			} 
 			// skip tutorial
 			if (FlxG.keys.justPressed("S")) {
 				instruction.kill();
 				skipInstr.kill();
-				//add(scoreBar);
 				paused = false;
 			}
 			
@@ -353,11 +168,11 @@ package levels
 					instrBool1 = false;
 				}
 				return true;
-			
 			} 
 			
 			if (FlxG.keys.RIGHT && bucket.x < 405) {
 				bucket.x += 10;
+				scoreBar.x += 10;
 			} 
 			
 			if (instrBool2) {
@@ -373,21 +188,11 @@ package levels
 					paused = !paused;
 					instruction.kill();
 					skipInstr.kill();
-					//add(scoreBar);
-				//timer.start();
 				}
 				return true;
 			} 
 			
 			return true;
-			/*if (startFall) {
-				firstObj = Helper.fallObj(truck.getX(), 0, StaticVars.fallSpeedSlow, FallObjs.RECYCLE);
-				startFall = false;
-			} //else if (firstObj != null && firstObj.y 
-			
-			//for (var i:int = 0;; i++) {
-				//trace(i);
-			//}*/
 		}
 		
 		private function overlapKillBarObj(killBar:FlxSprite, obj:FallObjs):void {

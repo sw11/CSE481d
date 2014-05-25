@@ -11,7 +11,7 @@ package utility
 		
 		
 		// kill bar
-		public static const KILLBAR_X:int = 5;
+		public static const KILLBAR_X:int = 0;
 		public static const KILLBAR_Y:int = 580;
 		
 		// health
