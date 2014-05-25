@@ -18,6 +18,7 @@ package levels
 	public class Level1 extends FlxState {	
 		[Embed(source = '../../img/cliff-background.png')] private static var background:Class;
 		[Embed(source = '../../img/zelda-hearts.png')] private static var heart:Class;
+		[Embed(source = '../../img/GarbageBin.png')] private static var bucketImg:Class;
 		
 		//////////////////////// scores ///////////////////////////
 		private var health:int;
@@ -137,7 +138,7 @@ package levels
 			health = StaticVars.TOTAL_HEALTH;
 			
 			//set backgroud color
-			FlxG.bgColor = 0xeeeeeeee;
+			//FlxG.bgColor = 0xeeeeeeee;
 			
 			//scoreBar = new FlxBar(15, 300, FlxBar.FILL_BOTTOM_TO_TOP, 50, 325, this, "score", 0, maxScore, true);
 			
@@ -156,7 +157,7 @@ package levels
 			//add(scoreText);
 			/////////////////////// killbar ////////////////////////////
 			killBar = new FlxSprite(StaticVars.KILLBAR_X, StaticVars.KILLBAR_Y);
-			killBar.makeGraphic(500, 5, StaticVars.RED);
+			killBar.makeGraphic(500, 5, StaticVars.BLACK);
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
@@ -361,16 +362,8 @@ package levels
 			
 			if (instrBool2) {
 				if (FlxG.keys.justPressed("RIGHT")) {
-					instruction.text = "Object will fall from the truck\nPress Enter to continue";
+					instruction.text = "Object will fall from the truck\nCatch all the falling object\nPress Enter to start";
 					instrBool2 = false;
-				}
-				return true;
-			}
-			
-			if (instrBool3) {
-				if (FlxG.keys.justPressed("ENTER")) {
-					instruction.text = "Catch all the falling object\nPress Enter to start";
-					instrBool3 = false;
 				}
 				return true;
 			}

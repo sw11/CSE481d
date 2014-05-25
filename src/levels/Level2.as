@@ -5,7 +5,6 @@ package levels
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.FlxDelay;
 	import org.flixel.plugin.photonstorm.FlxBar;
-	import org.flixel.plugin.photonstorm.FlxDelay;
 	import utility.*;
 	import main.*;
 	import fall_object.*;
@@ -16,6 +15,7 @@ package levels
 	 * @author Sam Wilson
 	 */
 	public class Level2 extends FlxState {	
+		[Embed(source = '../../img/zelda-hearts.png')] private static var heart:Class;
 		//////////////////////// scores ///////////////////////////
 		private var health:int;
 		
@@ -93,24 +93,15 @@ package levels
 			bucket = new TwoBucket(StaticVars.bucket_x, StaticVars.bucket_y);
 			add(bucket);
 			
-			scoreBar = new FlxBar(StaticVars.bucket_x, StaticVars.bucket_y, FlxBar.FILL_LEFT_TO_RIGHT, 90, 10, bucket, "healthLeft", 0, health, true);
-			
-			scoreBar.createImageBar(Objects.candy, null, 0x88000000, 0xFF000000);//, 0xff000000, 0xff00ff00);
-			scoreBar.trackParent(5, 50);
-			//add(scoreBar);
+			scoreBar = Helper.addHealthBar(heart);
+			scoreBar.setParent(bucket, "healthLeft", true, 10, 50);
+			add(scoreBar);
 			/////////////////////// lost instr ////////////////////////////
 			lostText = new FlxText(0, 100, FlxG.width, "You Lost");
 			lostText.setFormat(null, 20, StaticVars.BLACK, "center");
 			
 			super.create();
 		}
-		
-		private function addInstr(text:String, xPos:int, yPos:int):FlxText {
-			var str:FlxText = new FlxText(xPos, yPos, FlxG.width, text);
-			str.setFormat(null, 20, StaticVars.BLACK, "center");
-			return str;
-		}
-		
 		
 		override public function update():void 
 		{	
@@ -239,7 +230,7 @@ package levels
 		private function endGame(): void {
 			//var logData:Object = {"finalScore":score, "misses":health};
 			//StaticVars.logger.logLevelEnd(logData);
-			var obj:Object = {"health":health, "level":1 };//"bonus":bonus, 
+			var obj:Object = {"health":health, "level":2 };//"bonus":bonus, 
 			Helper.dropCount = 0;
 			Helper.endgame(obj);
 		}

@@ -5,6 +5,7 @@ package levels
 	import fall_object.FallingObj;
 	import fall_object.FallObjs;
 	import org.flixel.*;
+	import org.flixel.plugin.photonstorm.FlxBar;
 	import utility.*;
 	import main.*;
 	/**
@@ -161,6 +162,14 @@ package levels
 			var str:FlxText = new FlxText(xPos, yPos, FlxG.width, text);
 			str.setFormat(null, fontSize, color, "center");
 			return str;
+		}
+		
+		public static function addHealthBar(graphic:Class):FlxBar {
+			var scoreBar:FlxBar = new FlxBar(StaticVars.bucket_x + 10, StaticVars.bucket_y + 50,FlxBar.FILL_LEFT_TO_RIGHT, 158, 14);
+			scoreBar.createImageBar(null, graphic, 0x0);
+			scoreBar.setRange(0, 10);
+			//scoreBar.setParent(bucket, "healthLeft", true, 10, 50);
+			return scoreBar;
 		}
 		
 	}
