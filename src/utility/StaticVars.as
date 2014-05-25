@@ -32,6 +32,7 @@ package utility
 		// level 5
 		public static const _5_TOTAL_OBJ:int = 20;
 		public static const _5_FALL_RATE:int = 60;
+		public static const _5_TOTAL_HEALTH:int = 3;
 		// level 6
 		public static const _6_TOTAL_OBJ:int = 30;
 		public static const _6_FALL_RATE:int = 30;
@@ -39,7 +40,8 @@ package utility
 		// transportation
 		public static const TRUCK_X:int = 30;
 		public static const TRUCK_Y:int = 5;
-		
+		public static const PLANE_X:int = 30;
+		public static const PLANE_Y:int = 5;
 		// buckets
 		public static const TWO_BUCKETS:int = 2;
 		public static const THREE_BUCKETS:int = 3;
@@ -88,6 +90,9 @@ package utility
 		public static const BUCKET_RIGHT:int = 405;
 		// bomb
 		public static const bombOffSet:int = 25;
+		
+		
+		
 		// fall objects
 		public static const objOffset:int = -50;
 		public static const yOffset:int = -100;

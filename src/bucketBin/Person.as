@@ -9,19 +9,11 @@ package bucketBin
 	 */
 	public class Person extends FlxSprite
 	{
-		//private static const _move_speed : int = 400;
-		//private var xCoord : int;
-		//private var yCoord : int;
-		//private var scoreBar:FlxBar;
 		[Embed(source = '../../img/GarbageBin.png')] private static var person:Class;
 		public var healthLeft:Number;
 		
 		public function Person (x:Number, y:Number) {
 			super(x, y);
-			//xCoord = x;
-			//yCoord = y;
-			//maxVelocity.x = 200;
-			//this.scoreBar = scoreBar;
 			loadGraphic(person, true, false, 50, 50);
 			addAnimation("green", [1, 0], 10, false);
 			addAnimation("red", [2, 0], 3, false);
@@ -29,12 +21,9 @@ package bucketBin
 		
 		override public function update():void 
 		{
-			//trace("inside bucket");
-			//moveBucket();
-			
 			if (FlxG.keys.LEFT && x > 5){
 				velocity.x = -StaticVars.speed;
-			} else if (FlxG.keys.RIGHT && x < 405) {
+			} else if (FlxG.keys.RIGHT && x < 455) {
 				velocity.x = StaticVars.speed;
 			} else {
 				velocity.x = 0;
@@ -43,16 +32,5 @@ package bucketBin
 			//scoreBar.x = x;
 		}
 		
-		/*public function moveBucket():void {
-			//trace("inside bucket");
-			if (FlxG.keys.LEFT && x > 5){
-				x -= 10;
-			} else if (FlxG.keys.RIGHT && x < 405) {
-				x += 10;
-			} 
-			/*else {
-				velocity.x = 0;
-			}
-		}*/
 	}
 }

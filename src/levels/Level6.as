@@ -9,7 +9,6 @@ package levels
 	import main.*;
 	import fall_object.*;
 	import transportation.*;
-	import bucketBin.ThreeBucket;
 	
 	/**
 	 * ...
@@ -23,24 +22,18 @@ package levels
 		private var scoreBar: FlxBar;
 		
 		/////////////////////////// toturial /////////////////////////////
-		private var instrBool2:Boolean;
-		private var instrBool3:Boolean;
 		private var instruction:FlxText;
-		private var instrBool1:Boolean;
-		private var skipInstr:FlxText;
 		
 		/////////////////////////// Killbar /////////////////////////////
 		protected var killBar:FlxSprite;
 		
 		//protected var missCount:int;
 		/////////////////////////// Fall obj /////////////////////////////
-		//protected var _fallObj: FlxGroup;
 		protected var _bombs:FlxGroup;
-		private var _objLeft:int;
+		private var _bombLeft:int;
 		
-		/////////////////////////// bucket /////////////////////////////
+		/////////////////////////// person /////////////////////////////
 		private var person:Person;
-		
 		
 		/////////////////////////// track /////////////////////////////
 		private var airplane:Airplane;
@@ -59,64 +52,43 @@ package levels
 			_bombs = new FlxGroup();
 			add(_bombs);	
 			
-			instrBool1 = true;
-			instrBool2 = true;
-			instrBool3 = true;
-			
 			objArr = new Array();
 			
 			paused = true;
 			pauseGroup = new FlxGroup();
 			
-			_objLeft = StaticVars._6_TOTAL_OBJ;
+			_bombLeft = StaticVars._6_TOTAL_OBJ;
 
 			health = StaticVars.TOTAL_HEALTH;
 			
-			//set backgroud color
-			FlxG.bgColor = 0xeeeeeeee;
-			
 			/////////////////////// killbar ////////////////////////////
-			killBar = new FlxSprite(StaticVars.KILLBAR_X, StaticVars.KILLBAR_Y);
-			killBar.makeGraphic(500, 5, StaticVars.RED);
+			killBar = Helper.addKillBar();
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
 			instruction = Helper.addInstr("Protect yourself!\nAvoid bombs!\nPress enter to start", 0, 250, StaticVars.BLACK, 20);
 			add(instruction);
-
-			skipInstr = Helper.addInstr("[S] to skip the tutoial", 0, 600, StaticVars.RED, 15);
-			add(skipInstr);
 			
-			/////////////////////// truck ////////////////////////////
-			airplane = new Airplane(30, 5);
+			/////////////////////// airplane ////////////////////////////
+			airplane = new Airplane(StaticVars.PLANE_X, StaticVars.PLANE_Y);
 			add(airplane);
 			
-			airplaneFillBar = new FlxBar(30, 5, FlxBar.FILL_BOTTOM_TO_TOP, 7, 45, airplane, "numObjs", 0, _objLeft, true);
-			
-			airplaneFillBar.trackParent(93, 5);
+			airplaneFillBar = new FlxBar(15, 5, FlxBar.FILL_BOTTOM_TO_TOP, 10, 60, airplane, "numObjs", 0, _bombLeft, true);
+			airplaneFillBar.trackParent(-13, 0);
 			add(airplaneFillBar);
 			/////////////////////// bucket ////////////////////////////
 			person = new Person(StaticVars.BUCKET_X, StaticVars.BUCKET_Y);
 			add(person);
 			
-			scoreBar = new FlxBar(StaticVars.BUCKET_X, StaticVars.BUCKET_Y, FlxBar.FILL_LEFT_TO_RIGHT, 90, 10, person, "healthLeft", 0, health, true);
-			
-			scoreBar.createImageBar(Objects.candy, null, 0x88000000, 0xFF000000);//, 0xff000000, 0xff00ff00);
-			scoreBar.trackParent(5, 50);
-			//add(scoreBar);
+			scoreBar = Helper.addHealthBar(Img.heart);
+			scoreBar.setParent(person, "healthLeft", true, 10, 50);
+			add(scoreBar);
 			/////////////////////// lost instr ////////////////////////////
 			lostText = new FlxText(0, 100, FlxG.width, "You Lost");
 			lostText.setFormat(null, 20, StaticVars.BLACK, "center");
 			
 			super.create();
 		}
-		
-		/*private function addInstr(text:String, xPos:int, yPos:int, color:int):FlxText {
-			var str:FlxText = new FlxText(xPos, yPos, FlxG.width, text);
-			str.setFormat(null, 20, color, "center");
-			return str;
-		}*/
-		
 		
 		override public function update():void 
 		{			
@@ -125,35 +97,37 @@ package levels
 				FlxG.switchState(new LevelSelect());
 			}
 			
-			if (paused && tutorial()) {
-				return pauseGroup.update();
+			if (paused) {
+				if (FlxG.keys.justPressed("ENTER")) {
+					instruction.kill();
+					paused = false;
+				} else {
+					return pauseGroup.update();
+				}
 			}
 
 			if (health <= 0) {
 				if (lostText.alpha >= 1) {
 					add(lostText);
 				}
-				
-				lostText.alpha -= 0.01;
-				
+				lostText.alpha -= StaticVars.LOST_TEXT_ALPHA;
 				if (lostText.alpha <= 0) {
 					endGame();
 				}
 				return pauseGroup.update();
-			} else if (_objLeft <= 0 && _bombs.countLiving() <= 0) {
+			} else if (_bombLeft <= 0 && _bombs.countLiving() <= 0) {
 				endGame();
 			}
 			
 			person.healthLeft = health;
-			airplane.numObjs = _objLeft;
+			airplane.numObjs = _bombLeft;
 			
-			if (Helper.genRandom(StaticVars._6_FALL_RATE) && _objLeft > 0)
+			if (Helper.genRandom(StaticVars._6_FALL_RATE) && _bombLeft > 0)
 			{
-				var lane:int = airplane.getX();// Helper.genLane(lane);
-				var obj:Bomb = Helper.fallBomb(lane, StaticVars.yOffset, StaticVars.fallSpeedSlow);
+				var obj:Bomb = Helper.fallBomb(airplane.getX(), StaticVars.bombOffSet, StaticVars.fallSpeedSlow);
 				_bombs.add(obj);
 				objArr.push(obj);
-				_objLeft--;
+				_bombLeft--;
 			}
 			
 			FlxG.overlap(killBar, _bombs, overlapKillBarObj);
@@ -178,18 +152,14 @@ package levels
 			if (!bomb.isKill()) {
 				bomb.kill();
 				but.play("minus");
-				//this.score -= bombScore;
 				health--;
-				FlxG.shake(0.04, 0.1, null, true, 1);
+				FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
 			}
 		}
 		
 		private function overlapKillBarObj(killBar:FlxSprite, bomb:Bomb):void {
 			if (!bomb.isKill()) {
 				bomb.kill();
-				//but.play("minus");
-				//this.score -= bombScore;
-				//FlxG.shake(0.04, 0.1, null, true, 1);
 			}	
 		}
 
@@ -201,10 +171,8 @@ package levels
 				bucket.tutorialBucketSwitching(ThreeBucket.TRASH);
 			} */
 			// skip tutorial
-			if (FlxG.keys.justPressed("S") || FlxG.keys.justPressed("ENTER")) {
+			if (FlxG.keys.justPressed("ENTER")) {
 				instruction.kill();
-				skipInstr.kill();
-				add(scoreBar);
 				paused = false;
 			}
 			/*
@@ -268,7 +236,7 @@ package levels
 		private function endGame(): void {
 			//var logData:Object = {"finalScore":score, "misses":health};
 			//StaticVars.logger.logLevelEnd(logData);
-			var obj:Object = {"health":health, "level":1 };//"bonus":bonus, 
+			var obj:Object = {"health":health, "level":6 };//"bonus":bonus, 
 			Helper.dropCount = 0;
 			Helper.endgame(obj);
 		}
