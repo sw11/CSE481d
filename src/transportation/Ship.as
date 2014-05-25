@@ -10,7 +10,7 @@ package transportation
 	 */
 	public class Ship extends FlxSprite
 	{
-		[Embed(source = '../../img/truck.png')] private static var ship:Class;
+		[Embed(source = '../../img/boat.png')] private static var ship:Class;
 		
 		private static const moveSpeed:int = 200;
 		//private var xCoord : int;
@@ -25,8 +25,8 @@ package transportation
 			//maxVelocity.x = 200;
 			//this.scoreBar = scoreBar;
 			loadGraphic(ship, true, false, 120, 60);
-			addAnimation("left", [0], 0, false);
-			addAnimation("right", [1], 0, false);
+			addAnimation("right", [0], 0, false);
+			addAnimation("left", [1], 0, false);
 			
 			//velocity.x = moveSpeed;
 		}	
