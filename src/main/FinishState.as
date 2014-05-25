@@ -2,9 +2,6 @@ package main
 {
 	import org.flixel.*;
 	import utility.*;
-	import beginner.*;
-	import intermediate.*;
-	import advance.*;
 	import levels.Helper;
 	/**
 	 * ...

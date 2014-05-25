@@ -15,9 +15,6 @@ package levels
 	 * @author Sam Wilson
 	 */
 	public class Level1 extends FlxState {	
-		[Embed(source = '../../img/cliff-background.png')] private static var background:Class;
-		[Embed(source = '../../img/zelda-hearts.png')] private static var heart:Class;
-		[Embed(source = '../../img/GarbageBin.png')] private static var bucketImg:Class;
 		
 		//////////////////////// scores ///////////////////////////
 		private var health:int;
@@ -53,8 +50,7 @@ package levels
 		
 		override public function create(): void {
 			
-			var splash:FlxSprite = new FlxSprite(0, 0, background);
-			add(splash)
+			add(Helper.landBackground());
 			//StaticVars.logger.logLevelStart(1, null);
 			_fallObj = new FlxGroup();
 			add(_fallObj);	
@@ -81,18 +77,18 @@ package levels
 			add(skipInstr);
 
 			/////////////////////// truck ////////////////////////////
-			truck = new Truck(30, 5);
+			truck = new Truck(StaticVars.TRUCK_X, StaticVars.TRUCK_Y);
 			add(truck);
 			
 			truckFillBar = new FlxBar(15, 5, FlxBar.FILL_BOTTOM_TO_TOP, 10, 60, truck, "numObjs", 0, _objLeft, true);
 			truckFillBar.trackParent(-13, 0);
 			add(truckFillBar);
 			/////////////////////// bucket ////////////////////////////
-			bucket = new BucketBar(bucketImg, StaticVars.bucket_x, StaticVars.bucket_y);
+			bucket = new BucketBar(Img.trash, StaticVars.BUCKET_X, StaticVars.BUCKET_Y);
 			add(bucket);
 			
 			//configure health bar for bucket
-			scoreBar = Helper.addHealthBar(heart);
+			scoreBar = Helper.addHealthBar(Img.heart);
 			scoreBar.setParent(bucket, "healthLeft", true, 10, 50);
 			add(scoreBar);
 			
@@ -116,9 +112,7 @@ package levels
 				if (lostText.alpha >= 1) {
 					add(lostText);
 				}
-				
-				lostText.alpha -= 0.005;
-				
+				lostText.alpha -= StaticVars.LOST_TEXT_ALPHA;
 				if (lostText.alpha <= 0) {
 					endGame();
 				}
@@ -198,7 +192,7 @@ package levels
 		private function overlapKillBarObj(killBar:FlxSprite, obj:FallObjs):void {
 			obj.kill();
 			health--;
-			FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_BOTH_AXES);
+			FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
 		}
 
 		

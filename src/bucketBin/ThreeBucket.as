@@ -71,7 +71,6 @@ package bucketBin
 		private function switchBucket():void {
 			if (cycBucket == 0) {
 				loadGraphic(bucketImg, true, true, 100, 50);
-				cycBucket = 0;
 			} else if (cycBucket == 1) {
 				loadGraphic(recycleImg, true, true, 100, 50);
 			} else if (cycBucket == 2) {
