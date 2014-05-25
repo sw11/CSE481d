@@ -15,7 +15,9 @@ package levels
 	 * Sea + shark
 	 * @author Sam Wilson
 	 */
-	public class Level10 extends FlxState {	
+	public class Level11 extends FlxState {	
+		[Embed(source = '../../img/fog_3.png')] protected static var fog:Class;
+		
 		//////////////////////// scores ///////////////////////////
 		private var health:int;
 		
@@ -112,9 +114,11 @@ package levels
 			//set backgroud color
 			FlxG.bgColor = StaticVars.BGCOLOR;
 			
-			var s:Shark = new Shark(300, 300);
-			_sharks.add(s);
+			var s1:Shark = new Shark(300, 300);
+			_sharks.add(s1);
 			
+			var s2:Shark = new Shark(100, 450);
+			_sharks.add(s2);
 			/////////////////////// killbar ////////////////////////////
 			killBar = Helper.addKillBar();
 			add(killBar);

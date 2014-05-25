@@ -59,7 +59,7 @@ package levels
 			paused = true;
 			pauseGroup = new FlxGroup();
 			
-			_objLeft = StaticVars._3_TOTAL_OBJ;
+			_objLeft = StaticVars._4_TOTAL_OBJ;
 
 			health = StaticVars.TOTAL_HEALTH;
 			

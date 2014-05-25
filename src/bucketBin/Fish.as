@@ -9,11 +9,7 @@ package bucketBin
 	 */
 	public class Fish extends FlxSprite
 	{
-		//private static const _move_speed : int = 400;
 		private static const moveSpeed:int = 200;
-		//private var xCoord : int;
-		//private var yCoord : int;
-		//private var scoreBar:FlxBar;
 		[Embed(source = '../../img/smallFish.png')] private static var fish:Class;
 		public var healthLeft:Number;
 		private var counter:int;
