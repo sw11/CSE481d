@@ -114,10 +114,10 @@ package levels
 			airplaneFillBar.trackParent(93, 5);
 			add(airplaneFillBar);
 			/////////////////////// bucket ////////////////////////////
-			tank = new Tank(StaticVars.bucket_x, StaticVars.bucket_y);
+			tank = new Tank(StaticVars.BUCKET_X, StaticVars.BUCKET_Y);
 			add(tank);
 			
-			scoreBar = new FlxBar(StaticVars.bucket_x, StaticVars.bucket_y, FlxBar.FILL_LEFT_TO_RIGHT, 90, 10, tank, "healthLeft", 0, health, true);
+			scoreBar = new FlxBar(StaticVars.BUCKET_X, StaticVars.BUCKET_Y, FlxBar.FILL_LEFT_TO_RIGHT, 90, 10, tank, "healthLeft", 0, health, true);
 			
 			scoreBar.createImageBar(Objects.candy, null, 0x88000000, 0xFF000000);//, 0xff000000, 0xff00ff00);
 			scoreBar.trackParent(5, 50);

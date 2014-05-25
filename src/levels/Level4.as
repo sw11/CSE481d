@@ -1,5 +1,7 @@
 package levels 
 {
+	import bucketBin.ThreeBucket;
+	import bucketBin.TwoBucket;
 	import cgs.teacherportal.activity.ProblemSetLogger;
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.FlxDelay;
@@ -8,13 +10,13 @@ package levels
 	import main.*;
 	import fall_object.*;
 	import transportation.Truck;
-	import bucketBin.ThreeBucket;
 	
 	/**
 	 * ...
 	 * @author Sam Wilson
 	 */
 	public class Level4 extends FlxState {	
+		
 		//////////////////////// scores ///////////////////////////
 		private var health:int;
 		
@@ -22,12 +24,7 @@ package levels
 		private var scoreBar: FlxBar;
 		
 		/////////////////////////// toturial /////////////////////////////
-		private var instrBool2:Boolean;
-		private var instrBool3:Boolean;
 		private var instruction:FlxText;
-		private var instrBool1:Boolean;
-		private var skipInstr:FlxText;
-		//private var instrBool4:Boolean;
 		
 		/////////////////////////// Killbar /////////////////////////////
 		protected var killBar:FlxSprite;
@@ -36,10 +33,10 @@ package levels
 		/////////////////////////// Fall obj /////////////////////////////
 		protected var _fallObj: FlxGroup;
 		private var _objLeft:int;
+		private var objArr:Array;
 		
 		/////////////////////////// bucket /////////////////////////////
-		private var bucket:ThreeBucket;
-		
+		private var bucket: ThreeBucket;
 		
 		/////////////////////////// track /////////////////////////////
 		private var truck:Truck;
@@ -50,17 +47,12 @@ package levels
 		protected var pauseGroup:FlxGroup;
 		
 		private var lostText:FlxText;
-		
-		private var objArr:Array;
 	
 		override public function create(): void {
+			add(Helper.landBackground());
 			//StaticVars.logger.logLevelStart(1, null);
 			_fallObj = new FlxGroup();
 			add(_fallObj);	
-			
-			instrBool1 = true;
-			instrBool2 = true;
-			instrBool3 = true;
 			
 			objArr = new Array();
 			
@@ -71,54 +63,36 @@ package levels
 
 			health = StaticVars.TOTAL_HEALTH;
 			
-			//set backgroud color
-			FlxG.bgColor = 0xeeeeeeee;
-			
 			/////////////////////// killbar ////////////////////////////
-			killBar = new FlxSprite(StaticVars.KILLBAR_X, StaticVars.KILLBAR_Y);
-			killBar.makeGraphic(500, 5, StaticVars.RED);
+			killBar = Helper.addKillBar();
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
-			instruction = Helper.addInstr("Black objects for trash bin\nPress 1 to switch to trash bin", 0, 250, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("It's getting windy\nPress enter to start", 0, 250, StaticVars.BLACK, 20);
 			add(instruction);
-
-			skipInstr = Helper.addInstr("[S] to skip the tutoial", 0, 600, StaticVars.RED, 15);
-			add(skipInstr);
 			
 			/////////////////////// truck ////////////////////////////
-			truck = new Truck(30, 5);
+			truck = new Truck(StaticVars.TRUCK_X, StaticVars.TRUCK_Y);
 			add(truck);
 			
-			truckFillBar = new FlxBar(30, 5, FlxBar.FILL_BOTTOM_TO_TOP, 7, 45, truck, "numObjs", 0, _objLeft, true);
-			
-			truckFillBar.trackParent(93, 5);
+			truckFillBar = new FlxBar(15, 5, FlxBar.FILL_BOTTOM_TO_TOP, 10, 60, truck, "numObjs", 0, _objLeft, true);
+			truckFillBar.trackParent(-13, 0);
 			add(truckFillBar);
 			/////////////////////// bucket ////////////////////////////
-			bucket = new ThreeBucket(StaticVars.bucket_x, StaticVars.bucket_y);
+			bucket = new ThreeBucket(StaticVars.BUCKET_X, StaticVars.BUCKET_Y);
 			add(bucket);
 			
-			scoreBar = new FlxBar(StaticVars.bucket_x, StaticVars.bucket_y, FlxBar.FILL_LEFT_TO_RIGHT, 90, 10, bucket, "healthLeft", 0, health, true);
-			
-			scoreBar.createImageBar(Objects.candy, null, 0x88000000, 0xFF000000);//, 0xff000000, 0xff00ff00);
-			scoreBar.trackParent(5, 50);
-			//add(scoreBar);
+			scoreBar = Helper.addHealthBar(Img.heart);
+			scoreBar.setParent(bucket, "healthLeft", true, 10, 50);
+			add(scoreBar);
 			/////////////////////// lost instr ////////////////////////////
-			lostText = new FlxText(0, 100, FlxG.width, "You Lost");
-			lostText.setFormat(null, 20, StaticVars.BLACK, "center");
-			
+			lostText = Helper.addLostText();
 			super.create();
 		}
 		
-		/*private function addInstr(text:String, xPos:int, yPos:int, color:int):FlxText {
-			var str:FlxText = new FlxText(xPos, yPos, FlxG.width, text);
-			str.setFormat(null, 20, color, "center");
-			return str;
-		}*/
-		
-		
 		override public function update():void 
-		{			
+		{	
+			scoreBar.currentValue = health;
 			if (FlxG.keys.justPressed("ESCAPE")) {
 				// need to log?
 				FlxG.switchState(new LevelSelect());
@@ -127,14 +101,12 @@ package levels
 			if (paused && tutorial()) {
 				return pauseGroup.update();
 			}
-
+			
 			if (health <= 0) {
 				if (lostText.alpha >= 1) {
 					add(lostText);
 				}
-				
-				lostText.alpha -= 0.01;
-				
+				lostText.alpha -= StaticVars.LOST_TEXT_ALPHA;
 				if (lostText.alpha <= 0) {
 					endGame();
 				}
@@ -146,27 +118,27 @@ package levels
 			bucket.healthLeft = health;
 			truck.numObjs = _objLeft;
 			
-			if (Helper.genRandom(StaticVars._3_FALL_RATE) && _objLeft > 0)
+			if (Helper.genRandom(StaticVars._4_FALL_RATE) && _objLeft > 0)
 			{
-				var lane:int = truck.getX();// Helper.genLane(lane);
-				var obj:FallObjs = Helper.fallObj(lane, StaticVars.yOffset, StaticVars.fallSpeedSlow, FallObjs.ALL_THREE);
+				var obj:FallObjs = Helper.fallObj(truck.getX(), StaticVars.yOffset, StaticVars.fallSpeedSlow, FallObjs.ALL_THREE);
 				_fallObj.add(obj);
-				objArr.push(obj);
+				objArr.push(new Array(obj, Math.random() < 0.5 ? 2 : -2));
 				_objLeft--;
 			}
 			
 			FlxG.overlap(killBar, _fallObj, overlapKillBarObj);
 			FlxG.overlap(bucket, _fallObj, overlapObjBucket);
-			//trace(_fallObj.countLiving() + " " + _fallObj.length);
-			//var arr:Array = _fallObj.members;
+			
 			for (var i:int = 0; i < objArr.length; i++) {
-				var fo:FallObjs = objArr[i] as FallObjs;
-				if (fo.y > 100 && fo.y < 200) {
-					if (fo.x > 5) {
-						fo.x -= 2;
-					}
+				var fo:FallObjs = objArr[i][0] as FallObjs;
+				if (fo.y > 100 && fo.y < 300) {
+					fo.x += objArr[i][1];
+					if (fo.x <= 5 || fo.x >= 430) {
+						objArr[i][1] = -objArr[i][1];
+					} 
 				}
 			}
+			
 			super.update();
 		}
 		
@@ -178,92 +150,30 @@ package levels
 			} else {
 				but.play("minus");
 				health--;
-				FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_BOTH_AXES);
+				FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
 			}
-			obj.kill();
+			obj.kill();			
 		}
 		
 		private function tutorial():Boolean {
-			
-			
-			if (FlxG.keys.ONE){
-				bucket.tutorialBucketSwitching(ThreeBucket.TRASH);
-			} 
-			// skip tutorial
-			if (FlxG.keys.justPressed("S")) {
+			if (FlxG.keys.justPressed("ENTER")) {
+				paused = !paused;
 				instruction.kill();
-				skipInstr.kill();
-				add(scoreBar);
-				paused = false;
 			}
-			
-			if (instrBool1) {
-				if (FlxG.keys.justPressed("ONE")) {
-					instruction.text = "Blue objects to recycle bin\nPress 2 to switch to recycle bin";
-					instruction.color = StaticVars.BLUE;
-					instrBool1 = false;
-				}
-				return true;
-			
-			} 
-			
-			if (FlxG.keys.TWO) {
-				bucket.tutorialBucketSwitching(ThreeBucket.RECYCLE);
-			} 
-			
-			if (instrBool2) {
-				if (FlxG.keys.justPressed("TWO")) {
-					instruction.text = "Green objects to compost bin\nPress 3 to switch to compost bin";
-					instruction.color = StaticVars.GREEN;
-					instrBool2 = false;
-				}
-				return true;
-			}
-			
-			if (FlxG.keys.THREE) {
-				bucket.tutorialBucketSwitching(ThreeBucket.COMPOST);
-			} 
-			
-			if (instrBool3) {
-				if (FlxG.keys.justPressed("THREE")) {
-					instruction.text = "Catch all the falling object\nPress Enter to start";
-					instruction.color = StaticVars.BLACK;
-					instrBool3 = false;
-				}
-				return true;
-			}
-			
-			/*if (instrBool4) {
-				if (FlxG.keys.justPressed("ENTER")) {
-					instruction.text = "Catch all the falling object\nPress Enter to start";
-					instrBool4 = false;
-				}
-				return true;
-			}*/
-			
-			if (paused) {
-				if (FlxG.keys.justPressed("ENTER")) {
-					paused = !paused;
-					instruction.kill();
-					skipInstr.kill();
-					add(scoreBar);
-				}
-				return true;
-			} 	
 			return true;
 		}
 		
 		private function overlapKillBarObj(killBar:FlxSprite, obj:FallObjs):void {
 			obj.kill();
 			health--;
-			FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_BOTH_AXES);
+			FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
 		}
 
 		
 		private function endGame(): void {
 			//var logData:Object = {"finalScore":score, "misses":health};
 			//StaticVars.logger.logLevelEnd(logData);
-			var obj:Object = {"health":health, "level":1 };//"bonus":bonus, 
+			var obj:Object = {"health":health, "level":4}; 
 			Helper.dropCount = 0;
 			Helper.endgame(obj);
 		}

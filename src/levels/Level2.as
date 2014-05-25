@@ -24,7 +24,6 @@ package levels
 		
 		/////////////////////////// toturial /////////////////////////////
 		private var instrBool2:Boolean;
-		private var instrBool3:Boolean;
 		private var instruction:FlxText;
 		private var instrBool1:Boolean;
 		private var skipInstr:FlxText;
@@ -51,23 +50,20 @@ package levels
 		private var lostText:FlxText;
 	
 		override public function create(): void {
+			add(Helper.landBackground());
 			//StaticVars.logger.logLevelStart(1, null);
 			_fallObj = new FlxGroup();
 			add(_fallObj);	
 			
 			instrBool1 = true;
 			instrBool2 = true;
-			instrBool3 = true;
 			
 			paused = true;
 			pauseGroup = new FlxGroup();
 			
 			_objLeft = StaticVars._2_TOTAL_OBJ;
 
-			health = 5;
-			
-			//set backgroud color
-			FlxG.bgColor = 0xeeeeeeee;
+			health = StaticVars.TOTAL_HEALTH
 			
 			/////////////////////// killbar ////////////////////////////
 			killBar = Helper.addKillBar();
@@ -77,27 +73,25 @@ package levels
 			instruction = Helper.addInstr("Black objects for trash bin\nPress 1 to switch to trash bin", 0, 250, StaticVars.BLACK, 20);
 			add(instruction);
 			
-			skipInstr = Helper.addInstr("[S] to skip the tutoial", 0, 600, StaticVars.RED, 15);
+			skipInstr = Helper.addInstr("[S] to skip the tutoial", 0, 450, StaticVars.RED, 15);
 			add(skipInstr);
 			
 			/////////////////////// truck ////////////////////////////
-			truck = new Truck(30, 5);
+			truck = new Truck(StaticVars.TRUCK_X, StaticVars.TRUCK_Y);
 			add(truck);
 			
 			truckFillBar = new FlxBar(15, 5, FlxBar.FILL_BOTTOM_TO_TOP, 10, 60, truck, "numObjs", 0, _objLeft, true);
 			truckFillBar.trackParent(-13, 0);
 			add(truckFillBar);
 			/////////////////////// bucket ////////////////////////////
-			bucket = new TwoBucket(StaticVars.bucket_x, StaticVars.bucket_y);
+			bucket = new TwoBucket(StaticVars.BUCKET_X, StaticVars.BUCKET_Y);
 			add(bucket);
 			
 			scoreBar = Helper.addHealthBar(Img.heart);
 			scoreBar.setParent(bucket, "healthLeft", true, 10, 50);
 			add(scoreBar);
 			/////////////////////// lost instr ////////////////////////////
-			lostText = new FlxText(0, 100, FlxG.width, "You Lost");
-			lostText.setFormat(null, 20, StaticVars.BLACK, "center");
-			
+			lostText = Helper.addLostText();
 			super.create();
 		}
 		
@@ -117,9 +111,7 @@ package levels
 				if (lostText.alpha >= 1) {
 					add(lostText);
 				}
-				
-				lostText.alpha -= 0.01;
-				
+				lostText.alpha -= StaticVars.LOST_TEXT_ALPHA;
 				if (lostText.alpha <= 0) {
 					endGame();
 				}
@@ -133,8 +125,7 @@ package levels
 			
 			if (Helper.genRandom(StaticVars._2_FALL_RATE) && _objLeft > 0)
 			{
-				var lane:int = truck.getX();// Helper.genLane(lane);
-				_fallObj.add(Helper.fallObj(lane, StaticVars.yOffset, StaticVars.fallSpeedSlow, FallObjs.TRASH_RECYCLE));
+				_fallObj.add(Helper.fallObj(truck.getX(), StaticVars.yOffset, StaticVars.fallSpeedSlow, FallObjs.TRASH_RECYCLE));
 				_objLeft--;
 			}
 			
@@ -152,7 +143,7 @@ package levels
 			} else {
 				but.play("minus");
 				health--;
-				FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_BOTH_AXES);
+				FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
 			}
 			obj.kill();			
 		}
@@ -165,7 +156,6 @@ package levels
 			if (FlxG.keys.justPressed("S")) {
 				instruction.kill();
 				skipInstr.kill();
-				add(scoreBar);
 				paused = false;
 			}
 			
@@ -192,26 +182,11 @@ package levels
 				return true;
 			}
 			
-			/*if (FlxG.keys.THREE) {
-				bucket.tutorialBucketSwitching(ThreeBucket.COMPOST);
-			} 
-			
-			if (instrBool3) {
-				if (FlxG.keys.justPressed("THREE")) {
-					instruction.text = "Catch all the falling object\nPress Enter to start";
-					instruction.color = StaticVars.BLACK;
-					instrBool3 = false;
-				}
-				return true;
-			}*/
-			
 			if (paused) {
 				if (FlxG.keys.justPressed("ENTER")) {
 					paused = !paused;
 					instruction.kill();
 					skipInstr.kill();
-					add(scoreBar);
-				//timer.start();
 				}
 				return true;
 			} 
@@ -222,7 +197,7 @@ package levels
 		private function overlapKillBarObj(killBar:FlxSprite, obj:FallObjs):void {
 			obj.kill();
 			health--;
-			FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_BOTH_AXES);
+			FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
 		}
 
 		

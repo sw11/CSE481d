@@ -1,9 +1,5 @@
 package main 
 {
-	import beginner.*;
-	import intermediate.*;
-	import advance.*;
-	import d_bomb_theme.*;
 	import org.flixel.*;
 	import utility.*;
 	

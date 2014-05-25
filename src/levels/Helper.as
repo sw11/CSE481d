@@ -1,9 +1,6 @@
 package levels 
 {
-	import fall_object.Ammos;
-	import fall_object.Bomb;
-	import fall_object.FallingObj;
-	import fall_object.FallObjs;
+	import fall_object.*;
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.FlxBar;
 	import utility.*;
@@ -70,6 +67,7 @@ package levels
 			return Math.floor(Math.random() * num);
 		}
 		
+		/*
 		public static function endGame(data:Object): void {
 			var score:int = data["score"];
 			var miss:int = data["miss"];
@@ -89,7 +87,7 @@ package levels
 			} else {
 				FlxG.switchState(new EndState("LOSE", score, miss, bonus, maxScore, StaticVars.A_THEME, level));	
 			}
-		}
+		}*/
 		
 		public static function endgame(data:Object): void {
 			//var score:int = data["score"];
@@ -128,12 +126,12 @@ package levels
 		}
 		
 		///////////////////////////// Fall objects /////////////////////////////////
-		public static function fallObject(lane:int, yOffset:int, speed:int, isRecycle:Boolean):FallingObj {
+		/*public static function fallObject(lane:int, yOffset:int, speed:int, isRecycle:Boolean):FallingObj {
 			var obj:FallingObj = new FallingObj(lane, yOffset, isRecycle);
 			obj.velocity.y = speed;
 			obj.alpha = 0.99;
 			return obj;
-		}
+		}*/
 		
 		// new one
 		public static function fallObj(lane:int, yOffset:int, speed:int, whichObj:int):FallObjs {
@@ -170,7 +168,7 @@ package levels
 		}
 		
 		public static function addHealthBar(graphic:Class):FlxBar {
-			var scoreBar:FlxBar = new FlxBar(StaticVars.bucket_x + 10, StaticVars.bucket_y + 50,FlxBar.FILL_LEFT_TO_RIGHT, 158, 14);
+			var scoreBar:FlxBar = new FlxBar(StaticVars.BUCKET_X + 10, StaticVars.BUCKET_Y + 50,FlxBar.FILL_LEFT_TO_RIGHT, 158, 14);
 			scoreBar.createImageBar(null, graphic, 0x0);
 			scoreBar.setRange(0, 10);
 			return scoreBar;
@@ -183,6 +181,11 @@ package levels
 			return killBar;
 		}
 		
+		//////////////////// land background ////////////////////////////////
+		public static function landBackground():FlxSprite {
+			return new FlxSprite(0, 0, Img.landBackground);
+		}
 	}
+	
 
 }

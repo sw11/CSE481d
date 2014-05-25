@@ -1,10 +1,6 @@
 package main
 {
 	import org.flixel.*;
-	import beginner.*;
-	import intermediate.*;
-	import advance.*;
-	import d_bomb_theme.*;
 	import main.*;
 	import utility.*;
 	import levels.*;
@@ -19,22 +15,9 @@ package main
 		[Embed(source = '../../img/lock.png')] private var lock:Class;
 		[Embed(source = '../../img/star.png')] private var star:Class;
 		
-		private var level1:FlxText;
-		private var level2:FlxText;
-		private var level3:FlxText;
-		private var level4:FlxText;
-		private var level5:FlxText;
-		private var level6:FlxText;
 		
 		private var currText:FlxText;
 		//private var unlockLevel:int;
-		
-		private static var _1:int = 1;
-		private static var _2:int = 2;
-		private static var _3:int = 3;
-		private static var _4:int = 4;
-		private static var _5:int = 5;
-		private static var _6:int = 6;
 		
 		private var isBonus:Boolean;
 		
@@ -205,97 +188,6 @@ package main
 			}
 		}
 		
-		private function aTheme():void {
-			switch(currState) {
-					case 1:
-						FlxG.switchState(new Level1());
-						break;
-					case 2:
-						FlxG.switchState(new ALevel2());
-						break;
-					case 3:
-						FlxG.switchState(new ALevel3());
-						break;
-					case 4:
-						FlxG.switchState(new ALevel4()); 
-						break;
-					case 5:
-						FlxG.switchState(new ALevel5()); 
-						break;
-					case 6:
-						FlxG.switchState(new ALevel6()); 
-						break;
-			}
-		}
-		
-		private function bTheme():void {
-			switch(currState) {
-					case 1:
-						FlxG.switchState(new BLevel1());
-						break;
-					case 2:
-						FlxG.switchState(new BLevel2());
-						break;
-					case 3:
-						FlxG.switchState(new BLevel3());
-						break;
-					case 4:
-						FlxG.switchState(new BLevel4()); 
-						break;
-					case 5:
-						FlxG.switchState(new BLevel5()); // TODO
-						break;
-					case 6:
-						FlxG.switchState(new BLevel1()); // TODO
-						break;
-			}
-		}
-		
-		private function cTheme():void {
-			switch(currState) {
-					case 1:
-						FlxG.switchState(new CLevel1());
-						break;
-					case 2:
-						FlxG.switchState(new CLevel2());
-						break;
-					case 3:
-						FlxG.switchState(new CLevel3());
-						break;
-					case 4:
-						FlxG.switchState(new CLevel4()); // TODO
-						break;
-					case 5:
-						FlxG.switchState(new CLevel5()); // TODO
-						break;
-					case 6:
-						FlxG.switchState(new CLevel1()); // TODO
-						break;
-			}
-		}
-		
-		private function dTheme():void {
-			switch(currState) {
-					case 1:
-						FlxG.switchState(new DLevel10());
-						break;
-					case 2:
-						FlxG.switchState(new DLevel11());
-						break;
-					case 3:
-						FlxG.switchState(new DLevel12());
-						break;
-					case 4:
-						FlxG.switchState(new DLevel12()); // TODO
-						break;
-					case 5:
-						FlxG.switchState(new DLevel12()); // TODO
-						break;
-					case 6:
-						FlxG.switchState(new DLevel12()); // TODO
-						break;
-			}
-		}
 	}
 
 }

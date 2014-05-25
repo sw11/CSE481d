@@ -36,13 +36,18 @@ package utility
 		public static const _6_TOTAL_OBJ:int = 30;
 		public static const _6_FALL_RATE:int = 30;
 		
-		
+		// transportation
+		public static const TRUCK_X:int = 30;
+		public static const TRUCK_Y:int = 5;
 		
 		// buckets
 		public static const TWO_BUCKETS:int = 2;
 		public static const THREE_BUCKETS:int = 3;
+		public static const BUCKET_X:int = WIDTH/2-50;
+		public static const BUCKET_Y:int = 500;
 		
-		
+		// lost text
+		public static const LOST_TEXT_ALPHA:Number = 0.005;
 		// fog
 		public static const fogXPos:int = 0;
 		public static const fogYPos:int = 130;
@@ -77,8 +82,7 @@ package utility
 		public static const lanes:Array = new Array(lane1, lane2, lane3, lane4, lane5);
 		
 		// bucket
-		public static const bucket_x:int = 130;
-		public static const bucket_y:int = 500;// 575;
+		
 		public static var speed:int = 500;
 		public static const BUCKET_LEFT:int = 5;
 		public static const BUCKET_RIGHT:int = 405;
