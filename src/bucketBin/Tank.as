@@ -13,7 +13,7 @@ package bucketBin
 		//private var xCoord : int;
 		//private var yCoord : int;
 		//private var scoreBar:FlxBar;
-		[Embed(source = '../../img/GarbageBin.png')] private static var tank:Class;
+		[Embed(source = '../../img/tank.png')] private static var tank:Class;
 		public var healthLeft:Number;
 		
 		public function Tank (x:Number, y:Number) {
@@ -23,10 +23,8 @@ package bucketBin
 			//maxVelocity.x = 200;
 			//this.scoreBar = scoreBar;
 			loadGraphic(tank, true, false, 100, 50);
-			addAnimation("green", [1, 0], 10, false);
-			addAnimation("red", [2, 0], 3, false);
-			
-
+			addAnimation("right", [0], 0, false);
+			addAnimation("left", [1], 0, false);
 		}	
 		
 		override public function update():void 
@@ -36,8 +34,10 @@ package bucketBin
 			
 			if (FlxG.keys.LEFT && x > 5){
 				velocity.x = -StaticVars.speed;
+				play("left", false);
 			} else if (FlxG.keys.RIGHT && x < 405) {
 				velocity.x = StaticVars.speed;
+				play("right", false);
 			} else {
 				velocity.x = 0;
 			}	
