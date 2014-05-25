@@ -14,7 +14,7 @@ package bucketBin
 		//private var xCoord : int;
 		//private var yCoord : int;
 		//private var scoreBar:FlxBar;
-		[Embed(source = '../../img/GarbageBin.png')] private static var shark:Class;
+		[Embed(source = '../../img/shark-1.png')] private static var shark:Class;
 		//public var healthLeft:Number;
 		private var counter:int;
 		private var maxCount:int;
@@ -25,8 +25,10 @@ package bucketBin
 			//yCoord = y;
 			//maxVelocity.x = 200;
 			//this.scoreBar = scoreBar;
-			loadGraphic(shark, true, false, 100, 50);
+			loadGraphic(shark, true, false, 75, 50);
 			velocity.x = moveSpeed;
+			addAnimation("right", [0], 0, false);
+			addAnimation("left", [1], 0, false);
 			//addAnimation("left", [0], 0, false);
 			//addAnimation("right", [1], 0, false);
 		}	
@@ -34,11 +36,11 @@ package bucketBin
 		override public function update():void 
 		{
 			if (x < 5) {
-				//play("right", false);
+				play("right", false);
 				velocity.x = moveSpeed;
 				counter = 0;
 			} else if (x > 405) {
-				//play("left", false);
+				play("left", false);
 				velocity.x = -moveSpeed;
 				counter = 0;
 			} else if (counter++ > maxCount) {
@@ -47,11 +49,11 @@ package bucketBin
 				maxCount = Math.floor(Math.random() * 50 + 50);
 				///trace(velocity.x);
 				velocity.x = -velocity.x; // StaticVars.speed * maxCount * ( -1);
-				//if (velocity.x > 0 ) {
-				//	play("right", false);
-				//} else {
-				//	play("left", false);
-				//}
+				if (velocity.x > 0 ) {
+					play("right", false);
+				} else {
+					play("left", false);
+				}
 			} 
 			super.update();
 			//scoreBar.x = x;
