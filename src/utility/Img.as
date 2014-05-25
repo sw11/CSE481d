@@ -13,6 +13,7 @@ package utility
 		
 		[Embed(source = '../../img/Cloud_small.png')] public static var cloud:Class;
 		[Embed(source = '../../img/fog_small.png')] public static var fog:Class;
+		[Embed(source = '../../img/air-background.png')] public static var airBackground:Class;
 	}
 
 }

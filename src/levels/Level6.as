@@ -48,6 +48,7 @@ package levels
 		private var objArr:Array;
 	
 		override public function create(): void {
+			add(Helper.airBackground());
 			//StaticVars.logger.logLevelStart(1, null);
 			_bombs = new FlxGroup();
 			add(_bombs);	
