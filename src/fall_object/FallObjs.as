@@ -82,6 +82,19 @@ package fall_object
 		public function getCurrentObj():int {
 			return currentObj;
 		}
+		/*
+		public function setTimeOut():void {
+			super.kill();
+			exists = true;
+			velocity.y = 0;
+			var deadTimer:FlxTimer = new FlxTimer() ;
+			deadTimer.start (1.5, 1, onDeadTimeout) ;
+		}
+		
+		private function onDeadTimeout (timer:FlxTimer):void {
+			timer.stop();
+			exists = false;
+		}*/
 	}
 
 }

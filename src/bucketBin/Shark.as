@@ -10,7 +10,8 @@ package bucketBin
 	public class Shark extends FlxSprite
 	{
 		//private static const _move_speed : int = 400;
-		private static const moveSpeed:int = 200;
+		private static const moveSpeed:int = 150;
+		private static const ySpeed:int = 50;
 		//private var xCoord : int;
 		//private var yCoord : int;
 		//private var scoreBar:FlxBar;
@@ -18,6 +19,8 @@ package bucketBin
 		//public var healthLeft:Number;
 		private var counter:int;
 		private var maxCount:int;
+		private var yCounter:int;
+		private var yMaxCount:int;
 		
 		public function Shark(x:Number, y:Number) {
 			super(x, y);
@@ -27,6 +30,8 @@ package bucketBin
 			//this.scoreBar = scoreBar;
 			loadGraphic(shark, true, false, 75, 50);
 			velocity.x = moveSpeed;
+			velocity.y = ySpeed;
+			offset = new FlxPoint(0, 25);
 			addAnimation("right", [0], 0, false);
 			addAnimation("left", [1], 0, false);
 			//addAnimation("left", [0], 0, false);
@@ -55,6 +60,17 @@ package bucketBin
 					play("left", false);
 				}
 			} 
+			
+			if (y < 100) {
+				velocity.y = ySpeed;
+			} else if (y > 300) {
+				velocity.y = -ySpeed;
+			} else if (yCounter++ > yMaxCount) {
+				yCounter = 0;
+				yMaxCount = Math.floor(Math.random() * 15 + 20);
+				///trace(velocity.x);
+				velocity.y = -velocity.y;
+			}
 			super.update();
 			//scoreBar.x = x;
 		}

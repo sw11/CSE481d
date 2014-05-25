@@ -37,17 +37,28 @@ package utility
 		public static const _6_TOTAL_OBJ:int = 30;
 		public static const _6_FALL_RATE:int = 30;
 		
+		// level 10
+		public static const _10_FOOD_ALPHA:Number = 0.01;
+		public static const _10_TOTAL_OBJ:int = 10;
+		public static const _10_HUNGRY:int = 1000;
+		public static const _10_DROP_COUNT:int = 100;
+		
 		// transportation
 		public static const TRUCK_X:int = 30;
 		public static const TRUCK_Y:int = 5;
 		public static const PLANE_X:int = 30;
 		public static const PLANE_Y:int = 5;
+		public static const SHIP_X:int = WIDTH / 2 - 60;
+		public static const SHIP_Y:int = 5;
 		// buckets
 		public static const TWO_BUCKETS:int = 2;
 		public static const THREE_BUCKETS:int = 3;
 		public static const BUCKET_X:int = WIDTH/2-50;
 		public static const BUCKET_Y:int = 500;
 		
+		// fish
+		public static const FISH_X:int = WIDTH / 2 - 35;
+		public static const FISH_Y:int = 550;
 		// lost text
 		public static const LOST_TEXT_ALPHA:Number = 0.005;
 		// fog
