@@ -80,6 +80,7 @@ package utility
 		public static const BLUE:int = 0xFF0000FF;
 		public static const INVISIBLE:int = 0x00FFFFFF;
 		public static const GREY:int = 0xFFAAAAAA;
+		public static const BGCOLOR:int = 0xEEEEEEEE;
 		
 		public static const A_THEME:int = 1;
 		public static const B_THEME:int = 2;

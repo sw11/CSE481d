@@ -180,7 +180,7 @@ package main
 					FlxG.switchState(new Level10());
 					break;
 				case 11:
-					FlxG.switchState(new Level7());
+					FlxG.switchState(new Level11());
 					break;
 				case 12:
 					FlxG.switchState(new Level8());
