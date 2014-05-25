@@ -185,6 +185,10 @@ package levels
 		public static function landBackground():FlxSprite {
 			return new FlxSprite(0, 0, Img.landBackground);
 		}
+		
+		public static function seaBackground():FlxSprite {
+			return new FlxSprite(0, 0, Img.seaBackground);
+		}
 	}
 	
 

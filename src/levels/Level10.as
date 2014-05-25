@@ -17,6 +17,7 @@ package levels
 	 */
 	public class Level10 extends FlxState {	
 		[Embed(source = '../../img/fog_3.png')] protected static var shark:Class;
+		
 		//////////////////////// scores ///////////////////////////
 		private var health:int;
 		
@@ -69,6 +70,9 @@ package levels
 		private var objArr:Array;
 	
 		override public function create(): void {
+			//add sea background
+			add(Helper.seaBackground());
+			
 			//StaticVars.logger.logLevelStart(1, null);
 			_sharks = new FlxGroup();
 			add(_sharks);	
