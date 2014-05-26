@@ -12,6 +12,7 @@ package utility
 		[Embed(source = '../../sound/score.mp3')] public static var score:Class;
 		[Embed(source = '../../sound/bomb.mp3')] public static var bomb:Class;
 		[Embed(source = '../../sound/reload.mp3')] public static var reload:Class;
+		[Embed(source = '../../sound/drop.mp3')] public static var drop:Class;
 	}
 
 }
