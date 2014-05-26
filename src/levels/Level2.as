@@ -137,10 +137,12 @@ package levels
 		//////////////////////////// overlap ///////////////////////////
 		private function overlapObjBucket(but:TwoBucket, obj:FallObjs):void {
 			if (but.getCurrentBucket() == obj.getCurrentObj()) {
+				FlxG.play(SoundEffect.score);
 				but.play("add");
 				add(new Star(obj.x, obj.y+50, true));
 				add(new Star(obj.x+50, obj.y+50, false));
 			} else {
+				FlxG.play(SoundEffect.miss);
 				but.play("minus");
 				health--;
 				FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
@@ -152,6 +154,7 @@ package levels
 			obj.kill();
 			health--;
 			bucket.play("minus");
+			FlxG.play(SoundEffect.miss);
 			FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
 		}
 		

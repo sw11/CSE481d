@@ -196,6 +196,7 @@ package levels
 			health--;
 			bucket.play("red", false);
 			FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
+			FlxG.play(SoundEffect.miss);
 		}
 
 		

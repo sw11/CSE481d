@@ -145,10 +145,12 @@ package levels
 				but.play("add");
 				add(new Star(obj.x, obj.y+50, true));
 				add(new Star(obj.x+50, obj.y+50, false));
+				FlxG.play(SoundEffect.score);
 			} else {
 				but.play("minus");
 				health--;
 				FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
+				FlxG.play(SoundEffect.miss);
 			}
 			obj.kill();			
 		}
@@ -216,6 +218,7 @@ package levels
 			health--;
 			bucket.play("minus");
 			FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
+			FlxG.play(SoundEffect.miss);
 		}
 
 		
