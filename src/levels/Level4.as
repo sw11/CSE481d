@@ -49,6 +49,7 @@ package levels
 		private var lostText:FlxText;
 	
 		override public function create(): void {
+			FlxG.play(SoundEffect.wind);
 			add(Helper.landBackground());
 			//StaticVars.logger.logLevelStart(1, null);
 			_fallObj = new FlxGroup();
