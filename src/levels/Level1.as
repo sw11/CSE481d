@@ -51,7 +51,8 @@ package levels
 		override public function create(): void {
 			
 			add(Helper.landBackground());
-			//StaticVars.logger.logLevelStart(1, null);
+			
+			StaticVars.logger.logLevelStart(1, null);
 			_fallObj = new FlxGroup();
 			add(_fallObj);	
 
@@ -143,6 +144,8 @@ package levels
 			obj.kill();
 			but.play("green", false);
 			FlxG.play(SoundEffect.score);
+			var logData:Object = { "score" : 1 };
+			StaticVars.logger.logAction(1, logData);
 		}
 		
 		private function tutorial():Boolean {
@@ -197,6 +200,8 @@ package levels
 			bucket.play("red", false);
 			FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
 			FlxG.play(SoundEffect.miss);
+			var logData:Object = { "score" : -1 };
+			StaticVars.logger.logAction(2, logData);
 		}
 
 		
@@ -206,6 +211,7 @@ package levels
 			var obj:Object = {"health":health, "level":1 };//"bonus":bonus, 
 			Helper.dropCount = 0;
 			Helper.endgame(obj);
+			StaticVars.logger.logLevelEnd(obj);
 		}
 	}
 }
