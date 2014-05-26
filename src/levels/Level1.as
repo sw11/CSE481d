@@ -142,6 +142,7 @@ package levels
 			add(new Star(obj.x+50, obj.y+50, false));
 			obj.kill();
 			but.play("green", false);
+			FlxG.play(SoundEffect.score);
 		}
 		
 		private function tutorial():Boolean {
