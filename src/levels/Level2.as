@@ -140,12 +140,16 @@ package levels
 				FlxG.play(SoundEffect.score);
 				but.play("add");
 				add(new Star(obj.x, obj.y+50, true));
-				add(new Star(obj.x+50, obj.y+50, false));
+				add(new Star(obj.x + 50, obj.y + 50, false));
+				var logData:Object = { "bucket" : but.getCurrentBucket(), "object" : obj.getCurrentObj() };
+				StaticVars.logger.logAction(1, logData);
 			} else {
 				FlxG.play(SoundEffect.miss);
 				but.play("minus");
 				health--;
 				FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
+				var logData:Object = { "bucket" : but.getCurrentBucket(), "object" : obj.getCurrentObj() };
+				StaticVars.logger.logAction(2, logData);
 			}
 			obj.kill();			
 		}
@@ -156,6 +160,7 @@ package levels
 			bucket.play("minus");
 			FlxG.play(SoundEffect.miss);
 			FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
+			StaticVars.logger.logAction(3, null);
 		}
 		
 		//////////////////////////// tutorial ///////////////////////////
@@ -214,6 +219,7 @@ package levels
 			var obj:Object = {"health":health, "level":2 };//"bonus":bonus, 
 			Helper.dropCount = 0;
 			Helper.endgame(obj);
+			StaticVars.logger.logLevelEnd(obj);
 		}
 	}
 }

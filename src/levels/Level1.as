@@ -201,7 +201,7 @@ package levels
 			FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
 			FlxG.play(SoundEffect.miss);
 			var logData:Object = { "score" : -1 };
-			StaticVars.logger.logAction(2, logData);
+			StaticVars.logger.logAction(3, logData);
 		}
 
 		

@@ -146,11 +146,15 @@ package levels
 				add(new Star(obj.x, obj.y+50, true));
 				add(new Star(obj.x+50, obj.y+50, false));
 				FlxG.play(SoundEffect.score);
+				var logData:Object = { "bucket" : but.getCurrentBucket(), "object" : obj.getCurrentObj() };
+				StaticVars.logger.logAction(1, logData);
 			} else {
 				but.play("minus");
 				health--;
 				FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
 				FlxG.play(SoundEffect.miss);
+				var logData:Object = { "bucket" : but.getCurrentBucket(), "object" : obj.getCurrentObj() };
+				StaticVars.logger.logAction(2, logData);
 			}
 			obj.kill();			
 		}
@@ -219,6 +223,7 @@ package levels
 			bucket.play("minus");
 			FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
 			FlxG.play(SoundEffect.miss);
+			StaticVars.logger.logAction(3, null);
 		}
 
 		
@@ -228,6 +233,7 @@ package levels
 			var obj:Object = {"health":health, "level":3 }; 
 			Helper.dropCount = 0;
 			Helper.endgame(obj);
+			StaticVars.logger.logLevelEnd(obj);
 		}
 	}
 }
