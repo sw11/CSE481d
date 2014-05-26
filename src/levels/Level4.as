@@ -68,7 +68,7 @@ package levels
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
-			instruction = Helper.addInstr("It's getting windy\nPress enter to start", 0, 250, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("It's getting windy\nPress [Enter] to start", 0, 250, StaticVars.BLACK, 20);
 			add(instruction);
 			
 			/////////////////////// truck ////////////////////////////
@@ -147,6 +147,8 @@ package levels
 		private function overlapObjBucket(but:ThreeBucket, obj:FallObjs):void {
 			if (but.getCurrentBucket() == obj.getCurrentObj()) {
 				but.play("add");
+				add(new Star(obj.x, obj.y+50, true));
+				add(new Star(obj.x+50, obj.y+50, false));
 			} else {
 				but.play("minus");
 				health--;
@@ -166,6 +168,7 @@ package levels
 		private function overlapKillBarObj(killBar:FlxSprite, obj:FallObjs):void {
 			obj.kill();
 			health--;
+			bucket.play("minus");
 			FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
 		}
 
