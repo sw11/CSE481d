@@ -63,7 +63,7 @@ package levels
 		private var objArr:Array;
 	
 		override public function create(): void {
-			//StaticVars.logger.logLevelStart(1, null);
+			StaticVars.logger.logLevelStart(7, null);
 			_bombs = new FlxGroup();
 			add(_bombs);	
 			
@@ -214,6 +214,9 @@ package levels
 				//this.score -= bombScore;
 				health--;
 				FlxG.shake(0.04, 0.1, null, true, 1);
+				FlxG.play(SoundEffect.bomb);
+				var ammoLeft:Object = { "ammo" : _ammoLeft };
+				StaticVars.logger.logAction(4, ammoLeft);
 			}
 		}
 		
@@ -223,6 +226,7 @@ package levels
 				//but.play("minus");
 				//this.score -= bombScore;
 				//FlxG.shake(0.04, 0.1, null, true, 1);
+				FlxG.play(SoundEffect.bomb);
 			}	
 		}
 		
@@ -238,6 +242,10 @@ package levels
 			if (!bomb.isKill()) {
 				//bomb.alpha = 0.99;
 				bomb.kill();
+				FlxG.play(SoundEffect.bomb);
+				//kill bomb is 5
+				var ammoLeft:Object = { "ammo" : _ammoLeft };
+				StaticVars.logger.logAction(5, ammoLeft);
 			}
 			// may fall some good things
 			//score++;
@@ -328,8 +336,9 @@ package levels
 		private function endGame(): void {
 			//var logData:Object = {"finalScore":score, "misses":health};
 			//StaticVars.logger.logLevelEnd(logData);
-			var obj:Object = {"health":health, "level":1 };//"bonus":bonus, 
+			var obj:Object = {"health":health, "level":7 };//"bonus":bonus, 
 			Helper.dropCount = 0;
+			StaticVars.logger.logLevelEnd(obj);
 			Helper.endgame(obj);
 		}
 	}
