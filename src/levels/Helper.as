@@ -174,8 +174,8 @@ package levels
 			return scoreBar;
 		}
 		
-		public static function addTankHealthBar(graphic:Class):FlxBar {
-			var scoreBar:FlxBar = new FlxBar(StaticVars.TANK_X + 10, StaticVars.TANK_Y + 50,FlxBar.FILL_LEFT_TO_RIGHT, 158, 14);
+		public static function addTankHealthBar(graphic:Class, xOffset:int):FlxBar {
+			var scoreBar:FlxBar = new FlxBar(StaticVars.TANK_X + xOffset, StaticVars.TANK_Y + 50,FlxBar.FILL_LEFT_TO_RIGHT, 158, 14);
 			scoreBar.createImageBar(null, graphic, 0x0);
 			scoreBar.setRange(0, 10);
 			return scoreBar;

@@ -76,7 +76,7 @@ package levels
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
-			instruction = Helper.addInstr("Protect yourself!\nAvoid bombs!\nPress enter to start", 0, 250, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("Protect yourself!\nAvoid bombs!\nPress [Enter] to start", 0, 250, StaticVars.BLACK, 20);
 			add(instruction);
 			
 			/////////////////////// truck ////////////////////////////
@@ -90,8 +90,8 @@ package levels
 			person = new Person(StaticVars.TANK_X, StaticVars.TANK_Y);
 			add(person);
 			
-			scoreBar = Helper.addTankHealthBar(Img.heart);
-			scoreBar.setParent(person, "healthLeft", true, 10, 50);
+			scoreBar = Helper.addTankHealthBar(Img.heart, 0);
+			scoreBar.setParent(person, "healthLeft", true, 0, 50);
 			add(scoreBar);
 			/////////////////////// lost instr ////////////////////////////
 			lostText = Helper.addLostText();
@@ -136,7 +136,6 @@ package levels
 			
 			FlxG.overlap(killBar, _bombs, overlapKillBarObj);
 			FlxG.overlap(person, _bombs, overlapObjBucket);
-			
 			
 			super.update();
 		}

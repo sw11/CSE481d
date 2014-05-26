@@ -210,8 +210,9 @@ package levels
 			//StaticVars.logger.logLevelEnd(logData);
 			var obj:Object = {"health":health, "level":1 };//"bonus":bonus, 
 			Helper.dropCount = 0;
-			Helper.endgame(obj);
 			StaticVars.logger.logLevelEnd(obj);
+			Helper.endgame(obj);
+			
 		}
 	}
 }

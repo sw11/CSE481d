@@ -37,7 +37,7 @@ package utility
 		public static const _6_TOTAL_OBJ:int = 30;
 		public static const _6_FALL_RATE:int = 30;
 		public static const _6_AMMO_COUNT:int = 20;
-		
+		public static const _6_DROP_COUNT:int = 20;
 		// level 10
 		public static const _10_FOOD_ALPHA:Number = 0.01;
 		public static const _10_TOTAL_OBJ:int = 10;

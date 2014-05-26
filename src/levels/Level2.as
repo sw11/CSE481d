@@ -50,7 +50,7 @@ package levels
 	
 		override public function create(): void {
 			add(Helper.landBackground());
-			//StaticVars.logger.logLevelStart(1, null);
+			StaticVars.logger.logLevelStart(2, null);
 			_fallObj = new FlxGroup();
 			add(_fallObj);	
 			
@@ -141,15 +141,15 @@ package levels
 				but.play("add");
 				add(new Star(obj.x, obj.y+50, true));
 				add(new Star(obj.x + 50, obj.y + 50, false));
-				var logData:Object = { "bucket" : but.getCurrentBucket(), "object" : obj.getCurrentObj() };
-				StaticVars.logger.logAction(1, logData);
+				var logDataHit:Object = { "bucket" : but.getCurrentBucket(), "object" : obj.getCurrentObj() };
+				StaticVars.logger.logAction(1, logDataHit);
 			} else {
 				FlxG.play(SoundEffect.miss);
 				but.play("minus");
 				health--;
 				FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
-				var logData:Object = { "bucket" : but.getCurrentBucket(), "object" : obj.getCurrentObj() };
-				StaticVars.logger.logAction(2, logData);
+				var logDataMiss:Object = { "bucket" : but.getCurrentBucket(), "object" : obj.getCurrentObj() };
+				StaticVars.logger.logAction(2, logDataMiss);
 			}
 			obj.kill();			
 		}
@@ -206,20 +206,14 @@ package levels
 				}
 				return true;
 			} 
-			
 			return true;
 		}
 		
-		
-
-		
 		private function endGame(): void {
-			//var logData:Object = {"finalScore":score, "misses":health};
-			//StaticVars.logger.logLevelEnd(logData);
-			var obj:Object = {"health":health, "level":2 };//"bonus":bonus, 
+			var obj:Object = {"health":health, "level":2 }; 
 			Helper.dropCount = 0;
-			Helper.endgame(obj);
 			StaticVars.logger.logLevelEnd(obj);
+			Helper.endgame(obj);
 		}
 	}
 }

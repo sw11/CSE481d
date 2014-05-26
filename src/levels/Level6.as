@@ -22,6 +22,7 @@ package levels
 		/** Displays the score, keeps tract of "score"*/
 		private var scoreBar: FlxBar;
 		
+		private var spaceBarCount:int;
 		/////////////////////////// toturial /////////////////////////////
 		private var instruction:FlxText;
 		
@@ -36,8 +37,8 @@ package levels
 		private var ammoArr:Array;
 		private var _ammoLeft:int;
 		private var ammoText:FlxText;
-		private var ammoBox:FlxSprite;
-		private var healthUp:FlxSprite;
+		private var ammoBox:AmmoBox;
+		private var healthUp:Heart;
 		
 		/////////////////////////// tank /////////////////////////////
 		private var tank:Tank;
@@ -49,7 +50,7 @@ package levels
 		/////////////////////////// tutorial /////////////////////////////
 		protected var paused:Boolean;
 		protected var pauseGroup:FlxGroup;
-		
+		private var skipInstr:FlxText;
 		private var lostText:FlxText;
 		
 		private var objArr:Array;
@@ -73,8 +74,6 @@ package levels
 			_ammos = new FlxGroup();
 			add(_ammos);
 			
-			
-			
 			_ammoLeft = StaticVars._6_AMMO_COUNT;
 			
 			ammoArr = new Array();
@@ -88,9 +87,11 @@ package levels
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
-			instruction = Helper.addInstr("Protect yourself!\nAvoid bombs!\nPress enter to start", 0, 250, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("We got a tank!\nPress [Spacebar] to shoot", 0, 250, StaticVars.BLACK, 20);
 			add(instruction);
 			
+			skipInstr = Helper.addInstr("[S] to skip", 0, 450, StaticVars.RED, 15);
+			add(skipInstr);
 			/////////////////////// airplane ////////////////////////////
 			airplane = new Airplane(StaticVars.PLANE_X, StaticVars.PLANE_Y);
 			add(airplane);
@@ -102,7 +103,7 @@ package levels
 			tank = new Tank(StaticVars.TANK_X, StaticVars.TANK_Y);
 			add(tank);
 			
-			scoreBar = Helper.addTankHealthBar(Img.heart);
+			scoreBar = Helper.addTankHealthBar(Img.heart, 10);
 			scoreBar.setParent(tank, "healthLeft", true, 10, 50);
 			add(scoreBar);
 			/////////////////////// lost instr ////////////////////////////
@@ -142,14 +143,18 @@ package levels
 				endGame();
 			}
 			
-			if (FlxG.keys.justPressed("SPACE") && _ammoLeft > 0) {
+			if (++spaceBarCount > StaticVars._6_DROP_COUNT && FlxG.keys.justPressed("SPACE") && _ammoLeft > 0) {
 				FlxG.play(SoundEffect.tankShoot);
 				_ammos.add(Helper.fireAmmo(tank.x + 40));
 				_ammoLeft--;
 				ammoText.text = "x" + _ammoLeft;
-			} else if (FlxG.keys.justPressed("SPACE") && _ammoLeft == 0) {
+				spaceBarCount = 0;
+			} 
+			if (_ammoLeft == 0) {
 				// show no ammos
 				ammoText.color = StaticVars.RED;
+			} else if ( _ammoLeft > 0) {
+				ammoText.color = StaticVars.BLACK;
 			}
 			
 			tank.healthLeft = health;
@@ -157,10 +162,16 @@ package levels
 			
 			if (Helper.genRandom(StaticVars._6_FALL_RATE) && _bombLeft > 0)
 			{
-				var obj:Bomb = Helper.fallBomb(airplane.getX(), StaticVars.bombOffSet, StaticVars.fallSpeedSlow);
-				_bombs.add(obj);
-				objArr.push(obj);
-				_bombLeft--;
+				if (health == 1 && healthUp == null && Helper.oneOf(10)) {
+					// fall heart
+					healthUp = new Heart(airplane.getX(), StaticVars.bombOffSet);
+					add(healthUp);
+				} else {
+					var obj:Bomb = Helper.fallBomb(airplane.getX(), StaticVars.bombOffSet, StaticVars.fallSpeedSlow);
+					_bombs.add(obj);
+					objArr.push(obj);
+					_bombLeft--;
+				}
 			}
 			
 				
@@ -168,22 +179,17 @@ package levels
 			FlxG.overlap(tank, _bombs, overlapObjBucket);
 			FlxG.overlap(_bombs, _ammos, overlapAmmoBomb);
 			FlxG.overlap(tank, ammoBox, overlapTankAmmoBox);
+			FlxG.overlap(tank, healthUp, overlapTankHealth);
 			
 			if (ammoBox != null && ammoBox.y > StaticVars.HEIGHT) {
 				ammoBox.kill();
 				ammoBox = null;
 			}
-			//trace(_fallObj.countLiving() + " " + _fallObj.length);
-			//var arr:Array = _fallObj.members;
-			/*for (var i:int = 0; i < objArr.length; i++) {
-				var fo:FallObjs = objArr[i] as FallObjs;
-				
-				if (fo.y > 100 && fo.y < 200) {
-					if (fo.x > 5) {
-						fo.x -= 2;
-					}
-				}
-			}*/
+			
+			if (healthUp != null && healthUp.y > StaticVars.HEIGHT) {
+				healthUp.kill();
+				healthUp = null;
+			}
 			super.update();
 		}
 		
@@ -204,6 +210,12 @@ package levels
 			}	
 		}
 		
+		private function overlapTankHealth(tank:Tank, h:Heart):void {
+			h.kill();
+			healthUp = null;
+			health ++;
+		}
+		
 		private function overlapAmmoBomb(bomb:Bomb, ammoObj:Ammos):void {
 			
 			/*if (!instrBool1) {
@@ -216,7 +228,7 @@ package levels
 			if (!bomb.isKill()) {
 				//bomb.alpha = 0.99;
 				bomb.kill();
-				trace("null: " + (ammoBox == null));
+				//trace("null: " + (ammoBox == null));
 				if (ammoBox == null && _ammoLeft <= 10 && Helper.oneOf(10)) {
 					ammoBox = new AmmoBox(bomb.x, bomb.y);
 					add(ammoBox);
@@ -238,13 +250,14 @@ package levels
 				bucket.tutorialBucketSwitching(ThreeBucket.TRASH);
 			} */
 			// skip tutorial
-			if (FlxG.keys.justPressed("ENTER")) {
+			if (FlxG.keys.justPressed("S")) {
 				instruction.kill();
+				skipInstr.kill();
 				paused = false;
 			}
 			/*
 			if (instrBool1) {
-				if (FlxG.keys.justPressed("ONE")) {
+				if (FlxG.keys.justPressed("SPACE")) {
 					instruction.text = "Blue objects to recycle bin\nPress 2 to switch to recycle bin";
 					instruction.color = StaticVars.BLUE;
 					instrBool1 = false;

@@ -53,7 +53,7 @@ package levels
 	
 		override public function create(): void {
 			add(Helper.landBackground());
-			//StaticVars.logger.logLevelStart(1, null);
+			StaticVars.logger.logLevelStart(3, null);
 			_fallObj = new FlxGroup();
 			add(_fallObj);	
 			
@@ -141,19 +141,18 @@ package levels
 		
 		//////////////////////////// overlap ///////////////////////////
 		private function overlapObjBucket(but:ThreeBucket, obj:FallObjs):void {
+			var logData:Object = { "bucket" : but.getCurrentBucket(), "object" : obj.getCurrentObj() };
 			if (but.getCurrentBucket() == obj.getCurrentObj()) {
 				but.play("add");
 				add(new Star(obj.x, obj.y+50, true));
 				add(new Star(obj.x+50, obj.y+50, false));
 				FlxG.play(SoundEffect.score);
-				var logData:Object = { "bucket" : but.getCurrentBucket(), "object" : obj.getCurrentObj() };
 				StaticVars.logger.logAction(1, logData);
 			} else {
 				but.play("minus");
 				health--;
 				FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
 				FlxG.play(SoundEffect.miss);
-				var logData:Object = { "bucket" : but.getCurrentBucket(), "object" : obj.getCurrentObj() };
 				StaticVars.logger.logAction(2, logData);
 			}
 			obj.kill();			
@@ -228,12 +227,10 @@ package levels
 
 		
 		private function endGame(): void {
-			//var logData:Object = {"finalScore":score, "misses":health};
-			//StaticVars.logger.logLevelEnd(logData);
 			var obj:Object = {"health":health, "level":3 }; 
 			Helper.dropCount = 0;
-			Helper.endgame(obj);
 			StaticVars.logger.logLevelEnd(obj);
+			Helper.endgame(obj);
 		}
 	}
 }

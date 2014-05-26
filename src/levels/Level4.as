@@ -49,9 +49,9 @@ package levels
 		private var lostText:FlxText;
 	
 		override public function create(): void {
-			FlxG.play(SoundEffect.wind);
+			FlxG.play(SoundEffect.wind,1,true);
 			add(Helper.landBackground());
-			//StaticVars.logger.logLevelStart(1, null);
+			StaticVars.logger.logLevelStart(4, null);
 			_fallObj = new FlxGroup();
 			add(_fallObj);	
 			
@@ -139,26 +139,24 @@ package levels
 					} 
 				}
 			}
-			
 			super.update();
 		}
 		
 		
 		//////////////////////////// overlap ///////////////////////////
 		private function overlapObjBucket(but:ThreeBucket, obj:FallObjs):void {
+			var logData:Object = { "bucket" : but.getCurrentBucket(), "object" : obj.getCurrentObj() };
 			if (but.getCurrentBucket() == obj.getCurrentObj()) {
+				FlxG.play(SoundEffect.score);
 				but.play("add");
 				add(new Star(obj.x, obj.y+50, true));
 				add(new Star(obj.x + 50, obj.y + 50, false));
-				FlxG.play(SoundEffect.score);
-				var logData:Object = { "bucket" : but.getCurrentBucket(), "object" : obj.getCurrentObj() };
 				StaticVars.logger.logAction(1, logData);
 			} else {
+				FlxG.play(SoundEffect.miss);
 				but.play("minus");
 				health--;
 				FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
-				FlxG.play(SoundEffect.miss);
-				var logData:Object = { "bucket" : but.getCurrentBucket(), "object" : obj.getCurrentObj() };
 				StaticVars.logger.logAction(2, logData);
 			}
 			obj.kill();			
@@ -173,22 +171,20 @@ package levels
 		}
 		
 		private function overlapKillBarObj(killBar:FlxSprite, obj:FallObjs):void {
+			FlxG.play(SoundEffect.miss);
 			obj.kill();
 			health--;
 			bucket.play("minus");
 			FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
-			FlxG.play(SoundEffect.miss);
 			StaticVars.logger.logAction(3, null);
 		}
 
 		
 		private function endGame(): void {
-			//var logData:Object = {"finalScore":score, "misses":health};
-			//StaticVars.logger.logLevelEnd(logData);
 			var obj:Object = {"health":health, "level":4}; 
 			Helper.dropCount = 0;
-			Helper.endgame(obj);
 			StaticVars.logger.logLevelEnd(obj);
+			Helper.endgame(obj);
 		}
 	}
 }
