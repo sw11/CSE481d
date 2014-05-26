@@ -74,7 +74,7 @@ package levels
 			//add sea background
 			add(Helper.seaBackground());
 			
-			//StaticVars.logger.logLevelStart(1, null);
+			StaticVars.logger.logLevelStart(11, null);
 			_sharks = new FlxGroup();
 			add(_sharks);	
 			
@@ -183,6 +183,7 @@ package levels
 			}
 
 			if (++spaceBarCount > StaticVars._10_DROP_COUNT && FlxG.keys.justPressed("SPACE") && _objLeft > 0) {
+				FlxG.play(SoundEffect.drop);
 				var food:FallObjs = Helper.fallObj(ship.getX(), 50, StaticVars.fallSpeedFast, FallObjs.FOOD);
 				food.offset = new FlxPoint(0, -10);
 				_foodObj.add(food);
@@ -259,10 +260,26 @@ package levels
 			health = Math.min(StaticVars.TOTAL_HEALTH, ++health);
 			obj.kill();
 			hungryCounter = 0;
+			//feed fish aid code 8
+			StaticVars.logger.logAction(8, null);
+			fishHappy();
 		}
 		
 		private function overlapObjShark(s:Shark, obj:FallObjs):void {
 			obj.kill();
+			//feed shark aid code 7
+			StaticVars.logger.logAction(7, null);
+			fishSad();
+		}
+		
+		private function fishSad() : void {
+			FlxG.play(SoundEffect.miss);
+			add(new Sad(fish.x, fish.y-50, false));
+		}
+		
+		private function fishHappy() : void {
+			FlxG.play(SoundEffect.score);
+			add(new Smile(fish.x, fish.y-50, false));
 		}
 		/*
 		
@@ -369,7 +386,7 @@ package levels
 		private function endGame(): void {
 			//var logData:Object = {"finalScore":score, "misses":health};
 			//StaticVars.logger.logLevelEnd(logData);
-			var obj:Object = {"health":health, "level":10 };//"bonus":bonus, 
+			var obj:Object = {"health":health, "level":11 };//"bonus":bonus, 
 			Helper.dropCount = 0;
 			Helper.endgame(obj);
 		}
