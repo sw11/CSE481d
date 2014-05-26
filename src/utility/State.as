@@ -7,13 +7,13 @@ package utility
 	public class State 
 	{
 		
-		public static var unlockTheme:int;
-		public static var unlockLevel:int = 1;
+		//public static var unlockTheme:int;
+		//public static var unlockLevel:int = 1;
 		public static const maxLevel:int = 12;
-		public static const maxTheme:int = 3; // todo only 3 themes available now
+		//public static const maxTheme:int = 3; // todo only 3 themes available now
 		//public static const maxTheme:int = 4;
-		public static var unlockLevels:Array = new Array(1, 1, 1, 1);
-		
+		//public static var unlockLevels:Array = new Array(1, 1, 1, 1);
+		/*
 		public static var theme1:Array = new Array(new Array(true, false), // level 1, unlock, star
 												new Array(false, false), // unlock, star
 												new Array(false, false), // unlock, star
@@ -38,7 +38,7 @@ package utility
 												new Array(false, false), 
 												new Array(false, false), 
 												new Array(false, false));
-												
+			*/									
 		public static var levelArr:Array = new Array(new Array(true, false), // level 1, unlock, star
 												new Array(false, false), // 2
 												new Array(false, false), // 3
@@ -55,15 +55,14 @@ package utility
 		
 		//public static var level1:Array = new Array(false, false, false, false, false, false);
 		
-		public static function toNextLevel():void {
-			if (unlockLevel == maxLevel) {
+		public static function toNextLevel(lv:int):void {
+			if (lv == maxLevel) {
 				// done!
 			} else {
 				//trace("State to next level " + unlockLevel);
-				levelArr[unlockLevel][0] = true;
+				levelArr[lv][0] = true;
 				//trace("To next level " + levelArr[unlockLevel][0]);
-				unlockLevel++;
-				
+				//trace("to next level unlock level " + lv);
 			}
 			//unlockLevel = Math.min(++unlockLevel, 15);
 		}
@@ -72,7 +71,7 @@ package utility
 			levelArr[lv - 1][1] = true;
 			//trace(levelArr[lv - 1][0] + " " + levelArr[lv - 1][1]);
 		}
-		
+		/*
 		public static function nextLevel():void {
 			unlockLevel ++;
 			
@@ -121,7 +120,7 @@ package utility
 				arr[j][0] = false;
 				arr[j][1] = false;
 			}
-		}
+		}*/
 	}
 
 }

@@ -40,12 +40,15 @@ package main
 			
 			// todo
 			// add score summary points
-			if (State.unlockLevel == 12) {
-				
+			if (level == 12) {
+				addText("Congratulation! You have passed all levels", 400, 15);
 			} else {
 				var str:String;
 				if (isWin) {
 					str = "Press ENTER to next level";
+					// save data
+					LevelSelect.save.data.array = State.levelArr.slice();
+					LevelSelect.save.flush();
 				} else {
 					str = "Press ENTER to restart level";
 				}

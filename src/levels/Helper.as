@@ -102,9 +102,9 @@ package levels
 			//var perfect:Number = maxScore * StaticVars.aPerf;
 			if (health > 0) {
 				// win
-				if (level == State.unlockLevel) {
-					State.toNextLevel();
-				}
+				//if (level == State.unlockLevel) {
+					State.toNextLevel(level);
+				//}
 				if (health == 5 || (level == 5 && health == 3)) {
 					State.star(level);
 				}

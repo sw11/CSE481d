@@ -10,7 +10,7 @@ package fall_object
 		
 		public function Heart(x:Number, y:Number) {
 			super(x, y);
-			loadGraphic(heart, false, false, 75, 75);
+			loadGraphic(heart, false, false, 50, 50);
 			velocity.y = -250; // move down velocity
 		}		
 	}

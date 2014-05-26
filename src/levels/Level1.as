@@ -70,10 +70,10 @@ package levels
 			killBar = Helper.addKillBar();
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
-			instruction = Helper.addInstr("Left arrow to move bucket to left", 0, 250, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("Press [Left] to move bucket to left", 0, 250, StaticVars.BLACK, 20);
 			add(instruction);
 			
-			skipInstr = Helper.addInstr("[S] to skip the tutoial", 0, 450, StaticVars.RED, 15);
+			skipInstr = Helper.addInstr("[S] to skip", 0, 450, StaticVars.RED, 15);
 			add(skipInstr);
 
 			/////////////////////// truck ////////////////////////////
@@ -136,7 +136,6 @@ package levels
 			super.update();
 		}
 		
-		
 		//////////////////////////// overlap ///////////////////////////
 		private function overlapObjBucket(but:BucketBar, obj:FallObjs):void {
 			add(new Star(obj.x, obj.y+50, true));
@@ -160,7 +159,7 @@ package levels
 			
 			if (instrBool1) {
 				if (FlxG.keys.justPressed("LEFT")) {
-					instruction.text = "Right arrow to move bucket to right";
+					instruction.text = "Press [Right] to move bucket to right";
 					instrBool1 = false;
 				}
 				return true;
@@ -173,7 +172,7 @@ package levels
 			
 			if (instrBool2) {
 				if (FlxG.keys.justPressed("RIGHT")) {
-					instruction.text = "Object will fall from the truck\nCatch all the falling object\nPress Enter to start";
+					instruction.text = "Object will fall from the truck\nCatch all the falling object\nPress [Enter] to start";
 					instrBool2 = false;
 				}
 				return true;
@@ -194,6 +193,7 @@ package levels
 		private function overlapKillBarObj(killBar:FlxSprite, obj:FallObjs):void {
 			obj.kill();
 			health--;
+			bucket.play("red", false);
 			FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
 		}
 

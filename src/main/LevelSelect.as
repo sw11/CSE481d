@@ -15,6 +15,7 @@ package main
 		[Embed(source = '../../img/lock.png')] private var lock:Class;
 		[Embed(source = '../../img/star.png')] private var star:Class;
 		
+		public static var save:FlxSave = new FlxSave();
 		
 		private var currText:FlxText;
 		//private var unlockLevel:int;
@@ -55,6 +56,11 @@ package main
 					add(text);
 				}				
 			}
+			save.bind("level");
+			if (save.data.array != null) {
+				// load data
+				State.levelArr = save.data.array;
+			}
 			
 			var lastLv:Boolean = true;
 			for (var k:int = State.levelArr.length - 1; k >= 0; k--) {
@@ -79,8 +85,7 @@ package main
 				}
 			}
 			
-			var enter:FlxText = Helper.addInstr("Press enter to play", 0, 600, StaticVars.RED, 15);
-			//createText(0, 600, 15, "Press enter to play");
+			var enter:FlxText = Helper.addInstr("Press [Enter] to play", 0, 500, StaticVars.BLACK, 15);
 			add(enter);
 		}
 		

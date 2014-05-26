@@ -11,8 +11,6 @@ package main
 	{
 		public function Main() 
 		{
-			//State.unlockTheme = 1;
-			//State.unlockLevel = 1;
 			super(StaticVars.WIDTH, StaticVars.HEIGHT, MainState,1);
 		}		
 	}

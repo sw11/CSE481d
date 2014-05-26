@@ -73,10 +73,10 @@ package levels
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
-			instruction = Helper.addInstr("Black objects for trash bin\nPress 1 to switch to trash bin", 0, 250, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("Black objects for trash bin\nPress [1] to switch to trash bin", 0, 250, StaticVars.BLACK, 20);
 			add(instruction);
 			
-			skipInstr = Helper.addInstr("[S] to skip the tutoial", 0, 450, StaticVars.RED, 15);
+			skipInstr = Helper.addInstr("[S] to skip", 0, 450, StaticVars.RED, 15);
 			add(skipInstr);
 			
 			/////////////////////// truck ////////////////////////////
@@ -143,6 +143,8 @@ package levels
 		private function overlapObjBucket(but:ThreeBucket, obj:FallObjs):void {
 			if (but.getCurrentBucket() == obj.getCurrentObj()) {
 				but.play("add");
+				add(new Star(obj.x, obj.y+50, true));
+				add(new Star(obj.x+50, obj.y+50, false));
 			} else {
 				but.play("minus");
 				health--;
@@ -164,7 +166,7 @@ package levels
 			
 			if (instrBool1) {
 				if (FlxG.keys.justPressed("ONE")) {
-					instruction.text = "Blue objects to recycle bin\nPress 2 to switch to recycle bin";
+					instruction.text = "Blue objects to recycle bin\nPress [2] to switch to recycle bin";
 					instruction.color = StaticVars.BLUE;
 					instrBool1 = false;
 				}
@@ -177,7 +179,7 @@ package levels
 			
 			if (instrBool2) {
 				if (FlxG.keys.justPressed("TWO")) {
-					instruction.text = "Green objects to compost bin\nPress 3 to switch to compost bin";
+					instruction.text = "Green objects to compost bin\nPress [3] to switch to compost bin";
 					instruction.color = StaticVars.GREEN;
 					instrBool2 = false;
 				}
@@ -190,7 +192,7 @@ package levels
 			
 			if (instrBool3) {
 				if (FlxG.keys.justPressed("THREE")) {
-					instruction.text = "Catch all the falling object\nPress Enter to start";
+					instruction.text = "Catch all the falling object\nPress [Enter] to start";
 					instruction.color = StaticVars.BLACK;
 					instrBool3 = false;
 				}
@@ -212,6 +214,7 @@ package levels
 		private function overlapKillBarObj(killBar:FlxSprite, obj:FallObjs):void {
 			obj.kill();
 			health--;
+			bucket.play("minus");
 			FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
 		}
 
