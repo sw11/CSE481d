@@ -73,7 +73,7 @@ package levels
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
-			instruction = Helper.addInstr("Black objects for trash bin\nPress [1] to switch to trash bin", 0, 250, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("Place black objects into trash bin\nPress [1] to switch to trash bin", 0, 250, StaticVars.BLACK, 20);
 			add(instruction);
 			
 			skipInstr = Helper.addInstr("[S] to skip", 0, 450, StaticVars.RED, 15);
@@ -171,7 +171,7 @@ package levels
 			
 			if (instrBool1) {
 				if (FlxG.keys.justPressed("ONE")) {
-					instruction.text = "Blue objects to recycle bin\nPress [2] to switch to recycle bin";
+					instruction.text = "Place blue objects into recycle bin\nPress [2] to switch to recycle bin";
 					instruction.color = StaticVars.BLUE;
 					instrBool1 = false;
 				}
@@ -184,7 +184,7 @@ package levels
 			
 			if (instrBool2) {
 				if (FlxG.keys.justPressed("TWO")) {
-					instruction.text = "Green objects to compost bin\nPress [3] to switch to compost bin";
+					instruction.text = "Place green objects into compost bin\nPress [3] to switch to compost bin";
 					instruction.color = StaticVars.GREEN;
 					instrBool2 = false;
 				}
@@ -197,7 +197,7 @@ package levels
 			
 			if (instrBool3) {
 				if (FlxG.keys.justPressed("THREE")) {
-					instruction.text = "Catch all the falling object\nPress [Enter] to start";
+					instruction.text = "Catch all of the falling objects\nPress [Enter] to start";
 					instruction.color = StaticVars.BLACK;
 					instrBool3 = false;
 				}

@@ -69,7 +69,7 @@ package levels
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
-			instruction = Helper.addInstr("It's getting windy\nPress [Enter] to start", 0, 250, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("Looks like its going to be windy\nPress [Enter] to start", 0, 250, StaticVars.BLACK, 20);
 			add(instruction);
 			
 			/////////////////////// truck ////////////////////////////
