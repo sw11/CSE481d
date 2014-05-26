@@ -10,6 +10,7 @@ package utility
 		[Embed(source = '../../sound/wind.mp3')] public static var wind:Class;
 		[Embed(source = '../../sound/miss.mp3')] public static var miss:Class;
 		[Embed(source = '../../sound/score.mp3')] public static var score:Class;
+		[Embed(source = '../../sound/bomb.mp3')] public static var bomb:Class;
 	}
 
 }

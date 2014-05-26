@@ -54,7 +54,7 @@ package levels
 	
 		override public function create(): void {
 			add(Helper.airBackground());
-			//StaticVars.logger.logLevelStart(1, null);
+			StaticVars.logger.logLevelStart(5, null);
 			_bombs = new FlxGroup();
 			add(_bombs);	
 			
@@ -148,6 +148,9 @@ package levels
 				but.play("red");
 				health--;
 				FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
+				FlxG.play(SoundEffect.bomb);
+				// hit by bomb is aid 4
+				StaticVars.logger.logAction(4, null);
 			}	
 		}
 		
@@ -162,6 +165,7 @@ package levels
 		private function overlapKillBarObj(killBar:FlxSprite, bomb:Bomb):void {
 			if (!bomb.isKill()) {
 				bomb.kill();
+				FlxG.play(SoundEffect.bomb);
 			}
 		}
 
@@ -170,6 +174,7 @@ package levels
 			//StaticVars.logger.logLevelEnd(logData);
 			var obj:Object = {"health":health, "level":5}; 
 			Helper.dropCount = 0;
+			StaticVars.logger.logLevelEnd(obj);
 			Helper.endgame(obj);
 		}
 	}
