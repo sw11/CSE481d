@@ -36,6 +36,7 @@ package utility
 		// level 6
 		public static const _6_TOTAL_OBJ:int = 30;
 		public static const _6_FALL_RATE:int = 30;
+		public static const _6_AMMO_COUNT:int = 20;
 		
 		// level 10
 		public static const _10_FOOD_ALPHA:Number = 0.01;
@@ -55,7 +56,11 @@ package utility
 		public static const THREE_BUCKETS:int = 3;
 		public static const BUCKET_X:int = WIDTH/2-50;
 		public static const BUCKET_Y:int = 500;
+		public static const TANK_X:int = WIDTH / 2 - 60;
+		public static const TANK_Y:int = 540;
 		
+		// star
+		public static const STAR_ALPHA:Number = 0.005;
 		// fish
 		public static const FISH_X:int = WIDTH / 2 - 35;
 		public static const FISH_Y:int = 550;
@@ -81,6 +86,7 @@ package utility
 		public static const INVISIBLE:int = 0x00FFFFFF;
 		public static const GREY:int = 0xFFAAAAAA;
 		public static const BGCOLOR:int = 0xEEEEEEEE;
+		public static const GOLD:int = 0xFFFFD700;
 		
 		public static const A_THEME:int = 1;
 		public static const B_THEME:int = 2;

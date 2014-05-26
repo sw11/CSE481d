@@ -12,12 +12,12 @@ package fall_object
 	 * @author Adrian
 	 */
 	public class Star extends FlxSprite {
-		[Embed(source = '../../img/star-smile.png')] private static var star:Class;
+		[Embed(source = '../../img/star-smile-small.png')] private static var star:Class;
 		
-		public function Star(x:Number, y:Number) {
-			super(x + 50, y + 50);
-			loadGraphic(star, false , false, 50, 50);
-			velocity.x = 100;
+		public function Star(x:Number, y:Number, left:Boolean) {
+			super(x, y);
+			loadGraphic(star, false , false, 25, 25);
+			velocity.x = left ? -100 : 100;
 			velocity.y = -100;
 			this.acceleration.y = 200; 
 		}
@@ -28,6 +28,7 @@ package fall_object
 				this.kill();
 				//trace("star killed");
 			}
+			alpha -= StaticVars.STAR_ALPHA;
 		}
 	}
 }

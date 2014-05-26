@@ -25,12 +25,13 @@ package main
 		}
 		
 		override public function create(): void {
+			//FlxG.bgColor = StaticVars.WHITE;
 			addText(result, 100, 35);
 			//trace(_health + " in finish state");
 			if (_health > 0) {
 				add(Helper.addInstr("Health left: " + _health, -30, 200, StaticVars.BLACK, 20));
 			} 
-			if (_health == 5) {
+			if (_health == 5 || (level == 5 && _health == 3)) {
 				// add star
 				var starIcon:FlxSprite = new FlxSprite(StaticVars.WIDTH/2 + 50, 200);
 				starIcon.loadGraphic(star, true, true, 24, 24);

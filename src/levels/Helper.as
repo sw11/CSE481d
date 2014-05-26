@@ -105,7 +105,7 @@ package levels
 				if (level == State.unlockLevel) {
 					State.toNextLevel();
 				}
-				if (health == 5) {
+				if (health == 5 || (level == 5 && health == 3)) {
 					State.star(level);
 				}
 				FlxG.switchState(new FinishState("WIN", health, level));
@@ -169,6 +169,13 @@ package levels
 		
 		public static function addHealthBar(graphic:Class):FlxBar {
 			var scoreBar:FlxBar = new FlxBar(StaticVars.BUCKET_X + 10, StaticVars.BUCKET_Y + 50,FlxBar.FILL_LEFT_TO_RIGHT, 158, 14);
+			scoreBar.createImageBar(null, graphic, 0x0);
+			scoreBar.setRange(0, 10);
+			return scoreBar;
+		}
+		
+		public static function addTankHealthBar(graphic:Class):FlxBar {
+			var scoreBar:FlxBar = new FlxBar(StaticVars.TANK_X + 10, StaticVars.TANK_Y + 50,FlxBar.FILL_LEFT_TO_RIGHT, 158, 14);
 			scoreBar.createImageBar(null, graphic, 0x0);
 			scoreBar.setRange(0, 10);
 			return scoreBar;

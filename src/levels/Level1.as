@@ -139,7 +139,8 @@ package levels
 		
 		//////////////////////////// overlap ///////////////////////////
 		private function overlapObjBucket(but:BucketBar, obj:FallObjs):void {
-			add(new Star(obj.x, obj.y));
+			add(new Star(obj.x, obj.y+50, true));
+			add(new Star(obj.x+50, obj.y+50, false));
 			obj.kill();
 			but.play("green", false);
 		}

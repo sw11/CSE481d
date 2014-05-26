@@ -114,10 +114,10 @@ package levels
 			//set backgroud color
 			FlxG.bgColor = StaticVars.BGCOLOR;
 			
-			var s1:Shark = new Shark(300, 300);
+			var s1:Shark = new Shark(300, 200, 150, 250, 60);
 			_sharks.add(s1);
 			
-			var s2:Shark = new Shark(100, 450);
+			var s2:Shark = new Shark(100, 450, 400, 500, 40);
 			_sharks.add(s2);
 			/////////////////////// killbar ////////////////////////////
 			killBar = Helper.addKillBar();

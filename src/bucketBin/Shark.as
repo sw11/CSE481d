@@ -19,10 +19,14 @@ package bucketBin
 		//public var healthLeft:Number;
 		private var counter:int;
 		private var maxCount:int;
+		private var rand:int;
+		// y
 		private var yCounter:int;
 		private var yMaxCount:int;
+		private var up:int;
+		private var down:int;
 		
-		public function Shark(x:Number, y:Number) {
+		public function Shark(x:Number, y:Number, up:int, down:int, rand:int) {
 			super(x, y);
 			//xCoord = x;
 			//yCoord = y;
@@ -31,6 +35,9 @@ package bucketBin
 			loadGraphic(shark, true, false, 75, 50);
 			velocity.x = moveSpeed;
 			velocity.y = ySpeed;
+			this.up = up;
+			this.down = down;
+			this.rand = rand;
 			offset = new FlxPoint(0, 25);
 			addAnimation("right", [0], 0, false);
 			addAnimation("left", [1], 0, false);
@@ -51,7 +58,7 @@ package bucketBin
 			} else if (counter++ > maxCount) {
 				
 				counter = 0;
-				maxCount = Math.floor(Math.random() * 50 + 50);
+				maxCount = Math.floor(Math.random() * rand + rand);
 				///trace(velocity.x);
 				velocity.x = -velocity.x; // StaticVars.speed * maxCount * ( -1);
 				if (velocity.x > 0 ) {
@@ -61,9 +68,9 @@ package bucketBin
 				}
 			} 
 			
-			if (y < 100) {
+			if (y < up) {
 				velocity.y = ySpeed;
-			} else if (y > 300) {
+			} else if (y > down) {
 				velocity.y = -ySpeed;
 			} else if (yCounter++ > yMaxCount) {
 				yCounter = 0;

@@ -50,10 +50,10 @@ package levels
 		
 		private var lostText:FlxText;
 		
-		private var cloud:FlxSprite;
+		///private var cloud:FlxSprite;
 	
 		override public function create(): void {
-			//add(Helper.landBackground());
+			add(Helper.airBackground());
 			//StaticVars.logger.logLevelStart(1, null);
 			_bombs = new FlxGroup();
 			add(_bombs);	
@@ -67,11 +67,10 @@ package levels
 
 			health = StaticVars._5_TOTAL_HEALTH;
 			
-			FlxG.bgColor = StaticVars.GREY;
 			
-			cloud = new FlxSprite(0, 80);
-			cloud.loadGraphic(Img.cloud, true, false, 500, 264);
-			add(cloud);
+			//cloud = new FlxSprite(0, 80);
+			//cloud.loadGraphic(Img.cloud, true, false, 500, 264);
+			//add(cloud);
 			/////////////////////// killbar ////////////////////////////
 			killBar = Helper.addKillBar();
 			add(killBar);
@@ -88,10 +87,10 @@ package levels
 			airplaneFillBar.trackParent(-13, 0);
 			add(airplaneFillBar);
 			/////////////////////// bucket ////////////////////////////
-			person = new Person(StaticVars.BUCKET_X, StaticVars.BUCKET_Y);
+			person = new Person(StaticVars.TANK_X, StaticVars.TANK_Y);
 			add(person);
 			
-			scoreBar = Helper.addHealthBar(Img.heart);
+			scoreBar = Helper.addTankHealthBar(Img.heart);
 			scoreBar.setParent(person, "healthLeft", true, 10, 50);
 			add(scoreBar);
 			/////////////////////// lost instr ////////////////////////////

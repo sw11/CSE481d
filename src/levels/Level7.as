@@ -16,7 +16,7 @@ package levels
 	 * @author Sam Wilson
 	 */
 	public class Level7 extends FlxState {	
-		[Embed(source = '../../sound/tank-shoot.mp3')] private var tankShoot:Class;
+		
 		
 		//////////////////////// scores ///////////////////////////
 		private var health:int;
@@ -153,7 +153,7 @@ package levels
 			}
 
 			if (FlxG.keys.justPressed("SPACE") && _ammoLeft > 0) {
-				FlxG.play(tankShoot);
+				FlxG.play(SoundEffect.tankShoot);
 				(ammoArr.pop() as AmmoCount).kill(); 
 				_ammos.add(Helper.fireAmmo(tank.x + 40));
 				_ammoLeft--;
@@ -253,7 +253,7 @@ package levels
 				bucket.tutorialBucketSwitching(ThreeBucket.TRASH);
 			} */
 			if (instrBool1 && FlxG.keys.justPressed("SPACE")) {
-				FlxG.play(tankShoot);
+				FlxG.play(SoundEffect.tankShoot);
 				(ammoArr.pop() as AmmoCount).kill(); 
 				firstAmmo = Helper.fireAmmo(tank.x + 40)
 				_ammos.add(firstAmmo);

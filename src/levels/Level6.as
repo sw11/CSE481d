@@ -1,6 +1,7 @@
 package levels 
 {
 	import bucketBin.Person;
+	import bucketBin.Tank;
 	import cgs.teacherportal.activity.ProblemSetLogger;
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.FlxDelay;
@@ -31,9 +32,15 @@ package levels
 		/////////////////////////// Fall obj /////////////////////////////
 		protected var _bombs:FlxGroup;
 		private var _bombLeft:int;
+		private var _ammos:FlxGroup;
+		private var ammoArr:Array;
+		private var _ammoLeft:int;
+		private var ammoText:FlxText;
+		private var ammoBox:FlxSprite;
+		private var healthUp:FlxSprite;
 		
-		/////////////////////////// person /////////////////////////////
-		private var person:Person;
+		/////////////////////////// tank /////////////////////////////
+		private var tank:Tank;
 		
 		/////////////////////////// track /////////////////////////////
 		private var airplane:Airplane;
@@ -62,6 +69,20 @@ package levels
 
 			health = StaticVars.TOTAL_HEALTH;
 			
+			///////////////// ammos//////////////////////////
+			_ammos = new FlxGroup();
+			add(_ammos);
+			
+			
+			
+			_ammoLeft = StaticVars._6_AMMO_COUNT;
+			
+			ammoArr = new Array();
+			add(new AmmoCount(10, 600));
+			
+			ammoText = new FlxText(30, 610, FlxG.width, "x" + _ammoLeft);
+			ammoText.setFormat(null, 25, StaticVars.BLACK);
+			add(ammoText);
 			/////////////////////// killbar ////////////////////////////
 			killBar = Helper.addKillBar();
 			add(killBar);
@@ -78,11 +99,11 @@ package levels
 			airplaneFillBar.trackParent(-13, 0);
 			add(airplaneFillBar);
 			/////////////////////// bucket ////////////////////////////
-			person = new Person(StaticVars.BUCKET_X, StaticVars.BUCKET_Y);
-			add(person);
+			tank = new Tank(StaticVars.TANK_X, StaticVars.TANK_Y);
+			add(tank);
 			
-			scoreBar = Helper.addHealthBar(Img.heart);
-			scoreBar.setParent(person, "healthLeft", true, 10, 50);
+			scoreBar = Helper.addTankHealthBar(Img.heart);
+			scoreBar.setParent(tank, "healthLeft", true, 10, 50);
 			add(scoreBar);
 			/////////////////////// lost instr ////////////////////////////
 			lostText = new FlxText(0, 100, FlxG.width, "You Lost");
@@ -93,6 +114,7 @@ package levels
 		
 		override public function update():void 
 		{			
+			scoreBar.currentValue = health;
 			if (FlxG.keys.justPressed("ESCAPE")) {
 				// need to log?
 				FlxG.switchState(new LevelSelect());
@@ -120,7 +142,17 @@ package levels
 				endGame();
 			}
 			
-			person.healthLeft = health;
+			if (FlxG.keys.justPressed("SPACE") && _ammoLeft > 0) {
+				FlxG.play(SoundEffect.tankShoot);
+				_ammos.add(Helper.fireAmmo(tank.x + 40));
+				_ammoLeft--;
+				ammoText.text = "x" + _ammoLeft;
+			} else if (FlxG.keys.justPressed("SPACE") && _ammoLeft == 0) {
+				// show no ammos
+				ammoText.color = StaticVars.RED;
+			}
+			
+			tank.healthLeft = health;
 			airplane.numObjs = _bombLeft;
 			
 			if (Helper.genRandom(StaticVars._6_FALL_RATE) && _bombLeft > 0)
@@ -131,8 +163,16 @@ package levels
 				_bombLeft--;
 			}
 			
+				
 			FlxG.overlap(killBar, _bombs, overlapKillBarObj);
-			FlxG.overlap(person, _bombs, overlapObjBucket);
+			FlxG.overlap(tank, _bombs, overlapObjBucket);
+			FlxG.overlap(_bombs, _ammos, overlapAmmoBomb);
+			FlxG.overlap(tank, ammoBox, overlapTankAmmoBox);
+			
+			if (ammoBox != null && ammoBox.y > StaticVars.HEIGHT) {
+				ammoBox.kill();
+				ammoBox = null;
+			}
 			//trace(_fallObj.countLiving() + " " + _fallObj.length);
 			//var arr:Array = _fallObj.members;
 			/*for (var i:int = 0; i < objArr.length; i++) {
@@ -149,7 +189,7 @@ package levels
 		
 		
 		//////////////////////////// overlap ///////////////////////////
-		private function overlapObjBucket(but:Person, bomb:Bomb):void {
+		private function overlapObjBucket(but:Tank, bomb:Bomb):void {
 			if (!bomb.isKill()) {
 				bomb.kill();
 				but.play("minus");
@@ -163,7 +203,33 @@ package levels
 				bomb.kill();
 			}	
 		}
+		
+		private function overlapAmmoBomb(bomb:Bomb, ammoObj:Ammos):void {
+			
+			/*if (!instrBool1) {
+				instruction.kill();
+				skipInstr.kill();
+				//add(scoreBar);
+				paused = false;
+			}*/
+			ammoObj.kill();
+			if (!bomb.isKill()) {
+				//bomb.alpha = 0.99;
+				bomb.kill();
+				trace("null: " + (ammoBox == null));
+				if (ammoBox == null && _ammoLeft <= 10 && Helper.oneOf(10)) {
+					ammoBox = new AmmoBox(bomb.x, bomb.y);
+					add(ammoBox);
+				}
+			}
+		}
 
+		private function overlapTankAmmoBox(tank:Tank, ab:AmmoBox):void {
+			ab.kill();
+			this.ammoBox = null;
+			_ammoLeft += 5;
+			ammoText.text = "x" + _ammoLeft;
+		}
 		//////////////////////////// tutorial ///////////////////////////
 		private function tutorial():Boolean {
 			
