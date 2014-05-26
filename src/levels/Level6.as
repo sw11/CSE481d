@@ -60,7 +60,7 @@ package levels
 	
 		override public function create(): void {
 			add(Helper.airBackground());
-			//StaticVars.logger.logLevelStart(1, null);
+			StaticVars.logger.logLevelStart(6, null);
 			_bombs = new FlxGroup();
 			add(_bombs);	
 			
@@ -92,7 +92,7 @@ package levels
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
-			instruction = Helper.addInstr("We got you tank!\nPress [Spacebar] to shoot the bomb\nStay alive & only shoot if you have to", 0, 250, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("We got you a tank!\nPress [Spacebar] to shoot the bomb\nStay alive & only shoot if you have to", 0, 250, StaticVars.BLACK, 20);
 			add(instruction);
 			
 			skipInstr = Helper.addInstr("[S] to skip", 0, 450, StaticVars.RED, 15);
@@ -205,6 +205,9 @@ package levels
 				health--;
 				FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
 				FlxG.play(SoundEffect.bomb);
+				//hit by bomb is 4
+				var ammoLeft:Object = { "ammo" : _ammoLeft };
+				StaticVars.logger.logAction(4, ammoLeft);
 			}
 		}
 		
@@ -239,6 +242,9 @@ package levels
 					add(ammoBox);
 				}
 				FlxG.play(SoundEffect.bomb);
+				//kill bomb is 5
+				var ammoLeft:Object = { "ammo" : _ammoLeft };
+				StaticVars.logger.logAction(5, ammoLeft);
 			}
 		}
 
@@ -248,6 +254,9 @@ package levels
 			_ammoLeft += 5;
 			ammoText.text = "x" + _ammoLeft;
 			FlxG.play(SoundEffect.reload);
+			//get ammo
+			var ammoLeft:Object = { "ammo" : _ammoLeft};
+			StaticVars.logger.logAction(6, ammoLeft)
 		}
 		//////////////////////////// tutorial ///////////////////////////
 		private function tutorial():Boolean {
@@ -276,12 +285,13 @@ package levels
 			
 			if (instrBool1) {
 				if (FlxG.keys.justPressed("SPACE")) {
-					firstAmmo = new Ammos(StaticVars.TANK_X, StaticVars.TANK_Y);
+					firstAmmo = new Ammos(StaticVars.TANK_X + 40, StaticVars.TANK_Y);
 					add(firstAmmo);
 					_ammoLeft--;
 					ammoText.text = "x" + _ammoLeft;
 					instruction.text = "The lower left indicates your bullets left\nPress [Enter] to start";
 					instrBool1 = false;
+					FlxG.play(SoundEffect.tankShoot);
 				}
 				return true;
 			
@@ -360,6 +370,7 @@ package levels
 			//StaticVars.logger.logLevelEnd(logData);
 			var obj:Object = {"health":health, "level":6 };//"bonus":bonus, 
 			Helper.dropCount = 0;
+			StaticVars.logger.logLevelEnd(obj);
 			Helper.endgame(obj);
 		}
 	}
