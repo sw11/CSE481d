@@ -11,6 +11,7 @@ package utility
 		[Embed(source = '../../sound/miss.mp3')] public static var miss:Class;
 		[Embed(source = '../../sound/score.mp3')] public static var score:Class;
 		[Embed(source = '../../sound/bomb.mp3')] public static var bomb:Class;
+		[Embed(source = '../../sound/reload.mp3')] public static var reload:Class;
 	}
 
 }

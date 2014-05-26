@@ -92,7 +92,7 @@ package levels
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
-			instruction = Helper.addInstr("We got a tank!\nPress [Spacebar] to shoot the bomb", 0, 250, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("We got you tank!\nPress [Spacebar] to shoot the bomb\nStay alive & only shoot if you have to", 0, 250, StaticVars.BLACK, 20);
 			add(instruction);
 			
 			skipInstr = Helper.addInstr("[S] to skip", 0, 450, StaticVars.RED, 15);
@@ -204,12 +204,14 @@ package levels
 				but.play("minus");
 				health--;
 				FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
+				FlxG.play(SoundEffect.bomb);
 			}
 		}
 		
 		private function overlapKillBarObj(killBar:FlxSprite, bomb:Bomb):void {
 			if (!bomb.isKill()) {
 				bomb.kill();
+				FlxG.play(SoundEffect.bomb);
 			}	
 		}
 		
@@ -236,6 +238,7 @@ package levels
 					ammoBox = new AmmoBox(bomb.x, bomb.y);
 					add(ammoBox);
 				}
+				FlxG.play(SoundEffect.bomb);
 			}
 		}
 
@@ -244,6 +247,7 @@ package levels
 			this.ammoBox = null;
 			_ammoLeft += 5;
 			ammoText.text = "x" + _ammoLeft;
+			FlxG.play(SoundEffect.reload);
 		}
 		//////////////////////////// tutorial ///////////////////////////
 		private function tutorial():Boolean {
@@ -276,7 +280,7 @@ package levels
 					add(firstAmmo);
 					_ammoLeft--;
 					ammoText.text = "x" + _ammoLeft;
-					instruction.text = "The button left indicate how many ammos left\nPress [Enter] to start";
+					instruction.text = "The lower left indicates your bullets left\nPress [Enter] to start";
 					instrBool1 = false;
 				}
 				return true;
