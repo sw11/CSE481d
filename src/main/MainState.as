@@ -13,7 +13,7 @@ package main
 			FlxG.bgColor = StaticVars.WHITE;
 			
 			add(instr("Trash It", 100, 80));
-			add(instr("Press [Enter] to continue", 400, 20));
+			add(instr("Press [Enter] to start", 400, 20));
 		}
 		
 		override public function update():void {

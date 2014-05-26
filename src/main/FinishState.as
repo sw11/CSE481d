@@ -45,7 +45,7 @@ package main
 			} else {
 				var str:String;
 				if (isWin) {
-					str = "Press ENTER to next level";
+					str = "Press ENTER for the next level";
 					// save data
 					LevelSelect.save.data.array = State.levelArr.slice();
 					LevelSelect.save.flush();
@@ -54,7 +54,7 @@ package main
 				}
 				addText(str, 400, 15);
 			}
-			addText("Press ESC back to main menu", 450, 15);
+			addText("Press ESC for the main menu", 450, 15);
 			
 		}
 		

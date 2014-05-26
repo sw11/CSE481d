@@ -176,7 +176,7 @@ package levels
 			
 			if (instrBool2) {
 				if (FlxG.keys.justPressed("RIGHT")) {
-					instruction.text = "Object will fall from the truck\nCatch all the falling object\nPress [Enter] to start";
+					instruction.text = "Objects will fall from the truck\nCatch all of the falling objects\nPress [Enter] to start";
 					instrBool2 = false;
 				}
 				return true;
