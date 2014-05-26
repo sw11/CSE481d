@@ -47,7 +47,7 @@ package utility
 		// transportation
 		public static const TRUCK_X:int = 30;
 		public static const TRUCK_Y:int = 5;
-		public static const PLANE_X:int = 30;
+		public static const PLANE_X:int = WIDTH / 2 - 60;
 		public static const PLANE_Y:int = 5;
 		public static const SHIP_X:int = WIDTH / 2 - 60;
 		public static const SHIP_Y:int = 5;

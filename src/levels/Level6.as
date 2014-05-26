@@ -39,6 +39,8 @@ package levels
 		private var ammoText:FlxText;
 		private var ammoBox:AmmoBox;
 		private var healthUp:Heart;
+		private var firstBomb:Bomb;
+		private var firstAmmo:Ammos;
 		
 		/////////////////////////// tank /////////////////////////////
 		private var tank:Tank;
@@ -52,7 +54,8 @@ package levels
 		protected var pauseGroup:FlxGroup;
 		private var skipInstr:FlxText;
 		private var lostText:FlxText;
-		
+		private var instrBool1:Boolean;
+		private var instrBool2:Boolean;
 		private var objArr:Array;
 	
 		override public function create(): void {
@@ -70,11 +73,13 @@ package levels
 
 			health = StaticVars.TOTAL_HEALTH;
 			
+			instrBool1 = true;
+			instrBool2 = true;
 			///////////////// ammos//////////////////////////
 			_ammos = new FlxGroup();
 			add(_ammos);
 			
-			_ammoLeft = StaticVars._6_AMMO_COUNT;
+			_ammoLeft = StaticVars._6_AMMO_COUNT + 1;
 			
 			ammoArr = new Array();
 			add(new AmmoCount(10, 600));
@@ -87,7 +92,7 @@ package levels
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
-			instruction = Helper.addInstr("We got a tank!\nPress [Spacebar] to shoot", 0, 250, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("We got a tank!\nPress [Spacebar] to shoot the bomb", 0, 250, StaticVars.BLACK, 20);
 			add(instruction);
 			
 			skipInstr = Helper.addInstr("[S] to skip", 0, 450, StaticVars.RED, 15);
@@ -99,6 +104,9 @@ package levels
 			airplaneFillBar = new FlxBar(15, 5, FlxBar.FILL_BOTTOM_TO_TOP, 10, 60, airplane, "numObjs", 0, _bombLeft, true);
 			airplaneFillBar.trackParent(-13, 0);
 			add(airplaneFillBar);
+			
+			firstBomb = new Bomb(StaticVars.TANK_X, 100);
+			add(firstBomb);
 			/////////////////////// bucket ////////////////////////////
 			tank = new Tank(StaticVars.TANK_X, StaticVars.TANK_Y);
 			add(tank);
@@ -121,13 +129,8 @@ package levels
 				FlxG.switchState(new LevelSelect());
 			}
 			
-			if (paused) {
-				if (FlxG.keys.justPressed("ENTER")) {
-					instruction.kill();
-					paused = false;
-				} else {
-					return pauseGroup.update();
-				}
+			if (paused && tutorial()) {
+				return pauseGroup.update();
 			}
 
 			if (health <= 0) {
@@ -253,19 +256,47 @@ package levels
 			if (FlxG.keys.justPressed("S")) {
 				instruction.kill();
 				skipInstr.kill();
+				_ammoLeft = StaticVars._6_AMMO_COUNT;
+				ammoText.text = "x" + _ammoLeft;
+				firstBomb.kill();
+				if (firstAmmo != null) {
+					firstAmmo.kill();
+				}
 				paused = false;
 			}
-			/*
+			
+			if (!instrBool1 && firstAmmo != null) {
+				FlxG.overlap(firstBomb, firstAmmo, firstAmmoBomb);
+				firstAmmo.y -= 10;
+			}
+			
 			if (instrBool1) {
 				if (FlxG.keys.justPressed("SPACE")) {
-					instruction.text = "Blue objects to recycle bin\nPress 2 to switch to recycle bin";
-					instruction.color = StaticVars.BLUE;
+					firstAmmo = new Ammos(StaticVars.TANK_X, StaticVars.TANK_Y);
+					add(firstAmmo);
+					_ammoLeft--;
+					ammoText.text = "x" + _ammoLeft;
+					instruction.text = "The button left indicate how many ammos left\nPress [Enter] to start";
 					instrBool1 = false;
 				}
 				return true;
 			
-			} 
+			}
 			
+			if (FlxG.keys.justPressed("ENTER")) {
+				paused = !paused;
+				instruction.kill();
+				skipInstr.kill();
+				if (!firstBomb.isKill()) {
+					firstBomb.kill();
+				}
+				_ammoLeft = StaticVars._6_AMMO_COUNT;
+				if (firstAmmo != null) {
+					firstAmmo.kill();
+				}
+			}
+			return true;
+			/*
 			if (FlxG.keys.TWO) {
 				bucket.tutorialBucketSwitching(ThreeBucket.RECYCLE);
 			} 
@@ -312,6 +343,13 @@ package levels
 			return true;
 		}
 		
+		private function  firstAmmoBomb(b:Bomb, a:Ammos):void {
+			a.kill();
+			if (!b.isKill()) {
+				b.kill();
+			}
+			
+		}
 		
 		private function endGame(): void {
 			//var logData:Object = {"finalScore":score, "misses":health};
