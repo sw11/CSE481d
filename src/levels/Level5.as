@@ -76,7 +76,7 @@ package levels
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
-			instruction = Helper.addInstr("Protect yourself!\nAvoid bombs!\nPress [Enter] to start", 0, 250, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("Protect yourself!\nStay away from the bombs!\nPress [Enter] to start", 0, 250, StaticVars.BLACK, 20);
 			add(instruction);
 			
 			/////////////////////// truck ////////////////////////////
