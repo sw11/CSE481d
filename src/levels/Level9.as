@@ -75,6 +75,9 @@ package levels
 			//StaticVars.logger.logLevelStart(1, null);
 			_sharks = new FlxGroup();
 			add(_sharks);	
+
+			//_bombs = new FlxGroup();
+			//add(_bombs);	
 			
 			_foodObj = new FlxGroup();
 			add(_foodObj);
@@ -161,7 +164,19 @@ package levels
 			if (paused && tutorial()) {
 				return pauseGroup.update();
 			}
-			
+/*<<<<<<< HEAD
+=======
+
+			if (FlxG.keys.justPressed("SPACE") && _ammoLeft > 0) {
+				FlxG.play(SoundEffect.tankShoot);
+				(ammoArr.pop() as AmmoCount).kill(); 
+				_ammos.add(Helper.fireAmmo(tank.x + 40));
+				_ammoLeft--;
+			} else if (FlxG.keys.justPressed("SPACE") && _ammoLeft == 0) {
+				// show no ammos
+			}
+>>>>>>> ce78d89109ea1f1543fcc6345844ab12861f68c8
+*/			
 			if (++hungryCounter >= StaticVars._10_HUNGRY) {
 				if (lostText.alpha < 1) {
 					lostText.alpha -= StaticVars.LOST_TEXT_ALPHA;
@@ -252,6 +267,7 @@ package levels
 		
 		
 		//////////////////////////// overlap ///////////////////////////
+//<<<<<<< HEAD
 		private function overlapKillBarObj(killBar:FlxSprite, obj:FallObjs):void {
 			obj.velocity.y = 0;
 			if (obj.alpha > 0) {
@@ -285,7 +301,31 @@ package levels
 		
 		private function fishHappy() : void {
 			FlxG.play(SoundEffect.score);
-			add(new Smile(fish.x, fish.y-50, false));
+			add(new Smile(fish.x, fish.y - 50, false));
+		}
+//=======
+/*		private function overlapObjBucket(but:Tank, bomb:Bomb):void {
+			if (!bomb.isKill()) {
+				bomb.kill();
+				but.play("minus");
+				//this.score -= bombScore;
+				health--;
+				FlxG.shake(0.04, 0.1, null, true, 1);
+				FlxG.play(SoundEffect.bomb);
+				var ammoLeft:Object = { "ammo" : _ammoLeft };
+				StaticVars.logger.logAction(4, ammoLeft);
+			}
+		}
+		
+		private function overlapKillBarObj(killBar:FlxSprite, bomb:Bomb):void {
+			if (!bomb.isKill()) {
+				bomb.kill();
+				//but.play("minus");
+				//this.score -= bombScore;
+				//FlxG.shake(0.04, 0.1, null, true, 1);
+				FlxG.play(SoundEffect.bomb);
+			}	
+>>>>>>> ce78d89109ea1f1543fcc6345844ab12861f68c8
 		}
 		/*
 		
@@ -301,6 +341,10 @@ package levels
 			if (!bomb.isKill()) {
 				//bomb.alpha = 0.99;
 				bomb.kill();
+				FlxG.play(SoundEffect.bomb);
+				//kill bomb is 5
+				var ammoLeft:Object = { "ammo" : _ammoLeft };
+				StaticVars.logger.logAction(5, ammoLeft);
 			}
 			// may fall some good things
 			//score++;
