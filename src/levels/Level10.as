@@ -112,19 +112,25 @@ package levels
 			//set backgroud color
 			FlxG.bgColor = StaticVars.BGCOLOR;
 			
-			var s:Shark = new Shark(300, 300, 250, 350, 60);
-			_sharks.add(s);
+			//var s:Shark = new Shark(300, 300, 250, 350, 60);
+			//_sharks.add(s);
 			
+			
+			var s1:Shark = new Shark(300, 200, 150, 250, 60, 150);
+			_sharks.add(s1);
+			
+			var s2:Shark = new Shark(400, 450, 400, 500, 40, 100);
+			_sharks.add(s2);
 			/////////////////////// killbar ////////////////////////////
 			killBar = Helper.addKillBar();
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
-			instruction = Helper.addInstr("Press spacebar to drop food", 0, 250, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("OMG! One more shark!\nPress [Enter] to start", 0, 250, StaticVars.BLACK, 20);
 			add(instruction);
 
-			skipInstr = Helper.addInstr("[S] to skip the tutoial", 0, 450, StaticVars.RED, 15);
-			add(skipInstr);
+			//skipInstr = Helper.addInstr("[S] to skip the tutoial", 0, 450, StaticVars.RED, 15);
+			//add(skipInstr);
 			
 			/////////////////////// Ship ////////////////////////////
 			ship = new Ship(StaticVars.SHIP_X, StaticVars.SHIP_Y);
@@ -158,8 +164,13 @@ package levels
 				FlxG.switchState(new LevelSelect());
 			}
 			
-			if (paused && tutorial()) {
-				return pauseGroup.update();
+			if (paused) {
+				if (FlxG.keys.justPressed("ENTER")) {
+					paused = false;
+					instruction.kill();
+				} else {
+					return pauseGroup.update();
+				}
 			}
 			
 			if (++hungryCounter >= StaticVars._10_HUNGRY) {

@@ -10,7 +10,7 @@ package bucketBin
 	public class Shark extends FlxSprite
 	{
 		//private static const _move_speed : int = 400;
-		private static const moveSpeed:int = 150;
+		private var moveSpeed:int;
 		private static const ySpeed:int = 50;
 		//private var xCoord : int;
 		//private var yCoord : int;
@@ -26,12 +26,13 @@ package bucketBin
 		private var up:int;
 		private var down:int;
 		
-		public function Shark(x:Number, y:Number, up:int, down:int, rand:int) {
+		public function Shark(x:Number, y:Number, up:int, down:int, rand:int, speed:int) {
 			super(x, y);
 			//xCoord = x;
 			//yCoord = y;
 			//maxVelocity.x = 200;
 			//this.scoreBar = scoreBar;
+			moveSpeed = speed;
 			loadGraphic(shark, true, false, 75, 50);
 			velocity.x = moveSpeed;
 			velocity.y = ySpeed;
