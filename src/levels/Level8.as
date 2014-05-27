@@ -381,7 +381,7 @@ package levels
 */
 		
 		private function endGame(): void {
-			var obj:Object = {"health":health, "level":7 }; 
+			var obj:Object = {"health":health, "level":8 }; 
 			Helper.dropCount = 0;
 			StaticVars.logger.logLevelEnd(obj);
 			Helper.endgame(obj);
