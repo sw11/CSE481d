@@ -79,7 +79,7 @@ package levels
 			_ammos = new FlxGroup();
 			add(_ammos);
 			
-			_ammoLeft = StaticVars._6_AMMO_COUNT + 1;
+			_ammoLeft = StaticVars._6_AMMO_COUNT;
 			
 			ammoArr = new Array();
 			add(new AmmoCount(10, 600));
@@ -165,7 +165,7 @@ package levels
 			tank.healthLeft = health;
 			airplane.numObjs = _bombLeft;
 			
-			if (Helper.genRandom(StaticVars._6_FALL_RATE) && _bombLeft > 0)
+			if (Helper.genRandom(StaticVars._7_FALL_RATE) && _bombLeft > 0)
 			{
 				if (health == 1 && healthUp == null && Helper.oneOf(10)) {
 					// fall heart
@@ -205,7 +205,7 @@ package levels
 				if (fallObj.alpha > 1) {
 					continue;
 				}
-				if ((++objArr[i][1]) % StaticVars.c5FogRate == 0) {
+				if ((++objArr[i][1]) % StaticVars._7_ALPHA_RATE == 0) {
 					objArr[i][2] = -objArr[i][2];
 				}
 				fallObj.alpha -= objArr[i][2];

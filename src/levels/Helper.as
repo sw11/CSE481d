@@ -161,6 +161,12 @@ package levels
 			return lostText;
 		}
 		
+		public static function addHungryText():FlxText {
+			var lostText:FlxText = new FlxText(0, 300, FlxG.width, "You Lost!\nThe fish is too hungry!");
+			lostText.setFormat(null, 30, StaticVars.RED, "center");
+			return lostText;
+		}
+		
 		public static function addInstr(text:String, xPos:int, yPos:int, color:int, fontSize:int):FlxText {
 			var str:FlxText = new FlxText(xPos, yPos, FlxG.width, text);
 			str.setFormat(null, fontSize, color, "center");

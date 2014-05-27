@@ -40,8 +40,18 @@ package utility
 		public static const _6_DROP_COUNT:int = 20;
 		// level 7
 		public static const _7_ALPHA:Number = 0.02;
-		public static const _7_ALPHA_RATE:int = 300;
+		public static const _7_ALPHA_RATE:int = 130;
 		public static const _7_TOTAL_OBJ:int = 35;
+		public static const _7_FALL_RATE:int = 25;
+		public static const _7_DROP_COUNT:int = 20;
+		// level 8
+		public static const _8_ALPHA:Number = 0.02;
+		public static const _8_ALPHA_RATE:int = 100;
+		public static const _8_TOTAL_OBJ:int = 40;
+		public static const _8_FALL_RATE:int = 20;
+		public static const _8_DROP_COUNT:int = 10;
+		public static const _8_AMMO_COUNT:int = 40;
+		
 		// level 10
 		public static const _10_FOOD_ALPHA:Number = 0.01;
 		public static const _10_TOTAL_OBJ:int = 10;
@@ -53,7 +63,7 @@ package utility
 		public static const TRUCK_Y:int = 5;
 		public static const PLANE_X:int = WIDTH / 2 - 60;
 		public static const PLANE_Y:int = 5;
-		public static const SHIP_X:int = WIDTH / 2 - 60;
+		public static const SHIP_X:int = 400;
 		public static const SHIP_Y:int = 5;
 		// buckets
 		public static const TWO_BUCKETS:int = 2;
@@ -66,7 +76,7 @@ package utility
 		// star
 		public static const STAR_ALPHA:Number = 0.005;
 		// fish
-		public static const FISH_X:int = WIDTH / 2 - 35;
+		public static const FISH_X:int = 100;
 		public static const FISH_Y:int = 550;
 		// lost text
 		public static const LOST_TEXT_ALPHA:Number = 0.005;
