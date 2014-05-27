@@ -188,7 +188,7 @@ package main
 					FlxG.switchState(new Level11());
 					break;
 				case 12:
-					FlxG.switchState(new Level8());
+					FlxG.switchState(new Level12());
 					break;
 			}
 		}

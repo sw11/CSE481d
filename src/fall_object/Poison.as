@@ -14,5 +14,11 @@ package fall_object
 			loadGraphic(skull, false, false, 50, 50);
 			velocity.y = 250; // move down velocity
 		}	
+		
+		override function update():void {
+			if (y > StaticVars.HEIGHT) {
+				this.kill();
+			}
+		}
 	}
 }

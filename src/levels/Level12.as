@@ -14,7 +14,7 @@ package levels
 	 * Sea + shark
 	 * @author Sam Wilson
 	 */
-	public class Level11 extends FlxState {	
+	public class Level12 extends FlxState {	
 		//////////////////////// scores ///////////////////////////
 		private var health:int;
 		
@@ -69,7 +69,7 @@ package levels
 		private var objArr:Array;
 	
 		override public function create(): void {
-			StaticVars.logger.logLevelStart(11, null);
+			StaticVars.logger.logLevelStart(12, null);
 			//add sea background
 			add(Helper.seaBackground());
 			
@@ -108,7 +108,7 @@ package levels
 			paused = true;
 			pauseGroup = new FlxGroup();
 			
-			_objLeft = StaticVars._11_TOTAL_OBJ;
+			_objLeft = StaticVars._12_TOTAL_OBJ;
 
 			health = StaticVars._11_HEALTH;
 			
@@ -129,8 +129,8 @@ package levels
 			var s3:Shark = new Shark(10, 450, 400, 500, 150, 75);
 			_sharks.add(s3);
 			
-			//var s4:Shark = new Shark(100, 130, 80, 180, 100, 100);
-			//_sharks.add(s4);
+			var s4:Shark = new Shark(100, 130, 80, 180, 100, 100);
+			_sharks.add(s4);
 			
 			var s5:Shark = new Shark(370, 400, 370, 450, 40, 120);
 			_sharks.add(s5);
@@ -138,14 +138,14 @@ package levels
 			var s6:Shark = new Shark(StaticVars.SHIP_X, 180, 150, 200, 200, 20);
 			_sharks.add(s6);
 			
-			//var s7:Shark = new Shark(230, 600, 550, 640, 200, 350);
-			//_sharks.add(s7);
+			var s7:Shark = new Shark(230, 600, 550, 640, 200, 400);
+			_sharks.add(s7);
 			/////////////////////// killbar ////////////////////////////
-			killBar = Helper.addKillBar();
-			add(killBar);
+			//killBar = Helper.addKillBar();
+			//add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
-			instruction = Helper.addInstr("We hate sharks, poison them all but not the fish!\nPress [Spacebar] to drop the poison", 0, 220, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("Last level! Kill all sharks!!!\nPress [Enter] to start", 0, 220, StaticVars.BLACK, 20);
 			add(instruction);
 
 			//skipInstr = Helper.addInstr("[S] to skip the tutoial", 0, 450, StaticVars.RED, 15);
@@ -185,7 +185,7 @@ package levels
 			}
 			
 			if (paused) {
-				if (FlxG.keys.justPressed("SPACE")) {
+				if (FlxG.keys.justPressed("ENTER")) {
 					// drop poison
 					paused = false;
 					instruction.kill();
@@ -235,7 +235,7 @@ package levels
 				_objLeft--;
 			}*/
 			
-			FlxG.overlap(killBar, _poisonObj, overlapKillBarObj);
+			//FlxG.overlap(killBar, _poisonObj, overlapKillBarObj);
 			FlxG.overlap(fish, _poisonObj, overlapObjFish);
 			FlxG.overlap(_sharks, _poisonObj, overlapObjShark);
 			//trace(_fallObj.countLiving() + " " + _fallObj.length);
@@ -422,7 +422,7 @@ package levels
 			if (_sharks.countLiving() > 0) {
 				health = 0;
 			}
-			var obj:Object = {"health":health, "level":11 }; 
+			var obj:Object = {"health":health, "level":12 }; 
 			Helper.dropCount = 0;
 			StaticVars.logger.logLevelEnd(obj);
 			Helper.endgame(obj);
