@@ -115,8 +115,7 @@ package levels
 			scoreBar.setParent(tank, "healthLeft", true, 10, 50);
 			add(scoreBar);
 			/////////////////////// lost instr ////////////////////////////
-			lostText = new FlxText(0, 100, FlxG.width, "You Lost");
-			lostText.setFormat(null, 20, StaticVars.BLACK, "center");
+			lostText = Helper.addLostText();
 			
 			super.create();
 		}
@@ -285,16 +284,15 @@ package levels
 			
 			if (instrBool1) {
 				if (FlxG.keys.justPressed("SPACE")) {
+					FlxG.play(SoundEffect.tankShoot);
 					firstAmmo = new Ammos(StaticVars.TANK_X + 40, StaticVars.TANK_Y);
 					add(firstAmmo);
 					_ammoLeft--;
 					ammoText.text = "x" + _ammoLeft;
 					instruction.text = "The lower left indicates your bullets left\nPress [Enter] to start";
-					instrBool1 = false;
-					FlxG.play(SoundEffect.tankShoot);
+					instrBool1 = false;	
 				}
 				return true;
-			
 			}
 			
 			if (FlxG.keys.justPressed("ENTER")) {
@@ -362,13 +360,10 @@ package levels
 			if (!b.isKill()) {
 				b.kill();
 			}
-			
 		}
 		
 		private function endGame(): void {
-			//var logData:Object = {"finalScore":score, "misses":health};
-			//StaticVars.logger.logLevelEnd(logData);
-			var obj:Object = {"health":health, "level":6 };//"bonus":bonus, 
+			var obj:Object = {"health":health, "level":6 }; 
 			Helper.dropCount = 0;
 			StaticVars.logger.logLevelEnd(obj);
 			Helper.endgame(obj);
