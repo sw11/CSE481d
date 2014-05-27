@@ -69,7 +69,7 @@ package levels
 		private var objArr:Array;
 	
 		override public function create(): void {
-			StaticVars.logger.logLevelStart(10, null);
+			StaticVars.logger.logLevelStart(11, null);
 			//add sea background
 			add(Helper.seaBackground());
 			
@@ -137,6 +137,9 @@ package levels
 			
 			var s6:Shark = new Shark(StaticVars.SHIP_X, 180, 150, 200, 200, 20);
 			_sharks.add(s6);
+			
+			var s7:Shark = new Shark(230, 600, 550, 640, 200, 350);
+			_sharks.add(s7);
 			/////////////////////// killbar ////////////////////////////
 			killBar = Helper.addKillBar();
 			add(killBar);
@@ -157,7 +160,7 @@ package levels
 			add(shipFillBar);
 			/////////////////////// bucket ////////////////////////////
 			fish = new Fish(StaticVars.FISH_X, 300);
-			fish.velocity.x = -300;
+			fish.velocity.x = -350;
 			add(fish);
 			
 			scoreBar = new FlxBar(StaticVars.FISH_X, 300 + 26,FlxBar.FILL_LEFT_TO_RIGHT, 158, 14);
@@ -416,6 +419,9 @@ package levels
 		
 		
 		private function endGame(): void {
+			if (_sharks.countLiving() > 0) {
+				health = 0;
+			}
 			var obj:Object = {"health":health, "level":11 }; 
 			Helper.dropCount = 0;
 			StaticVars.logger.logLevelEnd(obj);
