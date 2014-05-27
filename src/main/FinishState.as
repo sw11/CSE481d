@@ -40,7 +40,7 @@ package main
 			
 			// todo
 			// add score summary points
-			if (level == 12) {
+			if (level == 12 && isWin) {
 				addText("Congratulation! You have passed all levels", 400, 15);
 			} else {
 				var str:String;
