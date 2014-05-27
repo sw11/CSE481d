@@ -16,6 +16,7 @@ package fall_object
 		public static const ALL_THREE:int = 3;
 		public static const TRASH:int = 4;
 		public static const FOOD:int = 5;
+		public static const POISON:int = 6;
 		
 		private var currentObj:int;
 		
@@ -56,6 +57,8 @@ package fall_object
 				case FOOD:
 					randClass = Objects.getFoodObj();
 					break;
+				case POISON:
+					randClass = Objects.getPoisonObj();
 			}
 			
 			/*

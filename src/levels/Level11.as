@@ -1,6 +1,5 @@
 package levels 
 {
-	import bucketBin.Person;
 	import cgs.teacherportal.activity.ProblemSetLogger;
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.FlxDelay;
@@ -16,8 +15,6 @@ package levels
 	 * @author Sam Wilson
 	 */
 	public class Level11 extends FlxState {	
-		[Embed(source = '../../img/fog_3.png')] protected static var fog:Class;
-		
 		//////////////////////// scores ///////////////////////////
 		private var health:int;
 		
@@ -25,22 +22,23 @@ package levels
 		private var scoreBar: FlxBar;
 		
 		/////////////////////////// toturial /////////////////////////////
-		private var instrBool2:Boolean;
-		private var instrBool3:Boolean;
+		//private var instrBool2:Boolean;
+		//private var instrBool3:Boolean;
 		private var instruction:FlxText;
-		private var instrBool1:Boolean;
-		private var skipInstr:FlxText;
-		private var firstAmmo:Ammos;
+		//private var instrBool1:Boolean;
+		//private var skipInstr:FlxText;
+		//private var firstAmmo:Ammos;
 		
 		/////////////////////////// Killbar /////////////////////////////
 		protected var killBar:FlxSprite;
 		
 		//protected var missCount:int;
 		/////////////////////////// Fall obj /////////////////////////////
-		private var _foodObj: FlxGroup;
+		private var _poisonObj: FlxGroup;
 		//private var _bombs:FlxGroup;
 		private var _objLeft:int;
 		private var spaceBarCount:int;
+		private var _poison:FlxGroup;
 		//private var _ammos:FlxGroup;
 		//private var ammoArr:Array;
 		//private var _ammoLeft:int;
@@ -59,7 +57,7 @@ package levels
 		
 		/////////////////////////// fish /////////////////////////////
 		private var fish:Fish;
-		private var hungryCounter:int;
+		//private var hungryCounter:int;
 		private var shipFillBar:FlxBar;
 		
 		/////////////////////////// tutorial /////////////////////////////
@@ -71,15 +69,19 @@ package levels
 		private var objArr:Array;
 	
 		override public function create(): void {
+			StaticVars.logger.logLevelStart(10, null);
 			//add sea background
 			add(Helper.seaBackground());
 			
-			StaticVars.logger.logLevelStart(11, null);
+			//StaticVars.logger.logLevelStart(1, null);
 			_sharks = new FlxGroup();
 			add(_sharks);	
 			
-			_foodObj = new FlxGroup();
-			add(_foodObj);
+			_poisonObj = new FlxGroup();
+			add(_poisonObj);
+			
+			_poison = new FlxGroup();
+			add(_poison);
 			//_ammos = new FlxGroup();
 			//add(_ammos);
 			
@@ -97,38 +99,54 @@ package levels
 			fog.velocity.y = StaticVars.fogSpeed;
 			add(fog);
 			*/
-			instrBool1 = true;
-			instrBool2 = true;
-			instrBool3 = true;
+			//instrBool1 = true;
+			//instrBool2 = true;
+			//instrBool3 = true;
 			
 			objArr = new Array();
 			
 			paused = true;
 			pauseGroup = new FlxGroup();
 			
-			_objLeft = StaticVars._10_TOTAL_OBJ;
+			_objLeft = StaticVars._11_TOTAL_OBJ;
 
-			health = StaticVars.TOTAL_HEALTH;
+			health = StaticVars._11_HEALTH;
 			
 			spaceBarCount = StaticVars._10_DROP_COUNT;
 			//set backgroud color
 			FlxG.bgColor = StaticVars.BGCOLOR;
 			
-			var s1:Shark = new Shark(300, 200, 150, 250, 60, 200);
+			//var s:Shark = new Shark(300, 300, 250, 350, 60);
+			//_sharks.add(s);
+			
+			
+			var s1:Shark = new Shark(300, 200, 150, 250, 60, 150);
 			_sharks.add(s1);
 			
-			var s2:Shark = new Shark(100, 450, 400, 500, 40, 10);
+			var s2:Shark = new Shark(400, 550, 400, 500, 40, 200);
 			_sharks.add(s2);
+			
+			var s3:Shark = new Shark(10, 450, 400, 500, 150, 75);
+			_sharks.add(s3);
+			
+			var s4:Shark = new Shark(100, 130, 80, 180, 100, 100);
+			_sharks.add(s4);
+			
+			var s5:Shark = new Shark(370, 400, 370, 450, 40, 120);
+			_sharks.add(s5);
+			
+			var s6:Shark = new Shark(StaticVars.SHIP_X, 180, 150, 200, 200, 20);
+			_sharks.add(s6);
 			/////////////////////// killbar ////////////////////////////
 			killBar = Helper.addKillBar();
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
-			instruction = Helper.addInstr("Press spacebar to drop food", 0, 250, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("We hate sharks, poison them all but not the fish!\nPress [Spacebar] to drop the poison", 0, 220, StaticVars.BLACK, 20);
 			add(instruction);
 
-			skipInstr = Helper.addInstr("[S] to skip the tutoial", 0, 450, StaticVars.RED, 15);
-			add(skipInstr);
+			//skipInstr = Helper.addInstr("[S] to skip the tutoial", 0, 450, StaticVars.RED, 15);
+			//add(skipInstr);
 			
 			/////////////////////// Ship ////////////////////////////
 			ship = new Ship(StaticVars.SHIP_X, StaticVars.SHIP_Y);
@@ -138,16 +156,16 @@ package levels
 			shipFillBar.trackParent(-13, 0);
 			add(shipFillBar);
 			/////////////////////// bucket ////////////////////////////
-			fish = new Fish(StaticVars.FISH_X, StaticVars.FISH_Y);
+			fish = new Fish(StaticVars.FISH_X, 300);
+			fish.velocity.x = -300;
 			add(fish);
 			
-			scoreBar = new FlxBar(StaticVars.FISH_X, StaticVars.FISH_Y + 26,FlxBar.FILL_LEFT_TO_RIGHT, 158, 14);
+			scoreBar = new FlxBar(StaticVars.FISH_X, 300 + 26,FlxBar.FILL_LEFT_TO_RIGHT, 158, 14);
 			scoreBar.createImageBar(null, Img.heart, 0x0);
 			scoreBar.setRange(0, 10);
 			scoreBar.setParent(fish, "healthLeft", true, 0, 26);
 			add(scoreBar);
 			
-			health = 0;
 			/////////////////////// lost instr ////////////////////////////
 			lostText = Helper.addLostText();
 			
@@ -157,16 +175,23 @@ package levels
 		
 		override public function update():void 
 		{			
+			scoreBar.currentValue = health;
 			if (FlxG.keys.justPressed("ESCAPE")) {
 				// need to log?
 				FlxG.switchState(new LevelSelect());
 			}
 			
-			if (paused && tutorial()) {
-				return pauseGroup.update();
+			if (paused) {
+				if (FlxG.keys.justPressed("SPACE")) {
+					// drop poison
+					paused = false;
+					instruction.kill();
+				} else {
+					return pauseGroup.update();
+				}
 			}
 			
-			if (++hungryCounter >= StaticVars._10_HUNGRY) {
+			/*if (++hungryCounter >= StaticVars._10_HUNGRY) {
 				if (health == 1) {
 					if (lostText.alpha >= 1) {
 					add(lostText);
@@ -180,18 +205,18 @@ package levels
 				}	
 				health = Math.max(--health, 0);
 				hungryCounter = 0;
-			}
+			}*/
 
 			if (++spaceBarCount > StaticVars._10_DROP_COUNT && FlxG.keys.justPressed("SPACE") && _objLeft > 0) {
 				FlxG.play(SoundEffect.drop);
-				var food:FallObjs = Helper.fallObj(ship.getX(), 50, StaticVars.fallSpeedFast, FallObjs.FOOD);
+				var food:FallObjs = Helper.fallObj(ship.getX(), 50, StaticVars.fallSpeedFast, FallObjs.POISON);
 				food.offset = new FlxPoint(0, -10);
-				_foodObj.add(food);
+				_poisonObj.add(food);
 				_objLeft--;
 				spaceBarCount = 0;
 			} 
 			
-			if (health == StaticVars.TOTAL_HEALTH || (_objLeft <= 0 && _foodObj.countLiving() <= 0)) {
+			if (health == 0 || _sharks.countLiving() ==  0 || (_objLeft <= 0 && _poisonObj.countLiving() <= 0)) {
 				endGame();
 			}
 			
@@ -207,9 +232,9 @@ package levels
 				_objLeft--;
 			}*/
 			
-			FlxG.overlap(killBar, _foodObj, overlapKillBarObj);
-			FlxG.overlap(fish, _foodObj, overlapObjFish);
-			FlxG.overlap(_sharks, _foodObj, overlapObjShark);
+			FlxG.overlap(killBar, _poisonObj, overlapKillBarObj);
+			FlxG.overlap(fish, _poisonObj, overlapObjFish);
+			FlxG.overlap(_sharks, _poisonObj, overlapObjShark);
 			//trace(_fallObj.countLiving() + " " + _fallObj.length);
 			//var arr:Array = _fallObj.members;
 			/*for (var i:int = 0; i < objArr.length; i++) {
@@ -247,29 +272,26 @@ package levels
 		
 		//////////////////////////// overlap ///////////////////////////
 		private function overlapKillBarObj(killBar:FlxSprite, obj:FallObjs):void {
-			obj.velocity.y = 0;
-			if (obj.alpha > 0) {
-				obj.alpha -= StaticVars._10_FOOD_ALPHA;
-			} else {
-				obj.kill();
-			}
+			obj.kill();
 		}
 		
 		
 		private function overlapObjFish(f:Fish, obj:FallObjs):void {
-			health = Math.min(StaticVars.TOTAL_HEALTH, ++health);
+			health--;// = Math.min(StaticVars.TOTAL_HEALTH, ++health);
 			obj.kill();
-			hungryCounter = 0;
+			//hungryCounter = 0;
 			//feed fish aid code 8
 			StaticVars.logger.logAction(8, null);
-			fishHappy();
+			fishSad();
+			//fishHappy();
 		}
 		
 		private function overlapObjShark(s:Shark, obj:FallObjs):void {
 			obj.kill();
+			s.kill();
 			//feed shark aid code 7
 			StaticVars.logger.logAction(7, null);
-			fishSad();
+			fishHappy();
 		}
 		
 		private function fishSad() : void {
@@ -301,7 +323,7 @@ package levels
 		}
 */
 		//////////////////////////// tutorial ///////////////////////////
-		private function tutorial():Boolean {
+		/*private function tutorial():Boolean {
 			/*
 			FlxG.overlap(_bombs, _ammos, overlapAmmoBomb);
 			if (!instrBool1 && _ammos.countLiving() > 0) {
@@ -317,13 +339,23 @@ package levels
 				_ammos.add(firstAmmo);
 				_ammoLeft--;
 				instrBool1 = false;
-			}*/
+			}
 			// skip tutorial
 			if (FlxG.keys.justPressed("S")) {
 				instruction.kill();
-				skipInstr.kill();
+				//skipInstr.kill();
 				//add(scoreBar);
 				paused = false;
+			}
+			
+			if (FlxG.keys.justPressed("SPACE")) {
+				FlxG.play(SoundEffect.drop);
+				var food:FallObjs = Helper.fallObj(ship.getX(), 50, StaticVars.fallSpeedFast, FallObjs.FOOD);
+				food.offset = new FlxPoint(0, -10);
+				_poisonObj.add(food);
+				paused = false;
+				instruction.kill();
+				skipInstr.kill();
 			}
 			/*
 			if (instrBool1) {
@@ -368,7 +400,7 @@ package levels
 					instrBool4 = false;
 				}
 				return true;
-			}*/
+			}
 			
 			/*if (paused) {
 				if (FlxG.keys.justPressed("ENTER")) {
@@ -378,16 +410,15 @@ package levels
 					add(scoreBar);
 				}
 				return true;
-			} */	
+			} 	
 			return true;
-		}
+		}*/
 		
 		
 		private function endGame(): void {
-			//var logData:Object = {"finalScore":score, "misses":health};
-			//StaticVars.logger.logLevelEnd(logData);
-			var obj:Object = {"health":health, "level":11 };//"bonus":bonus, 
+			var obj:Object = {"health":health, "level":11 }; 
 			Helper.dropCount = 0;
+			StaticVars.logger.logLevelEnd(obj);
 			Helper.endgame(obj);
 		}
 	}

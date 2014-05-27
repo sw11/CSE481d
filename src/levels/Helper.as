@@ -103,7 +103,7 @@ package levels
 			if (health > 0) {
 				// win
 				//if (level == State.unlockLevel) {
-					State.toNextLevel(level);
+				State.toNextLevel(level);
 				//}
 				if (health == 5 || (level == 5 && health == 3)) {
 					State.star(level);

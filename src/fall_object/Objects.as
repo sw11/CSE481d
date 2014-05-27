@@ -75,5 +75,11 @@ package fall_object
 		public static function getCompostObj():Class {
 			return  FlxU.getRandom(compostArr, 0, 6) as Class;
 		}
+		
+		[Embed(source = '../../img/skull.png')] private static var poison:Class;
+		public static function getPoisonObj():Class {
+			return poison;
+			
+		}
 	}
 }

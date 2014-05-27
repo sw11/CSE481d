@@ -58,6 +58,8 @@ package utility
 		public static const _10_HUNGRY:int = 1000;
 		public static const _10_DROP_COUNT:int = 100;
 		
+		public static const _11_TOTAL_OBJ:int = 8;
+		public static const _11_HEALTH:int = 1;
 		// transportation
 		public static const TRUCK_X:int = 30;
 		public static const TRUCK_Y:int = 5;
