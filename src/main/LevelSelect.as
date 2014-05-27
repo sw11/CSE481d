@@ -33,6 +33,7 @@ package main
 		private var selected:FlxSprite;
 		
 		override public function create(): void {
+			add(Helper.airBackground());
 			FlxG.bgColor = StaticVars.WHITE;
 			var levelInstr1:FlxText;
 			levelInstr1 = Helper.addInstr("Level", 0, 50, StaticVars.BLACK, 30);

@@ -2,6 +2,7 @@ package main
 {
 	import org.flixel.*;
 	import utility.*;
+	import levels.Helper;
 	
 	/**
 	 * ...
@@ -11,7 +12,7 @@ package main
 	{
 		override public function create(): void {
 			FlxG.bgColor = StaticVars.WHITE;
-			
+			add(Helper.airBackground());
 			add(instr("Trash It", 100, 80));
 			add(instr("Press [Enter] to start", 400, 20));
 		}
