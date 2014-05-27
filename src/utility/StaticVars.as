@@ -38,6 +38,10 @@ package utility
 		public static const _6_FALL_RATE:int = 30;
 		public static const _6_AMMO_COUNT:int = 20;
 		public static const _6_DROP_COUNT:int = 20;
+		// level 7
+		public static const _7_ALPHA:Number = 0.02;
+		public static const _7_ALPHA_RATE:int = 300;
+		public static const _7_TOTAL_OBJ:int = 35;
 		// level 10
 		public static const _10_FOOD_ALPHA:Number = 0.01;
 		public static const _10_TOTAL_OBJ:int = 10;
