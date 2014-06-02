@@ -12,7 +12,7 @@ package transportation
 	{
 		[Embed(source = '../../img/truck.png')] private static var truck:Class;
 		
-		private static const moveSpeed:int = 200;
+		private static const moveSpeed:int = 250;
 		//private var xCoord : int;
 		//private var yCoord : int;
 		public var numObjs:Number;
@@ -48,7 +48,7 @@ package transportation
 			} else if (counter++ > maxCount) {
 				
 				counter = 0;
-				maxCount = Math.floor(Math.random() * 50 + 50);
+				maxCount = Math.floor(Math.random() * 50 + 60);
 				///trace(velocity.x);
 				velocity.x = -velocity.x; // StaticVars.speed * maxCount * ( -1);
 				if (velocity.x > 0 ) {
@@ -57,23 +57,6 @@ package transportation
 					play("left", false);
 				}
 			} 
-			/*
-			if (Helper.oneOf(2) && x > 5) {
-				
-			} else if (x < 505) {
-				velocity.x = StaticVars.speed;
-			} else {
-				velocity.x = 0;
-			}*/
-			
-			/*if (FlxG.keys.LEFT && x > 5){
-				velocity.x = -StaticVars.speed;
-			} else if (FlxG.keys.RIGHT && x < 505) {
-				velocity.x = StaticVars.speed;
-			} else {
-				velocity.x = 0;
-			}	*/
-			//scoreBar.velocity.x = velocity.x;
 		}
 		
 		public function getX():int {

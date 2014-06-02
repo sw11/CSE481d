@@ -18,25 +18,25 @@ package utility
 		public static const TOTAL_HEALTH:int = 5;
 		
 		// level 1
-		public static const _1_TOTAL_OBJ:int = 12;
-		public static const _1_FALL_RATE:int = 50;
+		public static const _1_TOTAL_OBJ:int = 20;
+		public static const _1_FALL_RATE:int = 20;
 		// level 2
-		public static const _2_TOTAL_OBJ:int = 15;
-		public static const _2_FALL_RATE:int = 55;
+		public static const _2_TOTAL_OBJ:int = 25;
+		public static const _2_FALL_RATE:int = 20;
 		// level 3
-		public static const _3_TOTAL_OBJ:int = 20;
-		public static const _3_FALL_RATE:int = 60;
+		public static const _3_TOTAL_OBJ:int = 30;
+		public static const _3_FALL_RATE:int = 25;
 		// level 4
-		public static const _4_TOTAL_OBJ:int = 20;
-		public static const _4_FALL_RATE:int = 60;
+		public static const _4_TOTAL_OBJ:int = 35;
+		public static const _4_FALL_RATE:int = 25;
 		// level 5
-		public static const _5_TOTAL_OBJ:int = 20;
-		public static const _5_FALL_RATE:int = 60;
+		public static const _5_TOTAL_OBJ:int = 40;
+		public static const _5_FALL_RATE:int = 20;
 		public static const _5_TOTAL_HEALTH:int = 3;
 		// level 6
 		public static const _6_TOTAL_OBJ:int = 30;
-		public static const _6_FALL_RATE:int = 30;
-		public static const _6_AMMO_COUNT:int = 20;
+		public static const _6_FALL_RATE:int = 25;
+		public static const _6_AMMO_COUNT:int = 25;
 		public static const _6_DROP_COUNT:int = 20;
 		// level 7
 		public static const _7_ALPHA:Number = 0.02;
@@ -44,6 +44,7 @@ package utility
 		public static const _7_TOTAL_OBJ:int = 35;
 		public static const _7_FALL_RATE:int = 25;
 		public static const _7_DROP_COUNT:int = 20;
+		public static const _7_AMMO_COUNT:int = 25
 		// level 8
 		public static const _8_ALPHA:Number = 0.02;
 		public static const _8_ALPHA_RATE:int = 100;

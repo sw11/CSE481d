@@ -79,7 +79,7 @@ package levels
 			_ammos = new FlxGroup();
 			add(_ammos);
 			
-			_ammoLeft = StaticVars._6_AMMO_COUNT;
+			_ammoLeft = StaticVars._7_AMMO_COUNT;
 			
 			ammoArr = new Array();
 			add(new AmmoCount(10, 600));

@@ -12,7 +12,7 @@ package transportation
 	{
 		[Embed(source = '../../img/airplane.png')] private static var airplane:Class;
 		
-		private static const moveSpeed:int = 250;
+		private static const moveSpeed:int = 330;
 		//private var xCoord : int;
 		//private var yCoord : int;
 		public var numObjs:Number;
@@ -48,7 +48,7 @@ package transportation
 				counter = 0;
 			} else if (counter++ > maxCount) {
 				counter = 0;
-				maxCount = Math.floor(Math.random() * 30 + 40);
+				maxCount = Math.floor(Math.random() * 30 + 50);
 				///trace(velocity.x);
 				velocity.x = -velocity.x; // StaticVars.speed * maxCount * ( -1);
 				if (velocity.x > 0) {
