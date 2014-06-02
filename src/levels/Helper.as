@@ -105,7 +105,7 @@ package levels
 				//if (level == State.unlockLevel) {
 				State.toNextLevel(level);
 				//}
-				if (health == 5 || (level == 1 && health == 3) || level == 7 || level == 8) {
+				if (health == 5 || (level == 1 && health == 3) || level >= 11) {
 					State.star(level);
 				}
 				FlxG.switchState(new FinishState("WIN", health, level));

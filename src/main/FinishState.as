@@ -33,7 +33,7 @@ package main
 			if (_health > 0) {
 				add(Helper.addInstr("Health left: " + _health, -30, 200, StaticVars.BLACK, 20));
 			} 
-			if (_health == 5 || (level == 1 && _health == 3) || (_health > 0 && (level == 7 || level == 8) )) {
+			if (_health == 5 || (level == 1 && _health == 3) || (_health > 0 && level >= 11)) {
 				// add star
 				var starIcon:FlxSprite = new FlxSprite(StaticVars.WIDTH/2 + 50, 200);
 				starIcon.loadGraphic(star, true, true, 24, 24);
