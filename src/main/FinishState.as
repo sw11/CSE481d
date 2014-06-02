@@ -17,6 +17,7 @@ package main
 		
 		
 		public function FinishState(result:String, health:int, level:int): void {
+			
 			super();
 			this.result = result;
 			isWin = result == "WIN";
@@ -25,6 +26,7 @@ package main
 		}
 		
 		override public function create(): void {
+			add(Helper.airBackground());
 			//FlxG.bgColor = StaticVars.WHITE;
 			addText(result, 100, 35);
 			//trace(_health + " in finish state");
