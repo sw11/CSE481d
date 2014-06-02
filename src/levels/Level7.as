@@ -146,7 +146,7 @@ package levels
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
-			instruction = Helper.addInstr("We hate sharks, poison them all but not the fish!\nPress [Spacebar] to drop the poison", 0, 220, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("Scare the sharks away but not the fish!\nPress [Spacebar] to drop a scary skull", 0, 220, StaticVars.BLACK, 20);
 			add(instruction);
 
 			//skipInstr = Helper.addInstr("[S] to skip the tutoial", 0, 450, StaticVars.RED, 15);

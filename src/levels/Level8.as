@@ -146,7 +146,7 @@ package levels
 			//add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
-			instruction = Helper.addInstr("Last level! Kill all sharks!!!\nPress [Enter] to start", 0, 220, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("Scare away all of the sharks!\nPress [Enter] to start", 0, 220, StaticVars.BLACK, 20);
 			add(instruction);
 
 			//skipInstr = Helper.addInstr("[S] to skip the tutoial", 0, 450, StaticVars.RED, 15);
