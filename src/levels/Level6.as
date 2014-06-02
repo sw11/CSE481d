@@ -196,6 +196,7 @@ package levels
 				_foodObj.add(food);
 				_objLeft--;
 				spaceBarCount = 0;
+				StaticVars.logger.logAction(11, null);
 			} 
 			
 			if (health == StaticVars.TOTAL_HEALTH || (_objLeft <= 0 && _foodObj.countLiving() <= 0)) {

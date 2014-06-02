@@ -166,6 +166,7 @@ package levels
 			if (!bomb.isKill()) {
 				bomb.kill();
 				FlxG.play(SoundEffect.bomb);
+				StaticVars.logger.logAction(10, null);
 			}
 		}
 

@@ -218,6 +218,7 @@ package levels
 				_poisonObj.add(food);
 				_objLeft--;
 				spaceBarCount = 0;
+				StaticVars.logger.logAction(11, null);
 			} 
 			
 			if (health == 0 || _sharks.countLiving() ==  0 || (_objLeft <= 0 && _poisonObj.countLiving() <= 0)) {
