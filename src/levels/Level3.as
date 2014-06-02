@@ -242,6 +242,8 @@ package levels
 			h.kill();
 			healthUp = null;
 			health ++;
+			var healthObj:Object = {"health" : health };
+			StaticVars.logger.logAction(9, healthObj);
 		}
 		
 		private function overlapAmmoBomb(bomb:Bomb, ammoObj:Ammos):void {
