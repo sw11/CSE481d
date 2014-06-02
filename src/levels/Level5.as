@@ -123,7 +123,7 @@ package levels
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
-			instruction = Helper.addInstr("You need to feed the fish at the bottom\nDon't let the fish hungry to dead!\nPress [Spacebar] to drop food", 0, 250, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("You need to feed the fish at the bottom\nDon't let the fish die of hunger!\nPress [Spacebar] to drop food", 0, 250, StaticVars.BLACK, 20);
 			add(instruction);
 
 			skipInstr = Helper.addInstr("[S] to skip the tutoial", 0, 450, StaticVars.RED, 15);
