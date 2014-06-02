@@ -15,6 +15,9 @@ package main
 			add(Helper.airBackground());
 			add(instr("Trash It", 100, 80));
 			add(instr("Press [Enter] to start", 400, 20));
+			var albino:FlxText = new FlxText(130, 550, FlxG.width, "www.albinoblacksheep.com");
+			albino.setFormat(null, 13, StaticVars.BLACK, "center");
+			add(albino);
 		}
 		
 		override public function update():void {

@@ -262,7 +262,7 @@ package utility
 		public static const d12MaxScore:int = 50;
 		public static const d12Interval:int = 15;
 		
-		public static var logger:Logger = new Logger("trash_it", 108, "83dcd169ecb97a898ee94c90441696cd",1, 3);
+		public static var logger:Logger = new Logger("trash_it", 108, "83dcd169ecb97a898ee94c90441696cd",1, 4);
 	}
 	
 	
