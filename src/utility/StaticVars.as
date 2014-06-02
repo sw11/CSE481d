@@ -61,6 +61,7 @@ package utility
 		
 		public static const _11_TOTAL_OBJ:int = 7;
 		public static const _11_HEALTH:int = 1;
+		public static const _11_DROP_COUNT:int = 40;
 		
 		public static const _12_TOTAL_OBJ:int = 9;
 		// transportation
