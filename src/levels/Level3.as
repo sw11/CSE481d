@@ -69,7 +69,7 @@ package levels
 			paused = true;
 			pauseGroup = new FlxGroup();
 			
-			_bombLeft = StaticVars._7_TOTAL_OBJ;
+			_bombLeft = StaticVars._3_TOTAL_OBJ_FOG;
 
 			health = StaticVars.TOTAL_HEALTH;
 			
@@ -79,7 +79,7 @@ package levels
 			_ammos = new FlxGroup();
 			add(_ammos);
 			
-			_ammoLeft = StaticVars._7_AMMO_COUNT;
+			_ammoLeft = StaticVars._3_AMMO_COUNT;
 			
 			ammoArr = new Array();
 			add(new AmmoCount(10, 600));
@@ -92,7 +92,7 @@ package levels
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
-			instruction = Helper.addInstr("It's getting foggy!\nPress [Enter] to start", 0, 250, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("Even foggierrrr!\nPress [Enter] to start", 0, 250, StaticVars.BLACK, 20);
 			add(instruction);
 			
 			//skipInstr = Helper.addInstr("[S] to skip", 0, 450, StaticVars.RED, 15);
@@ -174,7 +174,7 @@ package levels
 				} else {
 					var obj:Bomb = Helper.fallBomb(airplane.getX(), StaticVars.bombOffSet, StaticVars.fallSpeedSlow);
 					_bombs.add(obj);
-					objArr.push(new Array(obj, 0, StaticVars._7_ALPHA));
+					objArr.push(new Array(obj, 0, StaticVars._3_ALPHA));
 					_bombLeft--;
 				}
 			}
@@ -202,10 +202,10 @@ package levels
 					objArr.splice(i, 1);
 					continue;
 				}
-				if (fallObj.alpha > 1) {
+				if (fallObj.y < 130 || fallObj.alpha > 1) {
 					continue;
 				}
-				if ((++objArr[i][1]) % StaticVars._7_ALPHA_RATE == 0) {
+				if ((++objArr[i][1]) % StaticVars._3_ALPHA_RATE == 0) {
 					objArr[i][2] = -objArr[i][2];
 				}
 				fallObj.alpha -= objArr[i][2];

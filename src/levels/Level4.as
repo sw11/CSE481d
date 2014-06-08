@@ -58,12 +58,16 @@ package levels
 		//private var instrBool2:Boolean;
 		private var objArr:Array;
 		private var level:int = 4;
+		
+		private var finalDrop:Boolean;
+		private var countFinalDrop:int;
 	
 		override public function create(): void {
 			add(Helper.airBackground());
 			StaticVars.logger.logLevelStart(level, null);
 			_bombs = new FlxGroup();
 			add(_bombs);	
+			finalDrop = true;
 			
 			objArr = new Array();
 			
@@ -93,7 +97,7 @@ package levels
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
-			instruction = Helper.addInstr("Hit ALL the bombs, don't let them fall down!\nPress [Enter] to start", 0, 250, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("Ok, now hit ALL the bombs, don't let them fall down!\nPress [Enter] to start", 0, 250, StaticVars.BLACK, 20);
 			add(instruction);
 			
 			//skipInstr = Helper.addInstr("[S] to skip", 0, 450, StaticVars.RED, 15);
@@ -145,7 +149,9 @@ package levels
 					endGame();
 				}
 				return pauseGroup.update();
-			} else if (_bombLeft <= 0 && _bombs.countLiving() <= 0) {
+			//} else if (_bombLeft <= 0 && finalDrop) {
+			//	dropAll();
+			} else if (_bombLeft <= 0 && _bombs.countLiving() <= 0) { 
 				endGame();
 			}
 			
@@ -166,7 +172,7 @@ package levels
 			tank.healthLeft = health;
 			airplane.numObjs = _bombLeft;
 			
-			if (Helper.genRandom(StaticVars._8_FALL_RATE) && _bombLeft > 0)
+			if (Helper.genRandom(StaticVars._4_FALL_RATE_FOG) && _bombLeft > 0)
 			{
 				if (health == 1 && healthUp == null && Helper.oneOf(10)) {
 					// fall heart
@@ -175,7 +181,7 @@ package levels
 				} else {
 					var obj:Bomb = Helper.fallBomb(airplane.getX(), StaticVars.bombOffSet, StaticVars.fallSpeedSlow);
 					_bombs.add(obj);
-					objArr.push(new Array(obj, 0, StaticVars._8_ALPHA));
+					objArr.push(new Array(obj, 0, StaticVars._4_ALPHA));
 					_bombLeft--;
 				}
 			}
@@ -196,7 +202,7 @@ package levels
 				healthUp.kill();
 				healthUp = null;
 			}
-			
+			/*
 			for (var i:int = objArr.length - 1; i >= 0 ; i--) {
 				var fallObj:Bomb = objArr[i][0] as Bomb;
 				if (fallObj == null || !fallObj.alive) {
@@ -210,11 +216,20 @@ package levels
 					objArr[i][2] = -objArr[i][2];
 				}
 				fallObj.alpha -= objArr[i][2];
-			}
+			}*/
 			
 			super.update();
 		}
 		
+		private function dropAll():void {
+			if (countFinalDrop >= 150) {
+				finalDrop = false;
+			} else if (countFinalDrop++ % 30 == 0) {
+				var obj:Bomb = Helper.fallBomb(airplane.getX(), StaticVars.bombOffSet, StaticVars.fallSpeedSlow);
+				obj.velocity.y = 150;
+					_bombs.add(obj);
+			}
+		}
 		
 		//////////////////////////// overlap ///////////////////////////
 		private function overlapObjBucket(but:Tank, bomb:Bomb):void {

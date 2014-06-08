@@ -39,8 +39,8 @@ package levels
 		private var ammoText:FlxText;
 		private var ammoBox:AmmoBox;
 		private var healthUp:Heart;
-		private var firstBomb:Bomb;
-		private var firstAmmo:Ammos;
+		//private var firstBomb:Bomb;
+		//private var firstAmmo:Ammos;
 		
 		/////////////////////////// tank /////////////////////////////
 		private var tank:Tank;
@@ -52,12 +52,11 @@ package levels
 		/////////////////////////// tutorial /////////////////////////////
 		protected var paused:Boolean;
 		protected var pauseGroup:FlxGroup;
-		private var skipInstr:FlxText;
+		//private var skipInstr:FlxText;
 		private var lostText:FlxText;
-		private var instrBool1:Boolean;
-		private var instrBool2:Boolean;
+		//private var instrBool1:Boolean;
+		//private var instrBool2:Boolean;
 		private var objArr:Array;
-	
 		private var level:int = 2;
 		override public function create(): void {
 			add(Helper.airBackground());
@@ -70,17 +69,17 @@ package levels
 			paused = true;
 			pauseGroup = new FlxGroup();
 			
-			_bombLeft = StaticVars._6_TOTAL_OBJ;
+			_bombLeft = StaticVars._7_TOTAL_OBJ;
 
 			health = StaticVars.TOTAL_HEALTH;
 			
-			instrBool1 = true;
-			instrBool2 = true;
+			//instrBool1 = true;
+			//instrBool2 = true;
 			///////////////// ammos//////////////////////////
 			_ammos = new FlxGroup();
 			add(_ammos);
 			
-			_ammoLeft = StaticVars._6_AMMO_COUNT + 1;
+			_ammoLeft = StaticVars._7_AMMO_COUNT;
 			
 			ammoArr = new Array();
 			add(new AmmoCount(10, 600));
@@ -93,11 +92,11 @@ package levels
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
-			instruction = Helper.addInstr("We got you a tank!\nPress [Spacebar] to shoot the bomb\nStay alive & only shoot if you have to", 0, 250, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("It's getting foggy!\nPress [Enter] to start", 0, 250, StaticVars.BLACK, 20);
 			add(instruction);
 			
-			skipInstr = Helper.addInstr("[S] to skip", 0, 450, StaticVars.RED, 15);
-			add(skipInstr);
+			//skipInstr = Helper.addInstr("[S] to skip", 0, 450, StaticVars.RED, 15);
+			//add(skipInstr);
 			/////////////////////// airplane ////////////////////////////
 			airplane = new Airplane(StaticVars.PLANE_X, StaticVars.PLANE_Y);
 			add(airplane);
@@ -106,8 +105,6 @@ package levels
 			airplaneFillBar.trackParent(-13, 0);
 			add(airplaneFillBar);
 			
-			firstBomb = new Bomb(StaticVars.TANK_X, 100);
-			add(firstBomb);
 			/////////////////////// bucket ////////////////////////////
 			tank = new Tank(StaticVars.TANK_X, StaticVars.TANK_Y);
 			add(tank);
@@ -129,8 +126,13 @@ package levels
 				FlxG.switchState(new LevelSelect());
 			}
 			
-			if (paused && tutorial()) {
-				return pauseGroup.update();
+			if (paused) {
+				if (FlxG.keys.justPressed("ENTER")) {
+					paused = !paused;
+					instruction.kill();
+				} else {
+					return pauseGroup.update();
+				}	
 			}
 
 			if (health <= 0) {
@@ -146,7 +148,7 @@ package levels
 				endGame();
 			}
 			
-			if (++spaceBarCount > StaticVars._6_DROP_COUNT && FlxG.keys.justPressed("SPACE") && _ammoLeft > 0) {
+			if (++spaceBarCount > StaticVars._7_DROP_COUNT && FlxG.keys.justPressed("SPACE") && _ammoLeft > 0) {
 				FlxG.play(SoundEffect.tankShoot);
 				_ammos.add(Helper.fireAmmo(tank.x + 40));
 				_ammoLeft--;
@@ -163,7 +165,7 @@ package levels
 			tank.healthLeft = health;
 			airplane.numObjs = _bombLeft;
 			
-			if (Helper.genRandom(StaticVars._6_FALL_RATE) && _bombLeft > 0)
+			if (Helper.genRandom(StaticVars._7_FALL_RATE) && _bombLeft > 0)
 			{
 				if (health == 1 && healthUp == null && Helper.oneOf(10)) {
 					// fall heart
@@ -172,7 +174,7 @@ package levels
 				} else {
 					var obj:Bomb = Helper.fallBomb(airplane.getX(), StaticVars.bombOffSet, StaticVars.fallSpeedSlow);
 					_bombs.add(obj);
-					objArr.push(obj);
+					objArr.push(new Array(obj, 0, StaticVars._7_ALPHA));
 					_bombLeft--;
 				}
 			}
@@ -193,6 +195,22 @@ package levels
 				healthUp.kill();
 				healthUp = null;
 			}
+			
+			for (var i:int = objArr.length - 1; i >= 0 ; i--) {
+				var fallObj:Bomb = objArr[i][0] as Bomb;
+				if (fallObj == null || !fallObj.alive) {
+					objArr.splice(i, 1);
+					continue;
+				}
+				if (fallObj.alpha > 1) {
+					continue;
+				}
+				if ((++objArr[i][1]) % StaticVars._7_ALPHA_RATE == 0) {
+					objArr[i][2] = -objArr[i][2];
+				}
+				fallObj.alpha -= objArr[i][2];
+			}
+			
 			super.update();
 		}
 		
@@ -201,6 +219,7 @@ package levels
 		private function overlapObjBucket(but:Tank, bomb:Bomb):void {
 			if (!bomb.isKill()) {
 				bomb.kill();
+				bomb.alpha = 0.99;
 				but.play("minus");
 				health--;
 				FlxG.shake(0.05, 0.1, null, true, FlxCamera.SHAKE_HORIZONTAL_ONLY);
@@ -214,6 +233,7 @@ package levels
 		private function overlapKillBarObj(killBar:FlxSprite, bomb:Bomb):void {
 			if (!bomb.isKill()) {
 				bomb.kill();
+				bomb.alpha = 0.99;
 				FlxG.play(SoundEffect.bomb);
 			}	
 		}
@@ -236,14 +256,14 @@ package levels
 			}*/
 			ammoObj.kill();
 			if (!bomb.isKill()) {
-				//bomb.alpha = 0.99;
+				FlxG.play(SoundEffect.bomb);
+				bomb.alpha = 0.99;
 				bomb.kill();
 				//trace("null: " + (ammoBox == null));
-				if (ammoBox == null && _ammoLeft <= 10 && Helper.oneOf(10)) {
+				if (ammoBox == null && ((_ammoLeft <= 10 && Helper.oneOf(10)) || _ammoLeft == 1)) {
 					ammoBox = new AmmoBox(bomb.x, bomb.y);
 					add(ammoBox);
 				}
-				FlxG.play(SoundEffect.bomb);
 				//kill bomb is 5
 				var ammoLeft:Object = { "ammo" : _ammoLeft };
 				StaticVars.logger.logAction(5, ammoLeft);
@@ -261,12 +281,13 @@ package levels
 			StaticVars.logger.logAction(6, ammoLeft)
 		}
 		//////////////////////////// tutorial ///////////////////////////
+		/*
 		private function tutorial():Boolean {
 			
 			
 			/*if (FlxG.keys.ONE){
 				bucket.tutorialBucketSwitching(ThreeBucket.TRASH);
-			} */
+			} 
 			// skip tutorial
 			if (FlxG.keys.justPressed("S")) {
 				instruction.kill();
@@ -344,7 +365,7 @@ package levels
 					instrBool4 = false;
 				}
 				return true;
-			}*/
+			}
 			
 			/*if (paused) {
 				if (FlxG.keys.justPressed("ENTER")) {
@@ -354,16 +375,10 @@ package levels
 					add(scoreBar);
 				}
 				return true;
-			} */	
+			} 
 			return true;
 		}
-		
-		private function  firstAmmoBomb(b:Bomb, a:Ammos):void {
-			a.kill();
-			if (!b.isKill()) {
-				b.kill();
-			}
-		}
+*/
 		
 		private function endGame(): void {
 			var obj:Object = {"health":health, "level":level }; 
