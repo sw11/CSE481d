@@ -93,7 +93,7 @@ package levels
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
-			instruction = Helper.addInstr("We got you a tank!\nPress [Spacebar] to shoot the bomb\nStay alive & only shoot if you have to", 0, 250, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("We got you a tank!\nPress [Spacebar] to shoot the bombs\nStay alive & only shoot if you have to", 0, 250, StaticVars.BLACK, 20);
 			add(instruction);
 			
 			skipInstr = Helper.addInstr("[S] to skip", 0, 450, StaticVars.RED, 15);
