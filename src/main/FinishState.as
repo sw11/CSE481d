@@ -63,7 +63,7 @@ package main
 		private function addText(str:String, yPos:int, fontSize:int):void {
 			var text:FlxText;
 			text = new FlxText(0, yPos, FlxG.width, str);
-			text.setFormat(null, fontSize, StaticVars.BLACK, "center");
+			text.setFormat("sourcesanspro", fontSize, StaticVars.BLACK, "center");
 			add(text);
 		}
 		

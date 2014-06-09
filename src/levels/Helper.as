@@ -169,7 +169,7 @@ package levels
 		
 		public static function addInstr(text:String, xPos:int, yPos:int, color:int, fontSize:int):FlxText {
 			var str:FlxText = new FlxText(xPos, yPos, FlxG.width, text);
-			str.setFormat(null, fontSize, color, "center");
+			str.setFormat("sourcesanspro", fontSize, color, "center");
 			return str;
 		}
 		

@@ -86,7 +86,7 @@ package levels
 			add(new AmmoCount(10, 600));
 			
 			ammoText = new FlxText(30, 610, FlxG.width, "x" + _ammoLeft);
-			ammoText.setFormat(null, 25, StaticVars.BLACK);
+			ammoText.setFormat("sourcesanspro", 25, StaticVars.BLACK);
 			add(ammoText);
 			/////////////////////// killbar ////////////////////////////
 			killBar = Helper.addKillBar();
