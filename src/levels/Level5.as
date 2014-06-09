@@ -57,7 +57,7 @@ package levels
 		//private var instrBool1:Boolean;
 		//private var instrBool2:Boolean;
 		private var objArr:Array;
-		private var level:int = 4;
+		private var level:int = 5;
 	
 		override public function create(): void {
 			add(Helper.airBackground());
