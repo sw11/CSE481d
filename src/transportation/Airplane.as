@@ -42,7 +42,7 @@ package transportation
 				play("right", false);
 				velocity.x = moveSpeed;
 				counter = 0;
-			} else if (x > 405) {
+			} else if (x > 430) {
 				play("left", false);
 				velocity.x = -moveSpeed;
 				counter = 0;
