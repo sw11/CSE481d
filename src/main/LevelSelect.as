@@ -62,7 +62,7 @@ package main
 				// load data
 				State.levelArr = save.data.array;
 			}
-			
+			var starNum:int = 0;
 			var lastLv:Boolean = true;
 			for (var k:int = State.levelArr.length - 1; k >= 0; k--) {
 				
@@ -78,6 +78,7 @@ package main
 					}
 					//trace(k + " " + State.levelArr[k][1]);
 					if (State.levelArr[k][1]) {
+						starNum++;
 						addStar(t.x + StaticVars.WIDTH / 2 - 12, t.y + 27);
 					}
 				} else {
@@ -85,6 +86,16 @@ package main
 					addLock(t.x + StaticVars.WIDTH/2 - 15, t.y + 25);
 				}
 			}
+			var str:String;
+			if (starNum >= 12) {
+				str = "Bonus";
+				maxLevel = 13;
+			} else {
+				str = "???";
+			}
+			var bonus:FlxText = Helper.addInstr(str, 0, 450, StaticVars.BLACK, 20);
+			textArr.push(bonus);
+			add(bonus);
 			
 			var enter:FlxText = Helper.addInstr("Press [Enter] to play", 0, 500, StaticVars.BLACK, 15);
 			add(enter);
@@ -190,6 +201,9 @@ package main
 					break;
 				case 12:
 					FlxG.switchState(new Level12());
+					break;
+				case 13:
+					FlxG.switchState(new Bonus());
 					break;
 			}
 		}
