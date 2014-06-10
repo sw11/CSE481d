@@ -15,10 +15,10 @@ package fall_object
 			velocity.y = 250; // move down velocity
 		}	
 		
-		override function update():void {
+		/*override function update():void {
 			if (y > StaticVars.HEIGHT) {
 				this.kill();
 			}
-		}
+		}*/
 	}
 }

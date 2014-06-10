@@ -142,8 +142,8 @@ package levels
 			var s7:Shark = new Shark(230, 600, 550, 640, 200, 400);
 			_sharks.add(s7);
 			/////////////////////// killbar ////////////////////////////
-			//killBar = Helper.addKillBar();
-			//add(killBar);
+			killBar = Helper.addKillBar();
+			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
 			instruction = Helper.addInstr("Scare away all of the sharks!\nPress [Enter] to start", 0, 220, StaticVars.BLACK, 20);
@@ -240,6 +240,7 @@ package levels
 			//FlxG.overlap(killBar, _poisonObj, overlapKillBarObj);
 			FlxG.overlap(fish, _poisonObj, overlapObjFish);
 			FlxG.overlap(_sharks, _poisonObj, overlapObjShark);
+			FlxG.overlap(killBar, _poisonObj, overlapBarPoison);
 			//trace(_fallObj.countLiving() + " " + _fallObj.length);
 			//var arr:Array = _fallObj.members;
 			/*for (var i:int = 0; i < objArr.length; i++) {
@@ -280,6 +281,9 @@ package levels
 			obj.kill();
 		}
 		
+		private function overlapBarPoison(bar:FlxSprite, obj:Poison):void {
+			obj.kill();
+		}
 		
 		private function overlapObjFish(f:Fish, obj:FallObjs):void {
 			health--;// = Math.min(StaticVars.TOTAL_HEALTH, ++health);
