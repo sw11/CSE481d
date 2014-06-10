@@ -139,7 +139,7 @@ package levels
 			var s6:Shark = new Shark(StaticVars.SHIP_X, 180, 150, 200, 200, 20);
 			_sharks.add(s6);
 			
-			var s7:Shark = new Shark(230, 600, 550, 640, 200, 400);
+			var s7:Shark = new Shark(230, 550, 550, 640, 200, 400);
 			_sharks.add(s7);
 			/////////////////////// killbar ////////////////////////////
 			killBar = Helper.addKillBar();
