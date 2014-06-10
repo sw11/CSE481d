@@ -94,7 +94,7 @@ package main
 			}
 			var str:String;
 			if (starNum >= 12) {
-				str = "Bonus, time: " + State.bonusTime + "s";
+				str = "Bonus, best time: " + State.bonusTime + "s";
 				maxLevel = 13;
 			} else {
 				str = "???";

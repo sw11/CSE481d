@@ -111,7 +111,7 @@ package levels
 				}
 				FlxG.switchState(new FinishState("WIN", health, level));
 			} else if (level == 13) {
-				FlxG.switchState(new FinishState("Your time: " + State.bonusTime + "s", health, level));
+				FlxG.switchState(new FinishState("Your best time: " + State.bonusTime + "s", health, level));
 			} else {
 				// lost
 				FlxG.switchState(new FinishState("LOST", health, level));

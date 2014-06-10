@@ -291,7 +291,7 @@ package levels
 				instruction.kill();
 				skipInstr.kill();
 				//add(scoreBar);
-				paused = false;
+				paused = false;85296677171
 			}*/
 			ammoObj.kill();
 			if (!bomb.isKill()) {
@@ -299,7 +299,7 @@ package levels
 				bomb.alpha = 0.99;
 				bomb.kill();
 				//trace("null: " + (ammoBox == null));
-				if (ammoBox == null && (_ammoLeft <= 10 && Helper.oneOf(10)) || _ammoLeft == 1){
+				if (ammoBox == null && (_ammoLeft <= 10 && Helper.oneOf(10))){
 					ammoBox = new AmmoBox(bomb.x, bomb.y);
 					add(ammoBox);
 				}
@@ -420,7 +420,7 @@ package levels
 */
 		
 		private function endGame(): void {
-			State.bonusTime = Math.floor(timer);
+			State.bonusTime = Math.max(Math.floor(timer), State.bonusTime);
 			var obj:Object = {"health":health, "level":level }; 
 			Helper.dropCount = 0;
 			StaticVars.logger.logLevelEnd(obj);
