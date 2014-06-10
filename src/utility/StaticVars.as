@@ -60,6 +60,10 @@ package utility
 		public static const _8_DROP_COUNT:int = 10;
 		public static const _8_AMMO_COUNT:int = 40;
 		
+		public static const _BONUS_SLOW:int = 30;
+		public static const _BONUS_MID:int = 25;
+		public static const _BONUS_FAST:int = 20;
+		public static const _BONUS_SUPER_FAST:int = 15;
 		// level 10
 		public static const _10_FOOD_ALPHA:Number = 0.01;
 		public static const _10_TOTAL_OBJ:int = 10;

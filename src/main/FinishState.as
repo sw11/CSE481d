@@ -43,13 +43,23 @@ package main
 			// todo
 			// add score summary points
 			if (level == 12 && isWin) {
-				addText("Congratulation! You have passed all levels", 400, 15);
+				addText("Congratulation! You have passed all levels, get all stars and checkout the bonus level!", 400, 15);
+				// save data
+					LevelSelect.save.data.array = State.levelArr.slice();
+					LevelSelect.save.data.bonus = State.bonusTime;
+					LevelSelect.save.flush();
+			} else if (level == 13) {
+				// save data
+					LevelSelect.save.data.array = State.levelArr.slice();
+					LevelSelect.save.data.bonus = State.bonusTime;
+					LevelSelect.save.flush();
 			} else {
 				var str:String;
 				if (isWin) {
 					str = "Press ENTER for the next level";
 					// save data
 					LevelSelect.save.data.array = State.levelArr.slice();
+					LevelSelect.save.data.bonus = State.bonusTime;
 					LevelSelect.save.flush();
 				} else {
 					str = "Press ENTER to restart level";

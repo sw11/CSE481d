@@ -61,6 +61,12 @@ package main
 			if (save.data.array != null) {
 				// load data
 				State.levelArr = save.data.array;
+				if (save.data.bonus != null) {
+					State.bonusTime = save.data.bonus;
+				} else {
+					State.bonusTime = 0;
+				}
+				
 			}
 			var starNum:int = 0;
 			var lastLv:Boolean = true;
@@ -88,7 +94,7 @@ package main
 			}
 			var str:String;
 			if (starNum >= 12) {
-				str = "Bonus";
+				str = "Bonus, time: " + State.bonusTime + "s";
 				maxLevel = 13;
 			} else {
 				str = "???";

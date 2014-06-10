@@ -10,6 +10,7 @@ package utility
 		//public static var unlockTheme:int;
 		//public static var unlockLevel:int = 1;
 		public static const maxLevel:int = 12;
+		public static var bonusTime:int = 0;
 		//public static const maxTheme:int = 3; // todo only 3 themes available now
 		//public static const maxTheme:int = 4;
 		//public static var unlockLevels:Array = new Array(1, 1, 1, 1);

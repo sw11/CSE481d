@@ -100,6 +100,7 @@ package levels
 			//trace("level " + level + " miss " + miss);
 			//trace("level " + level + " health " + health + " unlocklevel " + State.unlockLevel);
 			//var perfect:Number = maxScore * StaticVars.aPerf;
+			
 			if (health > 0) {
 				// win
 				//if (level == State.unlockLevel) {
@@ -109,6 +110,8 @@ package levels
 					State.star(level);
 				}
 				FlxG.switchState(new FinishState("WIN", health, level));
+			} else if (level == 13) {
+				FlxG.switchState(new FinishState("Your time: " + State.bonusTime + "s", health, level));
 			} else {
 				// lost
 				FlxG.switchState(new FinishState("LOST", health, level));

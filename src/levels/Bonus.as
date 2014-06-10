@@ -59,6 +59,9 @@ package levels
 		private var objArr:Array;
 		private var level:int = 13;
 	
+		private var timerText:FlxText;
+		//private var timer: FlxDelay;
+		private var timer:Number;
 		override public function create(): void {
 			add(Helper.airBackground());
 			StaticVars.logger.logLevelStart(level, null);
@@ -73,7 +76,7 @@ package levels
 			//_bombLeft = StaticVars._8_TOTAL_OBJ;
 
 			health = StaticVars.TOTAL_HEALTH;
-			
+			timer = 0;
 			//instrBool1 = true;
 			//instrBool2 = true;
 			///////////////// ammos//////////////////////////
@@ -84,10 +87,14 @@ package levels
 			
 			ammoArr = new Array();
 			add(new AmmoCount(10, 600));
-			
+			ammoBox = null;
 			ammoText = new FlxText(30, 610, FlxG.width, "x" + _ammoLeft);
 			ammoText.setFormat("sourcesanspro", 25, StaticVars.BLACK);
 			add(ammoText);
+			
+			timerText = new FlxText(StaticVars.WIDTH / 2, 610, FlxG.width, "0");
+			timerText.setFormat("sourcesanspro", 25, StaticVars.BLACK);
+			add(timerText);
 			/////////////////////// killbar ////////////////////////////
 			killBar = Helper.addKillBar();
 			add(killBar);
@@ -135,16 +142,20 @@ package levels
 					return pauseGroup.update();
 				}	
 			}
-
+			timer += FlxG.elapsed;
+			var t:int = Math.floor(timer);
+			//trace(FlxG.elapsed, timer);
+			timerText.text = "" + t;
 			if (health <= 0) {
-				if (lostText.alpha >= 1) {
+				/*if (lostText.alpha >= 1) {
 					add(lostText);
 				}
 				lostText.alpha -= StaticVars.LOST_TEXT_ALPHA;
 				if (lostText.alpha <= 0) {
 					endGame();
 				}
-				return pauseGroup.update();
+				return pauseGroup.update();*/
+				endGame();
 			} 
 			/*else if (_bombLeft <= 0 && _bombs.countLiving() <= 0) {
 				endGame();
@@ -166,14 +177,23 @@ package levels
 			
 			tank.healthLeft = health;
 			//airplane.numObjs = _bombLeft;
-			
-			if (Helper.genRandom(StaticVars._8_FALL_RATE))
+			var fallRate:int;
+			if (t < 60) {
+				fallRate = StaticVars._BONUS_SLOW;
+			} else if (t < 90) {
+				fallRate = StaticVars._BONUS_MID;
+			} else if (t < 120) {
+				fallRate = StaticVars._BONUS_FAST;
+			} else {
+				fallRate = StaticVars._BONUS_SUPER_FAST;
+			}
+			if (Helper.genRandom(fallRate))
 			{
 				if (health == 1 && healthUp == null && Helper.oneOf(10)) {
 					// fall heart
 					healthUp = new Heart(airplane.getX(), StaticVars.bombOffSet);
 					add(healthUp);
-				} else if (ammoBox == null && _ammoLeft == 0 && Helper.oneOf(10)) {
+				} else if (ammoBox == null && _ammoLeft == 0 && Helper.oneOf(2)) {
 					ammoBox = new AmmoBox(airplane.getX(), 10);
 					add(ammoBox);
 				} else {
@@ -193,10 +213,10 @@ package levels
 			FlxG.overlap(tank, healthUp, overlapTankHealth);
 			FlxG.overlap(killBar, healthUp, overlapBarHealth);
 			
-			if (ammoBox != null && ammoBox.y > StaticVars.HEIGHT) {
+			/*if (ammoBox != null && ammoBox.y > StaticVars.HEIGHT) {
 				ammoBox.kill();
 				ammoBox = null;
-			}
+			}*/
 			
 			if (healthUp != null && healthUp.y > StaticVars.HEIGHT) {
 				healthUp.kill();
@@ -400,6 +420,7 @@ package levels
 */
 		
 		private function endGame(): void {
+			State.bonusTime = Math.floor(timer);
 			var obj:Object = {"health":health, "level":level }; 
 			Helper.dropCount = 0;
 			StaticVars.logger.logLevelEnd(obj);
