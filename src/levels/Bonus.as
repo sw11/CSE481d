@@ -287,12 +287,6 @@ package levels
 		
 		private function overlapAmmoBomb(bomb:Bomb, ammoObj:Ammos):void {
 			
-			/*if (!instrBool1) {
-				instruction.kill();
-				skipInstr.kill();
-				//add(scoreBar);
-				paused = false;85296677171
-			}*/
 			ammoObj.kill();
 			if (!bomb.isKill()) {
 				FlxG.play(SoundEffect.bomb);
@@ -319,105 +313,6 @@ package levels
 			var ammoLeft:Object = { "ammo" : _ammoLeft};
 			StaticVars.logger.logAction(6, ammoLeft)
 		}
-		//////////////////////////// tutorial ///////////////////////////
-		/*
-		private function tutorial():Boolean {
-			
-			
-			/*if (FlxG.keys.ONE){
-				bucket.tutorialBucketSwitching(ThreeBucket.TRASH);
-			} 
-			// skip tutorial
-			if (FlxG.keys.justPressed("S")) {
-				instruction.kill();
-				skipInstr.kill();
-				_ammoLeft = StaticVars._6_AMMO_COUNT;
-				ammoText.text = "x" + _ammoLeft;
-				firstBomb.kill();
-				if (firstAmmo != null) {
-					firstAmmo.kill();
-				}
-				paused = false;
-			}
-			
-			if (!instrBool1 && firstAmmo != null) {
-				FlxG.overlap(firstBomb, firstAmmo, firstAmmoBomb);
-				firstAmmo.y -= 10;
-			}
-			
-			if (instrBool1) {
-				if (FlxG.keys.justPressed("SPACE")) {
-					FlxG.play(SoundEffect.tankShoot);
-					firstAmmo = new Ammos(StaticVars.TANK_X + 40, StaticVars.TANK_Y);
-					add(firstAmmo);
-					_ammoLeft--;
-					ammoText.text = "x" + _ammoLeft;
-					instruction.text = "The lower left indicates your bullets left\nPress [Enter] to start";
-					instrBool1 = false;	
-				}
-				return true;
-			}
-			
-			if (FlxG.keys.justPressed("ENTER")) {
-				paused = !paused;
-				instruction.kill();
-				skipInstr.kill();
-				if (!firstBomb.isKill()) {
-					firstBomb.kill();
-				}
-				_ammoLeft = StaticVars._6_AMMO_COUNT;
-				if (firstAmmo != null) {
-					firstAmmo.kill();
-				}
-			}
-			return true;
-			/*
-			if (FlxG.keys.TWO) {
-				bucket.tutorialBucketSwitching(ThreeBucket.RECYCLE);
-			} 
-			
-			if (instrBool2) {
-				if (FlxG.keys.justPressed("TWO")) {
-					instruction.text = "Green objects to compost bin\nPress 3 to switch to compost bin";
-					instruction.color = StaticVars.GREEN;
-					instrBool2 = false;
-				}
-				return true;
-			}
-			
-			if (FlxG.keys.THREE) {
-				bucket.tutorialBucketSwitching(ThreeBucket.COMPOST);
-			} 
-			
-			if (instrBool3) {
-				if (FlxG.keys.justPressed("THREE")) {
-					instruction.text = "Catch all the falling object\nPress Enter to start";
-					instruction.color = StaticVars.BLACK;
-					instrBool3 = false;
-				}
-				return true;
-			}
-			
-			if (instrBool4) {
-				if (FlxG.keys.justPressed("ENTER")) {
-					instruction.text = "Catch all the falling object\nPress Enter to start";
-					instrBool4 = false;
-				}
-				return true;
-			}
-			
-			/*if (paused) {
-				if (FlxG.keys.justPressed("ENTER")) {
-					paused = !paused;
-					instruction.kill();
-					skipInstr.kill();
-					add(scoreBar);
-				}
-				return true;
-			} 
-			return true;
-		}
-*/
 		
 		private function endGame(): void {
 			State.bonusTime = Math.max(Math.floor(timer), State.bonusTime);

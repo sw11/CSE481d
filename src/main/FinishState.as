@@ -80,7 +80,7 @@ package main
 		override public function update():void {
 			super.update();
 			if (FlxG.keys.justPressed("ENTER")) {
-				if (isWin) {
+				if (isWin && level != 13) {
 					LevelSelect.startLevel(level + 1);
 				} else {
 					LevelSelect.startLevel(level);

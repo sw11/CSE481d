@@ -23,13 +23,6 @@ package levels
 					perfectText.alpha = perfectText.alpha - 0.005;
 				}
 			}
-			/*if (passText != null) {
-				passText.alpha = passText.alpha - 0.005;
-				if (passText.alpha <= 0) {
-					passText.kill();
-					//passText = null;
-				}
-			}*/
 		}
 		
 		public static function checkScore(score:int, maxScore:int):int {
@@ -67,39 +60,11 @@ package levels
 			return Math.floor(Math.random() * num);
 		}
 		
-		/*
-		public static function endGame(data:Object): void {
-			var score:int = data["score"];
-			var miss:int = data["miss"];
-			var bonus:int = data["bonus"];
-			var maxScore:int = data["maxScore"];
-			var level:int = data["level"];
-			var passScore:int = data["passScore"];
-			//trace("level " + level + " miss " + miss);
-			//trace(score);
-			//var perfect:Number = maxScore * StaticVars.aPerf;
-			if (score >= passScore) {
-				//trace("in end game() theme " + StaticVars.A_THEME + " level " + level);
-				if (level == State.unlockLevel) {
-					State.nextLevel();
-				}
-				FlxG.switchState(new EndState("WIN", score, miss, bonus, maxScore, StaticVars.A_THEME, level));
-			} else {
-				FlxG.switchState(new EndState("LOSE", score, miss, bonus, maxScore, StaticVars.A_THEME, level));	
-			}
-		}*/
-		
 		public static function endgame(data:Object): void {
-			//var score:int = data["score"];
-			//var miss:int = data["miss"];
-			//var bonus:int = data["bonus"];
-			//var maxScore:int = data["maxScore"];
+			
 			var level:int = data["level"];
-			//var passScore:int = data["passScore"];
+			
 			var health:int = data["health"];
-			//trace("level " + level + " miss " + miss);
-			//trace("level " + level + " health " + health + " unlocklevel " + State.unlockLevel);
-			//var perfect:Number = maxScore * StaticVars.aPerf;
 			
 			if (health > 0) {
 				// win
@@ -116,25 +81,9 @@ package levels
 				// lost
 				FlxG.switchState(new FinishState("LOST", health, level));
 			}
-			/*
-			if (score >= passScore) {
-				//trace("in end game() theme " + StaticVars.A_THEME + " level " + level);
-				if (level == State.unlockLevel) {
-					State.nextLevel();
-				}
-				FlxG.switchState(new EndState("WIN", score, miss, bonus, maxScore, StaticVars.A_THEME, level));
-			} else {
-				FlxG.switchState(new EndState("LOSE", score, miss, bonus, maxScore, StaticVars.A_THEME, level));	
-			}*/
 		}
 		
 		///////////////////////////// Fall objects /////////////////////////////////
-		/*public static function fallObject(lane:int, yOffset:int, speed:int, isRecycle:Boolean):FallingObj {
-			var obj:FallingObj = new FallingObj(lane, yOffset, isRecycle);
-			obj.velocity.y = speed;
-			obj.alpha = 0.99;
-			return obj;
-		}*/
 		
 		// new one
 		public static function fallObj(lane:int, yOffset:int, speed:int, whichObj:int):FallObjs {
