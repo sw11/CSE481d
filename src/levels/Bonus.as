@@ -100,7 +100,7 @@ package levels
 			add(killBar);
 			/////////////////////// tutorial ////////////////////////////
 			
-			instruction = Helper.addInstr("Endness mode!\nSee how long can you survive!\nPress [Enter] to start", 0, 250, StaticVars.BLACK, 20);
+			instruction = Helper.addInstr("Survival mode!\nHow long can you stay alive?\nPress [Enter] to start", 0, 250, StaticVars.BLACK, 20);
 			add(instruction);
 			
 			//skipInstr = Helper.addInstr("[S] to skip", 0, 450, StaticVars.RED, 15);
