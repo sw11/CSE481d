@@ -240,7 +240,7 @@ package levels
 			//FlxG.overlap(killBar, _poisonObj, overlapKillBarObj);
 			FlxG.overlap(fish, _poisonObj, overlapObjFish);
 			FlxG.overlap(_sharks, _poisonObj, overlapObjShark);
-			FlxG.overlap(killBar, _poisonObj, overlapBarPoison);
+			FlxG.overlap(killBar, _poisonObj, overlapKillBarObj);
 			//trace(_fallObj.countLiving() + " " + _fallObj.length);
 			//var arr:Array = _fallObj.members;
 			/*for (var i:int = 0; i < objArr.length; i++) {
