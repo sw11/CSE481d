@@ -79,13 +79,16 @@ package main
 		
 		override public function update():void {
 			super.update();
-			if (FlxG.keys.justPressed("ENTER")) {
-				if (isWin && level != 13) {
+			if (FlxG.keys.justPressed("ENTER") && level < 12) {
+				if (isWin) {
 					LevelSelect.startLevel(level + 1);
 				} else {
 					LevelSelect.startLevel(level);
 				}
-			} else if (FlxG.keys.justPressed("ESCAPE")) {
+			}  else if (FlxG.keys.justPressed("ENTER") && !isWin) {
+				LevelSelect.startLevel(level);
+			}
+			else if (FlxG.keys.justPressed("ESCAPE")) {
 				FlxG.switchState(new LevelSelect());
 			} 
 		}
